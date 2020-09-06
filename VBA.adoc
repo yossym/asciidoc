@@ -13,13 +13,13 @@
 :lang: ja
 :doctype: book
 :docname: VBA
-:toclevels: 3
+:toclevels: 5
 :sectnums:
-:sectnumlevels: 4
+:sectnumlevels: 5
 // :source-highlighter: pygments
 :source-language: VBscript
-
-:toc: left
+:toc: right
+// :toc: left
 :toc-title: 目次
 
 == 変数
@@ -35,6 +35,17 @@ Range::
         FirstRow, FirstColumn
 最終::
         LastRow, LastColumn
+
+
+=== 関数系
+
+テキスト読み込み::
+	s
+
+Variant::
+	Var
+
+
 
 
 == Workbook
@@ -177,34 +188,6 @@ Range(Columns(3), Columns(6)).Insert
 ----
 
 
-
-== セル
-
-=== セルの指定
-
-==== セルの追加
-
-
-[source,vbscript]
-----
-' 引数なしなら左に移動'
-Range("A3:B6").Insert
-----
-
-[source,vbscript]
-----
-Range("A3:B6").Insert shift:=xlShiftToRight
-----
-
-* XlInsertShiftDirection 列挙 (Excel)
-
-[options="header"]
-|===
- | 名前           | 値    | 説明
- | xlShiftDown    | -4121 | セルを挿入後、下に伸ばす
- | xlShiftToRight | -4161 | セルを挿入後、右に伸ばす
-|===
-
 === 最終行
 
 [source,vbscript]
@@ -233,6 +216,161 @@ Range("A3").CurrentRegion.Selct
 ----
 Range("A3").UsedRange.Select
 ----
+
+
+== セル
+
+=== セルの指定
+
+==== セルの追加
+
+
+[source,vbscript]
+----
+' 引数なしなら左に移動'
+Range("A3:B6").Insert
+----
+
+[source,vbscript]
+----
+Range("A3:B6").Insert shift:=xlShiftToRight
+----
+
+* XlInsertShiftDirection 列挙 (Excel)
+
+[options="header"]
+|===
+ | 名前           | 値    | 説明
+ | xlShiftDown    | -4121 | セルを挿入後、下に伸ばす
+ | xlShiftToRight | -4161 | セルを挿入後、右に伸ばす
+|===
+
+=== セルの値コピー(Fill*)
+
+* 次の使用例は、シート 1 のセル A1 の内容をセル A1:A10 の範囲に複写します。
+[source,vbscript]
+----
+Worksheets("Sheet1").Range("A1:A10").FillDown
+----
+
+* 次の使用例は、シート 1 のセル M1 の内容と書式をセル範囲 A1:M1 に複写します。
+[source,vbscript]
+----
+Worksheets("Sheet1").Range("A1:M1").FillLeft
+----
+
+* 次の使用例は、シート 1 のセル A1 の内容と書式をセル範囲 A1:M1 に複写します。
+[source,vbscript]
+----
+Worksheets("Sheet1").Range("A1:M1").FillRight
+----
+
+* 次の使用例は、シート 1 のセル A10 の内容と書式をセル範囲 A1:A10 に複写します。
+[source,vbscript]
+----
+Worksheets("Sheet1").Range("A1:A10").FillUp
+----
+
+=== コピペ
+
+* 普通にコピペ
+[source,VBSCRIPT]
+----
+Range("R25:R30").Select
+Selection.Copy
+Range("U25").Select
+Selection.PasteSpecial
+----
+
+* 1列をコピーして1行にペースト
+[source,VBSCRIPT]
+----
+Range("R25:R30").Select
+Selection.Copy
+Range("U25").Select
+Selection.PasteSpecial Transpose:=True
+----
+
+=== ソート
+* A1:C5の範囲をA1を基準にソート
+[source,VBSCRIPT]
+----
+Range(cells(1,1),cells(5,3))
+
+Call Range("A1:C5").Sort(key1:=Range("A1"), _
+    order1:=xlDescending)
+
+Call Range(Cells(1, 1), Cells(5, 3)).Sort(key1:=Range(Cells(1, 1), Cells(1, 1)), _
+    order1:=xlDescending)
+
+Call Range(Cells(1, 1), Cells(5, 3)).Sort(key1:=Cells(1, 1), _
+    order1:=xlDescending)
+----
+
+* A1:C5の範囲をA1,B1を基準にソート
+[source,VBSCRIPT]
+----
+Call Range("A1:C5").Sort(key1:=Range("A1"), _
+    order1:=xlAscending, _
+    key2:=Range("B1"), _
+    order2:=xlAscending)
+----
+
+== ファイル
+
+=== ファイル読み込み(sjis,FileSystemObject)
+
+参照設定::
+Microsoft ScrptingRuntime
+
+[source,VBSCRIPT]
+----
+Dim fso As New Scrpting.Filesystemobject
+Dim ts as TextSream
+Dim s As String
+
+Set ts = fso.OpenTextFile(FileName)
+
+Do While ts.AtEndOfStream <> True
+    s = ts.ReadLine
+    ...
+Loop
+ts.Close
+----
+
+=== ファイル読み込み(UTF-8,ADODB)
+
+
+=== ファイル書き込み(sjis,FileSystemObject)
+
+参照設定::
+Microsoft ScrptingRuntime
+
+[source,VBSCRIPT]
+----
+Dim fso As New Scrpting.Filesystemobject
+Dim ts as TextSream
+
+' ファイルが存在すればサイズ0にして書き込み
+Set ts = fso.OpenTextFile(FileName,ForWriting,True)
+ts.WriteLine("This is a  pen.")
+ts.Close
+----
+
+=== ファイル書き込み(UTF-8,ADODB)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 == グラフ
 

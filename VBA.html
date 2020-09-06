@@ -787,6 +787,27 @@ Range
 </p>
 </dd>
 </dl></div>
+<div class="sect2">
+<h3 id="_関数系">関数系</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+テキスト読み込み
+</dt>
+<dd>
+<p>
+        s
+</p>
+</dd>
+<dt class="hdlist1">
+Variant
+</dt>
+<dd>
+<p>
+        Var
+</p>
+</dd>
+</dl></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -989,6 +1010,41 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Columns</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Columns</span></span><span style="color: #990000">(</span><span style="color: #993399">6</span><span style="color: #990000">)).</span>Insert</tt></pre></div></div>
 </div>
+<div class="sect2">
+<h3 id="_最終行">最終行</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> LastRow As Long
+LastRow <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>Rows<span style="color: #990000">.</span>Count<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">End</span></span><span style="color: #990000">(</span>xlUp<span style="color: #990000">).</span>Row</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_最終列">最終列</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> LastColumn As Long
+LastColumn <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> Columns<span style="color: #990000">.</span>Count<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">End</span></span><span style="color: #990000">(</span>xlToLeft<span style="color: #990000">).</span>Column</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_selection">Selection</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3"</span><span style="color: #990000">).</span>CurrentRegion<span style="color: #990000">.</span>Selct</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3"</span><span style="color: #990000">).</span>UsedRange<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span></tt></pre></div></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1051,39 +1107,206 @@ cellspacing="0" cellpadding="4">
 </div>
 </div>
 <div class="sect2">
-<h3 id="_最終行">最終行</h3>
+<h3 id="_セルの値コピー_fill">セルの値コピー(Fill*)</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+次の使用例は、シート 1 のセル A1 の内容をセル A1:A10 の範囲に複写します。
+</p>
+</li>
+</ul></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> LastRow As Long
-LastRow <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>Rows<span style="color: #990000">.</span>Count<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">End</span></span><span style="color: #990000">(</span>xlUp<span style="color: #990000">).</span>Row</tt></pre></div></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sheet1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:A10"</span><span style="color: #990000">).</span>FillDown</tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+次の使用例は、シート 1 のセル M1 の内容と書式をセル範囲 A1:M1 に複写します。
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sheet1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:M1"</span><span style="color: #990000">).</span>FillLeft</tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+次の使用例は、シート 1 のセル A1 の内容と書式をセル範囲 A1:M1 に複写します。
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sheet1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:M1"</span><span style="color: #990000">).</span>FillRight</tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+次の使用例は、シート 1 のセル A10 の内容と書式をセル範囲 A1:A10 に複写します。
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sheet1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:A10"</span><span style="color: #990000">).</span>FillUp</tt></pre></div></div>
 </div>
 <div class="sect2">
-<h3 id="_最終列">最終列</h3>
+<h3 id="_コピペ">コピペ</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+普通にコピペ
+</p>
+</li>
+</ul></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> LastColumn As Long
-LastColumn <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> Columns<span style="color: #990000">.</span>Count<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">End</span></span><span style="color: #990000">(</span>xlToLeft<span style="color: #990000">).</span>Column</tt></pre></div></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"R25:R30"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+Selection<span style="color: #990000">.</span>Copy
+<span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"U25"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+Selection<span style="color: #990000">.</span>PasteSpecial</tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+1列をコピーして1行にペースト
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"R25:R30"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+Selection<span style="color: #990000">.</span>Copy
+<span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"U25"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+Selection<span style="color: #990000">.</span>PasteSpecial Transpose<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">True</span></span></tt></pre></div></div>
 </div>
 <div class="sect2">
-<h3 id="_selection">Selection</h3>
+<h3 id="_ソート">ソート</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+A1:C5の範囲をA1を基準にソート
+</p>
+</li>
+</ul></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3"</span><span style="color: #990000">).</span>CurrentRegion<span style="color: #990000">.</span>Selct</tt></pre></div></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span><span style="color: #993399">1</span><span style="color: #990000">),</span><span style="font-weight: bold"><span style="color: #000000">cells</span></span><span style="color: #990000">(</span><span style="color: #993399">5</span><span style="color: #990000">,</span><span style="color: #993399">3</span><span style="color: #990000">))</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:C5"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Sort</span></span><span style="color: #990000">(</span>key1<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1"</span><span style="color: #990000">),</span> _
+    order1<span style="color: #990000">:=</span>xlDescending<span style="color: #990000">)</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">5</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">)).</span><span style="font-weight: bold"><span style="color: #000000">Sort</span></span><span style="color: #990000">(</span>key1<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)),</span> _
+    order1<span style="color: #990000">:=</span>xlDescending<span style="color: #990000">)</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">5</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">)).</span><span style="font-weight: bold"><span style="color: #000000">Sort</span></span><span style="color: #990000">(</span>key1<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">),</span> _
+    order1<span style="color: #990000">:=</span>xlDescending<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+A1:C5の範囲をA1,B1を基準にソート
+</p>
+</li>
+</ul></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3"</span><span style="color: #990000">).</span>UsedRange<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span></tt></pre></div></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:C5"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Sort</span></span><span style="color: #990000">(</span>key1<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1"</span><span style="color: #990000">),</span> _
+    order1<span style="color: #990000">:=</span>xlAscending<span style="color: #990000">,</span> _
+    key2<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"B1"</span><span style="color: #990000">),</span> _
+    order2<span style="color: #990000">:=</span>xlAscending<span style="color: #990000">)</span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ファイル">ファイル</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_読み込み">読み込み</h3>
+<div class="sect3">
+<h4 id="_ファイル読み込み_sjis_filesystemobject">ファイル読み込み(sjis,FileSystemObject)</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+Microsoft ScrptingRuntime
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fso As New Scrpting<span style="color: #990000">.</span>Filesystemobject
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> ts as TextSream
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> s As String
+
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> ts <span style="color: #990000">=</span> fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">OpenTextFile</span></span><span style="color: #990000">(</span>FileName<span style="color: #990000">)</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> <span style="font-weight: bold"><span style="color: #0000FF">While</span></span> ts<span style="color: #990000">.</span>AtEndOfStream <span style="color: #990000">&lt;&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+    s <span style="color: #990000">=</span> ts<span style="color: #990000">.</span>ReadLine
+    <span style="color: #990000">...</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+ts<span style="color: #990000">.</span>Close</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_ファイル読み込み_utf_8_adodb">ファイル読み込み(UTF-8,ADODB)</h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_書き込み">書き込み</h3>
+<div class="sect3">
+<h4 id="_ファイル書き込み_sjis_filesystemobject">ファイル書き込み(sjis,FileSystemObject)</h4>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+Microsoft ScrptingRuntime
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fso As New Scrpting<span style="color: #990000">.</span>Filesystemobject
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> ts as TextSream
+
+<span style="font-style: italic"><span style="color: #9A1900">' ファイルが存在すればサイズ0にして書き込み</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> ts <span style="color: #990000">=</span> fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">OpenTextFile</span></span><span style="color: #990000">(</span>FileName<span style="color: #990000">,</span>ForWriting<span style="color: #990000">,</span><span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">)</span>
+ts<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">WriteLine</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"This is a  pen."</span><span style="color: #990000">)</span>
+ts<span style="color: #990000">.</span>Close</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_ファイル書き込み_utf_8_adodb">ファイル書き込み(UTF-8,ADODB)</h4>
+</div>
 </div>
 </div>
 </div>
@@ -1398,7 +1621,7 @@ http://www.gnu.org/software/src-highlite -->
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-09-06 21:19:46 JST
+Last updated 2020-09-07 05:51:38 JST
 </div>
 </div>
 </body>
