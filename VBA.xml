@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+
+<article lang="en">
+<articleinfo>
+    <title>VBA</title>
+    <date>2020-09-06</date>
+    <author>
+        <firstname>yossym</firstname>
+        <email>docomoxyz@gmail.com</email>
+    </author>
+    <authorinitials>Y</authorinitials>
+<revhistory><revision><revnumber>0.1</revnumber><date>2020-09-06</date><authorinitials>Y</authorinitials></revision></revhistory>
+</articleinfo>
+<section id="_変数">
+<title>変数</title>
+<variablelist>
+<varlistentry>
+<term>
+WorkBook
+</term>
+<listitem>
+<simpara>
+        wb
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+WorkSheet
+</term>
+<listitem>
+<simpara>
+        ws
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+Range
+</term>
+<listitem>
+<simpara>
+        rng, rg
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+最初
+</term>
+<listitem>
+<simpara>
+        FirstRow, FirstColumn
+</simpara>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term>
+最終
+</term>
+<listitem>
+<simpara>
+        LastRow, LastColumn
+</simpara>
+</listitem>
+</varlistentry>
+</variablelist>
+</section>
+<section id="_workbook">
+<title>Workbook</title>
+<section id="_workbook_新規">
+<title>Workbook 新規</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Dim wb As Workbook
+Applicatioin.SheetsInNewWorkbook = 1
+Set wb = Workbook.</programlisting>
+</section>
+<section id="_workbook_開く">
+<title>Workbook 開く</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Workbook.Open "hoge.xlsx"</programlisting>
+<programlisting language="vbscript" linenumbering="unnumbered">Workbook.Open Filename:="hoge.xlsx",ReadOnly:=True</programlisting>
+<programlisting language="vbscript" linenumbering="unnumbered">Dim wb As Workbook
+Set wb = Workbook.Open("hoge.xlsx")</programlisting>
+<programlisting language="vbscript" linenumbering="unnumbered">Dim wb As Workbook
+Set wb = Workbook.Open(FileName:="hoge.xlsx",ReadOnly:=True)</programlisting>
+<section id="_workbook_閉じる">
+<title>Workbook 閉じる</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Applicatioin.DisplayAlerts=False
+wb.Close
+Applicatioin.DisplayAlerts=True</programlisting>
+</section>
+</section>
+<section id="_workbook_保存">
+<title>Workbook 保存</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Workbook.Save</programlisting>
+<programlisting language="vbscript" linenumbering="unnumbered">Dim SaveTime As String
+Savetime = Format(Now,"yyyymmdd_hhmmss")
+
+Workbook.SaveAs "hoge.xlsx"</programlisting>
+</section>
+</section>
+<section id="_worksheets_追加">
+<title>WorkSheets 追加</title>
+<itemizedlist>
+<listitem>
+<simpara>
+アクティブシートの左に追加
+</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="vbscript" linenumbering="unnumbered">WorkSheets.Add
+WorkSheets.Add before:=ActiveSheet</programlisting>
+<itemizedlist>
+<listitem>
+<simpara>
+アクティブシートの左に追加
+</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="vbscript" linenumbering="unnumbered">WorkSheets.Add After:=Activesheet</programlisting>
+<itemizedlist>
+<listitem>
+<simpara>
+2番目のシート右に２枚追加
+</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="vbscript" linenumbering="unnumbered">Worksheets.Add After:=Worksheets(2),Count:=2</programlisting>
+<itemizedlist>
+<listitem>
+<simpara>
+最終シート？の右にシート追加
+</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="vbscript" linenumbering="unnumbered">Worksheets.Add After:=Worksheets(Worksheets.Count)</programlisting>
+</section>
+<section id="_worksheets_削除">
+<title>WorkSheets 削除</title>
+<itemizedlist>
+<listitem>
+<simpara>
+アクティブシート削除
+</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="vbscript" linenumbering="unnumbered">Workbooks.Delete</programlisting>
+</section>
+<section id="_行の追加">
+<title>行の追加</title>
+<simpara>asdf</simpara>
+<section id="_1行追加">
+<title>1行追加</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Rows(1).Insert
+Range("C3").Insert
+Rows("2:3").Insert</programlisting>
+<programlisting language="vbscript" linenumbering="unnumbered">Rows("B").Insert</programlisting>
+</section>
+<section id="_複数行追加">
+<title>複数行追加</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Range(Columns(2), Columns(4)).Insert</programlisting>
+</section>
+<section id="_1列追加">
+<title>1列追加</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Columns(1).Insert
+Columns("C").Insert
+Range("C3").EntireColumn.Insert</programlisting>
+</section>
+<section id="_複数列追加">
+<title>複数列追加</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Range(Columns(3), Columns(6)).Insert</programlisting>
+</section>
+</section>
+<section id="_セル">
+<title>セル</title>
+<section id="_セルの指定">
+<title>セルの指定</title>
+<section id="_セルの追加">
+<title>セルの追加</title>
+<programlisting language="vbscript" linenumbering="unnumbered">' 引数なしなら左に移動'
+Range("A3:B6").Insert</programlisting>
+<programlisting language="vbscript" linenumbering="unnumbered">Range("A3:B6").Insert shift:=xlShiftToRight</programlisting>
+<itemizedlist>
+<listitem>
+<simpara>
+XlInsertShiftDirection 列挙 (Excel)
+</simpara>
+</listitem>
+</itemizedlist>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top"> 名前           </entry>
+<entry align="left" valign="top"> 値    </entry>
+<entry align="left" valign="top"> 説明
+ </entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>xlShiftDown</simpara></entry>
+<entry align="left" valign="top"><simpara>-4121</simpara></entry>
+<entry align="left" valign="top"><simpara>セルを挿入後、下に伸ばす</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlShiftToRight</simpara></entry>
+<entry align="left" valign="top"><simpara>-4161</simpara></entry>
+<entry align="left" valign="top"><simpara>セルを挿入後、右に伸ばす</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+</section>
+<section id="_最終行">
+<title>最終行</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Dim LastRow As Long
+LastRow = Cells(Rows.Count, 1).End(xlUp).Row</programlisting>
+</section>
+<section id="_最終列">
+<title>最終列</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Dim LastColumn As Long
+LastColumn = Cells(1, Columns.Count).End(xlToLeft).Column</programlisting>
+</section>
+<section id="_selection">
+<title>Selection</title>
+<programlisting language="vbscript" linenumbering="unnumbered">Range("A3").CurrentRegion.Selct</programlisting>
+<programlisting language="vbscript" linenumbering="unnumbered">Range("A3").UsedRange.Select</programlisting>
+</section>
+</section>
+<section id="_グラフ">
+<title>グラフ</title>
+<section id="_グラフ作成">
+<title>グラフ作成</title>
+<programlisting language="VBSCRIPT" linenumbering="unnumbered">Dim rng As Range
+
+    Set rng = Range("C1").CurrentRegion
+
+With ActiveSheet.Shapes.AddChart.Chart
+    .ChartType = xlXYScatterLines
+    .SetSourceData rng
+End With</programlisting>
+<itemizedlist>
+<listitem>
+<simpara>
+Xlcharttype クラス列挙 (Excel)
+</simpara>
+</listitem>
+</itemizedlist>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top"> 名前                       </entry>
+<entry align="left" valign="top"> 値    </entry>
+<entry align="left" valign="top"> 説明
+ </entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>xl3DBarClustered</simpara></entry>
+<entry align="left" valign="top"><simpara>60</simpara></entry>
+<entry align="left" valign="top"><simpara>3-D 集合横棒</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xl3DBarStacked</simpara></entry>
+<entry align="left" valign="top"><simpara>61</simpara></entry>
+<entry align="left" valign="top"><simpara>3-D 積み上げ横棒</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xl3DBarStacked100</simpara></entry>
+<entry align="left" valign="top"><simpara>62</simpara></entry>
+<entry align="left" valign="top"><simpara>3-D 100% 積み上げ横棒</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xl3DColumn</simpara></entry>
+<entry align="left" valign="top"><simpara>-4100</simpara></entry>
+<entry align="left" valign="top"><simpara>3-D 縦棒</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xl3DColumnClustered</simpara></entry>
+<entry align="left" valign="top"><simpara>54</simpara></entry>
+<entry align="left" valign="top"><simpara>3-D 集合縦棒</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xl3DColumnStacked</simpara></entry>
+<entry align="left" valign="top"><simpara>55</simpara></entry>
+<entry align="left" valign="top"><simpara>3-D 積み上げ縦棒</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xl3DColumnStacked100</simpara></entry>
+<entry align="left" valign="top"><simpara>56</simpara></entry>
+<entry align="left" valign="top"><simpara>3-D 100% 積み上げ縦棒</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlLine</simpara></entry>
+<entry align="left" valign="top"><simpara>2/4</simpara></entry>
+<entry align="left" valign="top"><simpara>折れ線</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlLineMarkers</simpara></entry>
+<entry align="left" valign="top"><simpara>65</simpara></entry>
+<entry align="left" valign="top"><simpara>マーカー付き折れ線</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlLineMarkersStacked</simpara></entry>
+<entry align="left" valign="top"><simpara>66</simpara></entry>
+<entry align="left" valign="top"><simpara>マーカー付き積み上げ折れ線</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlLineMarkersStacked100</simpara></entry>
+<entry align="left" valign="top"><simpara>67</simpara></entry>
+<entry align="left" valign="top"><simpara>マーカー付き 100% 積み上げ折れ線</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlLineStacked</simpara></entry>
+<entry align="left" valign="top"><simpara>63</simpara></entry>
+<entry align="left" valign="top"><simpara>積み上げ折れ線</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlLineStacked100</simpara></entry>
+<entry align="left" valign="top"><simpara>64</simpara></entry>
+<entry align="left" valign="top"><simpara>100% 積み上げ折れ線</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlXYScatter</simpara></entry>
+<entry align="left" valign="top"><simpara>-4169</simpara></entry>
+<entry align="left" valign="top"><simpara>散布図</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlXYScatterLines</simpara></entry>
+<entry align="left" valign="top"><simpara>74</simpara></entry>
+<entry align="left" valign="top"><simpara><phrase role="red">折れ線付き散布図</phrase></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlXYScatterLinesNoMarkers</simpara></entry>
+<entry align="left" valign="top"><simpara>75</simpara></entry>
+<entry align="left" valign="top"><simpara>折れ線付き散布図 (データ マーカーなし)</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlXYScatterSmooth</simpara></entry>
+<entry align="left" valign="top"><simpara>72</simpara></entry>
+<entry align="left" valign="top"><simpara>平滑線付き散布図</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlXYScatterSmoothNoMarkers</simpara></entry>
+<entry align="left" valign="top"><simpara>73</simpara></entry>
+<entry align="left" valign="top"><simpara>平滑線付き散布図 (データ マーカーなし)</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+<section id="_グラフのタイトル変更">
+<title>グラフのタイトル変更</title>
+<programlisting language="VBSCRIPT" linenumbering="unnumbered">With ActiveSheet.ChartObjects(1).Chart
+    .HasTitle = True    '　まずは有効にしてから内容を指定する
+    .ChartTitle.Text = "タイトル"
+End With</programlisting>
+<programlisting language="VBSCRIPT" linenumbering="unnumbered">ActiveSheet.ChartObjects(1).Select
+With ActiveChart
+    .HasTitle = True    '　まずは有効にしてから内容を指定する
+    .ChartTitle.Caption = "title"
+End With</programlisting>
+</section>
+<section id="_軸の設定">
+<title>軸の設定</title>
+<section id="_軸のタイトル">
+<title>軸のタイトル</title>
+<programlisting language="VBSCRIPT" linenumbering="unnumbered">' グラフのX軸(横軸)のタイトルを設定
+ActiveChart.Axes(xlCategory, xlPrimary).HasTitle = True
+ActiveChart.Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "X軸タイトル"</programlisting>
+<programlisting language="VBSCRIPT" linenumbering="unnumbered">' グラフのY軸(縦軸)のタイトルを設定
+ActiveChart.Axes(xlValue, xlPrimary).HasTitle = True
+ActiveChart.Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Y軸タイトル"</programlisting>
+</section>
+<section id="_横軸_の最小値_最大値">
+<title>横軸？の最小値、最大値</title>
+</section>
+</section>
+<section id="_マーカー設定">
+<title>マーカー設定</title>
+<variablelist>
+<varlistentry>
+<term>
+markersize
+</term>
+<listitem>
+<simpara>
+2 から 72
+</simpara>
+<itemizedlist>
+<listitem>
+<simpara>
+XlMarkerStyle 列挙 (Excel)
+折れ線グラフ、散布図、またはレーダー チャートで、データ要素またはデータ系列の
+マーカーのスタイルを設定します。
+</simpara>
+</listitem>
+</itemizedlist>
+</listitem>
+</varlistentry>
+</variablelist>
+<informaltable
+frame="all"
+rowsep="1" colsep="1"
+>
+<tgroup cols="3">
+<colspec colname="col_1" colwidth="33*"/>
+<colspec colname="col_2" colwidth="33*"/>
+<colspec colname="col_3" colwidth="33*"/>
+<thead>
+<row>
+<entry align="left" valign="top"> 名前                   </entry>
+<entry align="left" valign="top"> 値    </entry>
+<entry align="left" valign="top"> 説明
+ </entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleAutomatic</simpara></entry>
+<entry align="left" valign="top"><simpara>-4105</simpara></entry>
+<entry align="left" valign="top"><simpara>自動マーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleCircle</simpara></entry>
+<entry align="left" valign="top"><simpara>~</simpara></entry>
+<entry align="left" valign="top"><simpara>円形のマーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleDash</simpara></entry>
+<entry align="left" valign="top"><simpara>-4115</simpara></entry>
+<entry align="left" valign="top"><simpara>長い棒のマーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleDiamond</simpara></entry>
+<entry align="left" valign="top"><simpara>pbm-2</simpara></entry>
+<entry align="left" valign="top"><simpara>ひし形のマーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleDot</simpara></entry>
+<entry align="left" valign="top"><simpara>-4118</simpara></entry>
+<entry align="left" valign="top"><simpara>短い棒のマーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleNone</simpara></entry>
+<entry align="left" valign="top"><simpara>-4142</simpara></entry>
+<entry align="left" valign="top"><simpara>マーカーなし</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStylePicture</simpara></entry>
+<entry align="left" valign="top"><simpara>-4147</simpara></entry>
+<entry align="left" valign="top"><simpara>画像マーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStylePlus</simpara></entry>
+<entry align="left" valign="top"><simpara>i-9</simpara></entry>
+<entry align="left" valign="top"><simpara>正符号 (+) 付きの四角形のマーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleSquare</simpara></entry>
+<entry align="left" valign="top"><simpara>1-d</simpara></entry>
+<entry align="left" valign="top"><simpara>四角形のマーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleStar</simpara></entry>
+<entry align="left" valign="top"><simpara>5</simpara></entry>
+<entry align="left" valign="top"><simpara>アスタリスク (*) 付きの四角形のマーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleTriangle</simpara></entry>
+<entry align="left" valign="top"><simpara>1/3</simpara></entry>
+<entry align="left" valign="top"><simpara>三角形のマーカー</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>xlMarkerStyleX</simpara></entry>
+<entry align="left" valign="top"><simpara>-4168</simpara></entry>
+<entry align="left" valign="top"><simpara>X 印付きの四角形のマーカー</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<programlisting language="VBSCRIPT" linenumbering="unnumbered">Dim Co As ChartObject
+Dim Sc As Series
+
+For Each Co In ActiveSheet.ChartObjects
+    Debug.Print Co.Name
+
+    For Each Sc In Co.Chart.SeriesCollection
+        Debug.Print Sc.MarkerSize
+        Debug.Print Sc.MarkerStyle
+
+        Sc.MarkerSize = 12
+        Sc.MarkerStyle
+    Next
+Next</programlisting>
+</section>
+</section>
+</article>

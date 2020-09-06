@@ -1,0 +1,367 @@
+= VBA
+// 著者の名前(省略可)<メールアドレス(省略可能)>
+// バージョンや作成日(省略可)
+:Author:	yossym
+:Email:     docomoxyz@gmail.com
+:Date:      	2020-09-06
+:Revision:  0.1
+
+// :toc:
+// :sectnums:
+// :toclevels: 5
+
+:lang: ja
+:doctype: book
+:docname: VBA
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 4
+// :source-highlighter: pygments
+:source-language: VBscript
+
+:toc: left
+:toc-title: 目次
+
+== 変数
+
+WorkBook::
+        wb
+WorkSheet::
+        ws
+Range::
+        rng, rg
+
+最初::
+        FirstRow, FirstColumn
+最終::
+        LastRow, LastColumn
+
+
+== Workbook
+
+=== Workbook 新規
+
+[source,vbscript]
+----
+Dim wb As Workbook
+Applicatioin.SheetsInNewWorkbook = 1
+Set wb = Workbook.
+----
+
+=== Workbook 開く
+
+[source,vbscript]
+----
+Workbook.Open "hoge.xlsx"
+----
+
+[source,vbscript]
+----
+Workbook.Open Filename:="hoge.xlsx",ReadOnly:=True
+----
+
+[source,vbscript]
+----
+Dim wb As Workbook
+Set wb = Workbook.Open("hoge.xlsx")
+----
+
+[source,vbscript]
+----
+Dim wb As Workbook
+Set wb = Workbook.Open(FileName:="hoge.xlsx",ReadOnly:=True)
+----
+
+==== Workbook 閉じる
+
+[source,vbscript]
+----
+Applicatioin.DisplayAlerts=False
+wb.Close
+Applicatioin.DisplayAlerts=True
+----
+
+=== Workbook 保存
+
+[source,vbscript]
+----
+Workbook.Save
+----
+
+[source,vbscript]
+----
+Dim SaveTime As String
+Savetime = Format(Now,"yyyymmdd_hhmmss")
+
+Workbook.SaveAs "hoge.xlsx"
+----
+
+
+== WorkSheets 追加
+
+* アクティブシートの左に追加
+[source,vbscript]
+----
+WorkSheets.Add
+WorkSheets.Add before:=ActiveSheet
+----
+
+
+
+
+* アクティブシートの左に追加
+[source,vbscript]
+----
+WorkSheets.Add After:=Activesheet
+----
+
+* 2番目のシート右に２枚追加
+[source,vbscript]
+----
+Worksheets.Add After:=Worksheets(2),Count:=2
+----
+
+* 最終シート？の右にシート追加
+[source,vbscript]
+----
+Worksheets.Add After:=Worksheets(Worksheets.Count)
+----
+
+
+== WorkSheets 削除
+
+* アクティブシート削除
+[source,vbscript]
+----
+Workbooks.Delete
+----
+
+== 行の追加
+
+
+asdf
+
+=== 1行追加
+[source,vbscript]
+----
+Rows(1).Insert
+Range("C3").Insert
+Rows("2:3").Insert
+----
+
+[source,vbscript]
+----
+Rows("B").Insert
+----
+
+=== 複数行追加
+[source,vbscript]
+----
+Range(Columns(2), Columns(4)).Insert
+----
+
+=== 1列追加
+
+[source,vbscript]
+----
+Columns(1).Insert
+Columns("C").Insert
+Range("C3").EntireColumn.Insert
+----
+
+=== 複数列追加
+
+[source,vbscript]
+----
+Range(Columns(3), Columns(6)).Insert
+----
+
+
+
+== セル
+
+=== セルの指定
+
+==== セルの追加
+
+
+[source,vbscript]
+----
+' 引数なしなら左に移動'
+Range("A3:B6").Insert
+----
+
+[source,vbscript]
+----
+Range("A3:B6").Insert shift:=xlShiftToRight
+----
+
+* XlInsertShiftDirection 列挙 (Excel)
+
+[options="header"]
+|===
+ | 名前           | 値    | 説明
+ | xlShiftDown    | -4121 | セルを挿入後、下に伸ばす
+ | xlShiftToRight | -4161 | セルを挿入後、右に伸ばす
+|===
+
+=== 最終行
+
+[source,vbscript]
+----
+Dim LastRow As Long
+LastRow = Cells(Rows.Count, 1).End(xlUp).Row
+----
+
+=== 最終列
+
+[source,vbscript]
+----
+Dim LastColumn As Long
+LastColumn = Cells(1, Columns.Count).End(xlToLeft).Column
+----
+
+=== Selection
+
+
+[source,vbscript]
+----
+Range("A3").CurrentRegion.Selct
+----
+
+[source,vbscript]
+----
+Range("A3").UsedRange.Select
+----
+
+== グラフ
+
+=== グラフ作成
+
+[source,VBSCRIPT]
+----
+Dim rng As Range
+
+    Set rng = Range("C1").CurrentRegion
+
+With ActiveSheet.Shapes.AddChart.Chart
+    .ChartType = xlXYScatterLines
+    .SetSourceData rng
+End With
+----
+
+
+* Xlcharttype クラス列挙 (Excel)
+
+[options="header"]
+|===
+ | 名前                       | 値    | 説明
+ | xl3DBarClustered           | 60    | 3-D 集合横棒
+ | xl3DBarStacked             | 61    | 3-D 積み上げ横棒
+ | xl3DBarStacked100          | 62    | 3-D 100% 積み上げ横棒
+ | xl3DColumn                 | -4100 | 3-D 縦棒
+ | xl3DColumnClustered        | 54    | 3-D 集合縦棒
+ | xl3DColumnStacked          | 55    | 3-D 積み上げ縦棒
+ | xl3DColumnStacked100       | 56    | 3-D 100% 積み上げ縦棒
+ | xlLine                     | 2/4   | 折れ線
+ | xlLineMarkers              | 65    | マーカー付き折れ線
+ | xlLineMarkersStacked       | 66    | マーカー付き積み上げ折れ線
+ | xlLineMarkersStacked100    | 67    | マーカー付き 100% 積み上げ折れ線
+ | xlLineStacked              | 63    | 積み上げ折れ線
+ | xlLineStacked100           | 64    | 100% 積み上げ折れ線
+ | xlXYScatter                | -4169 | 散布図
+ | xlXYScatterLines           | 74    | [red]#折れ線付き散布図#
+ | xlXYScatterLinesNoMarkers  | 75    | 折れ線付き散布図 (データ マーカーなし)
+ | xlXYScatterSmooth          | 72    | 平滑線付き散布図
+ | xlXYScatterSmoothNoMarkers | 73    | 平滑線付き散布図 (データ マーカーなし)
+|===
+
+=== グラフのタイトル変更
+
+[source,VBSCRIPT]
+----
+With ActiveSheet.ChartObjects(1).Chart
+    .HasTitle = True	'　まずは有効にしてから内容を指定する
+    .ChartTitle.Text = "タイトル"
+End With
+----
+
+[source,VBSCRIPT]
+----
+ActiveSheet.ChartObjects(1).Select
+With ActiveChart
+    .HasTitle = True	'　まずは有効にしてから内容を指定する
+    .ChartTitle.Caption = "title"
+End With
+----
+
+=== 軸の設定
+==== 軸のタイトル
+
+[source,VBSCRIPT]
+----
+' グラフのX軸(横軸)のタイトルを設定
+ActiveChart.Axes(xlCategory, xlPrimary).HasTitle = True
+ActiveChart.Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "X軸タイトル"
+----
+
+[source,VBSCRIPT]
+----
+' グラフのY軸(縦軸)のタイトルを設定
+ActiveChart.Axes(xlValue, xlPrimary).HasTitle = True
+ActiveChart.Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Y軸タイトル" 
+----
+
+==== 横軸？の最小値、最大値
+
+
+=== マーカー設定
+
+markersize::
+2 から 72
+
+* XlMarkerStyle 列挙 (Excel)
+折れ線グラフ、散布図、またはレーダー チャートで、データ要素またはデータ系列の
+マーカーのスタイルを設定します。
+[options="header"]
+|===
+ | 名前                   | 値    | 説明
+ | xlMarkerStyleAutomatic | -4105 | 自動マーカー
+ | xlMarkerStyleCircle    | ~     | 円形のマーカー
+ | xlMarkerStyleDash      | -4115 | 長い棒のマーカー
+ | xlMarkerStyleDiamond   | pbm-2 | ひし形のマーカー
+ | xlMarkerStyleDot       | -4118 | 短い棒のマーカー
+ | xlMarkerStyleNone      | -4142 | マーカーなし
+ | xlMarkerStylePicture   | -4147 | 画像マーカー
+ | xlMarkerStylePlus      | i-9   | 正符号 (+) 付きの四角形のマーカー
+ | xlMarkerStyleSquare    | 1-d   | 四角形のマーカー
+ | xlMarkerStyleStar      | 5     | アスタリスク (*) 付きの四角形のマーカー
+ | xlMarkerStyleTriangle  | 1/3   | 三角形のマーカー
+ | xlMarkerStyleX         | -4168 | X 印付きの四角形のマーカー
+|===
+
+
+
+[source,VBSCRIPT]
+----
+Dim Co As ChartObject
+Dim Sc As Series
+
+For Each Co In ActiveSheet.ChartObjects
+    Debug.Print Co.Name
+
+    For Each Sc In Co.Chart.SeriesCollection
+        Debug.Print Sc.MarkerSize
+        Debug.Print Sc.MarkerStyle
+
+        Sc.MarkerSize = 12
+        Sc.MarkerStyle
+    Next
+Next
+----
+
+
+
+
+
+//	vim:fileencoding=utf-8:ff=unix:
