@@ -725,7 +725,7 @@ install: function(toclevels) {
 }
 
 }
-asciidoc.install(2);
+asciidoc.install(5);
 /*]]>*/
 </script>
 </head>
@@ -852,8 +852,9 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> wb As Workbook
 <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> wb <span style="color: #990000">=</span> Workbook<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Open</span></span><span style="color: #990000">(</span>FileName<span style="color: #990000">:=</span><span style="color: #FF0000">"hoge.xlsx"</span><span style="color: #990000">,</span>ReadOnly<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">)</span></tt></pre></div></div>
-<div class="sect3">
-<h4 id="_workbook_閉じる">Workbook 閉じる</h4>
+</div>
+<div class="sect2">
+<h3 id="_workbook_閉じる">Workbook 閉じる</h3>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -862,7 +863,6 @@ http://www.gnu.org/software/src-highlite -->
 <pre><tt>Applicatioin<span style="color: #990000">.</span>DisplayAlerts<span style="color: #990000">=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
 wb<span style="color: #990000">.</span>Close
 Applicatioin<span style="color: #990000">.</span>DisplayAlerts<span style="color: #990000">=</span><span style="font-weight: bold"><span style="color: #0000FF">True</span></span></tt></pre></div></div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_workbook_保存">Workbook 保存</h3>
@@ -1052,8 +1052,155 @@ http://www.gnu.org/software/src-highlite -->
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_セルの指定">セルの指定</h3>
-<div class="sect3">
-<h4 id="_セルの追加">セルの追加</h4>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"C3"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+
+           A B C D E
+         ＋ーーーーーーーーーーーーーー
+        <span style="color: #993399">1</span>｜□□□
+        <span style="color: #993399">2</span>｜□□□
+        <span style="color: #993399">3</span>｜□□■
+        <span style="color: #993399">4</span>｜
+        <span style="color: #993399">5</span>｜
+        <span style="color: #993399">6</span>｜
+        <span style="color: #993399">7</span>｜
+        <span style="color: #993399">8</span>｜
+        <span style="color: #993399">9</span>｜</tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<span class="red">エラーになる</span>
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">,</span><span style="color: #993399">3</span><span style="color: #990000">)).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span></tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3:B6"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+
+           A B C D E
+         ＋ーーーーーーーーーーーーーー
+        <span style="color: #993399">1</span>｜
+        <span style="color: #993399">2</span>｜
+        <span style="color: #993399">3</span>｜■■
+        <span style="color: #993399">4</span>｜■■
+        <span style="color: #993399">5</span>｜■■
+        <span style="color: #993399">6</span>｜■■
+        <span style="color: #993399">7</span>｜
+        <span style="color: #993399">8</span>｜
+        <span style="color: #993399">9</span>｜
+        ｜</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3,B6"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+
+           A B C D E
+         ＋ーーーーーーーーーーーーーー
+        <span style="color: #993399">1</span>｜
+        <span style="color: #993399">2</span>｜
+        <span style="color: #993399">3</span>｜■
+        <span style="color: #993399">4</span>｜
+        <span style="color: #993399">5</span>｜
+        <span style="color: #993399">6</span>｜　■
+        <span style="color: #993399">7</span>｜
+        <span style="color: #993399">8</span>｜
+        <span style="color: #993399">9</span>｜
+        ｜</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3"</span><span style="color: #990000">,</span><span style="color: #FF0000">"B6"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+           A B C D E
+         ＋ーーーーーーーーーーーーーー
+        <span style="color: #993399">1</span>｜
+        <span style="color: #993399">2</span>｜
+        <span style="color: #993399">3</span>｜■■
+        <span style="color: #993399">4</span>｜■■
+        <span style="color: #993399">5</span>｜■■
+        <span style="color: #993399">6</span>｜■■
+        <span style="color: #993399">7</span>｜
+        <span style="color: #993399">8</span>｜
+        <span style="color: #993399">9</span>｜</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3:B6"</span><span style="color: #990000">,</span><span style="color: #FF0000">"C9:D12"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+
+           A B C D E
+         ＋ーーーーーーーーーーーーーー
+        <span style="color: #993399">1</span>｜
+        <span style="color: #993399">2</span>｜
+        <span style="color: #993399">3</span>｜■■■■
+        <span style="color: #993399">4</span>｜■■■■
+        <span style="color: #993399">5</span>｜■■■■
+        <span style="color: #993399">6</span>｜■■■■
+        <span style="color: #993399">7</span>｜■■■■
+        <span style="color: #993399">8</span>｜■■■■
+        <span style="color: #993399">9</span>｜■■■■
+        <span style="color: #993399">0</span>｜■■■■
+        <span style="color: #993399">1</span>｜■■■■
+        <span style="color: #993399">2</span>｜■■■■
+        <span style="color: #993399">3</span>｜</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">,</span><span style="color: #993399">3</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">6</span><span style="color: #990000">,</span><span style="color: #993399">6</span><span style="color: #990000">)).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+
+           A B C D E
+         ＋ーーーーーーーーーーーーーー
+        <span style="color: #993399">1</span>｜
+        <span style="color: #993399">2</span>｜
+        <span style="color: #993399">3</span>｜　　■■■■
+        <span style="color: #993399">4</span>｜　　■■■■
+        <span style="color: #993399">5</span>｜　　■■■■
+        <span style="color: #993399">6</span>｜　　■■■■
+        <span style="color: #993399">7</span>｜</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3:B6,C9:D12"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+
+           A B C D E
+         ＋ーーーーーーーーーーーーーー
+        <span style="color: #993399">1</span>｜
+        <span style="color: #993399">2</span>｜
+        <span style="color: #993399">3</span>｜■■
+        <span style="color: #993399">4</span>｜■■
+        <span style="color: #993399">5</span>｜■■
+        <span style="color: #993399">6</span>｜■■
+        <span style="color: #993399">7</span>｜
+        <span style="color: #993399">8</span>｜
+        <span style="color: #993399">9</span>｜　　■■
+        <span style="color: #993399">0</span>｜　　■■
+        <span style="color: #993399">1</span>｜　　■■
+        <span style="color: #993399">2</span>｜　　■■
+        <span style="color: #993399">3</span>｜</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_セルの追加">セルの追加</h3>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -1103,7 +1250,6 @@ cellspacing="0" cellpadding="4">
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -1243,9 +1389,7 @@ http://www.gnu.org/software/src-highlite -->
 <h2 id="_ファイル">ファイル</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_読み込み">読み込み</h3>
-<div class="sect3">
-<h4 id="_ファイル読み込み_sjis_filesystemobject">ファイル読み込み(sjis,FileSystemObject)</h4>
+<h3 id="_ファイル読み込み_sjis_filesystemobject">ファイル読み込み(sjis,FileSystemObject)</h3>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 参照設定
@@ -1273,14 +1417,27 @@ http://www.gnu.org/software/src-highlite -->
 <span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
 ts<span style="color: #990000">.</span>Close</tt></pre></div></div>
 </div>
-<div class="sect3">
-<h4 id="_ファイル読み込み_utf_8_adodb">ファイル読み込み(UTF-8,ADODB)</h4>
-</div>
+<div class="sect2">
+<h3 id="_ファイル読み込み_utf_8_adodb">ファイル読み込み(UTF-8,ADODB)</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+ActiveX Data Objects 6.1 Library
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt></tt></pre></div></div>
 </div>
 <div class="sect2">
-<h3 id="_書き込み">書き込み</h3>
-<div class="sect3">
-<h4 id="_ファイル書き込み_sjis_filesystemobject">ファイル書き込み(sjis,FileSystemObject)</h4>
+<h3 id="_ファイル書き込み_sjis_filesystemobject">ファイル書き込み(sjis,FileSystemObject)</h3>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 参照設定
@@ -1304,9 +1461,575 @@ http://www.gnu.org/software/src-highlite -->
 ts<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">WriteLine</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"This is a  pen."</span><span style="color: #990000">)</span>
 ts<span style="color: #990000">.</span>Close</tt></pre></div></div>
 </div>
-<div class="sect3">
-<h4 id="_ファイル書き込み_utf_8_adodb">ファイル書き込み(UTF-8,ADODB)</h4>
+<div class="sect2">
+<h3 id="_ファイル書き込み_utf_8_adodb">ファイル書き込み(UTF-8,ADODB)</h3>
 </div>
+<div class="sect2">
+<h3 id="_ファイル一覧取得">ファイル一覧取得</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+Microsoft ScrptingRuntime
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fl As File
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fso As New Scrpting<span style="color: #990000">.</span>Filesystemobject
+
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> fl in fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetFolder</span></span><span style="color: #990000">(</span>Path<span style="color: #990000">).</span>Files
+    fl<span style="color: #990000">.</span>Name<span style="color: #990000">,</span>Fl<span style="color: #990000">.</span>Type
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_フォルダ一覧">フォルダ一覧</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+Microsoft ScrptingRuntime
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fd As Folder
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fso As New Scrpting<span style="color: #990000">.</span>Filesystemobject
+
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> fd In fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getFolder</span></span><span style="color: #990000">(</span>Path<span style="color: #990000">).</span>subFolders
+    fd<span style="color: #990000">.</span>Name fd<span style="color: #990000">.</span>Path
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_特殊フォルダ">特殊フォルダ</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+Microsoft ScrptingRuntime
+</p>
+</dd>
+</dl></div>
+</div>
+<div class="sect2">
+<h3 id="_filesystemobject_オブジェクト">FileSystemObject オブジェクト</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+Microsoft ScrptingRuntime
+</p>
+</dd>
+</dl></div>
+<div class="sect3">
+<h4 id="_メソッド">メソッド</h4>
+<div class="sect4">
+<h5 id="_buildpath_メソッド">BuildPath メソッド</h5>
+<div class="paragraph"><p>フォルダーパスとフォルダーまたはファイルの名前を結合し、有効なパス区切り記号と
+の組み合わせを返します。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+構文
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">BuildPath</span></span> <span style="color: #990000">(</span>path<span style="color: #990000">,</span> name<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top"> Part   </th>
+<th align="left" valign="top"> Description
+ </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">path</p></td>
+<td align="left" valign="top"><p class="table">必須。 _名前_を組み合わせる既存のパス。 絶対パスまたは相対パスを指定することができ、既存のフォルダーを指定する必要はありません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">name</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 既存の_パス_に追加されるフォルダーまたはファイルの名前。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ulist"><ul>
+<li>
+<p>
+注釈
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>BuildPath メソッドでは、必要な場合に限り、既存のパスと名前の間に追加のパス区切
+りを挿入します。</p></div>
+</div>
+<div class="sect4">
+<h5 id="_copyfile_メソッド">CopyFile メソッド</h5>
+<div class="paragraph"><p>1 つまたは複数のファイルを別の場所にコピーします。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+構文
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>CopyFile source<span style="color: #990000">,</span> destination<span style="color: #990000">,</span> <span style="color: #990000">[</span> overwrite <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 object は、常に FileSystemObject の名前です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">source</p></td>
+<td align="left" valign="top"><p class="table">必須。 コピーする 1 つ以上のファイルを示す、ファイル指定用文字列。ワイルドカード文字も使用できます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">destination</p></td>
+<td align="left" valign="top"><p class="table">必須です。 source から 1 つ以上のファイルをコピーする先を指定する文字列。 ワイルドカード文字は使用できません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">overwrite</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 既存のファイルを上書きできるかどうかを示すブール値です。 True の場合はファイルが上書きされ、False の場合は上書きされません。 既定値は True です。 destination に読み取り専用属性が設定されている場合は、overwrite の値にかかわらず CopyFile は失敗します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ulist"><ul>
+<li>
+<p>
+解説
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
+けです。 たとえば、以下を使用できます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>FileSystemObject<span style="color: #990000">.</span>CopyFile <span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\m</span><span style="color: #FF0000">ydocuments</span><span style="color: #CC33CC">\l</span><span style="color: #FF0000">etters</span><span style="color: #CC33CC">\*</span><span style="color: #FF0000">.doc"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">empfolder</span><span style="color: #CC33CC">\"</span></tt></pre></div></div>
+<div class="paragraph"><p>以下のようには使用できません。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>FileSystemObject<span style="color: #990000">.</span>CopyFile <span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\m</span><span style="color: #FF0000">ydocuments</span><span style="color: #CC33CC">\*\R</span><span style="color: #FF0000">1???97.xls"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">empfolder"</span></tt></pre></div></div>
+<div class="paragraph"><p>source にワイルドカード文字が含まれている場合や、destination がパスの区切り文
+字 (**) で終わっている場合は、destination は一致するファイルのコピー先となる既
+存のフォルダーと見なされます。 それ以外の場合は、destination は作成するファイ
+ルの名前と見なされます。 いずれの場合も、個々のファイルのコピー時に起こり得る
+ことは 3 つあります。</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+destination が存在しない場合は、source がコピーされます。 これは通常のケー
+   スです。
+</p>
+</li>
+<li>
+<p>
+destination が既存のファイルの場合、 overwrite が False のときはエラーが発
+   生します。 True のときは既存のファイルを上書きして source がコピーされます。
+</p>
+</li>
+<li>
+<p>
+destination がディレクトリの場合は、エラーが発生します。
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>source でワイルドカード文字が使用されていて、どのファイルとも一致しなかった場
+合も、エラーが発生します。 いずれかのエラーが発生した時点で CopyFile メソッド
+の実行は停止されます。 エラーが発生するまでに行われた変更を取り消したり元に戻
+したりする処理は一切行われません。</p></div>
+</div>
+<div class="sect4">
+<h5 id="_copyfolder_メソッド">CopyFolder メソッド</h5>
+<div class="paragraph"><p>フォルダーを再帰的に別の場所にコピーします。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+構文
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>CopyFolder source<span style="color: #990000">,</span> destination<span style="color: #990000">,</span> <span style="color: #990000">[</span> overwrite <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">source</p></td>
+<td align="left" valign="top"><p class="table">必須。 コピーする 1 つ以上のフォルダーを指定する文字列です。ワイルドカード文字を使用できます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">destination</p></td>
+<td align="left" valign="top"><p class="table">必須です。 source のフォルダーとサブフォルダーのコピー先を指定する文字列です。 ワイルドカード文字は使用できません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">overwrite</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 既存のフォルダーを上書きするかどうかを示す ブール 値です。 True の場合はファイルが上書きされ、 False の場合は上書きされません。 既定値は True です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ulist"><ul>
+<li>
+<p>
+解説
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
+けです。 たとえば、以下を使用できます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>FileSystemObject<span style="color: #990000">.</span>CopyFolder <span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\m</span><span style="color: #FF0000">ydocuments</span><span style="color: #CC33CC">\l</span><span style="color: #FF0000">etters</span><span style="color: #CC33CC">\*</span><span style="color: #FF0000">"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">empfolder</span><span style="color: #CC33CC">\"</span></tt></pre></div></div>
+<div class="paragraph"><p>以下のようには使用できません。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>FileSystemObject<span style="color: #990000">.</span>CopyFolder <span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\m</span><span style="color: #FF0000">ydocuments</span><span style="color: #CC33CC">\*\*</span><span style="color: #FF0000">"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">empfolder</span><span style="color: #CC33CC">\"</span></tt></pre></div></div>
+<div class="paragraph"><p>source にワイルドカード文字が含まれている場合や、destination がパスの区切り文
+字 ()) で終わっている場合は、destination は一致するフォルダーとサブフォルダー
+のコピー先となる既存のフォルダーと見なされます。</p></div>
+<div class="paragraph"><p>それ以外の場合は、destinationは作成するフォルダーの名前と見なされます。</p></div>
+<div class="paragraph"><p>いずれの場合も、個々のフォルダーがコピーされるときに起こり得ることは 4 つあり
+ます。</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+destination が存在しない場合は、source フォルダーとそのすべての内容がコピー
+   されます。 これは通常のケースです。
+</p>
+</li>
+<li>
+<p>
+destination が既存のファイルの場合は、エラーが発生します。
+</p>
+</li>
+<li>
+<p>
+destination がディレクトリの場合は、フォルダーとそのすべての内容のコピーを
+   しようとします。 source に含まれているファイルが destination に既に存在する
+場合は、overwrite が False に設定されているとエラーが発生します。 それ以外の場
+合、ファイルを既存のファイルにコピーしようとします。
+</p>
+</li>
+<li>
+<p>
+destination が読み取り専用のディレクトリで、overwrite が False の場合、既存
+   の読み取り専用のファイルをそのディレクトリにコピーしようとするとエラーが発
+生します。
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>source でワイルドカード文字が使用されていて、どのフォルダーとも一致しなかった
+場合も、エラーが発生します。</p></div>
+<div class="paragraph"><p>CopyFolder メソッドは、最初のエラーが発生した時点で処理を中止します。 エラーが
+発生するまでに行われた変更を取り消したり元に戻したりする処理は一切行われません。</p></div>
+</div>
+<div class="sect4">
+<h5 id="_createfolder_メソッド">CreateFolder メソッド</h5>
+<div class="paragraph"><p>フォルダーを作成します。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+構文
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">CreateFolder</span></span> <span style="color: #990000">(</span>foldername<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">foldername</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 作成するフォルダーを識別する 文字列式です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ulist"><ul>
+<li>
+<p>
+注釈
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>指定したフォルダーがすでに存在する場合は、エラーが発生します。</p></div>
+</div>
+<div class="sect4">
+<h5 id="_createtextfile_メソッド">CreateTextFile メソッド</h5>
+<div class="paragraph"><p>指定されたファイル名を作成し、ファイルの読み取りまたは書き込みに使用できる<strong>TextStream</strong> オブジェクトを返します。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+構文
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">CreateTextFile</span></span> <span style="color: #990000">(</span>filename<span style="color: #990000">,</span> <span style="color: #990000">[</span> overwrite<span style="color: #990000">,</span> <span style="color: #990000">[</span> unicode <span style="color: #990000">]])</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に<strong>FileSystemObject</strong> または<strong>Folder</strong> オブジェクトの名前を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">filename</p></td>
+<td align="left" valign="top"><p class="table">必須。 作成するファイルを示す 文字列式。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">overwrite</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 既存のファイルを上書きできるかどうかを示す Boolean 値。 ファイルを上書きできる場合は True 、上書きできない場合は False です。 省略した場合、既存のファイルは上書きできます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">unicode</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 Unicode ファイルを作成するか、ASCII ファイルを作成するかを示す Boolean 値です。 Unicode ファイルとして作成する場合は True 、ASCII ファイルとして作成する場合は False です。 省略した場合は、ASCII ファイルとみなされます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ulist"><ul>
+<li>
+<p>
+注釈
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>次のコードは、 CreateTextFileメソッドを使用して、テキストファイルを作成して開
+く方法を示しています。 _Overwrite_引数がFalseの場合、または指定されていない場
+合は、既に存在する_ファイル名_に対してエラーが発生します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> CreateAfile
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> a <span style="color: #990000">=</span> fs<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">CreateTextFile</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">estfile.txt"</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">)</span>
+    a<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">WriteLine</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"This is a test."</span><span style="color: #990000">)</span>
+    a<span style="color: #990000">.</span>Close
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_deletefile_メソッド">DeleteFile メソッド</h5>
+<div class="paragraph"><p>指定したファイルを削除します。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+構文
+</p>
+</li>
+</ul></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>DeleteFile filespec<span style="color: #990000">,</span> <span style="color: #990000">[</span> force <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">filespec</p></td>
+<td align="left" valign="top"><p class="table">必須。 削除するファイルの名前です。 __ 最後のパス コンポーネントではワイルドカード文字を使用できます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">force</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 読み取り専用属性が設定されているファイルを削除する場合は、 Trueを指定するブール型 (Boolean) の値を指定します。False(既定値)。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="ulist"><ul>
+<li>
+<p>
+注釈
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>一致するファイルが見つからない場合はエラーが発生します。 DeleteFile メソッドは、
+最初のエラーが発生した時点で中止されます。 エラーが発生する前に行われた変更は
+ロールバックされません (元に戻されません)。</p></div>
+</div>
+<div class="sect4">
+<h5 id="_deletefolder_メソッド">DeleteFolder メソッド</h5>
+<div class="paragraph"><p>指定したフォルダーおよびその内容を削除します。</p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_collection_dictionary">Collection, Dictionary</h2>
+<div class="sectionbody">
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="11%" />
+<col width="44%" />
+<col width="44%" />
+<thead>
+<tr>
+<th align="left" valign="top"></th>
+<th align="left" valign="top">Collection</th>
+<th align="left" valign="top">Dictionary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">宣言</p></td>
+<td align="left" valign="top"><p class="table">Dim c As New Collection</p></td>
+<td align="left" valign="top"><p class="table">Dim d As New Scripting.Dictionary</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">追加</p></td>
+<td align="left" valign="top"><p class="table">c.Add Item:=100,key:="This is a pen."<br />
+c.Add  <br />
+c.Add 200."This"</p></td>
+<td align="left" valign="top"><p class="table">d.Add key:="Orange",Item:=100<br />
+d.Add "Apple",200</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">item取得</p></td>
+<td align="left" valign="top"><p class="table">a</p></td>
+<td align="left" valign="top"><p class="table">b</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -1621,7 +2344,7 @@ http://www.gnu.org/software/src-highlite -->
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-09-07 05:51:38 JST
+Last updated 2020-09-08 23:51:46 JST
 </div>
 </div>
 </body>

@@ -6,9 +6,9 @@
 :Date:      	2020-09-06
 :Revision:  0.1
 
-// :toc:
-// :sectnums:
-// :toclevels: 5
+:toc:
+:sectnums:
+:toclevels: 5
 
 :lang: ja
 :doctype: book
@@ -83,7 +83,7 @@ Dim wb As Workbook
 Set wb = Workbook.Open(FileName:="hoge.xlsx",ReadOnly:=True)
 ----
 
-==== Workbook 閉じる
+=== Workbook 閉じる
 
 [source,vbscript]
 ----
@@ -222,7 +222,142 @@ Range("A3").UsedRange.Select
 
 === セルの指定
 
-==== セルの追加
+
+[source,vbscript]
+----
+Range("C3").Select
+
+	   A B C D E
+	 ＋ーーーーーーーーーーーーーー
+	1｜□□□
+	2｜□□□
+	3｜□□■
+	4｜
+	5｜
+	6｜
+	7｜
+	8｜
+	9｜
+----
+
+* [red]#エラーになる#
+[source,vbscript]
+----
+Range(Cells(3,3)).Select
+----
+
+[source,vbscript]
+----
+Range("A3:B6").Select
+
+	   A B C D E
+	 ＋ーーーーーーーーーーーーーー
+	1｜
+	2｜
+	3｜■■
+	4｜■■
+	5｜■■
+	6｜■■
+	7｜
+	8｜
+	9｜
+	｜
+----
+
+[source,vbscript]
+----
+Range("A3,B6").Select
+
+	   A B C D E
+	 ＋ーーーーーーーーーーーーーー
+	1｜
+	2｜
+	3｜■
+	4｜
+	5｜
+	6｜　■
+	7｜
+	8｜
+	9｜
+	｜
+----
+
+[source,vbscript]
+----
+Range("A3","B6").Select
+	   A B C D E
+	 ＋ーーーーーーーーーーーーーー
+	1｜
+	2｜
+	3｜■■
+	4｜■■
+	5｜■■
+	6｜■■
+	7｜
+	8｜
+	9｜
+----
+
+[source,vbscript]
+----
+Range("A3:B6","C9:D12").Select
+
+	   A B C D E
+	 ＋ーーーーーーーーーーーーーー
+	1｜
+	2｜
+	3｜■■■■
+	4｜■■■■
+	5｜■■■■
+	6｜■■■■
+	7｜■■■■
+	8｜■■■■
+	9｜■■■■
+	0｜■■■■
+	1｜■■■■
+	2｜■■■■
+	3｜
+----
+
+[source,vbscript]
+----
+Range(Cells(3,3), Cells(6,6)).Select
+
+	   A B C D E
+	 ＋ーーーーーーーーーーーーーー
+	1｜
+	2｜
+	3｜　　■■■■
+	4｜　　■■■■
+	5｜　　■■■■
+	6｜　　■■■■
+	7｜
+----
+
+[source,vbscript]
+----
+Range("A3:B6,C9:D12").Select
+
+	   A B C D E
+	 ＋ーーーーーーーーーーーーーー
+	1｜
+	2｜
+	3｜■■
+	4｜■■
+	5｜■■
+	6｜■■
+	7｜
+	8｜
+	9｜　　■■
+	0｜　　■■
+	1｜　　■■
+	2｜　　■■
+	3｜
+----
+
+
+
+=== セルの追加
 
 
 [source,vbscript]
@@ -340,6 +475,14 @@ ts.Close
 
 === ファイル読み込み(UTF-8,ADODB)
 
+参照設定::
+ActiveX Data Objects 6.1 Library
+
+[source,VBSCRIPT]
+----
+
+----
+
 
 === ファイル書き込み(sjis,FileSystemObject)
 
@@ -364,6 +507,400 @@ ts.Close
 
 
 
+
+
+
+
+
+=== ファイル一覧取得
+
+参照設定::
+Microsoft ScrptingRuntime
+
+[source,VBSCRIPT]
+----
+Dim fl As File
+Dim fso As New Scrpting.Filesystemobject
+
+For Each fl in fso.GetFolder(Path).Files
+    fl.Name,Fl.Type
+Next
+----
+
+=== フォルダ一覧
+
+参照設定::
+Microsoft ScrptingRuntime
+
+[source,VBSCRIPT]
+----
+Dim fd As Folder
+Dim fso As New Scrpting.Filesystemobject
+
+For Each fd In fso.getFolder(Path).subFolders
+    fd.Name fd.Path
+Next
+----
+=== 特殊フォルダ
+
+参照設定::
+Microsoft ScrptingRuntime
+
+
+=== FileSystemObject オブジェクト
+
+参照設定::
+Microsoft ScrptingRuntime
+
+
+
+
+==== メソッド
+
+===== BuildPath メソッド
+
+フォルダーパスとフォルダーまたはファイルの名前を結合し、有効なパス区切り記号と
+の組み合わせを返します。
+
+* 構文
+
+[source,vbscript]
+----
+object.BuildPath (path, name)
+----
+
+[options="header"]
+|===
+ | Part   | Description
+ | object | 必須です。 常に FileSystemObject の名前。
+ | path   | 必須。 _名前_を組み合わせる既存のパス。 絶対パスまたは相対パスを指定することができ、既存のフォルダーを指定する必要はありません。
+ | name   | 必ず指定します。 既存の_パス_に追加されるフォルダーまたはファイルの名前。
+|===
+
+* 注釈
+
+BuildPath メソッドでは、必要な場合に限り、既存のパスと名前の間に追加のパス区切
+りを挿入します。
+
+
+===== CopyFile メソッド
+
+1 つまたは複数のファイルを別の場所にコピーします。
+
+* 構文
+
+[source,vbscript]
+----
+object.CopyFile source, destination, [ overwrite ]
+----
+
+[options="header"]
+|===
+|パーツ |説明
+|object |必ず指定します。 object は、常に FileSystemObject の名前です。
+|source |必須。 コピーする 1 つ以上のファイルを示す、ファイル指定用文字列。ワイルドカード文字も使用できます。
+|destination |必須です。 source から 1 つ以上のファイルをコピーする先を指定する文字列。 ワイルドカード文字は使用できません。
+|overwrite |省略可能。 既存のファイルを上書きできるかどうかを示すブール値です。 True の場合はファイルが上書きされ、False の場合は上書きされません。 既定値は True です。 destination に読み取り専用属性が設定されている場合は、overwrite の値にかかわらず CopyFile は失敗します。
+|===
+
+* 解説
+
+ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
+けです。 たとえば、以下を使用できます。
+
+[source,vbscript]
+----
+FileSystemObject.CopyFile "c:\mydocuments\letters\*.doc", "c:\tempfolder\"
+----
+
+以下のようには使用できません。
+
+[source,vbscript]
+----
+FileSystemObject.CopyFile "c:\mydocuments\*\R1???97.xls", "c:\tempfolder"
+----
+
+source にワイルドカード文字が含まれている場合や、destination がパスの区切り文
+字 (**) で終わっている場合は、destination は一致するファイルのコピー先となる既
+存のフォルダーと見なされます。 それ以外の場合は、destination は作成するファイ
+ルの名前と見なされます。 いずれの場合も、個々のファイルのコピー時に起こり得る
+ことは 3 つあります。
+
+
+1. destination が存在しない場合は、source がコピーされます。 これは通常のケー
+   スです。
+
+2. destination が既存のファイルの場合、 overwrite が False のときはエラーが発
+   生します。 True のときは既存のファイルを上書きして source がコピーされます。
+
+3. destination がディレクトリの場合は、エラーが発生します。
+
+source でワイルドカード文字が使用されていて、どのファイルとも一致しなかった場
+合も、エラーが発生します。 いずれかのエラーが発生した時点で CopyFile メソッド
+の実行は停止されます。 エラーが発生するまでに行われた変更を取り消したり元に戻
+したりする処理は一切行われません。
+
+===== CopyFolder メソッド
+
+フォルダーを再帰的に別の場所にコピーします。
+
+* 構文
+
+[source,vbscript]
+----
+object.CopyFolder source, destination, [ overwrite ]
+----
+
+[options="header"]
+|===
+|パーツ |説明
+|object |必ず指定します。 常に FileSystemObject の名前。
+|source |必須。 コピーする 1 つ以上のフォルダーを指定する文字列です。ワイルドカード文字を使用できます。
+|destination |必須です。 source のフォルダーとサブフォルダーのコピー先を指定する文字列です。 ワイルドカード文字は使用できません。
+|overwrite |省略可能。 既存のフォルダーを上書きするかどうかを示す ブール 値です。 True の場合はファイルが上書きされ、 False の場合は上書きされません。 既定値は True です。
+|===
+
+* 解説
+
+ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
+けです。 たとえば、以下を使用できます。
+
+[source,vbscript]
+----
+FileSystemObject.CopyFolder "c:\mydocuments\letters\*", "c:\tempfolder\"
+----
+
+以下のようには使用できません。
+
+[source,vbscript]
+----
+FileSystemObject.CopyFolder "c:\mydocuments\*\*", "c:\tempfolder\"
+----
+
+source にワイルドカード文字が含まれている場合や、destination がパスの区切り文
+字 ()) で終わっている場合は、destination は一致するフォルダーとサブフォルダー
+のコピー先となる既存のフォルダーと見なされます。 
+
+それ以外の場合は、destinationは作成するフォルダーの名前と見なされます。 
+
+いずれの場合も、個々のフォルダーがコピーされるときに起こり得ることは 4 つあり
+ます。
+
+
+1. destination が存在しない場合は、source フォルダーとそのすべての内容がコピー
+   されます。 これは通常のケースです。
+
+2. destination が既存のファイルの場合は、エラーが発生します。
+
+3. destination がディレクトリの場合は、フォルダーとそのすべての内容のコピーを
+   しようとします。 source に含まれているファイルが destination に既に存在する
+場合は、overwrite が False に設定されているとエラーが発生します。 それ以外の場
+合、ファイルを既存のファイルにコピーしようとします。
+
+4. destination が読み取り専用のディレクトリで、overwrite が False の場合、既存
+   の読み取り専用のファイルをそのディレクトリにコピーしようとするとエラーが発
+生します。
+
+source でワイルドカード文字が使用されていて、どのフォルダーとも一致しなかった
+場合も、エラーが発生します。
+
+CopyFolder メソッドは、最初のエラーが発生した時点で処理を中止します。 エラーが
+発生するまでに行われた変更を取り消したり元に戻したりする処理は一切行われません。
+
+===== CreateFolder メソッド
+
+フォルダーを作成します。
+
+* 構文
+
+[source,vbscript]
+----
+object.CreateFolder (foldername)
+----
+
+[options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|foldername |必ず指定します。 作成するフォルダーを識別する 文字列式です。
+|===
+
+* 注釈
+
+指定したフォルダーがすでに存在する場合は、エラーが発生します。
+
+
+
+
+===== CreateTextFile メソッド
+
+指定されたファイル名を作成し、ファイルの読み取りまたは書き込みに使用できる**TextStream** オブジェクトを返します。
+
+
+* 構文
+
+
+[source,vbscript]
+----
+object.CreateTextFile (filename, [ overwrite, [ unicode ]])
+----
+
+[options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に**FileSystemObject** または**Folder** オブジェクトの名前を指定します。
+|filename |必須。 作成するファイルを示す 文字列式。
+|overwrite |省略可能。 既存のファイルを上書きできるかどうかを示す Boolean 値。 ファイルを上書きできる場合は True 、上書きできない場合は False です。 省略した場合、既存のファイルは上書きできます。
+|unicode |省略可能。 Unicode ファイルを作成するか、ASCII ファイルを作成するかを示す Boolean 値です。 Unicode ファイルとして作成する場合は True 、ASCII ファイルとして作成する場合は False です。 省略した場合は、ASCII ファイルとみなされます。
+|===
+
+* 注釈
+
+次のコードは、 CreateTextFileメソッドを使用して、テキストファイルを作成して開
+く方法を示しています。 _Overwrite_引数がFalseの場合、または指定されていない場
+合は、既に存在する_ファイル名_に対してエラーが発生します。
+
+
+[source,vbscript]
+----
+Sub CreateAfile
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set a = fs.CreateTextFile("c:\testfile.txt", True)
+    a.WriteLine("This is a test.")
+    a.Close
+End Sub
+----
+
+===== DeleteFile メソッド
+
+指定したファイルを削除します。
+
+* 構文
+
+[source,vbscript]
+----
+object.DeleteFile filespec, [ force ]
+----
+
+
+[options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|filespec |必須。 削除するファイルの名前です。 __ 最後のパス コンポーネントではワイルドカード文字を使用できます。
+|force |省略可能。 読み取り専用属性が設定されているファイルを削除する場合は、 Trueを指定するブール型 (Boolean) の値を指定します。False(既定値)。
+|===
+
+
+* 注釈
+
+一致するファイルが見つからない場合はエラーが発生します。 DeleteFile メソッドは、
+最初のエラーが発生した時点で中止されます。 エラーが発生する前に行われた変更は
+ロールバックされません (元に戻されません)。
+
+===== DeleteFolder メソッド
+
+指定したフォルダーおよびその内容を削除します。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+== Collection, Dictionary
+
+
+[cols="1,4,4",options="header"]
+|===
+||Collection|Dictionary
+|宣言|Dim c As New Collection| Dim d As New Scripting.Dictionary
+| 追加| c.Add Item:=100,key:="This is a pen." +
+c.Add   +
+c.Add 200."This"| d.Add key:="Orange",Item:=100 +
+d.Add "Apple",200
+|item取得|a|b
+|===
 
 
 
