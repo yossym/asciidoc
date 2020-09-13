@@ -725,7 +725,7 @@ install: function(toclevels) {
 }
 
 }
-asciidoc.install(5);
+asciidoc.install(3);
 /*]]>*/
 </script>
 </head>
@@ -735,7 +735,7 @@ asciidoc.install(5);
 <span id="author">yossym</span><br />
 <span id="email"><code>&lt;<a href="mailto:docomoxyz@gmail.com">docomoxyz@gmail.com</a>&gt;</code></span><br />
 <span id="revnumber">version 0.1,</span>
-<span id="revdate">2020-09-06</span>
+<span id="revdate">2020-09-11</span>
 <div id="toc">
   <div id="toctitle">Table of Contents</div>
   <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
@@ -786,6 +786,14 @@ Range
         LastRow, LastColumn
 </p>
 </dd>
+<dt class="hdlist1">
+Controls 
+</dt>
+<dd>
+<p>
+        ctl
+</p>
+</dd>
 </dl></div>
 <div class="sect2">
 <h3 id="_関数系">関数系</h3>
@@ -807,6 +815,10 @@ Variant
 </p>
 </dd>
 </dl></div>
+</div>
+<div class="sect2">
+<h3 id="_filesystemobject">FilesystemObject</h3>
+<div class="paragraph"><p>fso</p></div>
 </div>
 </div>
 </div>
@@ -885,74 +897,44 @@ Workbook<span style="color: #990000">.</span>SaveAs <span style="color: #FF0000"
 </div>
 </div>
 <div class="sect1">
-<h2 id="_worksheets_追加">WorkSheets 追加</h2>
+<h2 id="_worksheets">WorkSheets</h2>
 <div class="sectionbody">
-<div class="ulist"><ul>
-<li>
-<p>
-アクティブシートの左に追加
-</p>
-</li>
-</ul></div>
+<div class="sect2">
+<h3 id="_worksheets_追加">WorkSheets 追加</h3>
 <div class="listingblock">
+<div class="title">アクティブシートの左に追加</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt>WorkSheets<span style="color: #990000">.</span>Add
 WorkSheets<span style="color: #990000">.</span>Add before<span style="color: #990000">:=</span>ActiveSheet</tt></pre></div></div>
-<div class="ulist"><ul>
-<li>
-<p>
-アクティブシートの左に追加
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">アクティブシートの左に追加</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt>WorkSheets<span style="color: #990000">.</span>Add After<span style="color: #990000">:=</span>Activesheet</tt></pre></div></div>
-<div class="ulist"><ul>
-<li>
-<p>
-2番目のシート右に２枚追加
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">2番目のシート右に２枚追加</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt>Worksheets<span style="color: #990000">.</span>Add After<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">),</span>Count<span style="color: #990000">:=</span><span style="color: #993399">2</span></tt></pre></div></div>
-<div class="ulist"><ul>
-<li>
-<p>
-最終シート？の右にシート追加
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">最終シート？の右にシート追加</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt>Worksheets<span style="color: #990000">.</span>Add After<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span>Worksheets<span style="color: #990000">.</span>Count<span style="color: #990000">)</span></tt></pre></div></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_worksheets_削除">WorkSheets 削除</h2>
-<div class="sectionbody">
-<div class="ulist"><ul>
-<li>
-<p>
-アクティブシート削除
-</p>
-</li>
-</ul></div>
+<div class="sect2">
+<h3 id="_worksheets_削除">WorkSheets 削除</h3>
 <div class="listingblock">
+<div class="title">アクティブシート削除</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -960,12 +942,14 @@ http://www.gnu.org/software/src-highlite -->
 <pre><tt>Workbooks<span style="color: #990000">.</span>Delete</tt></pre></div></div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_行の追加">行の追加</h2>
+<h2 id="_セル">セル</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>asdf</p></div>
 <div class="sect2">
-<h3 id="_1行追加">1行追加</h3>
+<h3 id="_行の追加">行の追加</h3>
+<div class="sect3">
+<h4 id="_1行追加">1行追加</h4>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -981,17 +965,17 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #000000">Rows</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"B"</span><span style="color: #990000">).</span>Insert</tt></pre></div></div>
 </div>
-<div class="sect2">
-<h3 id="_複数行追加">複数行追加</h3>
+<div class="sect3">
+<h4 id="_複数行追加">複数行追加</h4>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Columns</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Columns</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)).</span>Insert</tt></pre></div></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Rows</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Rows</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)).</span>Insert</tt></pre></div></div>
 </div>
-<div class="sect2">
-<h3 id="_1列追加">1列追加</h3>
+<div class="sect3">
+<h4 id="_1列追加">1列追加</h4>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -1001,8 +985,8 @@ http://www.gnu.org/software/src-highlite -->
 <span style="font-weight: bold"><span style="color: #000000">Columns</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"C"</span><span style="color: #990000">).</span>Insert
 <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"C3"</span><span style="color: #990000">).</span>EntireColumn<span style="color: #990000">.</span>Insert</tt></pre></div></div>
 </div>
-<div class="sect2">
-<h3 id="_複数列追加">複数列追加</h3>
+<div class="sect3">
+<h4 id="_複数列追加">複数列追加</h4>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -1010,8 +994,9 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Columns</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Columns</span></span><span style="color: #990000">(</span><span style="color: #993399">6</span><span style="color: #990000">)).</span>Insert</tt></pre></div></div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_最終行">最終行</h3>
+<h3 id="_最終行取得">最終行取得</h3>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -1021,7 +1006,7 @@ http://www.gnu.org/software/src-highlite -->
 LastRow <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>Rows<span style="color: #990000">.</span>Count<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">End</span></span><span style="color: #990000">(</span>xlUp<span style="color: #990000">).</span>Row</tt></pre></div></div>
 </div>
 <div class="sect2">
-<h3 id="_最終列">最終列</h3>
+<h3 id="_最終列取得">最終列取得</h3>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -1045,11 +1030,6 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3"</span><span style="color: #990000">).</span>UsedRange<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span></tt></pre></div></div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_セル">セル</h2>
-<div class="sectionbody">
 <div class="sect2">
 <h3 id="_セルの指定">セルの指定</h3>
 <div class="listingblock">
@@ -1100,8 +1080,7 @@ http://www.gnu.org/software/src-highlite -->
         <span style="color: #993399">6</span>｜■■
         <span style="color: #993399">7</span>｜
         <span style="color: #993399">8</span>｜
-        <span style="color: #993399">9</span>｜
-        ｜</tt></pre></div></div>
+        <span style="color: #993399">9</span>｜</tt></pre></div></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -1119,8 +1098,7 @@ http://www.gnu.org/software/src-highlite -->
         <span style="color: #993399">6</span>｜　■
         <span style="color: #993399">7</span>｜
         <span style="color: #993399">8</span>｜
-        <span style="color: #993399">9</span>｜
-        ｜</tt></pre></div></div>
+        <span style="color: #993399">9</span>｜</tt></pre></div></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -1214,21 +1192,15 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3:B6"</span><span style="color: #990000">).</span>Insert shift<span style="color: #990000">:=</span>xlShiftToRight</tt></pre></div></div>
-<div class="ulist"><ul>
-<li>
-<p>
-XlInsertShiftDirection 列挙 (Excel)
-</p>
-</li>
-</ul></div>
 <div class="tableblock">
 <table rules="all"
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
+<caption class="title">Table 1. XlInsertShiftDirection 列挙 (Excel)</caption>
+<col width="44%" />
+<col width="11%" />
+<col width="44%" />
 <thead>
 <tr>
 <th align="left" valign="top"> 名前           </th>
@@ -1309,14 +1281,8 @@ http://www.gnu.org/software/src-highlite -->
 </div>
 <div class="sect2">
 <h3 id="_コピペ">コピペ</h3>
-<div class="ulist"><ul>
-<li>
-<p>
-普通にコピペ
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">普通にコピペ</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -1325,14 +1291,8 @@ http://www.gnu.org/software/src-highlite -->
 Selection<span style="color: #990000">.</span>Copy
 <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"U25"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
 Selection<span style="color: #990000">.</span>PasteSpecial</tt></pre></div></div>
-<div class="ulist"><ul>
-<li>
-<p>
-1列をコピーして1行にペースト
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">1列をコピーして1行にペースト</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -1366,14 +1326,8 @@ http://www.gnu.org/software/src-highlite -->
 
 <span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">5</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">)).</span><span style="font-weight: bold"><span style="color: #000000">Sort</span></span><span style="color: #990000">(</span>key1<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">),</span> _
     order1<span style="color: #990000">:=</span>xlDescending<span style="color: #990000">)</span></tt></pre></div></div>
-<div class="ulist"><ul>
-<li>
-<p>
-A1:C5の範囲をA1,B1を基準にソート
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">A1:C5の範囲をA1,B1を基準にソート</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -1512,8 +1466,11 @@ http://www.gnu.org/software/src-highlite -->
     fd<span style="color: #990000">.</span>Name fd<span style="color: #990000">.</span>Path
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
 </div>
-<div class="sect2">
-<h3 id="_特殊フォルダ">特殊フォルダ</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_特殊フォルダ">特殊フォルダ</h2>
+<div class="sectionbody">
 <div class="dlist"><dl>
 <dt class="hdlist1">
 参照設定
@@ -1525,8 +1482,135 @@ Microsoft ScrptingRuntime
 </dd>
 </dl></div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_ファイル選択dialog">ファイル選択Dialog</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">sample</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> cs As New Collection
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Var As Variant
+
+    <span style="font-style: italic"><span style="color: #9A1900">'ファイルを1つ選択</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> cs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">SelectFiles</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"CSVファイル(*.csv),*.csv"</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span>
+    Debug<span style="color: #990000">.</span>Print cs<span style="color: #990000">.</span>Count
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Var In cs
+        Debug<span style="color: #990000">.</span>Print Var
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">'ファイルを複数選択</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> cs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">SelectFiles</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"CSVファイル(*.csv),*.csv"</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"せんたく"</span><span style="color: #990000">)</span>
+    Debug<span style="color: #990000">.</span>Print cs<span style="color: #990000">.</span>Count
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Var In cs
+        Debug<span style="color: #990000">.</span>Print Var
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">'ファイルを複数選択　＆　filterも複数</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> s As String
+    s <span style="color: #990000">=</span> <span style="color: #FF0000">"テキストファイル(*.txt;*.log),*.txt;*.log,すべてのファイル(*.*),*.*"</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> cs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">SelectFiles</span></span><span style="color: #990000">(</span>s<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"せんたく"</span><span style="color: #990000">)</span>
+    Debug<span style="color: #990000">.</span>Print cs<span style="color: #990000">.</span>Count
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Var In cs
+        Debug<span style="color: #990000">.</span>Print Var
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">SelectFiles</span></span><span style="color: #990000">(</span>Filter As String<span style="color: #990000">,</span> Multiselect As Boolean<span style="color: #990000">,</span> Optional Title As String <span style="color: #990000">=</span> <span style="color: #FF0000">"ファイル選択"</span><span style="color: #990000">)</span> As Collection
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> c As New Collection
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fs As Variant
+
+    fs <span style="color: #990000">=</span> Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetOpenFilename</span></span><span style="color: #990000">(</span> _
+        FileFilter<span style="color: #990000">:=</span>Filter<span style="color: #990000">,</span> _
+        Multiselect<span style="color: #990000">:=</span>Multiselect<span style="color: #990000">,</span> _
+        Title<span style="color: #990000">:=</span>Title<span style="color: #990000">)</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #000000">IsArray</span></span><span style="color: #990000">(</span>fs<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">LBound</span></span><span style="color: #990000">(</span>fs<span style="color: #990000">)</span> To <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>fs<span style="color: #990000">)</span>
+            c<span style="color: #990000">.</span>Add <span style="font-weight: bold"><span style="color: #000000">fs</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> fs <span style="color: #990000">&lt;&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+            c<span style="color: #990000">.</span>Add fs
+        <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> SelectFiles <span style="color: #990000">=</span> c
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
 <div class="sect2">
-<h3 id="_filesystemobject_オブジェクト">FileSystemObject オブジェクト</h3>
+<h3 id="_1ファイル選択">1ファイル選択</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> myFile As Variant
+
+ChDir ThisWorkbook<span style="color: #990000">.</span>Path
+myFile <span style="color: #990000">=</span> Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetOpenFilename</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"CSVファイル(*.csv),*.csv"</span><span style="color: #990000">)</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #000000">VarType</span></span><span style="color: #990000">(</span>myFile<span style="color: #990000">)</span> <span style="color: #990000">=</span> vbBoolean <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+    MsgBox <span style="color: #FF0000">"キャンセルされました"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+    MsgBox myFile <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" が選択されました"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_タイトルを変更">タイトルを変更</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>myFile <span style="color: #990000">=</span> Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetOpenFilename</span></span><span style="color: #990000">(</span> _
+        filefilter<span style="color: #990000">:=</span><span style="color: #FF0000">"CSVファイル(*.csv),*.csv"</span><span style="color: #990000">,</span> _
+        Title<span style="color: #990000">:=</span><span style="color: #FF0000">"This is a pen."</span><span style="color: #990000">)</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_複数ファイル">複数ファイル</h3>
+<div class="listingblock">
+<div class="title">Multiselectがポイント</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> f As Variant
+fs <span style="color: #990000">=</span> Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetOpenFilename</span></span><span style="color: #990000">(</span> _
+filefilter<span style="color: #990000">:=</span><span style="color: #FF0000">"Excel ファイル (*.xls; *.xlsx),*.xls; *.xlsx"</span><span style="color: #990000">,</span> _
+ MultiSelect<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">)</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #000000">IsArray</span></span><span style="color: #990000">(</span>fs<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> f In fs
+        Debug<span style="color: #990000">.</span>Print f
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+    Debug<span style="color: #990000">.</span>Print fs
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_フォルダ選択dialog">フォルダ選択Dialog</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> s As String
+Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">FileDialog</span></span><span style="color: #990000">(</span>msoFileDialogFolderPicker<span style="color: #990000">).</span>Show
+s <span style="color: #990000">=</span> Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">FileDialog</span></span><span style="color: #990000">(</span>msoFileDialogFolderPicker<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">SelectedItems</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
+Debug<span style="color: #990000">.</span>Print s</tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_filesystemobject_オブジェクト">FileSystemObject オブジェクト</h2>
+<div class="sectionbody">
 <div class="dlist"><dl>
 <dt class="hdlist1">
 参照設定
@@ -1537,20 +1621,220 @@ Microsoft ScrptingRuntime
 </p>
 </dd>
 </dl></div>
-<div class="sect3">
-<h4 id="_メソッド">メソッド</h4>
-<div class="sect4">
-<h5 id="_buildpath_メソッド">BuildPath メソッド</h5>
-<div class="paragraph"><p>フォルダーパスとフォルダーまたはファイルの名前を結合し、有効なパス区切り記号と
-の組み合わせを返します。</p></div>
+<div class="paragraph"><p>コンピューターのファイル システムへのアクセスを提供します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Scripting<span style="color: #990000">.</span>FileSystemObject</tt></pre></div></div>
+<div class="paragraph"><div class="title">注釈</div><p>次のコードはFileSystemObjectオブジェクトを使用して読み書き可能な<strong>TextStream</strong>
+オブジェクトを返す方法を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> a <span style="color: #990000">=</span> fs<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">CreateTextFile</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">estfile.txt"</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">)</span>
+a<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">WriteLine</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"This is a test."</span><span style="color: #990000">)</span>
+a<span style="color: #990000">.</span>Close</tt></pre></div></div>
+<div class="paragraph"><p>コード例では、次のとおりです。</p></div>
 <div class="ulist"><ul>
 <li>
 <p>
-構文
+CreateObject 関数は FileSystemObject (fs) を返します。
+</p>
+</li>
+<li>
+<p>
+CreateTextFile メソッドは、ファイルを TextStream オブジェクト (a) として作成します。
+</p>
+</li>
+<li>
+<p>
+WriteLine メソッドは、作成されたテキスト ファイルにテキスト行を書き込みます。
+</p>
+</li>
+<li>
+<p>
+Close メソッドは、バッファーをフラッシュし、ファイルを閉じます。
 </p>
 </li>
 </ul></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 2. メソッド</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">メソッド </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">BuildPath</p></td>
+<td align="left" valign="top"><p class="table">既存のパスに名前を追加します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CopyFile</p></td>
+<td align="left" valign="top"><p class="table">1 つ以上のファイルを別の場所にコピーします。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CopyFolder</p></td>
+<td align="left" valign="top"><p class="table">1 つ以上のフォルダーを別の場所にコピーします。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CreateFolder</p></td>
+<td align="left" valign="top"><p class="table">新しいフォルダーを作成します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CreateTextFile</p></td>
+<td align="left" valign="top"><p class="table">テキスト ファイルを作成し、ファイルの読み取りまたは書き込みに使用できる TextStream オブジェクトを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">DeleteFile</p></td>
+<td align="left" valign="top"><p class="table">指定した 1 つ以上のファイルを削除します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">DeleteFolder</p></td>
+<td align="left" valign="top"><p class="table">指定した 1 つ以上のフォルダーを削除します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">DriveExists</p></td>
+<td align="left" valign="top"><p class="table">指定したドライブが存在するかどうかを確認します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">FileExists</p></td>
+<td align="left" valign="top"><p class="table">指定したファイルが存在するかどうかを確認します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">FolderExists</p></td>
+<td align="left" valign="top"><p class="table">指定したフォルダーが存在するかどうかを確認します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetAbsolutePathName</p></td>
+<td align="left" valign="top"><p class="table">指定したパスのドライブのルートからの完全なパスを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetBaseName</p></td>
+<td align="left" valign="top"><p class="table">指定したファイルまたはフォルダーのベース名を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetDrive</p></td>
+<td align="left" valign="top"><p class="table">指定したパスのドライブに対応するドライブ オブジェクトを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetDriveName</p></td>
+<td align="left" valign="top"><p class="table">指定したパスのドライブ名を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetExtensionName</p></td>
+<td align="left" valign="top"><p class="table">指定したパスの最後のコンポーネントのファイル拡張子名を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetFile</p></td>
+<td align="left" valign="top"><p class="table">指定したパスのファイル オブジェクトを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetFileName</p></td>
+<td align="left" valign="top"><p class="table">指定したパスの最後のコンポーネントのファイル名またはフォルダー名を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetFolder</p></td>
+<td align="left" valign="top"><p class="table">指定したパスのフォルダー オブジェクトを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetParentFolderName</p></td>
+<td align="left" valign="top"><p class="table">指定したパスの最後のコンポーネントの親フォルダーの名前を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetSpecialFolder</p></td>
+<td align="left" valign="top"><p class="table">Windows の一部の特殊フォルダーのパスを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GetTempName</p></td>
+<td align="left" valign="top"><p class="table">ランダムに生成された一時ファイルまたはフォルダーを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Move</p></td>
+<td align="left" valign="top"><p class="table">指定したファイルまたはフォルダーを別の場所に移動します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">MoveFile</p></td>
+<td align="left" valign="top"><p class="table">1 つ以上のファイルを別の場所に移動します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">MoveFolder</p></td>
+<td align="left" valign="top"><p class="table">1 つ以上のフォルダーを別の場所に移動します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">OpenAsTextStream</p></td>
+<td align="left" valign="top"><p class="table">指定したファイルを開き、開いたファイルの読み取り、書き込み、または追加書き込みに使用できる TextStream オブジェクトを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">OpenTextFile</p></td>
+<td align="left" valign="top"><p class="table">ファイルを開き、ファイルへのアクセスに使用できる TextStream オブジェクトを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">WriteLine</p></td>
+<td align="left" valign="top"><p class="table">指定した文字列と改行文字を TextStream ファイルに書き込みます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 3. プロパティ</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">プロパティ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Drives</p></td>
+<td align="left" valign="top"><p class="table">コンピューター上のすべての Drive オブジェクトのコレクションを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Name</p></td>
+<td align="left" valign="top"><p class="table">指定したファイルまたはフォルダーの名前を設定するか返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Path</p></td>
+<td align="left" valign="top"><p class="table">指定したファイル、フォルダー、またはドライブのパスを返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Size</p></td>
+<td align="left" valign="top"><p class="table">ファイルの場合は、指定したファイルのバイト単位でのサイズを返します。フォルダーの場合、そのフォルダーに含まれるすべてのファイルとサブフォルダーのサイズをバイト単位で返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Type</p></td>
+<td align="left" valign="top"><p class="table">ファイルまたはフォルダーの種類に関する情報を返します (たとえば .TXT で終わるファイルの場合は、"Text Document" を返します)。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_メソッド">メソッド</h3>
+<div class="sect3">
+<h4 id="_buildpath_メソッド">BuildPath メソッド</h4>
+<div class="paragraph"><p>フォルダーパスとフォルダーまたはファイルの名前を結合し、有効なパス区切り記号と
+の組み合わせを返します。</p></div>
 <div class="listingblock">
+<div class="title">構文</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -1561,13 +1845,12 @@ http://www.gnu.org/software/src-highlite -->
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<col width="50%" />
-<col width="50%" />
+<col width="20%" />
+<col width="80%" />
 <thead>
 <tr>
 <th align="left" valign="top"> Part   </th>
-<th align="left" valign="top"> Description
- </th>
+<th align="left" valign="top"> Description</th>
 </tr>
 </thead>
 <tbody>
@@ -1586,27 +1869,14 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="ulist"><ul>
-<li>
-<p>
-注釈
-</p>
-</li>
-</ul></div>
-<div class="paragraph"><p>BuildPath メソッドでは、必要な場合に限り、既存のパスと名前の間に追加のパス区切
+<div class="paragraph"><div class="title">注釈</div><p>BuildPath メソッドでは、必要な場合に限り、既存のパスと名前の間に追加のパス区切
 りを挿入します。</p></div>
 </div>
-<div class="sect4">
-<h5 id="_copyfile_メソッド">CopyFile メソッド</h5>
+<div class="sect3">
+<h4 id="_copyfile_メソッド">CopyFile メソッド</h4>
 <div class="paragraph"><p>1 つまたは複数のファイルを別の場所にコピーします。</p></div>
-<div class="ulist"><ul>
-<li>
-<p>
-構文
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">構文</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -1617,8 +1887,8 @@ http://www.gnu.org/software/src-highlite -->
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<col width="50%" />
-<col width="50%" />
+<col width="20%" />
+<col width="80%" />
 <thead>
 <tr>
 <th align="left" valign="top">パーツ </th>
@@ -1645,14 +1915,7 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="ulist"><ul>
-<li>
-<p>
-解説
-</p>
-</li>
-</ul></div>
-<div class="paragraph"><p>ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
+<div class="paragraph"><div class="title">解説</div><p>ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
 けです。 たとえば、以下を使用できます。</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
@@ -1696,17 +1959,11 @@ destination がディレクトリの場合は、エラーが発生します。
 の実行は停止されます。 エラーが発生するまでに行われた変更を取り消したり元に戻
 したりする処理は一切行われません。</p></div>
 </div>
-<div class="sect4">
-<h5 id="_copyfolder_メソッド">CopyFolder メソッド</h5>
+<div class="sect3">
+<h4 id="_copyfolder_メソッド">CopyFolder メソッド</h4>
 <div class="paragraph"><p>フォルダーを再帰的に別の場所にコピーします。</p></div>
-<div class="ulist"><ul>
-<li>
-<p>
-構文
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">構文</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -1717,8 +1974,8 @@ http://www.gnu.org/software/src-highlite -->
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<col width="50%" />
-<col width="50%" />
+<col width="20%" />
+<col width="80%" />
 <thead>
 <tr>
 <th align="left" valign="top">パーツ </th>
@@ -1745,14 +2002,7 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="ulist"><ul>
-<li>
-<p>
-解説
-</p>
-</li>
-</ul></div>
-<div class="paragraph"><p>ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
+<div class="paragraph"><div class="title">解説</div><p>ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
 けです。 たとえば、以下を使用できます。</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
@@ -1806,17 +2056,11 @@ destination が読み取り専用のディレクトリで、overwrite が False 
 <div class="paragraph"><p>CopyFolder メソッドは、最初のエラーが発生した時点で処理を中止します。 エラーが
 発生するまでに行われた変更を取り消したり元に戻したりする処理は一切行われません。</p></div>
 </div>
-<div class="sect4">
-<h5 id="_createfolder_メソッド">CreateFolder メソッド</h5>
+<div class="sect3">
+<h4 id="_createfolder_メソッド">CreateFolder メソッド</h4>
 <div class="paragraph"><p>フォルダーを作成します。</p></div>
-<div class="ulist"><ul>
-<li>
-<p>
-構文
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">構文</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -1827,8 +2071,8 @@ http://www.gnu.org/software/src-highlite -->
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<col width="50%" />
-<col width="50%" />
+<col width="20%" />
+<col width="80%" />
 <thead>
 <tr>
 <th align="left" valign="top">パーツ </th>
@@ -1847,26 +2091,13 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="ulist"><ul>
-<li>
-<p>
-注釈
-</p>
-</li>
-</ul></div>
-<div class="paragraph"><p>指定したフォルダーがすでに存在する場合は、エラーが発生します。</p></div>
+<div class="paragraph"><div class="title">注釈</div><p>指定したフォルダーがすでに存在する場合は、エラーが発生します。</p></div>
 </div>
-<div class="sect4">
-<h5 id="_createtextfile_メソッド">CreateTextFile メソッド</h5>
+<div class="sect3">
+<h4 id="_createtextfile_メソッド">CreateTextFile メソッド</h4>
 <div class="paragraph"><p>指定されたファイル名を作成し、ファイルの読み取りまたは書き込みに使用できる<strong>TextStream</strong> オブジェクトを返します。</p></div>
-<div class="ulist"><ul>
-<li>
-<p>
-構文
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">構文</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -1877,8 +2108,8 @@ http://www.gnu.org/software/src-highlite -->
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<col width="50%" />
-<col width="50%" />
+<col width="20%" />
+<col width="80%" />
 <thead>
 <tr>
 <th align="left" valign="top">パーツ </th>
@@ -1905,14 +2136,7 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="ulist"><ul>
-<li>
-<p>
-注釈
-</p>
-</li>
-</ul></div>
-<div class="paragraph"><p>次のコードは、 CreateTextFileメソッドを使用して、テキストファイルを作成して開
+<div class="paragraph"><div class="title">注釈</div><p>次のコードは、 CreateTextFileメソッドを使用して、テキストファイルを作成して開
 く方法を示しています。 _Overwrite_引数がFalseの場合、または指定されていない場
 合は、既に存在する_ファイル名_に対してエラーが発生します。</p></div>
 <div class="listingblock">
@@ -1927,17 +2151,11 @@ http://www.gnu.org/software/src-highlite -->
     a<span style="color: #990000">.</span>Close
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
 </div>
-<div class="sect4">
-<h5 id="_deletefile_メソッド">DeleteFile メソッド</h5>
+<div class="sect3">
+<h4 id="_deletefile_メソッド">DeleteFile メソッド</h4>
 <div class="paragraph"><p>指定したファイルを削除します。</p></div>
-<div class="ulist"><ul>
-<li>
-<p>
-構文
-</p>
-</li>
-</ul></div>
 <div class="listingblock">
+<div class="title">構文</div>
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
@@ -1948,8 +2166,8 @@ http://www.gnu.org/software/src-highlite -->
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<col width="50%" />
-<col width="50%" />
+<col width="20%" />
+<col width="80%" />
 <thead>
 <tr>
 <th align="left" valign="top">パーツ </th>
@@ -1972,21 +2190,1462 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="ulist"><ul>
-<li>
-<p>
-注釈
-</p>
-</li>
-</ul></div>
-<div class="paragraph"><p>一致するファイルが見つからない場合はエラーが発生します。 DeleteFile メソッドは、
+<div class="paragraph"><div class="title">注釈</div><p>一致するファイルが見つからない場合はエラーが発生します。 DeleteFile メソッドは、
 最初のエラーが発生した時点で中止されます。 エラーが発生する前に行われた変更は
 ロールバックされません (元に戻されません)。</p></div>
 </div>
-<div class="sect4">
-<h5 id="_deletefolder_メソッド">DeleteFolder メソッド</h5>
+<div class="sect3">
+<h4 id="_deletefolder_メソッド">DeleteFolder メソッド</h4>
 <div class="paragraph"><p>指定したフォルダーおよびその内容を削除します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>DeleteFolder folderspec<span style="color: #990000">,</span> <span style="color: #990000">[</span> force <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">folderspec</p></td>
+<td align="left" valign="top"><p class="table">必須。 削除するフォルダーの名前。 folderspec の最後のパス コンポーネントにはワイルドカード文字を含むことができます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">force</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 読み取り専用属性が設定されているフォルダーを削除する場合は、 Trueを指定するブール値。False(既定値)。</p></td>
+</tr>
+</tbody>
+</table>
 </div>
+<div class="paragraph"><div class="title">注釈</div><p>DeleteFolder メソッドでは、内容を持つフォルダーと内容を持たないフォルダーは区
+別されません。 指定されたフォルダーは、内容を持つかどうかにかかわらず削除され
+ます。</p></div>
+<div class="paragraph"><p>一致するフォルダーが見つからない場合は、エラーが発生します。 いずれかのエラー
+が発生した時点で DeleteFolder メソッドの実行は停止されます。 エラーが発生する
+前に行われた変更内容のロールバックまたは取り消しは行われません。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_drive_exists_メソッド">drive exists メソッド</h4>
+<div class="paragraph"><p>指定したドライブが存在する場合は True、それ以外の場合は False を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">DriveExists</span></span> <span style="color: #990000">(</span>drivespec<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">drivespec</p></td>
+<td align="left" valign="top"><p class="table">必須。 ドライブのルートのドライブ文字またはパスの指定。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>リムーバブル メディアを使用するドライブの場合、DriveExists メソッドはメディア
+が存在しなくても True を返します。 ドライブの準備ができているかどうかを判断す
+るには、 drive オブジェクトのisreadyプロパティを使用します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_fileexists_メソッド">FileExists メソッド</h4>
+<div class="paragraph"><p>指定したファイルが存在する場合は True を返します。存在しない場合は False を返
+します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">FileExists</span></span> <span style="color: #990000">(</span>filespec<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">filespec</p></td>
+<td align="left" valign="top"><p class="table">必須。 存在するかどうかを調べるファイルの名前を指定します。 ファイ
+ルが現在のフォルダー内にないことが想定される場合は、完全なパス (絶対パスまたは
+相対パス) を指定する必要があります。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_folderexists_メソッド">FolderExists メソッド</h4>
+<div class="paragraph"><p>指定したフォルダーが存在する場合は、True を返します。存在しない場合は、False
+を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">FolderExists</span></span> <span style="color: #990000">(</span>folderspec<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">folderspec</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 存在するかどうかを調べるフォルダーの名前を指定し
+ます。 フォルダーが現在のフォルダーにないと予想される場合は、完全なパス (絶対
+パスまたは相対パス) を指定する必要があります。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_getabsolutepathname_メソッド">GetAbsolutePathName メソッド</h4>
+<div class="paragraph"><p>指定したパス仕様から完全で明確なパスを返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetAbsolutePathName</span></span> <span style="color: #990000">(</span>pathspec<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">pathspec</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 完全で明確なパスに変更するパス仕様です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>指定したドライブのルートから完全な参照を提供しているパスは、完全で明確です。
+完全なパスは、マップされたドライブのルートフォルダー*<strong>* を指定している場合にの
+み、パス区切り文字 (</strong>) で終わることができます。</p></div>
+<div class="paragraph"><p>次の表は、現在のディレクトリが c:\mydocuments\reports と仮定した場合の
+GetAbsolutePathName メソッドの動作を示しています。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">pathspec </th>
+<th align="left" valign="top">返されるパス</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">"c:"</p></td>
+<td align="left" valign="top"><p class="table">"c:\mydocuments\reports"</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">"c:.."</p></td>
+<td align="left" valign="top"><p class="table">"c:\mydocuments"</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">"c:\"</p></td>
+<td align="left" valign="top"><p class="table">"c:"</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">"c:. \ @ 97</p></td>
+<td align="left" valign="top"><p class="table">"c:\mydocuments\reports と仮定*/@ 97"</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">"region1"</p></td>
+<td align="left" valign="top"><p class="table">"c:\mydocuments\reports\region1"</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">"c:&#8230;.\mydocuments "</p></td>
+<td align="left" valign="top"><p class="table">"c:\mydocuments"</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_getbasenameメソッド">★GetBaseNameメソッド</h4>
+<div class="paragraph"><p>パスの最後のコンポーネントのファイル拡張子を除くベース名を含む文字列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetBaseName</span></span> <span style="color: #990000">(</span>path<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">path</p></td>
+<td align="left" valign="top"><p class="table">必須。 ベース名を返すコンポーネントのパス指定。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>GetBaseName メソッドは、path 引数に一致するコンポーネントがない場合は、長さ 0
+の文字列 ("") を返します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_getdrive_メソッド">GetDrive メソッド</h4>
+<div class="paragraph"><p>指定されたパスのドライブに対応する Drive オブジェクトを返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetDrive</span></span> <span style="color: #990000">(</span>drivespec<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">drivespec</p></td>
+<td align="left" valign="top"><p class="table">必須。 _Drivespec_引数には、ドライブ文字 (c)、コロン (:) が追加されたドライブ文字、コロンとパスの区切り記号が追加されたドライブ文字 ()c:、または任意の\ネットワーク共有仕様 (computer2\share1) を使用できます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>ネットワーク共有の場合、共有が存在するかどうかが調べられます。</p></div>
+<div class="paragraph"><p>drivespec が許容されるどの形式にも従っていない場合、または存在しない場合は、エ
+ラーが発生します。</p></div>
+<div class="paragraph"><p>GetDrive メソッドを通常のパス文字列で呼び出すには、次のシーケンスを使用して、
+drivespec として使用するのに適した文字列を取得します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>DriveSpec <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetDriveName</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">GetAbsolutePathName</span></span><span style="color: #990000">(</span>Path<span style="color: #990000">))</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_getdrivename_メソッド">GetDriveName メソッド</h4>
+<div class="paragraph"><p>指定されたパスのドライブ名を含む文字列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetDriveName</span></span> <span style="color: #990000">(</span>path<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">path</p></td>
+<td align="left" valign="top"><p class="table">必須。 ドライブ名を取得するコンポーネントのパスを指定します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>GetDriveName メソッドは、ドライブを特定できない場合には長さ 0 の文字列 ("") を
+返します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_getextensionname_メソッド">GetExtensionName メソッド</h4>
+<div class="paragraph"><p>パスの最後の構成要素の拡張子名が含まれる文字列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetExtensionName</span></span> <span style="color: #990000">(</span>path<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">path</p></td>
+<td align="left" valign="top"><p class="table">必須。 拡張子名を返すべき構成要素のパス指定。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>ネットワークドライブの場合、ルートディレクトリ (**) はコンポーネントと見なされ
+ます。</p></div>
+<div class="paragraph"><p>path 引数と一致する構成要素がない場合、GetExtensionName メソッドは長さ 0 の文
+字列 ("") を返します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_getfile_メソッド">GetFile メソッド</h4>
+<div class="paragraph"><p>指定したパスのファイルに対応する<strong>file</strong> オブジェクトを返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetFile</span></span> <span style="color: #990000">(</span>filespec<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">filespec</p></td>
+<td align="left" valign="top"><p class="table">必須。 filespec は、特定のファイルへのパス (絶対または相対) です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>指定されたファイルが存在しない場合は、エラーが発生します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_getfilename_メソッド">GetFileName メソッド</h4>
+<div class="paragraph"><p>指定したパスの最後のコンポーネントを、ドライブの指定の一部ではないものとして返
+します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetFileName</span></span> <span style="color: #990000">(</span>pathspec<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">pathspec</p></td>
+<td align="left" valign="top"><p class="table">必須。 特定のファイルのパス (絶対または相対)。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>pathspec が名前付きのコンポーネントで終了していない場合、GetFileName メソッド
+は長さがゼロの文字列 ("") を返します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_getfolder_メソッド">GetFolder メソッド</h4>
+<div class="paragraph"><p>指定したパス内のフォルダーに対応する<strong>folder</strong> オブジェクトを返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetFolder</span></span> <span style="color: #990000">(</span>folderspec<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">folderspec</p></td>
+<td align="left" valign="top"><p class="table">必須。 folderspec は、特定のフォルダーへのパス (絶対または相対) です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>指定されたフォルダーが存在しない場合は、エラーが発生します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_getparentfoldername_メソッド">★GetParentFolderName メソッド</h4>
+<div class="paragraph"><p>指定したパスにある最後のコンポーネントの親フォルダー名が含まれる文字列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetParentFolderName</span></span> <span style="color: #990000">(</span>path<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">path</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 返される親フォルダー名のコンポーネントのパス仕様です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>path 引数で指定されたコンポーネントの親フォルダーがない場合、
+GetParentFolderName メソッドは、長さ 0 の文字列 ("") を返します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_getspecialfolder_メソッド">GetSpecialFolder メソッド</h4>
+<div class="paragraph"><p>指定された特殊フォルダーを返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetSpecialFolder</span></span> <span style="color: #990000">(</span>folderspec<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">folderspec</p></td>
+<td align="left" valign="top"><p class="table">必須。 取得する特殊フォルダーの名前です。 「設定値」に示した任意の定数を指定できます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">Settings</div><p>folderspec 引数には、次のいずれかの値を指定できます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="28%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">WindowsFolder</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">Windows オペレーティング システムによってインストールされたファイルが格納されている Windows フォルダー。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">SystemFolder</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+<td align="left" valign="top"><p class="table">ライブラリ、フォント、およびデバイス ドライバーが格納されている System フォルダー。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">TemporaryFolder</p></td>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">一時ファイルの格納に使用される Temp フォルダー。 このパスは TMP 環境変数で指定されています。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gettempname_メソッド">GetTempName メソッド</h4>
+<div class="paragraph"><p>一時ファイルまたはフォルダーを必要とする演算を実行するのに役立つ、ランダムに生
+成された一時ファイルまたはフォルダーの名前を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>GetTempName</tt></pre></div></div>
+<div class="paragraph"><p>オプションの_object_は、常に<strong>FileSystemObject</strong> の名前です。</p></div>
+<div class="paragraph"><div class="title">注釈</div><p>GetTempName メソッドでは、ファイルが作成されません。 このメソッドでは、ファイ
+ルを作成する CreateTextFile で使用できる一時ファイルの名前を提供するだけです。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_movefile_メソッド">MoveFile メソッド</h4>
+<div class="paragraph"><p>1 つまたは複数のファイルを別の場所に移動します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>MoveFile source<span style="color: #990000">,</span> destination</tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">source</p></td>
+<td align="left" valign="top"><p class="table">必須。 移動するファイルのパス。 source 引数として指定する文字列では、パスの最後の構成要素に限ってワイルドカード文字を使用できます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">destination</p></td>
+<td align="left" valign="top"><p class="table">必須です。 ファイルの移動先のパス。 destination 引数には、ワイルドカード文字を使用できません。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>source でワイルドカード文字を使用した場合、または destination がパスの区切り文
+字 ( <strong>*</strong> ) で終わっている場合、destination は、該当するファイルを移動する既存
+のフォルダーを指定していると見なされます。 それ以外の場合、destination は作成
+する移動先ファイルの名前であると見なされます。 いずれの場合も、個々のファイル
+の移動時に起こり得ることは 3 つあります。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+destination が存在しない場合は、そのファイルが移動されます。 これは通常のケースです。
+</p>
+</li>
+<li>
+<p>
+destination が既存のファイルの場合は、エラーが発生します。
+</p>
+</li>
+<li>
+<p>
+destination がディレクトリの場合は、エラーが発生します。
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>source で使用したワイルドカード文字がどのファイルとも一致しなかった場合も、エ
+ラーが発生します。 MoveFile メソッドは、最初のエラーが発生した時点で処理を中止
+します。 エラーが発生するまでに行われた変更を取り消したり元に戻したりする処理
+は一切行われません。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_movefolder_メソッド">MoveFolder メソッド</h4>
+<div class="paragraph"><p>1 つまたは複数のフォルダーを別の場所に移動します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">MoveFolder</span></span> <span style="color: #990000">(</span>source<span style="color: #990000">,</span> destination<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">source</p></td>
+<td align="left" valign="top"><p class="table">必須。 移動するフォルダーのパス。 source 引数として指定する文字列では、パスの最後の構成要素に限ってワイルドカード文字を使用できます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">destination</p></td>
+<td align="left" valign="top"><p class="table">必須です。 フォルダーの移動先のパス。 destination 引数には、ワイルドカード文字を使用できません。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>source でワイルドカード文字を使用した場合、または destination がパスの区切り文
+字 ( <strong>*</strong> ) で終わっている場合、destination は、該当するファイルを移動する既存
+のフォルダーを指定していると見なされます。 それ以外の場合、destination は作成
+する移動先フォルダーの名前であると見なされます。 いずれの場合も、個々のフォル
+ダーの移動時に起こり得ることは 3 つあります。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+destination が存在しない場合は、そのフォルダーが移動されます。 これが通常の場合です。
+</p>
+</li>
+<li>
+<p>
+destination が既存のファイルの場合は、エラーが発生します。
+</p>
+</li>
+<li>
+<p>
+destination がディレクトリの場合は、エラーが発生します。
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>source で使用したワイルドカード文字がどのフォルダーとも一致しなかった場合も、
+エラーが発生します。 MoveFolder メソッドは、最初のエラーが発生した時点で処理を
+中止します。 エラーが発生するまでに行われた変更を取り消したり元に戻したりする
+処理は一切行われません。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_opentextfile_メソッド">OpenTextFile メソッド</h4>
+<div class="paragraph"><p>指定したファイルを開き、開いたファイルの読み取り、書き込み、または追加書き込み
+に使用できる TextStream オブジェクトを返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">OpenTextFile</span></span> <span style="color: #990000">(</span>filename<span style="color: #990000">,</span> <span style="color: #990000">[</span> iomode<span style="color: #990000">,</span> <span style="color: #990000">[</span> create<span style="color: #990000">,</span> <span style="color: #990000">[</span> format <span style="color: #990000">]]])</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に FileSystemObject の名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">filename</p></td>
+<td align="left" valign="top"><p class="table">必須です。 開くファイルを識別する文字列式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">iomode</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 入力/出力モードを示します。 ForReading、ForWriting、または ForAppending のいずれかの定数を指定できます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">create</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 filename で指定したファイルが存在しない場合に新しいファイルを作成できるかどうかを示す ブール値です。 新しいファイルを作成する場合は True、作成しない場合は False を指定します。 既定値は False です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">format</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 開くファイルの形式を示す Tristate の 3 つの値のいずれかです。 省略すると、ASCII 形式でファイルが開きます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>iomode 引数には、次のいずれかを設定できます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="28%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">ForReading</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+<td align="left" valign="top"><p class="table">ファイルを読み取り専用として開きます。 このファイルには書き込むことはできません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ForWriting</p></td>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">ファイルを書き込み専用として開きます。 既存のファイルを新しいデータで置き換える場合はこのモードを使用します。 このファイルからの読み取りはできません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ForAppending</p></td>
+<td align="left" valign="top"><p class="table">8</p></td>
+<td align="left" valign="top"><p class="table">ファイルを開き、ファイルの最後に書き込みます。 このファイルからの読み取りはできません。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="28%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">TristateUseDefault</p></td>
+<td align="left" valign="top"><p class="table">-2</p></td>
+<td align="left" valign="top"><p class="table">システムの既定の設定でファイルを開きます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">TristateTrue</p></td>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">Unicode 形式でファイルを開きます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">TristateFalse</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">Ascii 形式でファイルを開きます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>次のコードは、テキストを追加するために、 OpenTextFile メソッドを使用してファイ
+ルを開く方法を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> OpenTextFileTest
+    Const ForReading <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">,</span> ForWriting <span style="color: #990000">=</span> <span style="color: #993399">2</span><span style="color: #990000">,</span> ForAppending <span style="color: #990000">=</span> <span style="color: #993399">8</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fs<span style="color: #990000">,</span> f
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> f <span style="color: #990000">=</span> fs<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">OpenTextFile</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">estfile.txt"</span><span style="color: #990000">,</span> ForAppending<span style="color: #990000">,</span> TristateFalse<span style="color: #990000">)</span>
+    f<span style="color: #990000">.</span>Write <span style="color: #FF0000">"Hello world!"</span>
+    f<span style="color: #990000">.</span>Close
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_プロパティ">プロパティ</h3>
+<div class="sect3">
+<h4 id="_drives_プロパティ">Drives プロパティ</h4>
+<div class="paragraph"><p>ローカルコンピューターで使用できるすべての<strong>Drive</strong> オブジェクトで構成される
+<strong>Drives</strong> コレクションを返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Drives
+
+The <span style="font-weight: bold"><span style="color: #0000FF">object</span></span> <span style="font-weight: bold"><span style="color: #0000FF">is</span></span> always a FileSystemObject<span style="color: #990000">.</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">解説</div><p>Drives コレクションには、メディアが挿入されていない場合でも、リムーバブル メデ
+ィア ドライブが表示されます。</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code> For Each... を使用して、Drives コレクションのメンバーを反復処理することが
+できます。 次のコードに示されているように、次のコンストラクト。</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> ShowDriveList
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fs<span style="color: #990000">,</span> d<span style="color: #990000">,</span> dc<span style="color: #990000">,</span> s<span style="color: #990000">,</span> n
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> dc <span style="color: #990000">=</span> fs<span style="color: #990000">.</span>Drives
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> d in dc
+        s <span style="color: #990000">=</span> s <span style="color: #990000">&amp;</span> d<span style="color: #990000">.</span>DriveLetter <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" - "</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> d<span style="color: #990000">.</span>DriveType <span style="color: #990000">=</span> <span style="color: #993399">3</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+            n <span style="color: #990000">=</span> d<span style="color: #990000">.</span>ShareName
+        <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+            n <span style="color: #990000">=</span> d<span style="color: #990000">.</span>VolumeName
+        <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+        s <span style="color: #990000">=</span> s <span style="color: #990000">&amp;</span> n <span style="color: #990000">&amp;</span> vbCrLf
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+    MsgBox s
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_name_プロパティ">Name プロパティ</h4>
+<div class="paragraph"><p>指定したファイルまたはフォルダーの名前を設定または取得します。 値の取得と設定
+が可能です。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Name <span style="color: #990000">[</span> <span style="color: #990000">=</span> newname <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に、ファイル または<strong>Folder</strong> オブジェクトの名前を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">newname</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 指定した場合、newname が、指定した object の新しい名前になります。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>次のコードは、 Nameプロパティの使用方法を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">ShowFileAccessInfo</span></span><span style="color: #990000">(</span>filespec<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fs<span style="color: #990000">,</span> f<span style="color: #990000">,</span> s
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> f <span style="color: #990000">=</span> fs<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetFile</span></span><span style="color: #990000">(</span>filespec<span style="color: #990000">)</span>
+    s <span style="color: #990000">=</span> f<span style="color: #990000">.</span>Name <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" on Drive "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">UCase</span></span><span style="color: #990000">(</span>f<span style="color: #990000">.</span>Drive<span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> vbCrLf
+    s <span style="color: #990000">=</span> s <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"Created: "</span> <span style="color: #990000">&amp;</span> f<span style="color: #990000">.</span>DateCreated <span style="color: #990000">&amp;</span> vbCrLf
+    s <span style="color: #990000">=</span> s <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"Last Accessed: "</span> <span style="color: #990000">&amp;</span> f<span style="color: #990000">.</span>DateLastAccessed <span style="color: #990000">&amp;</span> vbCrLf
+    s <span style="color: #990000">=</span> s <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"Last Modified: "</span> <span style="color: #990000">&amp;</span> f<span style="color: #990000">.</span>DateLastModified
+    MsgBox s<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #FF0000">"File Access Info"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_textstream_オブジェクト">TextStream オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>ファイルへの一連のアクセスを容易にします。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>TextStream<span style="color: #990000">.</span> <span style="color: #FF0000">{</span> property <span style="color: #990000">|</span> method <span style="color: #FF0000">}</span></tt></pre></div></div>
+<div class="paragraph"><p>property 引数と method 引数は、TextStream オブジェクトに関連付けられている任意
+のプロパティとメソッドになることができます。 実際の使用時に、TextStream は、
+FileSystemObject から返される TextStream オブジェクトを表す変数プレースホルダ
+ーに置き換えられます。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>次のコードで、a は、FileSystemObject 上の CreateTextFile メソッドによって返さ
+れる TextStream オブジェクトです。WriteLine と Close は、TextStream オブジェク
+トの 2 つのメソッドです。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> a <span style="color: #990000">=</span> fs<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">CreateTextFile</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">estfile.txt"</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">)</span>
+a<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">WriteLine</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"This is a test."</span><span style="color: #990000">)</span>
+a<span style="color: #990000">.</span>Close</tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 4. メソッド</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">メソッド </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Close</p></td>
+<td align="left" valign="top"><p class="table">開いている TextStream ファイルを閉じます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Read</p></td>
+<td align="left" valign="top"><p class="table">指定した文字数を TextStream ファイルから読み取り、結果を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ReadAll</p></td>
+<td align="left" valign="top"><p class="table">TextStream ファイル全体を読み取り、結果を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ReadLine</p></td>
+<td align="left" valign="top"><p class="table">TextStream ファイルから 1 行を読み取り、結果を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Skip</p></td>
+<td align="left" valign="top"><p class="table">TextStream ファイルを読み取るときに、指定した文字数をスキップします。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">SkipLine</p></td>
+<td align="left" valign="top"><p class="table">TextStream ファイルを読み取るときに、次の行をスキップします。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Write</p></td>
+<td align="left" valign="top"><p class="table">指定したテキストを TextStream ファイルに書き込みます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">WriteBlankLines</p></td>
+<td align="left" valign="top"><p class="table">指定した数の改行文字を TextStream ファイルに書き込みます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">WriteLine</p></td>
+<td align="left" valign="top"><p class="table">指定したテキストと改行文字を TextStream ファイルに書き込みます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 5. プロパティ</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">プロパティ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">AtEndOfLine</p></td>
+<td align="left" valign="top"><p class="table">TextStream ファイルの行末マーカーの直前にファイル ポインターがある場合は true を返し、そうでない場合は false を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">AtEndOfStream</p></td>
+<td align="left" valign="top"><p class="table">TextStream の最後にファイル ポインターがある場合は true を返し、そうでない場合は false を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Column</p></td>
+<td align="left" valign="top"><p class="table">入力ストリーム内の現在の文字位置の列番号を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Line</p></td>
+<td align="left" valign="top"><p class="table">TextStream ファイル内の現在の行番号を返します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_メソッド_2">メソッド</h3>
+<div class="sect3">
+<h4 id="_close_メソッド">Close メソッド</h4>
+<div class="paragraph"><p>開いている<strong>TextStream</strong> ファイルを閉じます。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Close</tt></pre></div></div>
+<div class="paragraph"><p>object は常に TextStream オブジェクトの名前となります。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_read_メソッド">Read メソッド</h4>
+<div class="paragraph"><p>TextStream ファイルから指定した数の文字を読み取って、結果の文字列を戻します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Read</span></span> <span style="color: #990000">(</span>characters<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に<strong>TextStream</strong> オブジェクトの名前を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">characters</p></td>
+<td align="left" valign="top"><p class="table">必須。 ファイルから読み取る文字数を指定します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_readall_メソッド">ReadAll メソッド</h4>
+<div class="paragraph"><p>TextStream ファイル全体を読み取って、結果の文字列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>ReadAll</tt></pre></div></div>
+<div class="paragraph"><p>object は常に TextStream オブジェクトの名前となります。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>大きなファイルで ReadAll メソッドを使用すると、メモリ リソースを大量に使用しま
+す。 ファイルを1行ずつ読み取るなど、他の手法を使用してファイルを入力する必要が
+あります。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_readline_メソッド">ReadLine メソッド</h4>
+<div class="paragraph"><p>TextStream ファイルから行全体 (改行文字の前まで) を読み取り、その文字列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>ReadLine</tt></pre></div></div>
+<div class="paragraph"><p>_Object_引数は常に<strong>TextStream</strong> オブジェクトの名前です。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_skip_メソッド">Skip メソッド</h4>
+<div class="paragraph"><p>TextStream を読み込むときに、指定された数の文字をスキップします。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Skip</span></span> <span style="color: #990000">(</span>characters<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に<strong>TextStream</strong> オブジェクトの名前を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">characters</p></td>
+<td align="left" valign="top"><p class="table">必須。 ファイルを読み込むときにスキップする文字数。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>スキップした文字は破棄されます。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_skipline_メソッド">SkipLine メソッド</h4>
+<div class="paragraph"><p>TextStream ファイルを読むときに、次の行をスキップします。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>SkipLine</tt></pre></div></div>
+<div class="paragraph"><p>object は常に TextStream オブジェクトの名前となります。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>行をスキップするとは、次の改行文字まで、その改行文字を含め、行内のすべての文字
+を読み取って破棄することを意味します。</p></div>
+<div class="paragraph"><p>ファイルが読み取り用に開かれていない場合、エラーが発生します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_write_メソッド">Write メソッド</h4>
+<div class="paragraph"><p>指定した文字列を TextStream ファイルに書き込みます。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Write</span></span> <span style="color: #990000">(</span>string<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に<strong>TextStream</strong> オブジェクトの名前を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">string</p></td>
+<td align="left" valign="top"><p class="table">必須。 ファイルに書き込むテキストです。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>文字列を複数指定した場合、各文字列がスペースや文字で区切られずに続けて書き込ま
+れます。 改行文字や最後が改行文字で終わる文字列を書き込む場合は、WriteLine メ
+ソッドを使用します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_write空白行メソッド">Write空白行メソッド</h4>
+<div class="paragraph"><p>指定した数の改行文字を、TextStream ファイルに書き込みます。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">WriteBlankLines</span></span> <span style="color: #990000">(</span>lines<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に<strong>TextStream</strong> オブジェクトの名前を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">lines</p></td>
+<td align="left" valign="top"><p class="table">必須。 ファイルに書き込む改行文字の数。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_writeline_メソッド">WriteLine メソッド</h4>
+<div class="paragraph"><p>指定された文字列および改行文字を TextStream ファイルに書き込みます。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">WriteLine</span></span> <span style="color: #990000">([</span> string <span style="color: #990000">])</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に<strong>TextStream</strong> オブジェクトの名前を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">string</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 ファイルに書き込むテキスト。 省略した場合は、改行文字がファ
+イルに書き込まれます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_プロパティ_2">プロパティ</h3>
+<div class="sect3">
+<h4 id="_atendofline_プロパティ">AtEndOfLine プロパティ</h4>
+<div class="paragraph"><p>TextStream ファイルの行末マーカーの直前にファイル ポインターがある場合は True
+を返す読み取り専用のプロパティです。ない場合は False を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>AtEndOfLine</tt></pre></div></div>
+<div class="paragraph"><p>object は常に TextStream オブジェクトの名前となります。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>AtEndOfLine プロパティは、読み取りを行うように開いた TextStream ファイルに対し
+てのみ使用できます。それ以外の場合は、エラーが発生します。</p></div>
+<div class="paragraph"><p>次のコードは、AtEndOfLine プロパティの使用例を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fs<span style="color: #990000">,</span> a<span style="color: #990000">,</span> retstring
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> a <span style="color: #990000">=</span> fs<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">OpenTextFile</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">estfile.txt"</span><span style="color: #990000">,</span> ForReading<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> <span style="font-weight: bold"><span style="color: #0000FF">While</span></span> a<span style="color: #990000">.</span>AtEndOfLine <span style="color: #990000">&lt;&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+    retstring <span style="color: #990000">=</span> a<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Read</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
+    <span style="color: #990000">...</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+a<span style="color: #990000">.</span>Close</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_atendofstream_プロパティ">AtEndOfStream プロパティ</h4>
+<div class="paragraph"><p>TextStream ファイルの末尾にファイル ポインターがある場合は True を返す読み取り
+専用のプロパティです。ない場合は False を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>AtEndOfStream</tt></pre></div></div>
+<div class="paragraph"><p>object は常に TextStream オブジェクトの名前となります。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>AtEndOfStream プロパティは、読み取りを行うように開いた TextStream ファイルに対
+してのみ使用できます。それ以外の場合は、エラーが発生します。</p></div>
+<div class="paragraph"><p>次のコードは、AtEndOfStream プロパティの使用例を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fs<span style="color: #990000">,</span> a<span style="color: #990000">,</span> retstring
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> a <span style="color: #990000">=</span> fs<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">OpenTextFile</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">estfile.txt"</span><span style="color: #990000">,</span> ForReading<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> <span style="font-weight: bold"><span style="color: #0000FF">While</span></span> a<span style="color: #990000">.</span>AtEndOfStream <span style="color: #990000">&lt;&gt;</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+    retstring <span style="color: #990000">=</span> a<span style="color: #990000">.</span>ReadLine
+    <span style="color: #990000">...</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+a<span style="color: #990000">.</span>Close</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_column_プロパティ">Column プロパティ</h4>
+<div class="paragraph"><p>TextStream ファイル内の現在の文字位置の列番号を返す読み取り専用プロパティです。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Column</tt></pre></div></div>
+<div class="paragraph"><p>object は常に TextStream オブジェクトの名前となります。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>改行文字が書き込まれた後から、その他の文字が書き込まれる前まで、Column は 1 と
+等しくなります。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_line_プロパティ">Line プロパティ</h4>
+<div class="paragraph"><p>TextStream ファイル内の現在の行番号を返す読み取り専用のプロパティ。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Line</tt></pre></div></div>
+<div class="paragraph"><p>object は常に TextStream オブジェクトの名前となります。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>ファイルを初めて開き、書き込みを行う前は、Line は 1 です。</p></div>
 </div>
 </div>
 </div>
@@ -2018,19 +3677,340 @@ cellspacing="0" cellpadding="4">
 <tr>
 <td align="left" valign="top"><p class="table">追加</p></td>
 <td align="left" valign="top"><p class="table">c.Add Item:=100,key:="This is a pen."<br />
-c.Add  <br />
-c.Add 200."This"</p></td>
+c.Add 200."This"<br />
+<span class="red">item, key</span></p></td>
 <td align="left" valign="top"><p class="table">d.Add key:="Orange",Item:=100<br />
-d.Add "Apple",200</p></td>
+d.Add "Apple",200<br />
+<span class="red">key, item</span></p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table">item取得</p></td>
-<td align="left" valign="top"><p class="table">a</p></td>
-<td align="left" valign="top"><p class="table">b</p></td>
+<td align="left" valign="top"><p class="table">Dim i As Long<br />
+For i = 1 To c.Count<br />
+    Debug.Peint c(i)<br />
+Next<br />
+<span class="red">1から始まる</span></p></td>
+<td align="left" valign="top"><p class="table">Dim i As Long<br />
+Dim Kwys As Variant, Items As Variant<br />
+Keys = d.keys<br />
+Items = d.Items<br />
+Fpr i = 0 To d.Count -1<br />
+    Debug.Print d.item(Keys(i))<br />
+    Debug.Print d.items(i)<br />
+Next<br />
+<span class="red">0から始まる</span></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">Dim v As Variant<br />
+For Each v In c<br />
+Debug.Print v<br />
+Next</p></td>
+<td align="left" valign="top"><p class="table">Dim v As Variant<br />
+For Each v In d<br />
+Debug.Print d.item(v)<br />
+Next</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_collection_オブジェクト">Collection オブジェクト</h2>
+<div class="sectionbody">
+<div class="paragraph"><p><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/collection-object">Collection オブジェクト | Microsoft Docs</a></p></div>
+<div class="paragraph"><p>Collection オブジェクトは、アイテムの順序が指定されたセットであり、1 つの単位
+として参照できます。</p></div>
+<div class="paragraph"><div class="title">注釈</div><p>Collection オブジェクトを使用すると、関連性のあるアイテムのグループを 1 つのオ
+ブジェクトとして簡単に参照できます。 コレクション内のアイテムつまりメンバーは、
+コレクションに存在するという事実のみによって関連付けられる必要があります。 コ
+レクションのメンバーは同じデータ型を共有する必要はありません。</p></div>
+<div class="paragraph"><p>コレクションは他のオブジェクトと同じ方法で作成できます。 以下に例を示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> X As New Collection</tt></pre></div></div>
+<div class="paragraph"><p>コレクションを作成した後は、 Add メソッドを使用してメンバーを追加し、 Remove
+メソッドを使用して削除できます。 特定のメンバーは、 Item メソッドを使用してコ
+レクションから返すことができますが、For Each を使用してコレクション全体を反復
+処理することもできます。 Next ステートメント。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、コレクションオブジェクトMyClasses() を作成し、ユーザーがコレクショ
+ンにオブジェクトを追加できるダイアログボックスを作成します。</p></div>
+<div class="paragraph"><p>この動作を確認するには、[挿入] メニューから<strong>*</strong>* InstanceName[クラスモジュール]
+コマンドを選択しInstanceName 、Class1 のモジュールレベルで呼び出されるパブリッ
+ク変数を宣言して、各インスタンスの名前を保持します。 Leave the default name as
+Class1. Copy and paste the following code into the General section of another
+module, and then start it with the statement ClassNamer in another procedure.</p></div>
+<div class="paragraph"><p>(This example only works with host applications that support classes.)</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">ClassNamer</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyClasses As New Collection    <span style="font-style: italic"><span style="color: #9A1900">' Create a Collection object.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Num    <span style="font-style: italic"><span style="color: #9A1900">' Counter for individualizing keys.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Msg As String    <span style="font-style: italic"><span style="color: #9A1900">' Variable to hold prompt string.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> TheName<span style="color: #990000">,</span> MyObject<span style="color: #990000">,</span> NameList    <span style="font-style: italic"><span style="color: #9A1900">' Variants to hold information.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Do</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Inst As New Class1    <span style="font-style: italic"><span style="color: #9A1900">' Create a new instance of Class1.</span></span>
+        Num <span style="color: #990000">=</span> Num <span style="color: #990000">+</span> <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Increment Num, then get a name.</span></span>
+        Msg <span style="color: #990000">=</span> <span style="color: #FF0000">"Please enter a name for this object."</span> <span style="color: #990000">&amp;</span> vbNewLine _
+         <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"Press Cancel to see names in collection."</span>
+        TheName <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span>Msg<span style="color: #990000">,</span> <span style="color: #FF0000">"Name the Collection Items"</span><span style="color: #990000">)</span>
+        Inst<span style="color: #990000">.</span>InstanceName <span style="color: #990000">=</span> TheName    <span style="font-style: italic"><span style="color: #9A1900">' Put name in object instance.</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">' If user entered name, add it to the collection.</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> Inst<span style="color: #990000">.</span>InstanceName <span style="color: #990000">&lt;&gt;</span> <span style="color: #FF0000">""</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">' Add the named object to the collection.</span></span>
+            MyClasses<span style="color: #990000">.</span>Add item <span style="color: #990000">:=</span> Inst<span style="color: #990000">,</span> key <span style="color: #990000">:=</span> <span style="font-weight: bold"><span style="color: #0000FF">CStr</span></span><span style="color: #990000">(</span>Num<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">' Clear the current reference in preparation for next one.</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Inst <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">Nothing</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span> Until TheName <span style="color: #990000">=</span> <span style="color: #FF0000">""</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> MyObject In MyClasses    <span style="font-style: italic"><span style="color: #9A1900">' Create list of names.</span></span>
+        NameList <span style="color: #990000">=</span> NameList <span style="color: #990000">&amp;</span> MyObject<span style="color: #990000">.</span>InstanceName <span style="color: #990000">&amp;</span> vbNewLine
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> MyObject
+    <span style="font-style: italic"><span style="color: #9A1900">' Display the list of names in a message box.</span></span>
+    MsgBox NameList<span style="color: #990000">,</span> <span style="color: #990000">,</span> <span style="color: #FF0000">"Instance Names In MyClasses Collection"</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Num <span style="color: #990000">=</span> <span style="color: #993399">1</span> To MyClasses<span style="color: #990000">.</span>Count    <span style="font-style: italic"><span style="color: #9A1900">' Remove name from the collection.</span></span>
+        MyClasses<span style="color: #990000">.</span>Remove <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Since collections are reindexed automatically, remove the first member on each iteration.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+<div class="sect2">
+<h3 id="_add_メソッド_vba">Add メソッド (VBA)</h3>
+<div class="paragraph"><p>Collection オブジェクトにメンバーを追加します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Add item<span style="color: #990000">,</span> key<span style="color: #990000">,</span> before<span style="color: #990000">,</span> after</tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須。 評価結果が [適用先] リストのオブジェクトになるオブジェクト式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">item</p></td>
+<td align="left" valign="top"><p class="table">必須です。 コレクションに追加するメンバーを指定する任意の型の式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">key</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 コレクションのメンバーにアクセスするために位置インデックスの代わりに使用できるキー文字列を指定する一意の文字列式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">before</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 コレクション内の相対位置を指定する式です。 追加するメンバーは、before 引数によって識別されたメンバーの前のコレクション内に配置します。 数式の場合、before には、1 以上からコレクションの Count プロパティ値までの数値を指定する必要があります。 文字列式の場合、before は参照されているメンバーがコレクションに追加されたときに指定された key 引数に対応している必要があります。 before または after のどちらの位置でも指定できますが、両方を指定することはできません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">after</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 コレクション内の相対位置を指定する式です。 追加するメンバーは、after 引数によって識別されたメンバーの後のレクション内に配置します。 数式の場合、after には、1 以上からコレクションの Count プロパティ値までの数値を指定する必要があります。 文字列の場合、after は、参照されているメンバーがコレクションに追加されたときに指定される key 引数に対応している必要があります。 before 位置または after 位置を指定できますが、両方とも指定することはできません。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>before 引数と after 引数は、文字列式であっても数式であっても、コレクションの既
+存のメンバーを参照している必要があります。参照していない場合はエラーが発生しま
+す。</p></div>
+<div class="paragraph"><p>指定した key がコレクションの既存のメンバーの key と重複している場合もエラーが
+発生します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Add メソッドを使用して、Inst オブジェクト (パブリック変数
+InstanceName を含む Class1 と呼ばれるクラスのインスタンス) を MyClasses と呼ば
+れるコレクションに追加します。 このしくみを確認するには、クラス モジュールを挿
+入し、InstanceName と呼ばれるパブリック変数を Class1 のモジュール レベルで宣言
+して (Public InstanceName 型)、各インスタンスの名前を保持します。 名前は既定の
+Class1 のままとします。 次のコードをコピーして、フォーム モジュールの
+Form_Load イベント プロシージャに貼り付けます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyClasses As New Collection    <span style="font-style: italic"><span style="color: #9A1900">' Create a Collection object.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Num As Integer    <span style="font-style: italic"><span style="color: #9A1900">' Counter for individualizing keys.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Msg
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> TheName    <span style="font-style: italic"><span style="color: #9A1900">' Holder for names user enters.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Do</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Inst As New Class1    <span style="font-style: italic"><span style="color: #9A1900">' Create a new instance of Class1.</span></span>
+    Num <span style="color: #990000">=</span> Num <span style="color: #990000">+</span> <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Increment Num, then get a name.</span></span>
+    Msg <span style="color: #990000">=</span> <span style="color: #FF0000">"Please enter a name for this object."</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Chr</span></span><span style="color: #990000">(</span><span style="color: #993399">13</span><span style="color: #990000">)</span> _
+     <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"Press Cancel to see names in collection."</span>
+    TheName <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span>Msg<span style="color: #990000">,</span> <span style="color: #FF0000">"Name the Collection Items"</span><span style="color: #990000">)</span>
+    Inst<span style="color: #990000">.</span>InstanceName <span style="color: #990000">=</span> TheName    <span style="font-style: italic"><span style="color: #9A1900">' Put name in object instance.</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">' If user entered name, add it to the collection.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> Inst<span style="color: #990000">.</span>InstanceName <span style="color: #990000">&lt;&gt;</span> <span style="color: #FF0000">""</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">' Add the named object to the collection.</span></span>
+        MyClasses<span style="color: #990000">.</span> Add item <span style="color: #990000">:=</span> Inst<span style="color: #990000">,</span> key <span style="color: #990000">:=</span> <span style="font-weight: bold"><span style="color: #0000FF">CStr</span></span><span style="color: #990000">(</span>Num<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">' Clear the current reference in preparation for next one.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Inst <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">Nothing</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span> Until TheName <span style="color: #990000">=</span> <span style="color: #FF0000">""</span>
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> x In MyClasses
+    MsgBox x<span style="color: #990000">.</span>instancename<span style="color: #990000">,</span> <span style="color: #990000">,</span> <span style="color: #FF0000">"Instance Name"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_item_メソッド">Item メソッド</h3>
+<div class="paragraph"><p>Collection オブジェクトの特定のメンバーを位置またはキー別に返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Item</span></span><span style="color: #990000">(</span>index<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須。 評価結果が [適用先] リストのオブジェクトになるオブジェクト式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">index</p></td>
+<td align="left" valign="top"><p class="table">必須です。 コレクションのメンバーの位置を式で指定します。 数式の場合、index には、1 以上からコレクションの Count プロパティ値までの数値を指定します。 文字列式の場合、index は参照されているメンバーがコレクションに追加されたときに指定された_キー_引数に対応している必要があります。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>index として指定された値がコレクションの既存のどのメンバーとも一致しない場合は、
+エラーが発生します。 Item メソッドは、コレクションの既定のメソッドです。 その
+ため、次のコード行は同じです。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Print <span style="font-weight: bold"><span style="color: #000000">MyCollection</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
+Print MyCollection<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Item</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Item メソッドを使用して、コレクション内のオブジェクトへの参照を取
+得します。 Birthdays が Collection オブジェクトであると仮定した場合、次のコー
+ドでは、"SmithBill" キーと "SmithAdam" キーが index 引数として使用され、コレク
+ションから Bill Smith の誕生日と Adam Smith の誕生日を表すオブジェクトへの参照
+が取得されます。</p></div>
+<div class="paragraph"><p>なお、最初の呼び出しでは Item メソッドが明示的に指定されていますが、2 つ目では
+そのように指定されていません。 Item メソッドは Collection オブジェクトの既定で
+あるため、いずれの呼び出しでも機能します。 Set で割り当てられている
+SmithBillBD と SmithAdamBD への参照は、指定したオブジェクトのプロパティとメソ
+ッドにアクセスするために使用できます。</p></div>
+<div class="paragraph"><p>このコードを実行するには、コレクションを作成し、それに少なくとも 2 つの参照メ
+ンバーを挿入します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> SmithBillBD As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> SmithAdamBD As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Birthdays
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> SmithBillBD <span style="color: #990000">=</span> Birthdays<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Item</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"SmithBill"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> SmithAdamBD <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Birthdays</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"SmithAdam"</span><span style="color: #990000">)</span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_remove_メソッド_vba">Remove メソッド (VBA)</h3>
+<div class="paragraph"><p>Collection オブジェクトからメンバーを削除します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Remove</span></span> <span style="color: #990000">(</span>index<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須。 評価結果が [適用先] リストのオブジェクトになるオブジェクト式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">index</p></td>
+<td align="left" valign="top"><p class="table">必須です。 コレクションのメンバーの位置を式で指定します。 数式の場合、index には、1 以上からコレクションの Count プロパティ値までの数値を指定します。 文字列式の場合、index は参照されているメンバーがコレクションに追加されたときに指定された_キー_引数に対応している必要があります。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>index の値がコレクションの既存のメンバーのいずれとも一致しない場合は、エラーが
+発生します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、Remove メソッドを使用して Collection オブジェクト MyClasses からオ
+ブジェクトを削除しています。 このコードは、ループの反復ごとに、インデックスが
+1 のオブジェクトを削除します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Num<span style="color: #990000">,</span> MyClasses
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Num <span style="color: #990000">=</span> <span style="color: #993399">1</span> To MyClasses<span style="color: #990000">.</span>Count
+    MyClasses<span style="color: #990000">.</span>Remove <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Remove the first object each time</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">' through the loop until there are</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">' no objects left in the collection.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> Num</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_count_プロパティ_vba">Count プロパティ (VBA)</h3>
+<div class="paragraph"><p>コレクション内のオブジェクト数を含む Long (長整数型) を返します。 読み取り専用
+です。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、コレクション オブジェクトのCountプロパティを使用して、と呼ばれる
+MyClassesコレクションのすべての要素を削除するために必要な反復回数を指定します。
+コレクションの数値インデックスは、既定で 1 から始まります。 コレクションは削除
+されたときに自動的に再インデックス化れるため、次のコードでは、各反復の最初のメ
+ンバーを削除します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Num<span style="color: #990000">,</span> MyClasses
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Num <span style="color: #990000">=</span> <span style="color: #993399">1</span> To MyClasses<span style="color: #990000">.</span>Count    <span style="font-style: italic"><span style="color: #9A1900">' Remove name from the collection.</span></span>
+    MyClasses<span style="color: #990000">.</span>Remove <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Default collection numeric indexes</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' begin at 1.</span></span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_dictionary_object_dictionary_オブジェクト_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/dictionary-object">Dictionary オブジェクト | Microsoft Docs</a></h2>
+<div class="sectionbody">
 </div>
 </div>
 <div class="sect1">
@@ -2051,21 +4031,15 @@ With ActiveSheet<span style="color: #990000">.</span>Shapes<span style="color: #
     <span style="color: #990000">.</span>ChartType <span style="color: #990000">=</span> xlXYScatterLines
     <span style="color: #990000">.</span>SetSourceData rng
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With</tt></pre></div></div>
-<div class="ulist"><ul>
-<li>
-<p>
-Xlcharttype クラス列挙 (Excel)
-</p>
-</li>
-</ul></div>
 <div class="tableblock">
 <table rules="all"
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
+<caption class="title">Table 6. Xlcharttype クラス列挙 (Excel)</caption>
+<col width="44%" />
+<col width="11%" />
+<col width="44%" />
 <thead>
 <tr>
 <th align="left" valign="top"> 名前                       </th>
@@ -2242,9 +4216,9 @@ XlMarkerStyle 列挙 (Excel)
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
+<col width="44%" />
+<col width="11%" />
+<col width="44%" />
 <thead>
 <tr>
 <th align="left" valign="top"> 名前                   </th>
@@ -2336,6 +4310,7 @@ http://www.gnu.org/software/src-highlite -->
         Sc<span style="color: #990000">.</span>MarkerStyle
     <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
+<div class="paragraph"><p>Version is 0.1</p></div>
 </div>
 </div>
 </div>
@@ -2344,7 +4319,7 @@ http://www.gnu.org/software/src-highlite -->
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-09-08 23:51:46 JST
+Last updated 2020-09-13 04:16:39 JST
 </div>
 </div>
 </body>
