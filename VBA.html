@@ -894,6 +894,95 @@ Savetime <span style="color: #990000">=</span> <span style="font-weight: bold"><
 
 Workbook<span style="color: #990000">.</span>SaveAs <span style="color: #FF0000">"hoge.xlsx"</span></tt></pre></div></div>
 </div>
+<div class="sect2">
+<h3 id="_ワークブックを開くとき_閉じるとき">ワークブックを開くとき、閉じるとき</h3>
+<div class="listingblock">
+<div class="title">[ThisWorkbook]モジュール</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Workbook_Open</span></span><span style="color: #990000">()</span>
+    <span style="font-style: italic"><span style="color: #9A1900">''起動時に自動実行する記述</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Workbook_BeforeClose</span></span><span style="color: #990000">(</span>Cancel As Boolean<span style="color: #990000">)</span>
+    <span style="font-style: italic"><span style="color: #9A1900">''終了時に自動実行する記述</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">[標準モジュール]</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Auto_Open</span></span><span style="color: #990000">()</span>
+    <span style="font-style: italic"><span style="color: #9A1900">' '起動時に自動実行する記述</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Auto_Close</span></span><span style="color: #990000">()</span>
+    <span style="font-style: italic"><span style="color: #9A1900">' '終了時に自動実行する記述</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+<div class="sect3">
+<h4 id="_メニュー追加">メニュー追加</h4>
+<div class="listingblock">
+<div class="title">[標準モジュール]</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Const READ_MENU01 As String <span style="color: #990000">=</span> <span style="color: #FF0000">"MENU01"</span>
+Public Const MENUBARNAME <span style="color: #990000">=</span> <span style="color: #FF0000">"Worksheet Menu Bar"</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">auto_open</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">MenuBtnRegist</span></span><span style="color: #990000">(</span>READ_MENU01<span style="color: #990000">,</span> READ_MENU01<span style="color: #990000">,</span> READ_MENU01<span style="color: #990000">,</span> <span style="color: #993399">300</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">auto_close</span></span><span style="color: #990000">()</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">MenuSearch</span></span><span style="color: #990000">(</span>MenuTitle As String<span style="color: #990000">)</span> As Boolean
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+    With ThisWorkbook<span style="color: #990000">.</span>Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">CommandBars</span></span><span style="color: #990000">(</span>MENUBARNAME<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #990000">.</span>Controls<span style="color: #990000">.</span>Count
+            <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> MenuTitle <span style="color: #990000">=</span> <span style="color: #990000">.</span>Controls<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Item</span></span><span style="color: #990000">(</span>i<span style="color: #990000">).</span>Caption <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+                MenuSearch <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+    MenuSearch <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">MenuBtnRegist</span></span><span style="color: #990000">(</span>MenuTitle As String<span style="color: #990000">,</span> tipText As String<span style="color: #990000">,</span> _
+                            OnAction As String<span style="color: #990000">,</span> FaceId As Long<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fMenu As CommandBarControl
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MenuRegistFlag As Boolean<span style="color: #990000">:</span> MenuRegistFlag <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
+
+    MenuRegistFlag <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">MenuSearch</span></span><span style="color: #990000">(</span>MenuTitle<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Not</span></span> MenuRegistFlag <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        With ThisWorkbook<span style="color: #990000">.</span>Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">CommandBars</span></span><span style="color: #990000">(</span>MENUBARNAME<span style="color: #990000">)</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fMenu <span style="color: #990000">=</span> <span style="color: #990000">.</span>Controls<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Add</span></span><span style="color: #990000">(</span>Type<span style="color: #990000">:=</span>msoControlButton<span style="color: #990000">,</span> Temporary<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">)</span>
+
+            fMenu<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> MenuTitle
+            fMenu<span style="color: #990000">.</span>Style <span style="color: #990000">=</span> msoButtonIconAndCaption
+            fMenu<span style="color: #990000">.</span>TooltipText <span style="color: #990000">=</span> tipText
+            fMenu<span style="color: #990000">.</span>OnAction <span style="color: #990000">=</span> OnAction
+            fMenu<span style="color: #990000">.</span>FaceId <span style="color: #990000">=</span> FaceId
+        <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+        <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fMenu <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">Nothing</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">MENU01</span></span><span style="color: #990000">()</span>
+    MsgBox <span style="color: #FF0000">"aaa"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1435,11 +1524,11 @@ Microsoft ScrptingRuntime
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fl As File
-<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fso As New Scrpting<span style="color: #990000">.</span>Filesystemobject
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> f As File
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fso As New Scripting<span style="color: #990000">.</span>FileSystemObject
 
-<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> fl in fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetFolder</span></span><span style="color: #990000">(</span>Path<span style="color: #990000">).</span>Files
-    fl<span style="color: #990000">.</span>Name<span style="color: #990000">,</span>Fl<span style="color: #990000">.</span>Type
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> f in fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetFolder</span></span><span style="color: #990000">(</span>Path<span style="color: #990000">).</span>Files
+    f<span style="color: #990000">.</span>Name<span style="color: #990000">,</span>F<span style="color: #990000">.</span>Type
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
 </div>
 <div class="sect2">
@@ -1465,6 +1554,54 @@ http://www.gnu.org/software/src-highlite -->
 <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> fd In fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getFolder</span></span><span style="color: #990000">(</span>Path<span style="color: #990000">).</span>subFolders
     fd<span style="color: #990000">.</span>Name fd<span style="color: #990000">.</span>Path
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_フォルダを再起してファイル一覧取得">フォルダを再起してファイル一覧取得</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">sample</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fs As New Collection
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> v As Variant
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">FolderSearch</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"C:</span><span style="color: #CC33CC">\U</span><span style="color: #FF0000">sers</span><span style="color: #CC33CC">\y</span><span style="color: #FF0000">ossym</span><span style="color: #CC33CC">\D</span><span style="color: #FF0000">esktop</span><span style="color: #CC33CC">\s</span><span style="color: #FF0000">hare"</span><span style="color: #990000">,</span> fs<span style="color: #990000">)</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long<span style="color: #990000">:</span> i <span style="color: #990000">=</span> <span style="color: #993399">1</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In fs
+        <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>i<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> v
+        <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>i<span style="color: #990000">,</span> <span style="color: #993399">2</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> v<span style="color: #990000">.</span>Type
+        <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>i<span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> v<span style="color: #990000">.</span>Name
+        <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>i<span style="color: #990000">,</span> <span style="color: #993399">4</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> v<span style="color: #990000">.</span>Path
+        i <span style="color: #990000">=</span> i <span style="color: #990000">+</span> <span style="color: #993399">1</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Public <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">FolderSearch</span></span><span style="color: #990000">(</span>Path As String<span style="color: #990000">,</span> fs As Collection<span style="color: #990000">)</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fso As New Scripting<span style="color: #990000">.</span>FileSystemObject
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> folder As folder
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> subfolder As folder
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> f As file
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> folder <span style="color: #990000">=</span> fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">GetFolder</span></span><span style="color: #990000">(</span>Path<span style="color: #990000">)</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">'フォルダ内のサブフォルダを列挙</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">'（サブフォルダがなければループ内は通らず）</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> subfolder In folder<span style="color: #990000">.</span>SubFolders
+        <span style="font-style: italic"><span style="color: #9A1900">'再帰的呼び出し</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">FolderSearch</span></span><span style="color: #990000">(</span>subfolder<span style="color: #990000">.</span>Path<span style="color: #990000">,</span> fs<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> subfolder
+
+    <span style="font-style: italic"><span style="color: #9A1900">'カレントフォルダ内のファイルを列挙</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> f In folder<span style="color: #990000">.</span>Files
+        <span style="font-style: italic"><span style="color: #9A1900">' file オブジェクトを代入</span></span>
+        fs<span style="color: #990000">.</span>Add f
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> f
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
 </div>
 </div>
 </div>
@@ -1602,10 +1739,18 @@ filefilter<span style="color: #990000">:=</span><span style="color: #FF0000">"Ex
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> s As String
-Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">FileDialog</span></span><span style="color: #990000">(</span>msoFileDialogFolderPicker<span style="color: #990000">).</span>Show
-s <span style="color: #990000">=</span> Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">FileDialog</span></span><span style="color: #990000">(</span>msoFileDialogFolderPicker<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">SelectedItems</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
-Debug<span style="color: #990000">.</span>Print s</tt></pre></div></div>
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">SelectFolder</span></span><span style="color: #990000">()</span> As String
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Result As String<span style="color: #990000">:</span>  Result <span style="color: #990000">=</span> <span style="color: #FF0000">""</span>
+    With Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">FileDialog</span></span><span style="color: #990000">(</span>msoFileDialogFolderPicker<span style="color: #990000">)</span>
+        <span style="color: #990000">.</span>AllowMultiSelect <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
+        <span style="color: #990000">.</span>Title <span style="color: #990000">=</span> <span style="color: #FF0000">"フォルダ選択"</span>
+        <span style="color: #990000">.</span>ButtonName <span style="color: #990000">=</span> <span style="color: #FF0000">"OK"</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="color: #990000">.</span>Show <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+            Result <span style="color: #990000">=</span> <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">SelectedItems</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+    SelectFolder <span style="color: #990000">=</span> Result
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
 </div>
 </div>
 <div class="sect1">
@@ -1860,11 +2005,13 @@ cellspacing="0" cellpadding="4">
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table">path</p></td>
-<td align="left" valign="top"><p class="table">必須。 _名前_を組み合わせる既存のパス。 絶対パスまたは相対パスを指定することができ、既存のフォルダーを指定する必要はありません。</p></td>
+<td align="left" valign="top"><p class="table">必須。 _名前_を組み合わせる既存のパス。 絶対パスまたは相対パスを指
+定することができ、既存のフォルダーを指定する必要はありません。</p></td>
 </tr>
 <tr>
 <td align="left" valign="top"><p class="table">name</p></td>
-<td align="left" valign="top"><p class="table">必ず指定します。 既存の_パス_に追加されるフォルダーまたはファイルの名前。</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 既存の_パス_に追加されるフォルダーまたはファイルの
+名前。</p></td>
 </tr>
 </tbody>
 </table>
@@ -2439,7 +2586,7 @@ cellspacing="0" cellpadding="4">
 </div>
 </div>
 <div class="sect3">
-<h4 id="_getbasenameメソッド">★GetBaseNameメソッド</h4>
+<h4 id="_getbasenameメソッド">GetBaseNameメソッド</h4>
 <div class="paragraph"><p>パスの最後のコンポーネントのファイル拡張子を除くベース名を含む文字列を返します。</p></div>
 <div class="listingblock">
 <div class="title">構文</div>
@@ -2639,7 +2786,7 @@ cellspacing="0" cellpadding="4">
 <div class="paragraph"><div class="title">注釈</div><p>指定されたファイルが存在しない場合は、エラーが発生します。</p></div>
 </div>
 <div class="sect3">
-<h4 id="_getfilename_メソッド">GetFileName メソッド</h4>
+<h4 id="_getfilename_メソッド">★GetFileName メソッド</h4>
 <div class="paragraph"><p>指定したパスの最後のコンポーネントを、ドライブの指定の一部ではないものとして返
 します。</p></div>
 <div class="listingblock">
@@ -3651,6 +3798,69 @@ http://www.gnu.org/software/src-highlite -->
 </div>
 </div>
 <div class="sect1">
+<h2 id="_userform">UserForm</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_listbox">ListBox</h3>
+<div class="listingblock">
+<div class="title">クリア</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>ListBox1<span style="color: #990000">.</span>Clear</tt></pre></div></div>
+<div class="listingblock">
+<div class="title">追加</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>ListBox1<span style="color: #990000">.</span>Additem <span style="color: #FF0000">"This is a pen"</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">追加選択</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>ListBox1<span style="color: #990000">.</span>Additem <span style="color: #FF0000">"This is a pen"</span>
+ListBox1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Selected</span></span><span style="color: #990000">(</span>ListBox1<span style="color: #990000">.</span>ListCount <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">全選択</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>ListBox1<span style="color: #990000">.</span>MultiSelect <span style="color: #990000">=</span> fmmultiselectextended
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span> To ListBox1<span style="color: #990000">.</span>ListCount <span style="color: #990000">-</span><span style="color: #993399">1</span>
+    ListBox1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Selected</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">選択行表示</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i<span style="color: #990000">=</span> <span style="color: #993399">0</span> To ListBox1<span style="color: #990000">.</span>ListCount <span style="color: #990000">-</span><span style="color: #993399">1</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> ListBox1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Selected</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>  <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        Debug<span style="color: #990000">.</span>Print ListBox1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">List</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">複数列追加</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>ListBox1<span style="color: #990000">.</span>ColumnCount <span style="color: #990000">=</span> <span style="color: #993399">2</span>
+ListBox1<span style="color: #990000">.</span>ColumnWidths <span style="color: #990000">=</span> <span style="color: #FF0000">"100:50"</span>
+ListBox1<span style="color: #990000">.</span>AddItem <span style="color: #FF0000">""</span>
+ListBox1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">List</span></span><span style="color: #990000">(</span>ListBox1<span style="color: #990000">.</span>ListCount <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #FF0000">"左"</span>
+ListBox1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">List</span></span><span style="color: #990000">(</span>ListBox1<span style="color: #990000">.</span>ListCount <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #FF0000">"右"</span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_collection_dictionary">Collection, Dictionary</h2>
 <div class="sectionbody">
 <div class="tableblock">
@@ -4006,11 +4216,693 @@ http://www.gnu.org/software/src-highlite -->
     MyClasses<span style="color: #990000">.</span>Remove <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Default collection numeric indexes</span></span>
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' begin at 1.</span></span></tt></pre></div></div>
 </div>
+<div class="sect2">
+<h3 id="_collectionのソート">Collectionのソート</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">sample</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> c As New Collection<span style="color: #990000">,</span> v As Variant
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> cs As New Collection
+
+    c<span style="color: #990000">.</span>Add Item<span style="color: #990000">:=</span><span style="color: #FF0000">"xyz"</span>
+    c<span style="color: #990000">.</span>Add Item<span style="color: #990000">:=</span><span style="color: #FF0000">"def"</span>
+    c<span style="color: #990000">.</span>Add Item<span style="color: #990000">:=</span><span style="color: #FF0000">"abc"</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> cs <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">SortCollection</span></span><span style="color: #990000">(</span>c<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In cs<span style="color: #990000">:</span> Debug<span style="color: #990000">.</span>Print v<span style="color: #990000">;:</span> <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">SortCollection</span></span><span style="color: #990000">(</span>c As Collection<span style="color: #990000">)</span> As Collection
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> v As Variant<span style="color: #990000">,</span> r As New Collection
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+
+    With <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"System.Collections.ArrayList"</span><span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In c
+            <span style="color: #990000">.</span>Add v
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+        <span style="color: #990000">.</span>Sort
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In <span style="color: #990000">.</span>toarray
+            r<span style="color: #990000">.</span>Add v
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> SortCollection <span style="color: #990000">=</span> r
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_dictionary_object_dictionary_オブジェクト_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/dictionary-object">Dictionary オブジェクト | Microsoft Docs</a></h2>
 <div class="sectionbody">
+<div class="paragraph"><p>データ キー/アイテムのペアを保存するオブジェクト。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Scripting<span style="color: #990000">.</span>Dictionary</tt></pre></div></div>
+<div class="paragraph"><div class="title">解説</div><p>Dictionary オブジェクトは PERL 連想配列に相当します。 アイテムには任意の形式の
+データを使用でき、配列に格納されます。 各アイテムは一意のキーに関連付けられま
+す。 キーは、個々のアイテムを取得するために使用され、通常は整数または文字列と
+なりますが、配列以外の任意の形式を使用できます。</p></div>
+<div class="paragraph"><p>次のコードは、Dictionary オブジェクトを作成する方法を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> d                   <span style="font-style: italic"><span style="color: #9A1900">'Create a variable</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> d <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.Dictionary"</span><span style="color: #990000">)</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"a"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Athens"</span>     <span style="font-style: italic"><span style="color: #9A1900">'Add some keys and items</span></span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"b"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Belgrade"</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"c"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Cairo"</span>
+<span style="color: #990000">...</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 6. メソッド</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">メソッド </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Add</p></td>
+<td align="left" valign="top"><p class="table">Dictionary オブジェクトに新しいキー/アイテムのペアを追加します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Exists</p></td>
+<td align="left" valign="top"><p class="table">指定したキーが Dictionary オブジェクト内に存在するかどうかを示すブール値を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Items</p></td>
+<td align="left" valign="top"><p class="table">Dictionary オブジェクト内のすべてのアイテムの配列を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Keys</p></td>
+<td align="left" valign="top"><p class="table">Dictionary オブジェクト内のすべてのキーの配列を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Remove</p></td>
+<td align="left" valign="top"><p class="table">Dictionary オブジェクトから、指定したキー/アイテムのいずれかのペアを削除します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">RemoveAll</p></td>
+<td align="left" valign="top"><p class="table">Dictionary オブジェクト内のすべてのキー/アイテムのペアを削除します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 7. プロパティ</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">プロパティ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">CompareMode</p></td>
+<td align="left" valign="top"><p class="table">Dictionary オブジェクト内でキーを比較するために比較モードを設定するか返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Count</p></td>
+<td align="left" valign="top"><p class="table">Dictionary オブジェクト内のキー/アイテムのペアの数を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Item</p></td>
+<td align="left" valign="top"><p class="table">Dictionary オブジェクト内のアイテムの値を設定するか返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Key</p></td>
+<td align="left" valign="top"><p class="table">Dictionary オブジェクト内の既存のキー値に対して新しいキー値を設定します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_メソッド_3">メソッド</h3>
+<div class="sect3">
+<h4 id="_add_メソッド">Add メソッド</h4>
+<div class="paragraph"><p>Dictionary オブジェクトにキーとアイテムのペアを追加します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Add key<span style="color: #990000">,</span> item</tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に Dictionary オブジェクトの名前です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">key</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 アイテムに関連付けられた追加するキーを指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">item</p></td>
+<td align="left" valign="top"><p class="table">必須。 キーに関連付けられた追加するアイテムを指定します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>key が既に存在する場合は、エラーが発生します。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_exists_メソッド">Exists メソッド</h4>
+<div class="paragraph"><p>指定したキーが<strong>Dictionary</strong> オブジェクトに存在する場合はTrueを返します。False
+の場合は False。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Exists</span></span> <span style="color: #990000">(</span>key<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に Dictionary オブジェクトの名前です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">key</p></td>
+<td align="left" valign="top"><p class="table">必須。 Dictionary オブジェクト内で検索する Key の値。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_items_メソッド">Items メソッド</h4>
+<div class="paragraph"><p>Dictionary オブジェクト内のすべてのアイテムを含む配列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Items</tt></pre></div></div>
+<div class="paragraph"><div class="title">注釈</div><p>次のコードは、Items メソッドの使用方法を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> a<span style="color: #990000">,</span> d<span style="color: #990000">,</span> i             <span style="font-style: italic"><span style="color: #9A1900">'Create some variables</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> d <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.Dictionary"</span><span style="color: #990000">)</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"a"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Athens"</span>     <span style="font-style: italic"><span style="color: #9A1900">'Add some keys and items</span></span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"b"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Belgrade"</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"c"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Cairo"</span>
+a <span style="color: #990000">=</span> d<span style="color: #990000">.</span>Items             <span style="font-style: italic"><span style="color: #9A1900">'Get the items</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span> To d<span style="color: #990000">.</span>Count <span style="color: #990000">-</span><span style="color: #993399">1</span> <span style="font-style: italic"><span style="color: #9A1900">'Iterate the array</span></span>
+    Print <span style="font-weight: bold"><span style="color: #000000">a</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>          <span style="font-style: italic"><span style="color: #9A1900">'Print item</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="color: #990000">...</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_keys_メソッド">Keys メソッド</h4>
+<div class="paragraph"><p>Dictionary オブジェクト内のすべての既存のキーを含む配列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Keys</tt></pre></div></div>
+<div class="paragraph"><div class="title">注釈</div><p>次のコードは、Keys メソッドの使用方法を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> a<span style="color: #990000">,</span> d<span style="color: #990000">,</span> i             <span style="font-style: italic"><span style="color: #9A1900">'Create some variables</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> d <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.Dictionary"</span><span style="color: #990000">)</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"a"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Athens"</span>     <span style="font-style: italic"><span style="color: #9A1900">'Add some keys and items.</span></span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"b"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Belgrade"</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"c"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Cairo"</span>
+a <span style="color: #990000">=</span> d<span style="color: #990000">.</span>keys              <span style="font-style: italic"><span style="color: #9A1900">'Get the keys</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span> To d<span style="color: #990000">.</span>Count <span style="color: #990000">-</span><span style="color: #993399">1</span> <span style="font-style: italic"><span style="color: #9A1900">'Iterate the array</span></span>
+    Print <span style="font-weight: bold"><span style="color: #000000">a</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>          <span style="font-style: italic"><span style="color: #9A1900">'Print key</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="color: #990000">...</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_remove_メソッド">Remove メソッド</h4>
+<div class="paragraph"><p>Dictionary オブジェクトからキーとアイテムのペアを削除します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Remove</span></span> <span style="color: #990000">(</span>key<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">指定項目 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に Dictionary オブジェクトの名前です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">key</p></td>
+<td align="left" valign="top"><p class="table">必須。 Dictionaryオブジェクトから削除するキー/アイテムのペアに関連付けら
+れている_キー_です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>指定したキー/アイテムのペアが存在しない場合は、エラーが発生します。</p></div>
+<div class="paragraph"><p>次のコードは、 Removeメソッドの使用方法を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Public <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Start</span></span><span style="color: #990000">()</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> d As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> d <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.Dictionary"</span><span style="color: #990000">)</span>
+
+    d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"a"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Athens"</span>
+    d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"b"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Belgrade"</span>
+    d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"c"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Cairo"</span>
+
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"Keys, before using Remove."</span>
+    PrintKeys d
+
+    d<span style="color: #990000">.</span>Remove <span style="color: #FF0000">"b"</span>
+
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"Keys, after removing key 'b'."</span>
+    PrintKeys d
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">PrintKeys</span></span><span style="color: #990000">(</span>ByVal d As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span><span style="color: #990000">)</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> k As Variant
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> k In d<span style="color: #990000">.</span>Keys
+        Debug<span style="color: #990000">.</span>Print k
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> k
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' The example displays the following output:</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Keys, before using Remove.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' b</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' c</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Keys, after removing key 'b'.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' c</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_removeall_メソッド">RemoveAll メソッド</h4>
+<div class="paragraph"><p>RemoveAllメソッドは、 Dictionary オブジェクトから、キーとアイテムのすべてのペ
+アを削除します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>RemoveAll</tt></pre></div></div>
+<div class="paragraph"><p>object は常に Dictionary オブジェクトの名前です。</p></div>
+<div class="paragraph"><div class="title">注釈</div><p>次のコードは、 RemoveAllメソッドの使用方法を示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> a<span style="color: #990000">,</span> d<span style="color: #990000">,</span> i             <span style="font-style: italic"><span style="color: #9A1900">'Create some variables</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> d <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.Dictionary"</span><span style="color: #990000">)</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"a"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Athens"</span>     <span style="font-style: italic"><span style="color: #9A1900">'Add some keys and items</span></span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"b"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Belgrade"</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"c"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Cairo"</span>
+<span style="color: #990000">...</span>
+a <span style="color: #990000">=</span> d<span style="color: #990000">.</span>RemoveAll         <span style="font-style: italic"><span style="color: #9A1900">'Clear the dictionary</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_プロパティ_3">プロパティ</h3>
+<div class="sect3">
+<h4 id="_comparemode_プロパティ">CompareMode プロパティ</h4>
+<div class="paragraph"><p>Dictionary オブジェクト内の文字列キーを比較するための比較モードを設定および取
+得します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>CompareMode <span style="color: #990000">[</span> <span style="color: #990000">=</span> compare <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に、Dictionary オブジェクトの名前です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">compare</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 指定した場合、 _compare_は、 StrComp などの関数で使用され
+る比較モードを表す値です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>compare 引数には、次の値を指定できます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">説明</p></td>
+<td align="left" valign="top"><p class="table">vbUseCompareOption</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">Option Compare ステートメントの設定を使用して比較を実
+行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbBinaryCompare</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">バイナリ比較を実行します。</p></td>
+<td align="left" valign="top"><p class="table">vbTextCompare</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+<td align="left" valign="top"><p class="table">テキスト比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbDatabaseCompare</p></td>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>データが既に含まれる Dictionary オブジェクトの比較モードの変更を試みた場合、エ
+ラーが発生します。</p></div>
+<div class="paragraph"><p>CompareMode プロパティは、StrComp 関数の compare 引数と同じ値を使用します。 2
+より大きい値は、特定のロケール Id (LCID) を使用して比較を参照するために使用で
+きます。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_count_プロパティ">Count プロパティ</h4>
+<div class="paragraph"><p>コレクションまたは<strong>Dictionary</strong> オブジェクト内の項目数を含む長整数型 (long)
+の値を返します。 読み取り専用です。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Count</tt></pre></div></div>
+<div class="paragraph"><p>_オブジェクト_は、常に、Applies To リストの 1 つの項目名です。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>次のコードは、Count プロパティの使用例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> a<span style="color: #990000">,</span> d<span style="color: #990000">,</span> i             <span style="font-style: italic"><span style="color: #9A1900">'Create some variables</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> d <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.Dictionary"</span><span style="color: #990000">)</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"a"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Athens"</span>     <span style="font-style: italic"><span style="color: #9A1900">'Add some keys and items.</span></span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"b"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Belgrade"</span>
+d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"c"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Cairo"</span>
+a <span style="color: #990000">=</span> d<span style="color: #990000">.</span>Keys              <span style="font-style: italic"><span style="color: #9A1900">'Get the keys</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span> To d<span style="color: #990000">.</span>Count <span style="color: #990000">-</span><span style="color: #993399">1</span> <span style="font-style: italic"><span style="color: #9A1900">'Iterate the array</span></span>
+    Print <span style="font-weight: bold"><span style="color: #000000">a</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>          <span style="font-style: italic"><span style="color: #9A1900">'Print key</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="color: #990000">...</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_item_プロパティ">Item プロパティ</h4>
+<div class="paragraph"><p>Dictionary オブジェクト内の指定した_キー_の_アイテム_を設定または取得します。
+コレクションについては、指定した key に基づいて item を取得します。 値の取得と
+設定が可能です。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Item</span></span> <span style="color: #990000">(</span>key<span style="color: #990000">)</span> <span style="color: #990000">[</span> <span style="color: #990000">=</span> newitem <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 コレクション またはDictionaryオブジェクトの名前を常に指定
+します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">key</p></td>
+<td align="left" valign="top"><p class="table">必須。 取得または追加された項目に関連付けられた Key です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">newitem</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 Dictionaryオブジェクトのみに使用されます。コレクションに
+対するアプリケーションがありません。 指定した場合、 <em>newitem_は指定した_キー</em>
+に関連付けられている新しい値です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>item を変更するときに key がない場合は、指定した newitem で新しい key が作成さ
+れます。 既存の項目を返そうとしたときに key がない場合は、新しい key が作成さ
+れ、対応する項目は空のままになります。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_key_プロパティ">Key プロパティ</h4>
+<div class="paragraph"><p>Dictionary オブジェクトに_キー_を設定します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Key</span></span> <span style="color: #990000">(</span>key<span style="color: #990000">)</span> <span style="color: #990000">=</span> newkey</tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に Dictionary オブジェクトの名前です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">key</p></td>
+<td align="left" valign="top"><p class="table">必須。 変更されている_キー_の値を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">newkey</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 指定した__ キーを置き換える新しい値です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p><em> キーを変更するとき、</em> キーが見つからない場合は、実行時エラーが発生します。</p></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dictionaryのソート">Dictionaryのソート</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">SortCollection</span></span><span style="color: #990000">(</span>c As Collection<span style="color: #990000">)</span> As Collection
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> v As Variant<span style="color: #990000">,</span> r As New Collection
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+
+    With <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"System.Collections.ArrayList"</span><span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In c
+            <span style="color: #990000">.</span>Add v
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+        <span style="color: #990000">.</span>Sort
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In <span style="color: #990000">.</span>ToArray
+            r<span style="color: #990000">.</span>Add v
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> SortCollection <span style="color: #990000">=</span> r
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">SortDictionary</span></span><span style="color: #990000">(</span>d As Scripting<span style="color: #990000">.</span>Dictionary<span style="color: #990000">)</span> As Dictionary
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> v As Variant<span style="color: #990000">,</span> r As New Scripting<span style="color: #990000">.</span>Dictionary
+    With <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"System.Collections.ArrayList"</span><span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In d<span style="color: #990000">.</span>Keys
+            <span style="color: #990000">.</span>Add v
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+        <span style="color: #990000">.</span>Sort
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In <span style="color: #990000">.</span>ToArray
+            Debug<span style="color: #990000">.</span>Print d<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Item</span></span><span style="color: #990000">(</span>v<span style="color: #990000">)</span>
+            r<span style="color: #990000">.</span>Add v<span style="color: #990000">,</span> d<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Item</span></span><span style="color: #990000">(</span>v<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> SortDictionary <span style="color: #990000">=</span> r
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_dictionaryにclassを追加">DictionaryにClassを追加</h3>
+<div class="paragraph"><p>独自の構造体？を配列にするよりリストにしたいときは以下を使用する</p></div>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+        Microsoft Scripting Runtime
+</p>
+</dd>
+</dl></div>
+<div class="dlist"><div class="title">クラスモジュール</div><dl>
+<dt class="hdlist1">
+クラス名のオブジェクト名
+</dt>
+<dd>
+<p>
+        PointF
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Public Keyword As String
+Public Width As Single
+Public Height As Single</tt></pre></div></div>
+<div class="listingblock">
+<div class="title">標準モジュール</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">sample</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> d As New Scripting<span style="color: #990000">.</span>Dictionary
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">2</span> To <span style="color: #993399">10</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> c As New PointF
+        <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> c <span style="color: #990000">=</span> New PointF
+        c<span style="color: #990000">.</span>Keyword <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CStr</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>
+        c<span style="color: #990000">.</span>Width <span style="color: #990000">=</span> i <span style="color: #990000">*</span> <span style="color: #993399">0.2</span>
+        c<span style="color: #990000">.</span>Height <span style="color: #990000">=</span> i <span style="color: #990000">*</span> <span style="color: #993399">0.4</span>
+        d<span style="color: #990000">.</span>Add c<span style="color: #990000">.</span>Keyword<span style="color: #990000">,</span> c
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> v As Variant
+
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In d
+        Debug<span style="color: #990000">.</span>Print v<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">d</span></span><span style="color: #990000">(</span>v<span style="color: #990000">).</span>Keyword<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">d</span></span><span style="color: #990000">(</span>v<span style="color: #990000">).</span>Width<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">d</span></span><span style="color: #990000">(</span>v<span style="color: #990000">).</span>Height
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -4036,7 +4928,7 @@ With ActiveSheet<span style="color: #990000">.</span>Shapes<span style="color: #
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 6. Xlcharttype クラス列挙 (Excel)</caption>
+<caption class="title">Table 8. Xlcharttype クラス列挙 (Excel)</caption>
 <col width="44%" />
 <col width="11%" />
 <col width="44%" />
@@ -4319,7 +5211,7 @@ http://www.gnu.org/software/src-highlite -->
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-09-13 04:16:39 JST
+Last updated 2020-09-14 23:46:28 JST
 </div>
 </div>
 </body>

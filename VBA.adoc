@@ -25,6 +25,8 @@
 
 == 変数
 
+hoge, fuga, piyo, hogera
+
 WorkBook::
         wb
 WorkSheet::
@@ -113,6 +115,94 @@ Dim SaveTime As String
 Savetime = Format(Now,"yyyymmdd_hhmmss")
 
 Workbook.SaveAs "hoge.xlsx"
+----
+
+=== ワークブックを開くとき、閉じるとき
+
+.[ThisWorkbook]モジュール
+
+[source,vbscript]
+----
+Private Sub Workbook_Open()
+    ''起動時に自動実行する記述
+End Sub
+
+Private Sub Workbook_BeforeClose(Cancel As Boolean)
+    ''終了時に自動実行する記述
+End Sub
+----
+
+
+.[標準モジュール]
+[source,vbscript]
+----
+Sub Auto_Open()
+    ' '起動時に自動実行する記述
+End Sub
+
+Sub Auto_Close()
+    ' '終了時に自動実行する記述
+End Sub
+----
+
+
+==== メニュー追加
+
+
+.[標準モジュール]
+[source,vbscript]
+----
+Const READ_MENU01 As String = "MENU01"
+Public Const MENUBARNAME = "Worksheet Menu Bar"
+
+Sub auto_open()
+    Call MenuBtnRegist(READ_MENU01, READ_MENU01, READ_MENU01, 300)
+End Sub
+
+Sub auto_close()
+
+End Sub
+
+
+Private Function MenuSearch(MenuTitle As String) As Boolean
+    Dim i As Long
+    With ThisWorkbook.Application.CommandBars(MENUBARNAME)
+        For i = 1 To .Controls.Count
+            If MenuTitle = .Controls.Item(i).Caption Then
+                MenuSearch = True
+                Exit Function
+            End If
+
+        Next
+
+    End With
+    MenuSearch = False
+End Function
+
+Private Sub MenuBtnRegist(MenuTitle As String, tipText As String, _
+                            OnAction As String, FaceId As Long)
+    Dim fMenu As CommandBarControl
+    Dim MenuRegistFlag As Boolean: MenuRegistFlag = False
+
+    MenuRegistFlag = MenuSearch(MenuTitle)
+    If Not MenuRegistFlag Then
+        With ThisWorkbook.Application.CommandBars(MENUBARNAME)
+            Set fMenu = .Controls.Add(Type:=msoControlButton, Temporary:=True)
+
+            fMenu.Caption = MenuTitle
+            fMenu.Style = msoButtonIconAndCaption
+            fMenu.TooltipText = tipText
+            fMenu.OnAction = OnAction
+            fMenu.FaceId = FaceId
+        End With
+        Set fMenu = Nothing
+    End If
+
+End Sub
+
+Sub MENU01()
+    MsgBox "aaa"
+End Sub
 ----
 
 == WorkSheets
@@ -520,11 +610,11 @@ Microsoft ScrptingRuntime
 
 [source,VBSCRIPT]
 ----
-Dim fl As File
-Dim fso As New Scrpting.Filesystemobject
+Dim f As File
+Dim fso As New Scripting.FileSystemObject
 
-For Each fl in fso.GetFolder(Path).Files
-    fl.Name,Fl.Type
+For Each f in fso.GetFolder(Path).Files
+    f.Name,F.Type
 Next
 ----
 
@@ -541,6 +631,52 @@ Dim fso As New Scrpting.Filesystemobject
 For Each fd In fso.getFolder(Path).subFolders
     fd.Name fd.Path
 Next
+----
+
+=== フォルダを再起してファイル一覧取得
+
+[source,VBSCRIPT]
+----
+Sub sample()
+    Dim fs As New Collection
+    Dim v As Variant
+
+    Call FolderSearch("C:\Users\yossym\Desktop\share", fs)
+
+    Dim i As Long: i = 1
+    For Each v In fs
+        Cells(i, 1) = v
+        Cells(i, 2) = v.Type
+        Cells(i, 3) = v.Name
+        Cells(i, 4) = v.Path
+        i = i + 1
+
+    Next
+End Sub
+
+Public Sub FolderSearch(Path As String, fs As Collection)
+
+    Dim fso As New Scripting.FileSystemObject
+    Dim folder As folder
+    Dim subfolder As folder
+    Dim f As file
+
+    Set folder = fso.GetFolder(Path)
+
+    'フォルダ内のサブフォルダを列挙
+    '（サブフォルダがなければループ内は通らず）
+    For Each subfolder In folder.SubFolders
+        '再帰的呼び出し
+        Call FolderSearch(subfolder.Path, fs)
+    Next subfolder
+
+    'カレントフォルダ内のファイルを列挙
+    For Each f In folder.Files
+        ' file オブジェクトを代入
+        fs.Add f
+    Next f
+
+End Sub
 ----
 
 == 特殊フォルダ
@@ -660,12 +796,19 @@ End If
 
 [source,vbscript]
 ----
-Dim s As String
-Application.FileDialog(msoFileDialogFolderPicker).Show
-s = Application.FileDialog(msoFileDialogFolderPicker).SelectedItems(1)
-Debug.Print s
+Private Function SelectFolder() As String
+    Dim Result As String:  Result = ""
+    With Application.FileDialog(msoFileDialogFolderPicker)
+        .AllowMultiSelect = False
+        .Title = "フォルダ選択"
+        .ButtonName = "OK"
+        If .Show Then
+            Result = .SelectedItems(1)
+        End If
+    End With
+    SelectFolder = Result
+End Function
 ----
-
 
 
 == FileSystemObject オブジェクト
@@ -775,8 +918,10 @@ object.BuildPath (path, name)
 |===
 | Part   | Description
 | object | 必須です。 常に FileSystemObject の名前。
-| path   | 必須。 _名前_を組み合わせる既存のパス。 絶対パスまたは相対パスを指定することができ、既存のフォルダーを指定する必要はありません。
-| name   | 必ず指定します。 既存の_パス_に追加されるフォルダーまたはファイルの名前。
+| path   | 必須。 _名前_を組み合わせる既存のパス。 絶対パスまたは相対パスを指
+定することができ、既存のフォルダーを指定する必要はありません。
+| name   | 必ず指定します。 既存の_パス_に追加されるフォルダーまたはファイルの
+名前。
 |===
 
 .注釈
@@ -1136,7 +1281,7 @@ GetAbsolutePathName メソッドの動作を示しています。
 |"c:....\mydocuments " |"c:\mydocuments"
 |===
 
-==== ★GetBaseNameメソッド
+==== GetBaseNameメソッド
 
 パスの最後のコンポーネントのファイル拡張子を除くベース名を含む文字列を返します。
 
@@ -1266,7 +1411,7 @@ object.GetFile (filespec)
 指定されたファイルが存在しない場合は、エラーが発生します。
 
 
-==== GetFileName メソッド
+==== ★GetFileName メソッド
 
 指定したパスの最後のコンポーネントを、ドライブの指定の一部ではないものとして返
 します。
@@ -1958,14 +2103,68 @@ object は常に TextStream オブジェクトの名前となります。
 
 
 
+== UserForm
+=== ListBox
 
 
+.クリア
 
 
+[source,vbscript]
+----
+ListBox1.Clear
+----
+
+.追加
+
+[source,vbscript]
+----
+ListBox1.Additem "This is a pen"
+----
+
+.追加選択
+
+[source,vbscript]
+----
+ListBox1.Additem "This is a pen"
+ListBox1.Selected(ListBox1.ListCount -1) = True
+----
 
 
+.全選択
+
+[source,vbscript]
+----
+ListBox1.MultiSelect = fmmultiselectextended
+Dim i As Long
+For i = 0 To ListBox1.ListCount -1
+    ListBox1.Selected(i) = True
+Next
+----
 
 
+.選択行表示
+
+[source,vbscript]
+----
+For i= 0 To ListBox1.ListCount -1
+    If ListBox1.Selected(i)  Then
+        Debug.Print ListBox1.List(i)
+    End If
+Next
+----
+
+
+.複数列追加
+
+[source,vbscript]
+----
+ListBox1.ColumnCount = 2
+ListBox1.ColumnWidths = "100:50"
+ListBox1.AddItem ""
+ListBox1.List(ListBox1.ListCount -1, 0) = "左"
+ListBox1.List(ListBox1.ListCount -1, 1) = "右"
+----
 
 
 
@@ -2389,11 +2588,671 @@ For Num = 1 To MyClasses.Count    ' Remove name from the collection.
 Next    ' begin at 1.
 ----
 
+=== Collectionのソート
+
+[source,vbscript]
+----
+Sub sample()
+    Dim c As New Collection, v As Variant
+    Dim cs As New Collection
+
+    c.Add Item:="xyz"
+    c.Add Item:="def"
+    c.Add Item:="abc"
+    Set cs = SortCollection(c)
+    For Each v In cs: Debug.Print v;: Next
+
+End Sub
+
+Function SortCollection(c As Collection) As Collection
+    Dim v As Variant, r As New Collection
+    Dim i As Long
+
+    With CreateObject("System.Collections.ArrayList")
+        For Each v In c
+            .Add v
+        Next
+        .Sort
+        For Each v In .toarray
+            r.Add v
+        Next
+    End With
+
+    Set SortCollection = r
+End Function
+----
+
+
 
 
 
 
 == https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/dictionary-object[Dictionary オブジェクト | Microsoft Docs]
+
+データ キー/アイテムのペアを保存するオブジェクト。
+
+.構文
+
+[source,vbscript]
+----
+Scripting.Dictionary
+----
+
+.解説
+
+Dictionary オブジェクトは PERL 連想配列に相当します。 アイテムには任意の形式の
+データを使用でき、配列に格納されます。 各アイテムは一意のキーに関連付けられま
+す。 キーは、個々のアイテムを取得するために使用され、通常は整数または文字列と
+なりますが、配列以外の任意の形式を使用できます。
+
+次のコードは、Dictionary オブジェクトを作成する方法を示しています。
+
+[source,vbscript]
+----
+Dim d                   'Create a variable
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "Athens"     'Add some keys and items
+d.Add "b", "Belgrade"
+d.Add "c", "Cairo"
+...
+----
+
+.メソッド
+
+[cols="1,4",options="header"]
+|===
+|メソッド |説明
+|Add |Dictionary オブジェクトに新しいキー/アイテムのペアを追加します。
+|Exists |指定したキーが Dictionary オブジェクト内に存在するかどうかを示すブール値を返します。
+|Items |Dictionary オブジェクト内のすべてのアイテムの配列を返します。
+|Keys |Dictionary オブジェクト内のすべてのキーの配列を返します。
+|Remove |Dictionary オブジェクトから、指定したキー/アイテムのいずれかのペアを削除します。
+|RemoveAll |Dictionary オブジェクト内のすべてのキー/アイテムのペアを削除します。
+|===
+
+.プロパティ
+
+[cols="1,4",options="header"]
+|===
+|プロパティ |説明
+|CompareMode |Dictionary オブジェクト内でキーを比較するために比較モードを設定するか返します。
+|Count |Dictionary オブジェクト内のキー/アイテムのペアの数を返します。
+|Item |Dictionary オブジェクト内のアイテムの値を設定するか返します。
+|Key |Dictionary オブジェクト内の既存のキー値に対して新しいキー値を設定します。
+|===
+
+=== メソッド
+==== Add メソッド
+
+Dictionary オブジェクトにキーとアイテムのペアを追加します。
+
+.構文
+
+
+[source,vbscript]
+----
+object.Add key, item
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に Dictionary オブジェクトの名前です。
+|key |必ず指定します。 アイテムに関連付けられた追加するキーを指定します。
+|item |必須。 キーに関連付けられた追加するアイテムを指定します。
+|===
+
+.注釈
+
+key が既に存在する場合は、エラーが発生します。
+
+==== Exists メソッド
+
+指定したキーが**Dictionary** オブジェクトに存在する場合はTrueを返します。False
+の場合は False。
+
+.構文
+
+[source,vbscript]
+----
+object.Exists (key)
+----
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に Dictionary オブジェクトの名前です。
+|key |必須。 Dictionary オブジェクト内で検索する Key の値。
+|===
+
+
+==== Items メソッド
+
+Dictionary オブジェクト内のすべてのアイテムを含む配列を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.Items
+----
+
+.注釈
+
+次のコードは、Items メソッドの使用方法を示しています。
+
+[source,vbscript]
+----
+Dim a, d, i             'Create some variables
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "Athens"     'Add some keys and items
+d.Add "b", "Belgrade"
+d.Add "c", "Cairo"
+a = d.Items             'Get the items
+For i = 0 To d.Count -1 'Iterate the array
+    Print a(i)          'Print item
+Next
+...
+----
+
+==== Keys メソッド
+
+Dictionary オブジェクト内のすべての既存のキーを含む配列を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.Keys
+----
+
+.注釈
+
+次のコードは、Keys メソッドの使用方法を示しています。
+
+[source,vbscript]
+----
+Dim a, d, i             'Create some variables
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "Athens"     'Add some keys and items.
+d.Add "b", "Belgrade"
+d.Add "c", "Cairo"
+a = d.keys              'Get the keys
+For i = 0 To d.Count -1 'Iterate the array
+    Print a(i)          'Print key
+Next
+...
+----
+
+
+
+==== Remove メソッド
+
+Dictionary オブジェクトからキーとアイテムのペアを削除します。
+
+.構文
+
+[source,vbscript]
+----
+object.Remove (key)
+----
+
+[cols="1,4",options="header"]
+|===
+|指定項目 |説明
+|object |必須です。 常に Dictionary オブジェクトの名前です。
+|key |必須。 Dictionaryオブジェクトから削除するキー/アイテムのペアに関連付けら
+れている_キー_です。
+|===
+
+.注釈
+
+指定したキー/アイテムのペアが存在しない場合は、エラーが発生します。
+
+次のコードは、 Removeメソッドの使用方法を示しています。
+
+
+[source,vbscript]
+----
+Public Sub Start()
+
+    Dim d As Object
+    Set d = CreateObject("Scripting.Dictionary")
+
+    d.Add "a", "Athens"
+    d.Add "b", "Belgrade"
+    d.Add "c", "Cairo"
+
+    Debug.Print "Keys, before using Remove."
+    PrintKeys d
+
+    d.Remove "b"
+
+    Debug.Print "Keys, after removing key 'b'."
+    PrintKeys d
+
+End Sub
+
+Private Sub PrintKeys(ByVal d As Object)
+
+    Dim k As Variant
+    For Each k In d.Keys
+        Debug.Print k
+    Next k
+
+End Sub
+
+' The example displays the following output:
+' Keys, before using Remove.
+' a
+' b
+' c
+' Keys, after removing key 'b'.
+' a
+' c
+----
+
+==== RemoveAll メソッド
+
+RemoveAllメソッドは、 Dictionary オブジェクトから、キーとアイテムのすべてのペ
+アを削除します。
+
+.構文
+
+[source,vbscript]
+----
+object.RemoveAll
+----
+object は常に Dictionary オブジェクトの名前です。
+
+.注釈
+
+次のコードは、 RemoveAllメソッドの使用方法を示しています。
+
+[source,vbscript]
+----
+Dim a, d, i             'Create some variables
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "Athens"     'Add some keys and items
+d.Add "b", "Belgrade"
+d.Add "c", "Cairo"
+...
+a = d.RemoveAll         'Clear the dictionary
+----
+
+=== プロパティ
+==== CompareMode プロパティ
+
+Dictionary オブジェクト内の文字列キーを比較するための比較モードを設定および取
+得します。
+
+.構文
+
+[source,vbscript]
+----
+object.CompareMode [ = compare ]
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に、Dictionary オブジェクトの名前です。
+|compare |省略可能。 指定した場合、 _compare_は、 StrComp などの関数で使用され
+る比較モードを表す値です。
+|===
+
+.設定
+
+compare 引数には、次の値を指定できます。
+
+[cols="1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbUseCompareOption |-1 |Option Compare ステートメントの設定を使用して比較を実
+行します。
+|vbBinaryCompare |.0 |バイナリ比較を実行します。
+|vbTextCompare |1-d |テキスト比較を実行します。
+|vbDatabaseCompare |pbm-2 |Microsoft Access のみ。 データベース内の情報に基づ
+いて比較を実行します。
+|===
+
+.注釈
+
+データが既に含まれる Dictionary オブジェクトの比較モードの変更を試みた場合、エ
+ラーが発生します。
+
+CompareMode プロパティは、StrComp 関数の compare 引数と同じ値を使用します。 2
+より大きい値は、特定のロケール Id (LCID) を使用して比較を参照するために使用で
+きます。
+
+
+
+==== Count プロパティ
+
+コレクションまたは**Dictionary** オブジェクト内の項目数を含む長整数型 (long)
+の値を返します。 読み取り専用です。
+
+.構文
+
+[source,vbscript]
+----
+object.Count
+----
+
+_オブジェクト_は、常に、Applies To リストの 1 つの項目名です。
+
+.解説
+
+次のコードは、Count プロパティの使用例です。
+
+[source,vbscript]
+----
+Dim a, d, i             'Create some variables
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "Athens"     'Add some keys and items.
+d.Add "b", "Belgrade"
+d.Add "c", "Cairo"
+a = d.Keys              'Get the keys
+For i = 0 To d.Count -1 'Iterate the array
+    Print a(i)          'Print key
+Next
+...
+----
+
+==== Item プロパティ
+
+Dictionary オブジェクト内の指定した_キー_の_アイテム_を設定または取得します。
+コレクションについては、指定した key に基づいて item を取得します。 値の取得と
+設定が可能です。
+
+.構文
+
+[source,vbscript]
+----
+object.Item (key) [ = newitem ]
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 コレクション またはDictionaryオブジェクトの名前を常に指定
+します。
+|key |必須。 取得または追加された項目に関連付けられた Key です。
+|newitem |省略可能。 Dictionaryオブジェクトのみに使用されます。コレクションに
+対するアプリケーションがありません。 指定した場合、 _newitem_は指定した_キー_
+に関連付けられている新しい値です。
+|===
+
+.注釈
+
+item を変更するときに key がない場合は、指定した newitem で新しい key が作成さ
+れます。 既存の項目を返そうとしたときに key がない場合は、新しい key が作成さ
+れ、対応する項目は空のままになります。
+
+==== Key プロパティ
+
+Dictionary オブジェクトに_キー_を設定します。
+
+.構文
+
+[source,vbscript]
+----
+object.Key (key) = newkey
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に Dictionary オブジェクトの名前です。
+|key |必須。 変更されている_キー_の値を指定します。
+|newkey |必ず指定します。 指定した__ キーを置き換える新しい値です。
+|===
+
+.注釈
+
+__ キーを変更するとき、__ キーが見つからない場合は、実行時エラーが発生します。
+
+
+
+
+
+=== Dictionaryのソート
+
+
+[source,vbscript]
+----
+Function SortCollection(c As Collection) As Collection
+    Dim v As Variant, r As New Collection
+    Dim i As Long
+
+    With CreateObject("System.Collections.ArrayList")
+        For Each v In c
+            .Add v
+        Next
+        .Sort
+        For Each v In .ToArray
+            r.Add v
+        Next
+    End With
+
+    Set SortCollection = r
+End Function
+
+Function SortDictionary(d As Scripting.Dictionary) As Dictionary
+    Dim v As Variant, r As New Scripting.Dictionary
+    With CreateObject("System.Collections.ArrayList")
+        For Each v In d.Keys
+            .Add v
+        Next
+        .Sort
+        For Each v In .ToArray
+            Debug.Print d.Item(v)
+            r.Add v, d.Item(v)
+        Next
+    End With
+    Set SortDictionary = r
+End Function
+----
+
+=== DictionaryにClassを追加
+
+独自の構造体？を配列にするよりリストにしたいときは以下を使用する
+
+
+参照設定::
+	Microsoft Scripting Runtime
+
+.クラスモジュール
+
+クラス名のオブジェクト名::
+	PointF
+
+
+[source,vbscript]
+----
+Public Keyword As String
+Public Width As Single
+Public Height As Single
+----
+
+
+.標準モジュール
+
+[source,vbscript]
+----
+Sub sample()
+    Dim d As New Scripting.Dictionary
+
+    Dim i As Long
+
+    For i = 2 To 10
+        Dim c As New PointF
+        Set c = New PointF
+        c.Keyword = CStr(i)
+        c.Width = i * 0.2
+        c.Height = i * 0.4
+        d.Add c.Keyword, c
+    Next
+
+    Dim v As Variant
+
+    For Each v In d
+        Debug.Print v, d(v).Keyword, d(v).Width, d(v).Height
+    Next
+
+End Sub
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
