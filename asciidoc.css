@@ -1,0 +1,38 @@
+
+body {
+	/* margin:0; */
+/* 	color:#cccccc;                    */
+/* 	background-color:#333333;         */
+/* //	background-color: dimgray;      */
+/* //	background-color: midnightblue; */
+
+}
+
+
+h1 {
+	/* margin:0;  */
+	/* padding:0; */
+	font-size    : 400%;
+}
+
+h2 {
+
+	margin:0;
+	padding:0;
+//	border-style : double; /* 枠の種類 */
+//	border-width : 0 0 10px;
+//	border-color : lime;
+//	font-size    : 200%;
+}
+
+
+h3, h4 {
+	margin:0;
+	padding:0;
+}
+
+.author	{
+	margin:0 0 0 auto;
+
+}
+

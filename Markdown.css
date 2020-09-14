@@ -1,0 +1,50 @@
+
+html body {
+ background-color: #fdf6e3;
+ color: #657b83;
+}
+html body h1, html body h2, html body h3, html body h4 {
+ font-family: sans-serif;
+ color: #586e75;
+}
+p, li, td {
+ font-family: serif;
+}
+html body table th {
+ background-color: #93a1a1;
+ color: #eee8d5;
+}
+
+html body table tr:nth-child(even) {
+ background-color: #eee8d5;
+} 
+
+h1 {
+ counter-reset: chapter;
+ text-decoration: underline;
+ text-align: center;
+}
+h2 {
+ counter-reset: sub-chapter;
+ text-decoration: underline;
+}
+h3 {
+ counter-reset: section;
+ text-decoration: underline;
+}
+h4 {
+ text-decoration: underline dotted;
+}
+
+h2::before {
+ counter-increment: chapter;
+ content: counter(chapter) ". ";
+}
+h3::before {
+ counter-increment: sub-chapter;
+ content: counter(chapter) "."counter(sub-chapter)". ";
+}
+h4::before {
+ counter-increment: section;
+ content: counter(chapter) "."counter(sub-chapter)"."counter(section)" ";
+}

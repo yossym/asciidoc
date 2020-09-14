@@ -1,0 +1,114 @@
+= ascii code
+// 著者の名前(省略可)<メールアドレス(省略可能)>
+// バージョンや作成日(省略可)
+:Author:	yossym
+:Email: docomoxyz@gmail.com
+:Date: 	2020-09-12
+:Revision: 0.1
+
+== Standard Code
+
+[width="40%", options="header",  frame="topbot"]
+|===
+|-    |0    | 1   | 2   | 3   | 4   | 5   |  6  |  7
+| 0   | NUL | DLE | SP  | 0   | @   | P   |   ` |   p
+| 1   | SOH | DC1 | !   | 1   | A   | Q   |   a |   q
+| 2   | STX | DC2 | "   | 2   | B   | R   |   b |   r
+| 3   | ETX | DC3 | #   | 3   | C   | S   |   c |   s
+| 4   | EOT | DC4 | $   | 4   | D   | T   |  d  |   t
+| 5   | ENQ | NAK | %   | 5   | E   | U   |  e  |   u
+| 6   | ACK | SYN | &   | 6   | F   | V   |  f  |   v
+| 7   | BEL | ETB | '   | 7   | G   | W   |  g  |   w
+| 8   | BS  | CAN | (   | 8   | H   | X   |  h  |   x
+| 9   | HT  | EM  | )   | 9   | I   | Y   |  i  |   y
+| A   | LF  | SUB | *   | :   | J   | Z   |  j  |   z
+| B   | VT  | ESC | +   |  ;  | K   | [   |  k  |   {
+| C   | FF  | FS  | ,   | <   | L   | \   |  l  |   \|
+| D   | CR  | GS  | -   | =   | M   | ]   |  m  |   }
+| E   | SO  | RS  | .   | >   | N   | ^   |  n  |   ~
+| F   | SI  | US  | /   | ?   | O   | _   |  o  | DEL
+|===
+
+== Legend
+=== Control Characters
+
+
+[cols="1,1,2,4",options="header"]
+|===
+|DEC|HEX|省略|そのまま
+|0|00|NUL |Null
+|1|01|SOH |Start of Heading (CC) footnoteref:[CC, (CC) Communication Control]
+|2|02|STX |Start of Text (CC) footnoteref:[CC]
+|3|03|ETX |End of Text (CC) footnoteref:[CC]
+|4|04|EOT |End of Transmission (CC) footnoteref:[CC]
+|5|05|ENQ |Enquiry (CC) footnoteref:[CC]
+|6|06|ACK |Acknowledge (CC) footnoteref:[CC]
+|7|07|BEL |Bell (audible or attention signal)
+|8|08|BS |Backspace (FE) footnoteref:[FE, (FE) Format Effector]
+|9|09|HT | Horizontal Tabulation (punched card skip) (FE) footnoteref:[FE]
+|10|0A|LF |Line Feed (FE) footnoteref:[FE]
+|11|0B|VT |Vertical Tabulation (FE) footnoteref:[FE]
+|12|0C|FF |Form Feed (FE) footnoteref:[FE]
+|13|0D|CR |Carriage Return (FE) footnoteref:[FE]
+|14|0E|SO |Shift Out
+|15|0F|SI |Shift In
+|16|10|DLE |Data Link Escape (CC) footnoteref:[CC]
+|17|11|DC1 |Device Control 1
+|18|12|DC2 |Device Control 2
+|19|13|DC3 |Device Control 3
+|20|14|DC4 |Device Control 4 (Stop)
+|21|15|NAK |Negative Acknowledge (CC) footnoteref:[CC]
+|22|16|SYN |Synchronous Idle (CC) footnoteref:[CC]
+|23|17|ETB |End of Transmission Block (CC) footnoteref:[CC]
+|24|18|CAN |Cancel               
+|25|19|EM |End of Medium         
+|26|1A|SUB |Substitute           
+|27|1B|ESC |Escape               
+|28|1C|FS |File Separator (IS)  footnoteref:[ IS, (IS) Information Separator ]
+|29|1D|GS |Group Separator (IS)  footnoteref:[ IS]
+|30|1E|RS |Record Separator (IS)  footnoteref:[ IS]   
+|31|1F|  US |Unit Separator (IS)       footnoteref:[ IS]
+|127|7F|DEL |Delete [1]
+|===
+
+=== Graphic Characters
+
+[cols="1,1,2,4",options="header"]
+|===
+|DEC|HEX|Symbol   |   Name
+|32|20    |   SP    |      Space (Normally Non-Printing)
+|33|21   |   !     |      Exclamation Point
+|34|22   |   "     |      Quotation Marks (Diaeresis [2])
+|35|23   |   #     |      Number Sign [3,4]
+|36|24   |   $     |      Dollar Sign
+|37|25   |   %     |      Percent
+|38|26   |   &     |      Ampersand
+|39|27   |   '     |      Apostrophe (Closing Single Quotation Mark Acute Accent [2])
+|40|28   |   (     |      Opening Parenthesis
+|41|29   |   )     |      Closing Parenthesis
+|42|2A   |   *     |      Asterisk
+|43|2B   |   +     |      Plus
+|44|2C   |   ,     |      Comma (Cedilla [2])
+|45|2D     |   -     |      Hyphen (Minus)
+|46|  2E   |   .     |      Period (Decimal Point)
+|47|2F     |   /     |      Slant
+|48|3A     |   :     |      Colon
+|49|3B   |   ;     |      Semicolon
+|50|3C   |   <     |      Less Than
+|51|3D   |   =     |      Equals
+|52|3E   |   >     |      Greater Than
+|53|3F   |   ?     |      Question Mark
+|54|40  |   @     |      Commercial At [3]
+|55|5B   |   [     |      Opening Bracket [3]
+|56|5C   |  \      |      Reverse Slant [3]
+|57|5D   |   ]     |      Closing Bracket [3]
+|58|5E   |   ^     |      Circumflex [2,3]
+|59|5F   |   _     |      Underline
+|60|60   |   `     |      Grave Accent [2,3] (Opening Single Quotation Mark)
+|61|7B   |   {     |      Opening Brace [3]
+|62|7C   |   |     |      Vertical Line [3]
+|63|7D   |   }     |      Closing Brace [3]
+|64|7E   |   ~     |      Overline [3] (Tilde [2]; General Accent [2])
+|===
+
+

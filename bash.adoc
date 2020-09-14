@@ -1,0 +1,82 @@
+= bash
+// 著者の名前(省略可)<メールアドレス(省略可能)>
+// バージョンや作成日(省略可)
+:Author:	yossym
+:Email:     docomoxyz@gmail.com
+:Date:      	2020-09-11
+:Revision:  0.1
+
+
+:toc:
+:sectnums:
+:toclevels: 5
+
+:lang: ja
+:doctype: book
+:docname: VBA
+:toclevels: 5
+:sectnums:
+:sectnumlevels: 5
+// :source-highlighter: pygments
+:source-language: VBscript
+:toc: right
+// :toc: left
+:toc-title: 目次
+
+== コメント
+
+.1行コメント
+
+[source,bash]
+----
+# This is a comment
+----
+
+.複数行コメント
+
+[source,bash]
+----
+<< COMMTNTOUT
+This is a comment
+This is a comment
+This is a comment
+This is a comment
+COMMTNTOUT
+----
+
+== 変数
+
+
+[source,bash]
+----
+
+val="This is a pen"
+echo ${val}
+
+----
+
+== 演算子
+
+.四則演算
+[option="header"]
+|====
+|演算子|説明
+|+|加算
+|-|減算
+|*|乗算
+|/|除算
+|%|剰余
+|**|累乗
+|====
+
+
+[source,bash]
+----
+echo $((1 + 2))
+3
+
+x=100
+y=100
+echo $((x+y))
+200
+----
