@@ -745,6 +745,7 @@ asciidoc.install(3);
 <div class="sect1">
 <h2 id="_変数">変数</h2>
 <div class="sectionbody">
+<div class="paragraph"><p>hoge, fuga, piyo, hogera</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 WorkBook
@@ -1429,6 +1430,93 @@ http://www.gnu.org/software/src-highlite -->
 </div>
 </div>
 <div class="sect1">
+<h2 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_api_excel_range_object_range_オブジェクト_excel_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/api/excel.range(object)">Range オブジェクト (Excel) | Microsoft Docs</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_range_address_プロパティ_excel">Range.Address プロパティ (Excel)</h3>
+<div class="paragraph"><p>コード記述時の言語で参照範囲を表す文字列型 (String) の値を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>expression<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span> <span style="color: #990000">(</span>RowAbsolute<span style="color: #990000">,</span> ColumnAbsolute<span style="color: #990000">,</span> ReferenceStyle<span style="color: #990000">,</span> External<span style="color: #990000">,</span> RelativeTo<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>expression は Range オブジェクトを表す変数です。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 2. パラメーター</caption>
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">名前 </th>
+<th align="left" valign="top">必須 / オプション </th>
+<th align="left" valign="top">データ型 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">RowAbsolute</p></td>
+<td align="left" valign="top"><p class="table">Optional</p></td>
+<td align="left" valign="top"><p class="table">Variant</p></td>
+<td align="left" valign="top"><p class="table">行部分の参照を絶対参照として返すには、 True を指定します。 既定値は True です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ColumnAbsolute</p></td>
+<td align="left" valign="top"><p class="table">Optional</p></td>
+<td align="left" valign="top"><p class="table">Variant</p></td>
+<td align="left" valign="top"><p class="table">列部分の参照を絶対参照として返すには、 True を指定します。 既定値は True です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ReferenceStyle</p></td>
+<td align="left" valign="top"><p class="table">省略可能</p></td>
+<td align="left" valign="top"><p class="table">XlReferenceStyle</p></td>
+<td align="left" valign="top"><p class="table">参照形式を指定します。 既定値は xlA1 です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">外部</p></td>
+<td align="left" valign="top"><p class="table">Optional</p></td>
+<td align="left" valign="top"><p class="table">Variant</p></td>
+<td align="left" valign="top"><p class="table">外部参照を返すには、 True を指定します。 ローカル参照を返すには、 False を指定します。 既定値は False です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">RelativeTo</p></td>
+<td align="left" valign="top"><p class="table">Optional</p></td>
+<td align="left" valign="top"><p class="table">Variant</p></td>
+<td align="left" valign="top"><p class="table">RowAbsolute および ColumnAbsolute が False であるときに、ReferenceStyle が xlR1C1 である場合は、相対参照の開始点を含める必要があります。 この引数は開始点を定義する Range オブジェクトです。<br />
+注: Excel VBA 7.1 を使用したテストでは、明示的な開始点が必須ではないことが示されます。 $A$1 の既定の参照があるようです。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>参照に複数のセルが含まれている場合は、引数 RowAbsolute と引数 ColumnAbsolute
+はすべての行と列に適用されます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の使用例は、シート 1 の同じセル アドレスを 4 つの異なる方法で表します。 コー
+ド中のコメントは、メッセージで表示されるアドレスを示しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> mc <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sheet1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">()</span> <span style="font-style: italic"><span style="color: #9A1900">' $A$1 ★</span></span>
+MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' $A1</span></span>
+MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span>xlR1C1<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' R1C1 ★</span></span>
+MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span>xlR1C1<span style="color: #990000">,</span> _
+ RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
+ ColumnAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
+ RelativeTo<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">))</span> <span style="font-style: italic"><span style="color: #9A1900">' R[-2]C[-2]</span></span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_ファイル">ファイル</h2>
 <div class="sectionbody">
 <div class="sect2">
@@ -1813,7 +1901,7 @@ Close メソッドは、バッファーをフラッシュし、ファイルを�
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 2. メソッド</caption>
+<caption class="title">Table 3. メソッド</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -1939,7 +2027,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 3. プロパティ</caption>
+<caption class="title">Table 4. プロパティ</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -3382,7 +3470,7 @@ a<span style="color: #990000">.</span>Close</tt></pre></div></div>
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 4. メソッド</caption>
+<caption class="title">Table 5. メソッド</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -3436,7 +3524,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 5. プロパティ</caption>
+<caption class="title">Table 6. プロパティ</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -4286,7 +4374,7 @@ d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"c"</span
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 6. メソッド</caption>
+<caption class="title">Table 7. メソッド</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -4328,7 +4416,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 7. プロパティ</caption>
+<caption class="title">Table 8. プロパティ</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -4928,7 +5016,7 @@ With ActiveSheet<span style="color: #990000">.</span>Shapes<span style="color: #
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 8. Xlcharttype クラス列挙 (Excel)</caption>
+<caption class="title">Table 9. Xlcharttype クラス列挙 (Excel)</caption>
 <col width="44%" />
 <col width="11%" />
 <col width="44%" />
@@ -5202,7 +5290,1179 @@ http://www.gnu.org/software/src-highlite -->
         Sc<span style="color: #990000">.</span>MarkerStyle
     <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_href_https_docs_microsoft_com_ja_jp_previous_versions_windows_scripting_cc392484_v_msdn_10_vbscript_のオブジェクトとコレクション_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/previous-versions/windows/scripting/cc392484(v=msdn.10)">VBScript のオブジェクトとコレクション | Microsoft Docs</a></h2>
+<div class="sectionbody">
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="60%" />
+<col width="40%" />
+<thead>
+<tr>
+<th align="left" valign="top">内容 </th>
+<th align="left" valign="top">言語要素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">クラスのイベントにアクセスする手段を提供します。</p></td>
+<td align="left" valign="top"><p class="table">Class オブジェクト</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Err オブジェクトは、実行時エラーに関する情報を保有しています。</p></td>
+<td align="left" valign="top"><p class="table">Err オブジェクト</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">正規表現で一致した文字列の読み取り専用プロパティにアクセスする手段を提供します。</p></td>
+<td align="left" valign="top"><p class="table">Match オブジェクト</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">正規表現の Match オブジェクトのコレクションです。</p></td>
+<td align="left" valign="top"><p class="table">Matches コレクション</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">正規表現の機能を提供します。</p></td>
+<td align="left" valign="top"><p class="table">RegExp オブジェクト</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">正規表現のサブマッチ文字列のコレクションです。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#SubMatches">SubMatches コレクション</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_match_オブジェクト">Match オブジェクト</h3>
+<div class="paragraph"><p>正規表現で一致した文字列の読み取り専用プロパティにアクセスする手段を提供します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>Match オブジェクトは、RegExp オブジェクトの Execute メソッドによってのみ作成が
+可能です。このメソッドが実際に返すのは、Match オブジェクトのコレクションです。
+Match オブジェクトのプロパティは、すべて読み取り専用です。</p></div>
+<div class="paragraph"><p>正規表現で検索を実行すると、Match オブジェクトが 0 個以上作成されます。それぞ
+れの Match オブジェクトは、正規表現で検索された文字列、文字列の長さ、および文
+字列が検索された場所のインデックスにアクセスする手段を提供します。</p></div>
+<div class="paragraph"><p>次のコードは、Match オブジェクトの使用例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches   <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp   <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+   regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn   <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+   regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+   regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches   <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+      RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致 "</span> <span style="color: #990000">&amp;</span> I <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" が、"</span>
+      RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" で見つかりました。一致した文字列は、"</span>
+      RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Value <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+   <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+   RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">プロパティ</div><p>Match オブジェクトのプロパティ</p></div>
+<div class="paragraph"><div class="title">参照</div><p>Matches コレクション | RegExp オブジェクト | SubMatches コレクション</p></div>
+<div class="sect3">
+<h4 id="_match_オブジェクトのプロパティ">Match オブジェクトのプロパティ</h4>
+<div class="paragraph"><p>Match オブジェクトを使用すると、正規表現で一致した文字列の読み取り専用プロパテ
+ィにアクセスできます。</p></div>
+<div class="paragraph"><div class="title">プロパティ</div><p>FirstIndex プロパティ</p></div>
+<div class="paragraph"><p>Length プロパティ</p></div>
+<div class="paragraph"><p>Value プロパティ</p></div>
+</div>
+<div class="sect3">
+<h4 id="_firstindex_プロパティ">FirstIndex プロパティ</h4>
+<div class="paragraph"><p>検索対象の文字列内で一致が見つかった場所を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>FirstIndex</tt></pre></div></div>
+<div class="paragraph"><p>引数 object には、Match オブジェクトを指定します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>FirstIndex プロパティは、検索文字列の始めを基点の 0 とするオフセットを使用しま
+す。つまり、文字列の最初の文字が 0 として識別されます。次のコードは、
+FirstIndex プロパティの使用例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches   <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp   <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+   regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn   <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+   regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+   regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches   <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致 "</span> <span style="color: #990000">&amp;</span> I <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" が、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" で見つかりました。一致した文字列は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Value <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+   <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+   RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_length_プロパティ">Length プロパティ</h4>
+<div class="paragraph"><p>検索対象の文字列内で一致した文字列の長さを返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Length</tt></pre></div></div>
+<div class="paragraph"><p>引数 object には、Match オブジェクトを指定します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>次のコードは、Length プロパティの使用例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches   <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp   <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+   regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn   <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+   regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+   regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches   <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致 "</span> <span style="color: #990000">&amp;</span> I <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" が、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" で見つかりました。一致した文字列の長さは、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Length
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" 文字です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+   <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+   RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">参照</div><p>FirstIndex プロパティ | Value プロパティ</p></div>
+<div class="paragraph"><p>対象: Match オブジェクト</p></div>
+</div>
+<div class="sect3">
+<h4 id="_value_プロパティ">Value プロパティ</h4>
+<div class="paragraph"><p>検索対象の文字列内で一致した値またはテキストを返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Value</tt></pre></div></div>
+<div class="paragraph"><p>引数 object には、Match オブジェクトを指定します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>次のコードは、Value プロパティの使用例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches   <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp   <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+   regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn   <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+   regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+   regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches   <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致 "</span> <span style="color: #990000">&amp;</span> I <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" が、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" で見つかりました。一致した文字列は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Value <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+   <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+   RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_matches_コレクション">Matches コレクション</h3>
+<div class="paragraph"><p>正規表現の Match オブジェクトのコレクションです。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>Matches コレクションには、個別の Match オブジェクトが格納されます。このコレク
+ションは、RegExp オブジェクトの Execute メソッドによってのみ作成可能です。個別
+の Match オブジェクトのプロパティと同様、Matches コレクションのプロパティは読
+み取り専用です。</p></div>
+<div class="paragraph"><p>正規表現で検索を実行すると、Match オブジェクトが 0 個以上作成されます。それぞ
+れの Match オブジェクトは、正規表現で検索された文字列、文字列の長さ、および文
+字列が検索された場所のインデックスにアクセスする手段を提供します。</p></div>
+<div class="paragraph"><p>次のコードは、正規表現の検索で Matches コレクションを取得し、コレクションに対
+して繰り返し処理を行う例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches   <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp   <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+   regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn   <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+   regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+   regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches   <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致する文字列が見つかった位置は、"</span>
+      RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。一致した文字列は、"</span>
+      RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Value <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+   <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+   RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">参照</div><p>For Each&#8230;Next ステートメント | Match オブジェクト | RegExp オブジェクト | SubMatches コレクション</p></div>
+</div>
+<div class="sect2">
+<h3 id="_regexp_オブジェクト">RegExp オブジェクト</h3>
+<div class="paragraph"><p>正規表現の機能を提供します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>次のコードは、RegExp オブジェクトの使用例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches   <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp   <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+   regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn   <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+   regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+   regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches   <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+      RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致する文字列が見つかった位置は、"</span>
+      RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。一致した文字列は、"</span>
+      RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Value <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+   <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+   RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">プロパティとメソッド</div><p>Regular Expression オブジェクトのプロパティとメソッド</p></div>
+<div class="paragraph"><div class="title">参照</div><p>Match オブジェクト | Matches コレクション</p></div>
+</div>
+<div class="sect2">
+<h3 id="_regular_expression_オブジェクトのプロパティとメソッド">Regular Expression オブジェクトのプロパティとメソッド</h3>
+<div class="paragraph"><p>Regular Expression オブジェクトは、簡単な正規表現をサポートします。</p></div>
+<div class="paragraph"><div class="title">プロパティ</div><p>Global プロパティ</p></div>
+<div class="paragraph"><p>IgnoreCase プロパティ</p></div>
+<div class="paragraph"><p>Pattern プロパティ</p></div>
+<div class="paragraph"><div class="title">メソッド</div><p>Execute メソッド</p></div>
+<div class="paragraph"><p>Replace メソッド</p></div>
+<div class="paragraph"><p>Test メソッド</p></div>
+<div class="sect3">
+<h4 id="_global_プロパティ">Global プロパティ</h4>
+<div class="paragraph"><p>検索文字列全体についてのパターンとの一致を検索するか、最初の一致だけを検索する
+かを示すブール (Boolean) 値を設定します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Global <span style="color: #990000">[=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span> <span style="color: #990000">|</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span> <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="paragraph"><p>引数 object には、RegExp オブジェクトを指定します。Global プロパティの値は、文
+字列全体に検索が適用されると True、適用されないと False です。既定値は False
+です。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>次のコードは、Global プロパティの使用例です。Global プロパティに代入された値を
+変更し、結果を確認してください。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches   <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp   <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+   regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn   <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+   regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+   regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches   <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致する文字列が見つかった位置は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。一致した文字列は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Value <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+   <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+   RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">参照</div><p>IgnoreCase プロパティ | Pattern プロパティ</p></div>
+<div class="paragraph"><p>対象: RegExp オブジェクト</p></div>
+</div>
+<div class="sect3">
+<h4 id="_ignorecase_プロパティ">IgnoreCase プロパティ</h4>
+<div class="paragraph"><p>パターン検索で大文字と小文字を区別するかどうかを示すブール (Boolean) 値を設定
+します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">[=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span> <span style="color: #990000">|</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span> <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="paragraph"><p>引数 object には、RegExp オブジェクトを指定します。IgnoreCase プロパティの値は、
+検索するときに大文字と小文字を区別すると False、区別しないと True です。既定値
+は False です。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>次のコードは、IgnoreCase プロパティの使用例です。IgnoreCase プロパティに代入す
+る値を変更して、結果を確認してください。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches   <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp   <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+   regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn   <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+   regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+   regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches   <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致する文字列が見つかった位置は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。一致した文字列は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Value <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+   <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+   RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">参照</div><p>Global プロパティ | Pattern プロパティ</p></div>
+<div class="paragraph"><p>対象: RegExp オブジェクト</p></div>
+</div>
+<div class="sect3">
+<h4 id="_pattern_プロパティ">Pattern プロパティ</h4>
+<div class="paragraph"><p>検索される正規表現のパターンを設定します。値の取得も可能です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Pattern <span style="color: #990000">[=</span> <span style="color: #FF0000">"searchstring"</span><span style="color: #990000">]</span></tt></pre></div></div>
+<div class="ulist"><div class="title">引数</div><ul>
+<li>
+<p>
+object
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>必ず指定します。RegExp オブジェクト変数を指定します。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+searchstring
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>省略可能です。検索される文字列式を指定します。Settings セクションの表で定義された正規表現の文字をどれでも使用できます。</p></div>
+<div class="paragraph"><div class="title">設定値</div><p>正規表現のパターンの記述には、特別な文字およびエスケープ シーケンスが使用され
+ます。次の表は、正規表現で使用できる文字およびエスケープ シーケンスの一覧です。
+この表では、簡単な使用例も含めて説明します。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">文字 </th>
+<th align="left" valign="top">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">\</p></td>
+<td align="left" valign="top"><p class="table">次に続く文字が特別な文字またはリテラルであることを示します。たとえば、"n" は "n" という文字と一致します。"\n"は、改行文字と一致します。"\\" は、"\" と一致します。"\(" は "(" と一致します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">^</p></td>
+<td align="left" valign="top"><p class="table">入力の開始と一致します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">$</p></td>
+<td align="left" valign="top"><p class="table">入力の終端と一致します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">*</p></td>
+<td align="left" valign="top"><p class="table">直前の文字と 0 回以上一致します。たとえば、"zo*" は "z" とも "zoo" とも一致します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">+</p></td>
+<td align="left" valign="top"><p class="table">直前の文字と 1 回以上一致します。たとえば、"zo+" は "zoo" とは一致しますが、"z" とは一致しません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">?</p></td>
+<td align="left" valign="top"><p class="table">直前の文字と 0 回または 1 回一致します。たとえば、"a?ve?" は "never" の "ve" に一致します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">.</p></td>
+<td align="left" valign="top"><p class="table">改行文字以外の任意の単独文字と一致します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">(pattern)</p></td>
+<td align="left" valign="top"><p class="table">引数 pattern に指定した文字と一致します。一致する文字列が見つかったら、記憶されます。一致した部分は、Matches コレクションの項目 [0]&#8230;[n] から取得できます。かっこ文字、() を指定するには、"\(" および "\)" を使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">x｜y</p></td>
+<td align="left" valign="top"><p class="table">x と y のどちらかと一致します。たとえば、"z｜wood" は "z" と "wood" に一致します。"(z</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">w)oo" は、"zoo" と "wood" に一致します。</p></td>
+<td align="left" valign="top"><p class="table"></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">{n,}</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">n には、0 以上の整数を指定します。直前の文字と少なくとも n 回一致します。たとえば、"o{2,}" は、"Bob" の "o" とは一致しませんが、"foooood" のすべての o と一致します。"o{1,}" は、"o+" と同じ意味になります。"o{0,}" は、"o*" と同じ意味になります。</p></td>
+<td align="left" valign="top"><p class="table">{n,m}</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">m および n には、0 以上の整数を指定します。直前の文字と n ～ m 回一致します。たとえば、"o{1,3}" は、"fooooood" の最初の 3 つの o と一致します。"o{0,1}" は、"o?" と同じ意味になります。</p></td>
+<td align="left" valign="top"><p class="table">[xyz]</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字セット。角かっこで囲まれた文字の中のいずれかと一致します。たとえば、"[abc]" は "plain" の "a" と一致します。</p></td>
+<td align="left" valign="top"><p class="table">[^xyz]</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">否定の文字セット。角かっこで囲まれた文字にはない任意の文字と一致します。"[^abc]" は、"plain" の "p" と一致します。</p></td>
+<td align="left" valign="top"><p class="table">[a-z]</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字の範囲。指定した範囲に含まれる任意の文字に一致します。たとえば、"[a-z]" は、"a" から "z" までの任意のアルファベットの小文字に一致します。</p></td>
+<td align="left" valign="top"><p class="table">[^m-z]</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">否定の文字の範囲。指定した範囲に含まれていない任意の文字に一致します。たとえば、"[^m-z]" は "m" から "z" までの範囲に含まれない任意の文字に一致します。</p></td>
+<td align="left" valign="top"><p class="table">\b</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">単語の境界と一致します。単語の境界とは、単語とスペースの間の位置のことです。たとえば、"er\b" は、"never" の "er" に一致します。"verb" の "er" には一致しません。</p></td>
+<td align="left" valign="top"><p class="table">\B</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">単語の境界ではない部分と一致します。たとえば、"ea*r\B" は、"never early" の "ear" と一致します。</p></td>
+<td align="left" valign="top"><p class="table">\d</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">数字と一致します。[0-9] と指定した場合と同じ意味になります。</p></td>
+<td align="left" valign="top"><p class="table">\D</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">数字以外の文字と一致します。[^0-9] と指定した場合と同じ意味になります。</p></td>
+<td align="left" valign="top"><p class="table">\f</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">フォームフィード文字と一致します。</p></td>
+<td align="left" valign="top"><p class="table">\n</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">改行文字と一致します。</p></td>
+<td align="left" valign="top"><p class="table">\r</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">キャリッジ リターン文字と一致します。</p></td>
+<td align="left" valign="top"><p class="table">\s</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">スペース、タブ、フォームフィードなどの任意の空白文字と一致します。"[ \f\n\r\t\v]" と指定した場合と同じ意味になります。</p></td>
+<td align="left" valign="top"><p class="table">\S</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">空白文字のない部分と一致します。"[^ \f\n\r\t\v]" と指定した場合と同じ意味になります。</p></td>
+<td align="left" valign="top"><p class="table">\t</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">タブ文字と一致します。</p></td>
+<td align="left" valign="top"><p class="table">\v</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">垂直タブ文字と一致します。</p></td>
+<td align="left" valign="top"><p class="table">\w</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">単語に使用される任意の文字と一致します。これには、アンダースコアも含まれます。"[A-Za-z0-9_]" と指定した場合と同じ意味になります。</p></td>
+<td align="left" valign="top"><p class="table">\W</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">単語に使用される文字以外の任意の文字と一致します。"[^A-Za-z0-9_]" と指定した場合と同じ意味になります。</p></td>
+<td align="left" valign="top"><p class="table">\num</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">&gt;num には、正の整数を指定します。既に見つかり、記憶されている部分と一致します。たとえば、"(.)\1" は、連続する 2 つの同じ文字に一致します。</p></td>
+<td align="left" valign="top"><p class="table">\n</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">n に指定した 8 進数のエスケープ値と一致します。8 進数の値には、1 桁、2 桁、または 3 桁で指定します。たとえば、"\11" と "\011" は、両方ともタブ文字に一致します。"\0011" は、"\001" および "1" と同じ意味になります。8 進数のエスケープ値は、256 を超えることはできません。256 を超える数値を指定した場合、初めの 2 桁で値が評価されます。この表記により、正規表現で ASCII コードを使用できるようになります。</p></td>
+<td align="left" valign="top"><p class="table">\xn</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>次のコードは、Pattern プロパティの使用例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches   <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp   <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+   regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn   <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+   regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+   regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>   <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+   <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches   <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致する文字列が見つかった位置は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。一致した文字列は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Value <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+   <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+   RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">参照</div><p>Global プロパティ | IgnoreCase プロパティ</p></div>
+<div class="paragraph"><p>対象: RegExp オブジェクト</p></div>
+</div>
+<div class="sect3">
+<h4 id="_execute_メソッド">Execute メソッド</h4>
+<div class="paragraph"><p>指定された文字列を正規表現で検索します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>string<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="ulist"><div class="title">引数</div><ul>
+<li>
+<p>
+object
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>必ず指定します。RegExp オブジェクトの名前を指定します。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+string
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>必ず指定します。正規表現による検索の対象となるテキスト文字列を指定します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>正規表現による検索の実際のパターンは、RegExp オブジェクトの Pattern プロパティ
+を使って設定されます。</p></div>
+<div class="paragraph"><p>Execute メソッドは、string 内で見つかった文字列ごとに存在する Match オブジェク
+トを含む、Matches コレクションを返します。一致する文字列が見つからない場合、空
+の Matches コレクションを返します。</p></div>
+<div class="paragraph"><p>次のコードは、Execute メソッドの使用例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> strng<span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> Match<span style="color: #990000">,</span> Matches      <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp         <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn         <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>         <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+regEx<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>         <span style="font-style: italic"><span style="color: #9A1900">' 文字列全体を検索するように設定します。</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Matches <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>strng<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 検索を実行します。</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> Match in Matches      <span style="font-style: italic"><span style="color: #9A1900">' Matches コレクションに対して繰り返し処理を行います。</span></span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"一致する文字列が見つかった位置は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>FirstIndex <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。一致した文字列は、"</span>
+RetStr <span style="color: #990000">=</span> RetStr <span style="color: #990000">&amp;</span> Match<span style="color: #990000">.</span>Value <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" です。"</span> <span style="color: #990000">&amp;</span> vbCRLF
+  <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+  RegExpTest <span style="color: #990000">=</span> RetStr
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+<span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">RegExpTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"is."</span><span style="color: #990000">,</span> <span style="color: #FF0000">"IS1 is2 IS3 is4"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">参照</div><p>Replace メソッド | Test メソッド</p></div>
+<div class="paragraph"><p>対象: RegExp オブジェクト</p></div>
+</div>
+<div class="sect3">
+<h4 id="_replace_メソッド">Replace メソッド</h4>
+<div class="paragraph"><p>正規表現による検索で見つかったテキストを置換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Replace</span></span><span style="color: #990000">(</span>string1<span style="color: #990000">,</span> string2<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="ulist"><div class="title">引数</div><ul>
+<li>
+<p>
+object
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>必ず指定します。RegExp オブジェクトの名前を指定します。</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+string1
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>必ず指定します。String1 には、検索および置換の対象となるテキスト文字列を指定します。</code></pre>
+</div></div>
+</li>
+<li>
+<p>
+string2
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><code>必ず指定します。String2 には、置換するテキスト文字列を指定します。</code></pre>
+</div></div>
+</li>
+</ul></div>
+<div class="paragraph"><div class="title">解説</div><p>置換されるテキスト文字列の実際のパターンは、RegExp オブジェクトの Pattern プロ
+パティを使って設定されます。</p></div>
+<div class="paragraph"><p>Replace メソッドは、string1 のコピーと、string2 で置換された RegExp.Pattern の
+テキストを返します。一致する文字列が見つからない場合、string1 のコピーが変更さ
+れずに返されます。</p></div>
+<div class="paragraph"><p>次のコードは、Replace メソッドの使用例です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">ReplaceTest</span></span><span style="color: #990000">(</span>patrn<span style="color: #990000">,</span> replStr<span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> regEx<span style="color: #990000">,</span> str1               <span style="font-style: italic"><span style="color: #9A1900">' 変数を作成します。</span></span>
+  str1 <span style="color: #990000">=</span> <span style="color: #FF0000">"The quick brown fox jumped over the lazy dog."</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> regEx <span style="color: #990000">=</span> New RegExp            <span style="font-style: italic"><span style="color: #9A1900">' 正規表現を作成します。</span></span>
+regEx<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> patrn            <span style="font-style: italic"><span style="color: #9A1900">' パターンを設定します。</span></span>
+regEx<span style="color: #990000">.</span>IgnoreCase <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>           <span style="font-style: italic"><span style="color: #9A1900">' 大文字と小文字を区別しないように設定します。</span></span>
+ReplaceTest <span style="color: #990000">=</span> regEx<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Replace</span></span><span style="color: #990000">(</span>str1<span style="color: #990000">,</span> replStr<span style="color: #990000">)</span>   <span style="font-style: italic"><span style="color: #9A1900">' 置換します。</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">ReplaceTest</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"fox"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"cat"</span><span style="color: #990000">))</span>      <span style="font-style: italic"><span style="color: #9A1900">' 'fox' を 'cat' で置換します。</span></span></tt></pre></div></div>
+<div class="paragraph"><p>Replace メソッドを使って、パターンに一致する文字列どうしを置換することもできま
+す。上の例に示された関数を次のように呼び出すと、元の文字列に含まれる単語の各ペ
+アが交換されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">ReplaceText</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"(</span><span style="color: #CC33CC">\S</span><span style="color: #FF0000">+)(</span><span style="color: #CC33CC">\s</span><span style="color: #FF0000">+)(</span><span style="color: #CC33CC">\S</span><span style="color: #FF0000">+)"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"$3$2$1"</span><span style="color: #990000">))</span>   <span style="font-style: italic"><span style="color: #9A1900">' 単語のペアを交換します。</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">参照</div><p>Execute メソッド | Test メソッド</p></div>
+<div class="paragraph"><p>対象: RegExp オブジェクト</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_正規表現で1行を空白で分割">正規表現で1行を空白で分割</h2>
+<div class="sectionbody">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+産業設定
+</dt>
+<dd>
+<p>
+        Microsoft VBscript Reguler Expressions 5.5
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">sample</span></span><span style="color: #990000">()</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> re As New RegExp
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> s As String<span style="color: #990000">:</span> s <span style="color: #990000">=</span> <span style="color: #FF0000">"This is a              pen."</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> ms As MatchCollection
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> m As Match
+
+    re<span style="color: #990000">.</span>Pattern <span style="color: #990000">=</span> <span style="color: #FF0000">"</span><span style="color: #CC33CC">\S</span><span style="color: #FF0000">+"</span>
+    re<span style="color: #990000">.</span>Global <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+    Debug<span style="color: #990000">.</span>Print s
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> ms <span style="color: #990000">=</span> re<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Execute</span></span><span style="color: #990000">(</span>s<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> m In ms
+        Debug<span style="color: #990000">.</span>Print m
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">'This is a              pen.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">'This</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">'is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">'a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">'pen.</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_donotupdate">DoNotUpdate</h2>
+<div class="sectionbody">
+<div class="paragraph"><div class="title">classに追加する</div><p>クラスモジュール</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Class_Initialize</span></span><span style="color: #990000">()</span>
+    With Application
+        <span style="color: #990000">.</span>ScreenUpdating <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
+        <span style="color: #990000">.</span>Calculation <span style="color: #990000">=</span> xlCalculationManual
+        <span style="color: #990000">.</span>EnableEvents <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
+        <span style="color: #990000">.</span>PrintCommunication <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Class_Terminate</span></span><span style="color: #990000">()</span>
+    With Application
+        <span style="color: #990000">.</span>ScreenUpdating <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+        <span style="color: #990000">.</span>Calculation <span style="color: #990000">=</span> xlCalculationAutomatic
+        <span style="color: #990000">.</span>EnableEvents <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+        <span style="color: #990000">.</span>PrintCommunication <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_indirect関数を使う">INDIRECT関数を使う</h2>
+<div class="sectionbody">
+<div class="paragraph"><div class="title">INDIRECT関数の他シート参照例</div><p>A1セルに"Sheet2"、B1セルに"A1"と入っているとします。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">=</span><span style="font-weight: bold"><span style="color: #000000">INDIRECT</span></span><span style="color: #990000">(</span>A1<span style="color: #990000">&amp;</span><span style="color: #FF0000">"!"</span><span style="color: #990000">&amp;</span>B1<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>この結果は、Sheet2のA1セルの値が出力されます。</p></div>
+<div class="paragraph"><div class="title">INDIRECT関数の範囲指定例</div><p>A列に数値が入っていて、C1セルA2、C2セルA5と入っているとします。</p></div>
+<div class="paragraph"><p>=SUM(INDIRECT(C1&amp;":" &amp;C2))</p></div>
+<div class="paragraph"><p>この結果は、A2～A5の合計になります。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>
+        A       B       C
+<span style="color: #993399">1</span>       <span style="color: #993399">1</span>               A2
+<span style="color: #993399">2</span>       <span style="color: #993399">2</span>               A5
+<span style="color: #993399">3</span>       <span style="color: #993399">3</span>               <span style="color: #990000">=</span><span style="font-weight: bold"><span style="color: #000000">SUM</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">INDIRECT</span></span><span style="color: #990000">(</span>C1<span style="color: #990000">&amp;</span><span style="color: #FF0000">":"</span> <span style="color: #990000">&amp;</span>C2<span style="color: #990000">))</span>
+<span style="color: #993399">4</span>       <span style="color: #993399">4</span>
+<span style="color: #993399">5</span>       <span style="color: #993399">5</span>
+<span style="color: #993399">6</span>       <span style="color: #993399">6</span>
+<span style="color: #993399">7</span>       <span style="color: #993399">7</span>
+<span style="color: #993399">8</span>       <span style="color: #993399">8</span>
+
+</tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_配列を使うのに役立つ4つの関数_array_lbound_ubound_splitの使い方">配列を使うのに役立つ4つの関数――Array、LBound、UBound、Splitの使い方</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_array_function_array_関数_visual_basic_for_applications_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/array-function">Array 関数 (Visual Basic for Applications) | Microsoft Docs</a></h3>
+<div class="paragraph"><p>配列を含む Variant を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Array</span></span><span style="color: #990000">(</span>arglist<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の arglist 引数は、Variant に含まれている配列の要素に割り当てられる値のコ
+ンマ区切りのリストです。 引数を指定しない場合は長さ 0 の配列が作成されます。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>配列の要素を参照するために使用される表記は、変数 名とそれに続く括弧で構成され、
+括弧の中には目的の要素を示すインデックス番号が入ります。</p></div>
+<div class="paragraph"><p>次の例では、最初のステートメントにより、Variant として「A」という名前の変数が
+作成されます。 2 つ目のステートメントにより、変数 A に配列が割り当てられます。
+最後のステートメントにより、2 つ目の配列要素に含まれる値が別の変数に割り当てら
+れます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> A As Variant<span style="color: #990000">,</span> B As Long<span style="color: #990000">,</span> i As Long
+A <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Array</span></span><span style="color: #990000">(</span><span style="color: #993399">10</span><span style="color: #990000">,</span> <span style="color: #993399">20</span><span style="color: #990000">,</span> <span style="color: #993399">30</span><span style="color: #990000">)</span>  <span style="font-style: italic"><span style="color: #9A1900">' A is a three element list by default indexed 0 to 2</span></span>
+B <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">A</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">)</span>               <span style="font-style: italic"><span style="color: #9A1900">' B is now 30</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">ReDim</span></span> Preserve <span style="font-weight: bold"><span style="color: #000000">A</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Extend A's length to five elements</span></span>
+<span style="font-weight: bold"><span style="color: #000000">A</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">40</span>              <span style="font-style: italic"><span style="color: #9A1900">' Set the fifth element's value</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">LBound</span></span><span style="color: #990000">(</span>A<span style="color: #990000">)</span> To <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>A<span style="color: #990000">)</span>
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"A("</span> <span style="color: #990000">&amp;</span> i <span style="color: #990000">&amp;</span> <span style="color: #FF0000">") = "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">A</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> i</tt></pre></div></div>
+<div class="paragraph"><p>Array 関数を使用して作成した配列の下限は、Array がタイプ ライブラリの名前で修
+飾 (VBA.Array など) されていない限り、Option Base ステートメントで指定した下限
+によって決まります。 タイプ ライブラリの名前で修飾されている場合は、Array は
+Option Base の影響を受けません。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">配列として宣言されていない Variant には、配列を含めることができます。 Variant
+変数には、固定長の文字列とユーザー定義の型を除き、あらゆる型の配列を含めること
+ができます。 配列が含まれている Variant は要素の型が Variant の配列とは概念的
+に異なりますが、配列要素には同じ方法でアクセスされます。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、 Array 関数を使用して、配列を含む Variant を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyWeek<span style="color: #990000">,</span> MyDay
+MyWeek <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Array</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Mon"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Tue"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Wed"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Thu"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Fri"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Sat"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Sun"</span><span style="color: #990000">)</span>
+<span style="font-style: italic"><span style="color: #9A1900">' Return values assume lower bound set to 1 (using Option Base</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' statement).</span></span>
+MyDay <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">MyWeek</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' MyDay contains "Tue".</span></span>
+MyDay <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">MyWeek</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' MyDay contains "Thu".</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_lbound_function_lbound_関数_visual_basic_for_applications_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/lbound-function">LBound 関数 (Visual Basic for Applications) | Microsoft Docs</a></h3>
+<div class="paragraph"><p>配列の指定ディメンションに対して使用できる最小下付き文字が含まれる長整数型
+(Long) の値を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">LBound</span></span><span style="color: #990000">(</span>arrayname<span style="color: #990000">,</span> <span style="color: #990000">[</span> dimension <span style="color: #990000">])</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">arrayname</p></td>
+<td align="left" valign="top"><p class="table">必須です。 配列変数の名前を指定します。標準の変数の名前付け規則に
+従います。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">dimension</p></td>
+<td align="left" valign="top"><p class="table">省略可能。Variant (Long)。 どの次元の下限が返されるかを示す整数。
+最初の次元には1、2番目の次元では2というように使用します。 _次元_を省略すると、
+1が想定されます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>LBound関数を使用して、 配列のサイズを決定します。 UBound 関数は、配列のディメ
+ンションの上限を確認する目的で使用します。</p></div>
+<div class="paragraph"><p>LBound は、次のディメンションの配列に対して、次の表に示す値を返します。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Statement </th>
+<th align="left" valign="top">戻り値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">LBound(A, 1)</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">LBound(A, 2)</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">LBound(A, 3)</p></td>
+<td align="left" valign="top"><p class="table">-3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>任意の次元の下限の既定値は、 Option Base ステートメントの設定に応じて0または1
+のいずれかになります。 Array 関数を使用して作成された配列のベースが0です。
+Option Baseによる影響はありません。</p></div>
+<div class="paragraph"><p>Dim、 Private、 Public、 ReDim、またはStaticステートメントでTo句を使用してディ
+メンションが設定されている配列は、下限として任意の整数値を持つことができます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、LBound 関数を使用して、配列の指定ディメンションに対して使用できる
+最小下付き文字を決定します。 また、Option Base ステートメントを使用して、既定
+のベース配列の下付き文字の値 0 を上書きします。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Lower
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">MyArray</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span> To <span style="color: #993399">10</span><span style="color: #990000">,</span> <span style="color: #993399">5</span> To <span style="color: #993399">15</span><span style="color: #990000">,</span> <span style="color: #993399">10</span> To <span style="color: #993399">20</span><span style="color: #990000">)</span>     <span style="font-style: italic"><span style="color: #9A1900">' Declare array variables.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">AnyArray</span></span><span style="color: #990000">(</span><span style="color: #993399">10</span><span style="color: #990000">)</span>
+Lower <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Lbound</span></span><span style="color: #990000">(</span>MyArray<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>     <span style="font-style: italic"><span style="color: #9A1900">' Returns 1.</span></span>
+Lower <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Lbound</span></span><span style="color: #990000">(</span>MyArray<span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 10.</span></span>
+Lower <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Lbound</span></span><span style="color: #990000">(</span>AnyArray<span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 0 or 1, depending on</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">' setting of Option Base.</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_ubound_function_ubound_関数_visual_basic_for_applications_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/ubound-function">UBound 関数 (Visual Basic for Applications) | Microsoft Docs</a></h3>
+<div class="paragraph"><p>配列の指定した次元で使用できる添字の最大値を含むLongデータ型を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>arrayname<span style="color: #990000">,</span> <span style="color: #990000">[</span> dimension <span style="color: #990000">])</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">arrayname</p></td>
+<td align="left" valign="top"><p class="table">必須です。 配列変数の名前を指定します。標準の変数の名前付け規則に
+従います。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">dimension</p></td>
+<td align="left" valign="top"><p class="table">省略可能。Variant (Long)。 取得する次元の上限を示す整数。 最初の次
+元には1、2番目の次元では2というように使用します。 _次元_を省略すると、1が想定
+されます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>UBound関数は、配列のサイズを決定するために<strong>LBound</strong> 関数と共に使用されます。
+配列の次元の下限を調べる場合は LBound 関数を使用します。</p></div>
+<div class="paragraph"><p>配列の次元と UBound が返す値の関係を次に示します。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Statement </th>
+<th align="left" valign="top">戻り値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">UBound(A, 1)</p></td>
+<td align="left" valign="top"><p class="table">100</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UBound(A, 2)</p></td>
+<td align="left" valign="top"><p class="table">1/3</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UBound(A, 3)</p></td>
+<td align="left" valign="top"><p class="table">2/4</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、UBound 関数を使用して、配列の指定した次元で使用できる下付き文字の
+最大値を調べます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Upper
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">MyArray</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span> To <span style="color: #993399">10</span><span style="color: #990000">,</span> <span style="color: #993399">5</span> To <span style="color: #993399">15</span><span style="color: #990000">,</span> <span style="color: #993399">10</span> To <span style="color: #993399">20</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Declare array variables.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">AnyArray</span></span><span style="color: #990000">(</span><span style="color: #993399">10</span><span style="color: #990000">)</span>
+Upper <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>MyArray<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 10.</span></span>
+Upper <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>MyArray<span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 20.</span></span>
+Upper <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>AnyArray<span style="color: #990000">)</span>      <span style="font-style: italic"><span style="color: #9A1900">' Returns 10.</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_split_function_split_関数_visual_basic_for_applications_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/split-function">Split 関数 (Visual Basic for Applications) | Microsoft Docs</a></h3>
+<div class="paragraph"><p>指定された数のサブ文字列が含まれる 0 ベースの 1 次元配列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Split</span></span><span style="color: #990000">(</span>expression<span style="color: #990000">,</span> <span style="color: #990000">[</span> delimiter<span style="color: #990000">,</span> <span style="color: #990000">[</span> limit<span style="color: #990000">,</span> <span style="color: #990000">[</span> compare <span style="color: #990000">]]])</span></tt></pre></div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">指定項目 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">expression</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 サブ文字列と区切り記号が含まれる文字列式です。
+expression が長さ 0 の文字列 ("") の場合、Split は、空の配列、つまり、要素とデ
+ータのない配列を返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">delimiter</p></td>
+<td align="left" valign="top"><p class="table">オプション。 サブ文字列の制限を識別するために使用する文字列です。
+省略すると、空白文字 (" ") が delimiter とみなされます。 _Delimiter_が長さ0の
+文字列である場合は、_式_の文字列全体を含む単一要素の配列が返されます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">limit</p></td>
+<td align="left" valign="top"><p class="table">省略可能です。 返されるサブ文字列の数。-1 は、すべてのサブ文字列が返さ
+れることを示します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">compare</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 サブ文字列を評価するときに使用する比較の種類を示す数値で
+す。 値については、「設定」セクションを参照してください。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>compare 引数には、次の値を指定できます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseCompareOption</p></td>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">Option Compare ステートメントの設定を使用して比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbBinaryCompare</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">バイナリ比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbTextCompare</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+<td align="left" valign="top"><p class="table">テキスト比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbDatabaseCompare</p></td>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">Microsoft Access のみ。 データベース内の情報に基づいて比較を実行します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、 Split関数の使用方法を示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> strFull As String
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">arrSplitStrings1</span></span><span style="color: #990000">()</span> As Variant
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">arrSplitStrings2</span></span><span style="color: #990000">()</span> As Variant
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> strSingleString1 As String
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> strSingleString2 As String
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> strSingleString3 As String
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+
+strFull <span style="color: #990000">=</span> <span style="color: #FF0000">"Some - Old - Hags - Can - Always - Hide - Their - Old - Age"</span>    <span style="font-style: italic"><span style="color: #9A1900">' String that will be used.</span></span>
+
+arrSplitStrings1 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Split</span></span><span style="color: #990000">(</span>strFull<span style="color: #990000">,</span> <span style="color: #FF0000">"-"</span><span style="color: #990000">)</span>      <span style="font-style: italic"><span style="color: #9A1900">' arrSplitStrings1 will be an array from 0 To 8.</span></span>
+                                            <span style="font-style: italic"><span style="color: #9A1900">' arrSplitStrings1(0) = "Some " and arrSplitStrings1(1) = " Old ".</span></span>
+                                            <span style="font-style: italic"><span style="color: #9A1900">' The delimiter did not include spaces, so the spaces in strFull will be included in the returned array values.</span></span>
+
+arrSplitStrings2 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Split</span></span><span style="color: #990000">(</span>strFull<span style="color: #990000">,</span> <span style="color: #FF0000">" - "</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' arrSplitStrings2 will be an array from 0 To 8.</span></span>
+                                            <span style="font-style: italic"><span style="color: #9A1900">' arrSplitStrings2(0) = "Some" and arrSplitStrings2(1) = "Old".</span></span>
+                                            <span style="font-style: italic"><span style="color: #9A1900">' The delimiter includes the spaces, so the spaces will not be included in the returned array values.</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">'Multiple examples of how to return the value "Can" (array position 3).</span></span>
+
+strSingleString1 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">arrSplitStrings2</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">)</span>      <span style="font-style: italic"><span style="color: #9A1900">' strSingleString1 = "Can".</span></span>
+
+strSingleString2 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Split</span></span><span style="color: #990000">(</span>strFull<span style="color: #990000">,</span> <span style="color: #FF0000">" - "</span><span style="color: #990000">)(</span><span style="color: #993399">3</span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' strSingleString2 = "Can".</span></span>
+                                            <span style="font-style: italic"><span style="color: #9A1900">' This syntax can be used if the entire array is not needed, and the position in the returned array for the desired value is known.</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">LBound</span></span><span style="color: #990000">(</span>arrSplitStrings2<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span> To <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>arrSplitStrings2<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #000000">InStr</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">arrSplitStrings2</span></span><span style="color: #990000">(</span>i<span style="color: #990000">),</span> <span style="color: #FF0000">"Can"</span><span style="color: #990000">,</span> vbTextCompare<span style="color: #990000">)</span> <span style="color: #990000">&gt;</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        strSingleString3 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">arrSplitStrings2</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">For</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> i</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_join_function_配列_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/join-function">配列</a></h3>
+<div class="paragraph"><p>配列に含まれている数多くのサブ文字列を結合して作成した文字列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Join</span></span><span style="color: #990000">(</span>sourcearray<span style="color: #990000">,</span> <span style="color: #990000">[</span> delimiter <span style="color: #990000">])</span></tt></pre></div></div>
+<div class="paragraph"><p>Join 関数の構文には、次の名前付き引数があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 10. 構文</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">sourcearray</p></td>
+<td align="left" valign="top"><p class="table">必須。 結合するサブ文字列を含む 1 次元配列。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">delimiter</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 返される文字列内のサブ文字列の区切り文字。 省略した場合は、空白文字 (" ") が使用されます。 _Delimiter_が長さ0の文字列 ("") の場合、リスト内のすべてのアイテムは区切り文字なしで連結されます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="paragraph"><p>Version is 0.1</p></div>
+<div class="paragraph"><p>Visual Basic の概念に関するトピック | Microsoft Docs
+<a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-conceptual-topics">https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-conceptual-topics</a></p></div>
 </div>
 </div>
 </div>
@@ -5211,7 +6471,7 @@ http://www.gnu.org/software/src-highlite -->
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-09-14 23:46:28 JST
+Last updated 2020-09-16 00:21:35 JST
 </div>
 </div>
 </body>

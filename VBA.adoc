@@ -542,6 +542,147 @@ Call Range("A1:C5").Sort(key1:=Range("A1"), _
     order2:=xlAscending)
 ----
 
+== https://docs.microsoft.com/ja-jp/office/vba/api/excel.range(object)[Range オブジェクト (Excel) | Microsoft Docs]
+
+=== Range.Address プロパティ (Excel)
+
+コード記述時の言語で参照範囲を表す文字列型 (String) の値を返します。
+
+.構文
+
+[source,vbscript]
+----
+expression.Address (RowAbsolute, ColumnAbsolute, ReferenceStyle, External, RelativeTo)
+----
+
+expression は Range オブジェクトを表す変数です。
+
+.パラメーター
+
+[cols="1,1,1,4",options="header"]
+|===
+|名前 |必須 / オプション |データ型 |説明
+|RowAbsolute |Optional |Variant |行部分の参照を絶対参照として返すには、 True を指定します。 既定値は True です。
+|ColumnAbsolute |Optional |Variant |列部分の参照を絶対参照として返すには、 True を指定します。 既定値は True です。
+|ReferenceStyle |省略可能 |XlReferenceStyle |参照形式を指定します。 既定値は xlA1 です。
+|外部 |Optional |Variant |外部参照を返すには、 True を指定します。 ローカル参照を返すには、 False を指定します。 既定値は False です。|RelativeTo |Optional |Variant |RowAbsolute および ColumnAbsolute が False であるときに、ReferenceStyle が xlR1C1 である場合は、相対参照の開始点を含める必要があります。 この引数は開始点を定義する Range オブジェクトです。 +
+注: Excel VBA 7.1 を使用したテストでは、明示的な開始点が必須ではないことが示されます。 $A$1 の既定の参照があるようです。
+|===
+
+
+
+.解説
+
+参照に複数のセルが含まれている場合は、引数 RowAbsolute と引数 ColumnAbsolute
+はすべての行と列に適用されます。
+
+.例
+
+次の使用例は、シート 1 の同じセル アドレスを 4 つの異なる方法で表します。 コー
+ド中のコメントは、メッセージで表示されるアドレスを示しています。
+
+
+[source,vbscript]
+----
+Set mc = Worksheets("Sheet1").Cells(1, 1) 
+MsgBox mc.Address() ' $A$1 ★
+MsgBox mc.Address(RowAbsolute:=False) ' $A1 
+MsgBox mc.Address(ReferenceStyle:=xlR1C1) ' R1C1 ★
+MsgBox mc.Address(ReferenceStyle:=xlR1C1, _ 
+ RowAbsolute:=False, _ 
+ ColumnAbsolute:=False, _ 
+ RelativeTo:=Worksheets(1).Cells(3, 3)) ' R[-2]C[-2]
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 == ファイル
 
 === ファイル読み込み(sjis,FileSystemObject)
@@ -3301,7 +3442,6 @@ End Sub
 
 
 
-
 == グラフ
 
 === グラフ作成
@@ -3428,6 +3568,1033 @@ For Each Co In ActiveSheet.ChartObjects
 Next
 ----
 
+== https://docs.microsoft.com/ja-jp/previous-versions/windows/scripting/cc392484(v=msdn.10)[VBScript のオブジェクトとコレクション | Microsoft Docs]
+
+[cols="3,2", options="header"]
+|===
+|内容 |言語要素
+|クラスのイベントにアクセスする手段を提供します。 |Class オブジェクト
+|Err オブジェクトは、実行時エラーに関する情報を保有しています。 |Err オブジェクト
+|正規表現で一致した文字列の読み取り専用プロパティにアクセスする手段を提供します。 |Match オブジェクト
+|正規表現の Match オブジェクトのコレクションです。 |Matches コレクション
+|正規表現の機能を提供します。 |RegExp オブジェクト
+|正規表現のサブマッチ文字列のコレクションです。 |<<SubMatches,SubMatches コレクション>>
+|===
+
+
+=== Match オブジェクト
+
+正規表現で一致した文字列の読み取り専用プロパティにアクセスする手段を提供します。
+
+.解説
+
+Match オブジェクトは、RegExp オブジェクトの Execute メソッドによってのみ作成が
+可能です。このメソッドが実際に返すのは、Match オブジェクトのコレクションです。
+Match オブジェクトのプロパティは、すべて読み取り専用です。
+
+正規表現で検索を実行すると、Match オブジェクトが 0 個以上作成されます。それぞ
+れの Match オブジェクトは、正規表現で検索された文字列、文字列の長さ、および文
+字列が検索された場所のインデックスにアクセスする手段を提供します。
+
+次のコードは、Match オブジェクトの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+      RetStr = RetStr & "一致 " & I & " が、"
+      RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列は、"
+      RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.プロパティ
+
+Match オブジェクトのプロパティ
+
+
+.参照
+
+Matches コレクション | RegExp オブジェクト | SubMatches コレクション
+
+
+==== Match オブジェクトのプロパティ
+
+
+Match オブジェクトを使用すると、正規表現で一致した文字列の読み取り専用プロパテ
+ィにアクセスできます。
+
+.プロパティ
+
+FirstIndex プロパティ
+
+Length プロパティ
+
+Value プロパティ
+
+
+==== FirstIndex プロパティ
+
+検索対象の文字列内で一致が見つかった場所を返します。
+
+[source,vbscript]
+----
+object.FirstIndex
+----
+
+引数 object には、Match オブジェクトを指定します。
+
+.解説
+
+FirstIndex プロパティは、検索文字列の始めを基点の 0 とするオフセットを使用しま
+す。つまり、文字列の最初の文字が 0 として識別されます。次のコードは、
+FirstIndex プロパティの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致 " & I & " が、"
+RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+
+==== Length プロパティ
+
+検索対象の文字列内で一致した文字列の長さを返します。
+
+[source,vbscript]
+----
+object.Length
+----
+
+引数 object には、Match オブジェクトを指定します。
+
+.解説
+
+次のコードは、Length プロパティの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致 " & I & " が、"
+RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列の長さは、"
+RetStr = RetStr & Match.Length
+RetStr = RetStr & " 文字です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+FirstIndex プロパティ | Value プロパティ
+
+対象: Match オブジェクト
+
+
+==== Value プロパティ
+
+検索対象の文字列内で一致した値またはテキストを返します。
+
+[source,vbscript]
+----
+object.Value
+----
+
+引数 object には、Match オブジェクトを指定します。
+
+.解説
+
+次のコードは、Value プロパティの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致 " & I & " が、"
+RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+=== Matches コレクション
+
+正規表現の Match オブジェクトのコレクションです。
+
+.解説
+
+Matches コレクションには、個別の Match オブジェクトが格納されます。このコレク
+ションは、RegExp オブジェクトの Execute メソッドによってのみ作成可能です。個別
+の Match オブジェクトのプロパティと同様、Matches コレクションのプロパティは読
+み取り専用です。
+
+正規表現で検索を実行すると、Match オブジェクトが 0 個以上作成されます。それぞ
+れの Match オブジェクトは、正規表現で検索された文字列、文字列の長さ、および文
+字列が検索された場所のインデックスにアクセスする手段を提供します。
+
+次のコードは、正規表現の検索で Matches コレクションを取得し、コレクションに対
+して繰り返し処理を行う例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+      RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+      RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+For Each...Next ステートメント | Match オブジェクト | RegExp オブジェクト | SubMatches コレクション
+
+
+=== RegExp オブジェクト
+
+正規表現の機能を提供します。
+
+.解説
+
+次のコードは、RegExp オブジェクトの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+      RetStr = RetStr & "一致する文字列が見つかった位置は、"
+      RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+      RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.プロパティとメソッド
+
+Regular Expression オブジェクトのプロパティとメソッド
+
+.参照
+
+Match オブジェクト | Matches コレクション
+
+
+=== Regular Expression オブジェクトのプロパティとメソッド
+
+Regular Expression オブジェクトは、簡単な正規表現をサポートします。
+
+.プロパティ
+
+Global プロパティ
+
+IgnoreCase プロパティ
+
+Pattern プロパティ
+
+.メソッド
+
+Execute メソッド
+
+Replace メソッド
+
+Test メソッド
+
+
+==== Global プロパティ
+
+検索文字列全体についてのパターンとの一致を検索するか、最初の一致だけを検索する
+かを示すブール (Boolean) 値を設定します。
+
+[source,vbscript]
+----
+object.Global [= True | False ]
+----
+
+引数 object には、RegExp オブジェクトを指定します。Global プロパティの値は、文
+字列全体に検索が適用されると True、適用されないと False です。既定値は False
+です。
+
+.解説
+
+次のコードは、Global プロパティの使用例です。Global プロパティに代入された値を
+変更し、結果を確認してください。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+IgnoreCase プロパティ | Pattern プロパティ
+
+対象: RegExp オブジェクト
+
+==== IgnoreCase プロパティ
+
+パターン検索で大文字と小文字を区別するかどうかを示すブール (Boolean) 値を設定
+します。
+
+[source,vbscript]
+----
+object.IgnoreCase [= True | False ]
+----
+
+引数 object には、RegExp オブジェクトを指定します。IgnoreCase プロパティの値は、
+検索するときに大文字と小文字を区別すると False、区別しないと True です。既定値
+は False です。
+
+.解説
+
+次のコードは、IgnoreCase プロパティの使用例です。IgnoreCase プロパティに代入す
+る値を変更して、結果を確認してください。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+Global プロパティ | Pattern プロパティ
+
+対象: RegExp オブジェクト
+
+
+==== Pattern プロパティ
+
+検索される正規表現のパターンを設定します。値の取得も可能です。
+
+[source,vbscript]
+----
+object.Pattern [= "searchstring"]
+----
+
+.引数
+
+* object
+
+必ず指定します。RegExp オブジェクト変数を指定します。
+
+* searchstring
+
+省略可能です。検索される文字列式を指定します。Settings セクションの表で定義された正規表現の文字をどれでも使用できます。
+
+.設定値
+
+正規表現のパターンの記述には、特別な文字およびエスケープ シーケンスが使用され
+ます。次の表は、正規表現で使用できる文字およびエスケープ シーケンスの一覧です。
+この表では、簡単な使用例も含めて説明します。
+
+[cols="1,4",options="header"]
+|===
+|文字 |内容
+|\ |次に続く文字が特別な文字またはリテラルであることを示します。たとえば、"n" は "n" という文字と一致します。"\n"は、改行文字と一致します。"\\" は、"\" と一致します。"\(" は "(" と一致します。
+|^ |入力の開始と一致します。
+|$ |入力の終端と一致します。
+|* |直前の文字と 0 回以上一致します。たとえば、"zo*" は "z" とも "zoo" とも一致します。
+|+ |直前の文字と 1 回以上一致します。たとえば、"zo+" は "zoo" とは一致しますが、"z" とは一致しません。
+|? |直前の文字と 0 回または 1 回一致します。たとえば、"a?ve?" は "never" の "ve" に一致します。
+|. |改行文字以外の任意の単独文字と一致します。
+|(pattern) |引数 pattern に指定した文字と一致します。一致する文字列が見つかったら、記憶されます。一致した部分は、Matches コレクションの項目 [0]...[n] から取得できます。かっこ文字、() を指定するには、"\(" および "\)" を使用します。
+|x｜y |x と y のどちらかと一致します。たとえば、"z｜wood" は "z" と "wood" に一致します。"(z|w)oo" は、"zoo" と "wood" に一致します。
+|{n} |n には、0 以上の整数を指定します。直前の文字と正確に n 回一致します。たとえば、"o{2}" は、"Bob" の "o" とは一致しませんが、"foooood" の最初の 2 つの o とは一致します。
+|{n,} |n には、0 以上の整数を指定します。直前の文字と少なくとも n 回一致します。たとえば、"o{2,}" は、"Bob" の "o" とは一致しませんが、"foooood" のすべての o と一致します。"o{1,}" は、"o+" と同じ意味になります。"o{0,}" は、"o*" と同じ意味になります。
+|{n,m} |m および n には、0 以上の整数を指定します。直前の文字と n ～ m 回一致します。たとえば、"o{1,3}" は、"fooooood" の最初の 3 つの o と一致します。"o{0,1}" は、"o?" と同じ意味になります。
+|[xyz] |文字セット。角かっこで囲まれた文字の中のいずれかと一致します。たとえば、"[abc]" は "plain" の "a" と一致します。
+|[^xyz] |否定の文字セット。角かっこで囲まれた文字にはない任意の文字と一致します。"[^abc]" は、"plain" の "p" と一致します。
+|[a-z] |文字の範囲。指定した範囲に含まれる任意の文字に一致します。たとえば、"[a-z]" は、"a" から "z" までの任意のアルファベットの小文字に一致します。
+|[^m-z] |否定の文字の範囲。指定した範囲に含まれていない任意の文字に一致します。たとえば、"[^m-z]" は "m" から "z" までの範囲に含まれない任意の文字に一致します。
+|\b |単語の境界と一致します。単語の境界とは、単語とスペースの間の位置のことです。たとえば、"er\b" は、"never" の "er" に一致します。"verb" の "er" には一致しません。
+|\B |単語の境界ではない部分と一致します。たとえば、"ea*r\B" は、"never early" の "ear" と一致します。
+|\d |数字と一致します。[0-9] と指定した場合と同じ意味になります。
+|\D |数字以外の文字と一致します。[^0-9] と指定した場合と同じ意味になります。
+|\f |フォームフィード文字と一致します。
+|\n |改行文字と一致します。
+|\r |キャリッジ リターン文字と一致します。
+|\s |スペース、タブ、フォームフィードなどの任意の空白文字と一致します。"[ \f\n\r\t\v]" と指定した場合と同じ意味になります。
+|\S |空白文字のない部分と一致します。"[^ \f\n\r\t\v]" と指定した場合と同じ意味になります。
+|\t |タブ文字と一致します。
+|\v |垂直タブ文字と一致します。
+|\w |単語に使用される任意の文字と一致します。これには、アンダースコアも含まれます。"[A-Za-z0-9_]" と指定した場合と同じ意味になります。
+|\W |単語に使用される文字以外の任意の文字と一致します。"[^A-Za-z0-9_]" と指定した場合と同じ意味になります。
+|\num |>num には、正の整数を指定します。既に見つかり、記憶されている部分と一致します。たとえば、"(.)\1" は、連続する 2 つの同じ文字に一致します。
+|\n |n に指定した 8 進数のエスケープ値と一致します。8 進数の値には、1 桁、2 桁、または 3 桁で指定します。たとえば、"\11" と "\011" は、両方ともタブ文字に一致します。"\0011" は、"\001" および "1" と同じ意味になります。8 進数のエスケープ値は、256 を超えることはできません。256 を超える数値を指定した場合、初めの 2 桁で値が評価されます。この表記により、正規表現で ASCII コードを使用できるようになります。
+|\xn |n に指定した 16 進数のエスケープ値と一致します。16 進数のエスケープ値は、2 桁である必要があります。たとえば、"\x41" は、"A" に一致します。"\x041" は、"\x04" および "1"と同じ意味になります。この表記により、正規表現で ASCII コードを使用できるようになります。
+|===
+
+.解説
+
+次のコードは、Pattern プロパティの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+Global プロパティ | IgnoreCase プロパティ
+
+対象: RegExp オブジェクト
+
+==== Execute メソッド
+
+指定された文字列を正規表現で検索します。
+
+[source,vbscript]
+----
+object.Execute(string) 
+----
+
+.引数
+
+* object
+
+必ず指定します。RegExp オブジェクトの名前を指定します。
+
+* string
+
+必ず指定します。正規表現による検索の対象となるテキスト文字列を指定します。
+
+.解説
+
+正規表現による検索の実際のパターンは、RegExp オブジェクトの Pattern プロパティ
+を使って設定されます。
+
+Execute メソッドは、string 内で見つかった文字列ごとに存在する Match オブジェク
+トを含む、Matches コレクションを返します。一致する文字列が見つからない場合、空
+の Matches コレクションを返します。
+
+次のコードは、Execute メソッドの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+Dim regEx, Match, Matches      ' 変数を作成します。
+Set regEx = New RegExp         ' 正規表現を作成します。
+regEx.Pattern = patrn         ' パターンを設定します。
+regEx.IgnoreCase = True         ' 大文字と小文字を区別しないように設定します。
+regEx.Global = True         ' 文字列全体を検索するように設定します。
+Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+For Each Match in Matches      ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+  Next
+  RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+Replace メソッド | Test メソッド
+
+対象: RegExp オブジェクト
+
+
+==== Replace メソッド
+
+正規表現による検索で見つかったテキストを置換します。
+
+[source,vbscript]
+----
+object.Replace(string1, string2) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。RegExp オブジェクトの名前を指定します。
+
+* string1
+
+    必ず指定します。String1 には、検索および置換の対象となるテキスト文字列を指定します。
+
+* string2
+
+    必ず指定します。String2 には、置換するテキスト文字列を指定します。
+
+.解説
+
+置換されるテキスト文字列の実際のパターンは、RegExp オブジェクトの Pattern プロ
+パティを使って設定されます。
+
+Replace メソッドは、string1 のコピーと、string2 で置換された RegExp.Pattern の
+テキストを返します。一致する文字列が見つからない場合、string1 のコピーが変更さ
+れずに返されます。
+
+次のコードは、Replace メソッドの使用例です。
+
+[source,vbscript]
+----
+Function ReplaceTest(patrn, replStr)
+Dim regEx, str1               ' 変数を作成します。
+  str1 = "The quick brown fox jumped over the lazy dog."
+Set regEx = New RegExp            ' 正規表現を作成します。
+regEx.Pattern = patrn            ' パターンを設定します。
+regEx.IgnoreCase = True           ' 大文字と小文字を区別しないように設定します。
+ReplaceTest = regEx.Replace(str1, replStr)   ' 置換します。
+End Function
+----
+
+[source,vbscript]
+----
+MsgBox(ReplaceTest("fox", "cat"))      ' 'fox' を 'cat' で置換します。
+----
+
+Replace メソッドを使って、パターンに一致する文字列どうしを置換することもできま
+す。上の例に示された関数を次のように呼び出すと、元の文字列に含まれる単語の各ペ
+アが交換されます。
+
+[source,vbscript]
+----
+MsgBox(ReplaceText("(\S+)(\s+)(\S+)", "$3$2$1"))   ' 単語のペアを交換します。
+----
+
+.参照
+
+Execute メソッド | Test メソッド
+
+対象: RegExp オブジェクト
+
+
+
+
+
+
+== 正規表現で1行を空白で分割
+
+産業設定::
+	Microsoft VBscript Reguler Expressions 5.5
+
+[source,vbscript]
+----
+Sub sample()
+
+    Dim re As New RegExp
+    Dim s As String: s = "This is a              pen."
+    Dim ms As MatchCollection
+    Dim m As Match
+
+    re.Pattern = "\S+"
+    re.Global = True
+    Debug.Print s
+    Set ms = re.Execute(s)
+    For Each m In ms
+        Debug.Print m
+    Next
+
+End Sub
+
+'This is a              pen.
+'This
+'is
+'a
+'pen.
+----
+
+
+
+
+
+== DoNotUpdate
+
+.classに追加する
+
+クラスモジュール
+
+[source,vbscript]
+----
+Private Sub Class_Initialize()
+    With Application
+        .ScreenUpdating = False
+        .Calculation = xlCalculationManual
+        .EnableEvents = False
+        .PrintCommunication = False
+    End With
+End Sub
+
+Private Sub Class_Terminate()
+    With Application
+        .ScreenUpdating = True
+        .Calculation = xlCalculationAutomatic
+        .EnableEvents = True
+        .PrintCommunication = True
+    End With
+
+End Sub
+----
+
+
+
+
+
+
+== INDIRECT関数を使う
+
+.INDIRECT関数の他シート参照例
+
+A1セルに"Sheet2"、B1セルに"A1"と入っているとします。
+
+[source,vbscript]
+----
+=INDIRECT(A1&"!"&B1)
+----
+
+この結果は、Sheet2のA1セルの値が出力されます。
+
+.INDIRECT関数の範囲指定例
+
+A列に数値が入っていて、C1セルA2、C2セルA5と入っているとします。
+
+=SUM(INDIRECT(C1&":" &C2))
+
+この結果は、A2～A5の合計になります。
+
+[source,vbscript]
+----
+
+	A	B	C
+1	1		A2
+2	2		A5
+3	3		=SUM(INDIRECT(C1&":" &C2))
+4	4
+5	5
+6	6
+7	7
+8	8
+
+
+----
+
+== 配列を使うのに役立つ4つの関数――Array、LBound、UBound、Splitの使い方
+
+=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/array-function[Array 関数 (Visual Basic for Applications) | Microsoft Docs]
+
+配列を含む Variant を返します。
+
+.構文
+
+[source,vbscript]
+----
+Array(arglist)
+----
+
+必須の arglist 引数は、Variant に含まれている配列の要素に割り当てられる値のコ
+ンマ区切りのリストです。 引数を指定しない場合は長さ 0 の配列が作成されます。
+
+.解説
+
+配列の要素を参照するために使用される表記は、変数 名とそれに続く括弧で構成され、
+括弧の中には目的の要素を示すインデックス番号が入ります。
+
+次の例では、最初のステートメントにより、Variant として「A」という名前の変数が
+作成されます。 2 つ目のステートメントにより、変数 A に配列が割り当てられます。
+最後のステートメントにより、2 つ目の配列要素に含まれる値が別の変数に割り当てら
+れます。
+
+[source,vbscript]
+----
+Dim A As Variant, B As Long, i As Long
+A = Array(10, 20, 30)  ' A is a three element list by default indexed 0 to 2
+B = A(2)               ' B is now 30
+ReDim Preserve A(4)    ' Extend A's length to five elements
+A(4) = 40              ' Set the fifth element's value
+For i = LBound(A) To UBound(A)
+    Debug.Print "A(" & i & ") = " & A(i)
+Next i
+----
+
+Array 関数を使用して作成した配列の下限は、Array がタイプ ライブラリの名前で修
+飾 (VBA.Array など) されていない限り、Option Base ステートメントで指定した下限
+によって決まります。 タイプ ライブラリの名前で修飾されている場合は、Array は
+Option Base の影響を受けません。
+
+CAUTION:  配列として宣言されていない Variant には、配列を含めることができます。 Variant
+変数には、固定長の文字列とユーザー定義の型を除き、あらゆる型の配列を含めること
+ができます。 配列が含まれている Variant は要素の型が Variant の配列とは概念的
+に異なりますが、配列要素には同じ方法でアクセスされます。
+
+
+.例
+
+この例では、 Array 関数を使用して、配列を含む Variant を返します。
+
+[source,vbscript]
+----
+Dim MyWeek, MyDay
+MyWeek = Array("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+' Return values assume lower bound set to 1 (using Option Base
+' statement).
+MyDay = MyWeek(2)    ' MyDay contains "Tue".
+MyDay = MyWeek(4)    ' MyDay contains "Thu".
+----
+
+
+=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/lbound-function[LBound 関数 (Visual Basic for Applications) | Microsoft Docs]
+
+配列の指定ディメンションに対して使用できる最小下付き文字が含まれる長整数型
+(Long) の値を返します。
+
+.構文
+
+[source,vbscript]
+----
+LBound(arrayname, [ dimension ])
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|arrayname |必須です。 配列変数の名前を指定します。標準の変数の名前付け規則に
+従います。
+|dimension |省略可能。Variant (Long)。 どの次元の下限が返されるかを示す整数。
+最初の次元には1、2番目の次元では2というように使用します。 _次元_を省略すると、
+1が想定されます。
+|===
+
+.注釈
+
+LBound関数を使用して、 配列のサイズを決定します。 UBound 関数は、配列のディメ
+ンションの上限を確認する目的で使用します。
+
+LBound は、次のディメンションの配列に対して、次の表に示す値を返します。
+
+[cols="1,4",options="header"]
+|===
+|Statement |戻り値
+|LBound(A, 1) |1-d
+|LBound(A, 2) |.0
+|LBound(A, 3) |-3
+|===
+
+任意の次元の下限の既定値は、 Option Base ステートメントの設定に応じて0または1
+のいずれかになります。 Array 関数を使用して作成された配列のベースが0です。
+Option Baseによる影響はありません。
+
+Dim、 Private、 Public、 ReDim、またはStaticステートメントでTo句を使用してディ
+メンションが設定されている配列は、下限として任意の整数値を持つことができます。
+
+.例
+
+次の例では、LBound 関数を使用して、配列の指定ディメンションに対して使用できる
+最小下付き文字を決定します。 また、Option Base ステートメントを使用して、既定
+のベース配列の下付き文字の値 0 を上書きします。
+
+
+[source,vbscript]
+----
+Dim Lower
+Dim MyArray(1 To 10, 5 To 15, 10 To 20)     ' Declare array variables.
+Dim AnyArray(10)
+Lower = Lbound(MyArray, 1)     ' Returns 1.
+Lower = Lbound(MyArray, 3)    ' Returns 10.
+Lower = Lbound(AnyArray)    ' Returns 0 or 1, depending on
+    ' setting of Option Base.
+----
+
+=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/ubound-function[UBound 関数 (Visual Basic for Applications) | Microsoft Docs]
+
+配列の指定した次元で使用できる添字の最大値を含むLongデータ型を返します。
+
+.構文
+
+[source,vbscript]
+----
+UBound(arrayname, [ dimension ])
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|arrayname |必須です。 配列変数の名前を指定します。標準の変数の名前付け規則に
+従います。
+|dimension |省略可能。Variant (Long)。 取得する次元の上限を示す整数。 最初の次
+元には1、2番目の次元では2というように使用します。 _次元_を省略すると、1が想定
+されます。
+|===
+
+.注釈
+
+UBound関数は、配列のサイズを決定するために**LBound** 関数と共に使用されます。
+配列の次元の下限を調べる場合は LBound 関数を使用します。
+
+配列の次元と UBound が返す値の関係を次に示します。
+
+[cols="1,4",options="header"]
+|===
+|Statement |戻り値
+|UBound(A, 1) |100
+|UBound(A, 2) |1/3
+|UBound(A, 3) |2/4
+|===
+
+
+.例
+
+次の例では、UBound 関数を使用して、配列の指定した次元で使用できる下付き文字の
+最大値を調べます。
+
+[source,vbscript]
+----
+Dim Upper
+Dim MyArray(1 To 10, 5 To 15, 10 To 20)    ' Declare array variables.
+Dim AnyArray(10)
+Upper = UBound(MyArray, 1)    ' Returns 10.
+Upper = UBound(MyArray, 3)    ' Returns 20.
+Upper = UBound(AnyArray)      ' Returns 10.
+----
+
+=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/split-function[Split 関数 (Visual Basic for Applications) | Microsoft Docs]
+
+指定された数のサブ文字列が含まれる 0 ベースの 1 次元配列を返します。
+
+.構文
+
+[source,vbscript]
+----
+Split(expression, [ delimiter, [ limit, [ compare ]]])
+----
+
+[cols="1,4",options="header"]
+|===
+|指定項目 |説明
+|expression |必ず指定します。 サブ文字列と区切り記号が含まれる文字列式です。
+expression が長さ 0 の文字列 ("") の場合、Split は、空の配列、つまり、要素とデ
+ータのない配列を返します。
+|delimiter |オプション。 サブ文字列の制限を識別するために使用する文字列です。
+省略すると、空白文字 (" ") が delimiter とみなされます。 _Delimiter_が長さ0の
+文字列である場合は、_式_の文字列全体を含む単一要素の配列が返されます。
+|limit |省略可能です。 返されるサブ文字列の数。-1 は、すべてのサブ文字列が返さ
+れることを示します。
+|compare |省略可能。 サブ文字列を評価するときに使用する比較の種類を示す数値で
+す。 値については、「設定」セクションを参照してください。
+|===
+
+
+.設定
+
+compare 引数には、次の値を指定できます。
+
+[options="header"]
+|===
+|定数 |値 |説明
+|vbUseCompareOption |-1 |Option Compare ステートメントの設定を使用して比較を実行します。
+|vbBinaryCompare |.0 |バイナリ比較を実行します。
+|vbTextCompare |1-d |テキスト比較を実行します。
+|vbDatabaseCompare |pbm-2 |Microsoft Access のみ。 データベース内の情報に基づいて比較を実行します。
+|===
+
+.例
+
+この例では、 Split関数の使用方法を示します。
+
+[source,vbscript]
+----
+Dim strFull As String
+Dim arrSplitStrings1() As Variant
+Dim arrSplitStrings2() As Variant
+Dim strSingleString1 As String
+Dim strSingleString2 As String
+Dim strSingleString3 As String
+Dim i As Long
+
+strFull = "Some - Old - Hags - Can - Always - Hide - Their - Old - Age"    ' String that will be used. 
+
+arrSplitStrings1 = Split(strFull, "-")      ' arrSplitStrings1 will be an array from 0 To 8. 
+                                            ' arrSplitStrings1(0) = "Some " and arrSplitStrings1(1) = " Old ". 
+                                            ' The delimiter did not include spaces, so the spaces in strFull will be included in the returned array values. 
+
+arrSplitStrings2 = Split(strFull, " - ")    ' arrSplitStrings2 will be an array from 0 To 8. 
+                                            ' arrSplitStrings2(0) = "Some" and arrSplitStrings2(1) = "Old". 
+                                            ' The delimiter includes the spaces, so the spaces will not be included in the returned array values. 
+
+'Multiple examples of how to return the value "Can" (array position 3). 
+
+strSingleString1 = arrSplitStrings2(3)      ' strSingleString1 = "Can". 
+
+strSingleString2 = Split(strFull, " - ")(3) ' strSingleString2 = "Can".
+                                            ' This syntax can be used if the entire array is not needed, and the position in the returned array for the desired value is known. 
+
+For i = LBound(arrSplitStrings2, 1) To UBound(arrSplitStrings2, 1)
+    If InStr(1, arrSplitStrings2(i), "Can", vbTextCompare) > 0 Then
+        strSingleString3 = arrSplitStrings2(i)
+        Exit For
+    End If 
+Next i
+----
+
+=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/join-function[配列]
+
+配列に含まれている数多くのサブ文字列を結合して作成した文字列を返します。
+
+.構文
+
+[source,vbscript]
+----
+Join(sourcearray, [ delimiter ])
+----
+
+Join 関数の構文には、次の名前付き引数があります。
+
+.構文
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|sourcearray |必須。 結合するサブ文字列を含む 1 次元配列。
+|delimiter |省略可能。 返される文字列内のサブ文字列の区切り文字。 省略した場合は、空白文字 (" ") が使用されます。 _Delimiter_が長さ0の文字列 ("") の場合、リスト内のすべてのアイテムは区切り文字なしで連結されます。
+|===
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ////
 .AsciiDocの歴史
 ****
@@ -3448,5 +4615,11 @@ end
 ----
 ////
 Version is {revision}
+
+
+
+Visual Basic の概念に関するトピック | Microsoft Docs
+https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-conceptual-topics
+
 
 //	vim:fileencoding=utf-8:ff=unix:
