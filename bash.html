@@ -725,7 +725,7 @@ install: function(toclevels) {
 }
 
 }
-asciidoc.install(3);
+asciidoc.install(2);
 /*]]>*/
 </script>
 </head>
@@ -837,12 +837,254 @@ echo <span style="color: #009900">$((x+y))</span>
 <span style="color: #993399">200</span></tt></pre></div></div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_条件式">条件式</h2>
+<div class="sectionbody">
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">options</th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">-a file</p></td>
+<td align="left" valign="top"><p class="table">file が存在すれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-b file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつブロック特殊ファイルならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-c file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつキャラクター特殊ファイルならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-d file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつディレクトリならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-e file</p></td>
+<td align="left" valign="top"><p class="table">file が存在すれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-f file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつ通常ファイルならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-g file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつ set-group-id されていれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-h file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつシンボリックリンクならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-k file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつ &#8220;sticky&#8221; ビットが設定されていれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-p file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつ名前付きパイプ (FIFO) ならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-r file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつ読み込み可能ならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-s file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつそのサイズが 0 より大きければ真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-t fd</p></td>
+<td align="left" valign="top"><p class="table">ファイル・ディスクリプター fd がオープンされており、かつ端末を参照していれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-u file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、 かつ set-user-id ビットが設定されていれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-w file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつ書き込み可能ならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-x file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつ実行可能ならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-G file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつ (実行中のシェルの) 実効グループ ID に所有されていれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-L file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつシンボリックリンクならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-N file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、 かつ前回読み込まれた以降に修正されていれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-O file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつ (実行中のシェルの) 実効ユーザ ID に所有されていれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-S file</p></td>
+<td align="left" valign="top"><p class="table">file が存在し、かつソケットならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">file1 -ef file2</p></td>
+<td align="left" valign="top"><p class="table">file1 と file2 とで デバイス番号と i-ノード番号が同じならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">file1 -nt file2</p></td>
+<td align="left" valign="top"><p class="table">file1 が (変更日時に関して) file2 より新しいか、 file1 が存在するが file2 が存在しなければ、真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">file1 -ot file2</p></td>
+<td align="left" valign="top"><p class="table">file1 が file2 より古いか、 file2 が存在するのに file1 が存在しなければ、真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-o optname</p></td>
+<td align="left" valign="top"><p class="table">シェルオプション optname が有効ならば真となります。後述する組み込みコマンド set に対するオプションの説明中にある -o オプションを参照してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-v varname</p></td>
+<td align="left" valign="top"><p class="table">シェル変数 varname がセットされている (値が代入されている) ならば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-z string</p></td>
+<td align="left" valign="top"><p class="table">string の長さが 0 ならば真となります。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 2. string</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">options</th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">-n string</p></td>
+<td align="left" valign="top"><p class="table">string の長さが 0 でなければ真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">string1 == string2<br />
+string1 = string2</p></td>
+<td align="left" valign="top"><p class="table">文字列が同じならば真となります。 POSIX に準拠する形で test
+コマンドを使う場合には = を使う必要があります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">string1 != string2</p></td>
+<td align="left" valign="top"><p class="table">2 つの文字列が異なれば真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">string1 &lt; string2</p></td>
+<td align="left" valign="top"><p class="table">現在のロケールにおいて、string1 が string2 よりも 辞書順で前にある場合に真となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">string1 &gt; string2</p></td>
+<td align="left" valign="top"><p class="table">現在のロケールにおいて、string1 が string2 よりも 辞書順で後にある場合に真となります。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">options</th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">arg1 OP arg2</p></td>
+<td align="left" valign="top"><p class="table">OP は -eq, -ne, -lt, -le, -gt, -ge. のいずれかです。 これらの算
+術二値演算子が真を返すのはそれぞれ、 arg1 が arg2 に対して等しい場合、 等しく
+ない場合、小さい場合、小さいか等しい場合、大きい場合、 大きいか等しい場合です。
+arg1 や arg2 には、正または負の整数を使用できます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lsを配列に入れる">lsを配列に入れる</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>#<span style="color: #990000">!/</span>usr<span style="color: #990000">/</span>bin<span style="color: #990000">/</span>bash
+# <span style="font-weight: bold"><span style="color: #0000FF">set</span></span> <span style="color: #990000">-</span>x
+
+declare ls_result<span style="color: #990000">=</span>$<span style="color: #990000">(</span>ls <span style="color: #990000">*.</span>adoc<span style="color: #990000">)</span>
+
+echo $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span><span style="color: #FF0000">}</span>
+echo $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[*]</span><span style="color: #FF0000">}</span>
+
+declare i<span style="color: #990000">=</span><span style="color: #993399">0</span>
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span><span style="color: #FF0000">}</span> <span style="color: #990000">-</span>gt <span style="color: #993399">0</span> <span style="color: #990000">]</span> <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> line in $<span style="color: #FF0000">{</span>ls_result<span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+        echo  $<span style="color: #FF0000">{</span>line<span style="color: #FF0000">}</span> $<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span>
+        let i<span style="color: #990000">++</span>
+        # i<span style="color: #990000">=</span>$<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span><span style="color: #990000">+</span><span style="color: #993399">1</span>
+    done
+fi
+
+# <span style="color: #990000">*.</span>txtが存在したら実行
+# 判定しないとエラーとなる。
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> <span style="color: #990000">-</span>a <span style="color: #990000">*.</span>txt <span style="color: #990000">];</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+
+    ls_result<span style="color: #990000">=</span>$<span style="color: #990000">(</span>ls <span style="color: #990000">*.</span>txt<span style="color: #990000">)</span>
+
+    echo $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span><span style="color: #FF0000">}</span>
+    echo $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[*]</span><span style="color: #FF0000">}</span>
+
+    declare i<span style="color: #990000">=</span><span style="color: #993399">0</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span><span style="color: #FF0000">}</span> <span style="color: #990000">-</span>gt <span style="color: #993399">0</span> <span style="color: #990000">]</span> <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> line in $<span style="color: #FF0000">{</span>ls_result<span style="color: #FF0000">}</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+            echo  $<span style="color: #FF0000">{</span>line<span style="color: #FF0000">}</span> $<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span>
+            let i<span style="color: #990000">++</span>
+            # i<span style="color: #990000">=</span>$<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span><span style="color: #990000">+</span><span style="color: #993399">1</span>
+        done
+    fi
+
+fi</tt></pre></div></div>
+</div>
+</div>
 </div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-09-15 05:13:05 JST
+Last updated 2020-09-18 05:35:04 JST
 </div>
 </div>
 </body>

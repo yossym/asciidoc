@@ -533,6 +533,40 @@ body.manpage div.sectionbody {
 }
 
 
+@media screen {
+  body {
+    max-width: 50em; /* approximately 80 characters wide */
+    margin-left: 16em;
+  }
+
+  #toc {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 13em;
+    padding: 0.5em;
+    padding-bottom: 1.5em;
+    margin: 0;
+    overflow: auto;
+    border-right: 3px solid #f8f8f8;
+    background-color: white;
+  }
+
+  #toc .toclevel1 {
+    margin-top: 0.5em;
+  }
+
+  #toc .toclevel2 {
+    margin-top: 0.25em;
+    display: list-item;
+    color: #aaaaaa;
+  }
+
+  #toctitle {
+    margin-top: 0.5em;
+  }
+}
 </style>
 <script type="text/javascript">
 /*<![CDATA[*/
@@ -725,7 +759,7 @@ install: function(toclevels) {
 }
 
 }
-asciidoc.install(3);
+asciidoc.install(2);
 /*]]>*/
 </script>
 </head>
@@ -1556,7 +1590,7 @@ ts<span style="color: #990000">.</span>Close</tt></pre></div></div>
 </dt>
 <dd>
 <p>
-ActiveX Data Objects 6.1 Library
+Microsoft ActiveX Data Objects 6.0 Library
 </p>
 </dd>
 </dl></div>
@@ -1565,7 +1599,20 @@ ActiveX Data Objects 6.1 Library
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt></tt></pre></div></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> s As String
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> text As String
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> ado As New ADODB<span style="color: #990000">.</span>Stream
+With ado
+    <span style="color: #990000">.</span>Charset <span style="color: #990000">=</span> <span style="color: #FF0000">"utf-8"</span>
+    <span style="color: #990000">.</span>Open
+    <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">LoadFromFile</span></span> <span style="color: #990000">(</span>Filename<span style="color: #990000">)</span>
+    <span style="color: #990000">.</span>Close
+        text <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Split</span></span><span style="color: #990000">(</span>s<span style="color: #990000">,</span> vbLf<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">LBound</span></span><span style="color: #990000">(</span>text<span style="color: #990000">)</span> To <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>text<span style="color: #990000">)</span>
+        Debug<span style="color: #990000">.</span>Print <span style="font-weight: bold"><span style="color: #000000">text</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With</tt></pre></div></div>
 </div>
 <div class="sect2">
 <h3 id="_ファイル書き込み_sjis_filesystemobject">ファイル書き込み(sjis,FileSystemObject)</h3>
@@ -3945,6 +3992,15 @@ ListBox1<span style="color: #990000">.</span>ColumnWidths <span style="color: #9
 ListBox1<span style="color: #990000">.</span>AddItem <span style="color: #FF0000">""</span>
 ListBox1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">List</span></span><span style="color: #990000">(</span>ListBox1<span style="color: #990000">.</span>ListCount <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #FF0000">"左"</span>
 ListBox1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">List</span></span><span style="color: #990000">(</span>ListBox1<span style="color: #990000">.</span>ListCount <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #FF0000">"右"</span></tt></pre></div></div>
+<div class="listingblock">
+<div class="title">選択行取得</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' 選択されていない場合は -1</span></span>
+ListBox1<span style="color: #990000">.</span>ListIndex
+ListBox1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">List</span></span><span style="color: #990000">(</span>ListBox1<span style="color: #990000">.</span>ListIndex<span style="color: #990000">)</span></tt></pre></div></div>
 </div>
 </div>
 </div>
@@ -6424,7 +6480,7 @@ strSingleString2 <span style="color: #990000">=</span> <span style="font-weight:
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> i</tt></pre></div></div>
 </div>
 <div class="sect2">
-<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_join_function_配列_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/join-function">配列</a></h3>
+<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_join_function_join_関数_visual_basic_for_applications_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/join-function">Join 関数 (Visual Basic for Applications) | Microsoft Docs</a></h3>
 <div class="paragraph"><p>配列に含まれている数多くのサブ文字列を結合して作成した文字列を返します。</p></div>
 <div class="listingblock">
 <div class="title">構文</div>
@@ -6460,10 +6516,810 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_配列の内容をセルにコピー">配列の内容をセルにコピー</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">a</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span> To <span style="color: #993399">3</span><span style="color: #990000">)</span> As String
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+
+<span style="font-style: italic"><span style="color: #9A1900">'abc</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">'bob</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">'alice</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">'nancy</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span> To <span style="color: #993399">3</span>
+<span style="font-weight: bold"><span style="color: #000000">a</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>i <span style="color: #990000">+</span> <span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+<span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">3</span> <span style="color: #990000">+</span> <span style="color: #993399">3</span><span style="color: #990000">))</span> <span style="color: #990000">=</span> a
+<span style="font-style: italic"><span style="color: #9A1900">' abc bob alice   nancy</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_data_type_summary_データ型の概要_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary">データ型の概要 | Microsoft Docs</a></h2>
+<div class="sectionbody">
+<div class="paragraph"><p>データ型は、保持できるデータの種類を決定する変数の特性です。 データ型には、次
+の表で示されているもの、ユーザー定義型、およびオブジェクトに固有の型が含まれま
+す。</p></div>
+<div class="paragraph"><p>組み込みのデータ型を設定する</p></div>
+<div class="paragraph"><p>次の表では、サポートされる データ型および記憶域のサイズと範囲を示します。
+組み込みのデータ型を設定する</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+<thead>
+<tr>
+<th align="left" valign="top">データ型 </th>
+<th align="left" valign="top">記憶領域サイズ </th>
+<th align="left" valign="top">範囲</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Boolean</p></td>
+<td align="left" valign="top"><p class="table">2 バイト</p></td>
+<td align="left" valign="top"><p class="table">True または False</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Byte</p></td>
+<td align="left" valign="top"><p class="table">1 バイト</p></td>
+<td align="left" valign="top"><p class="table">0 ～ 255</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Collection</p></td>
+<td align="left" valign="top"><p class="table">不明</p></td>
+<td align="left" valign="top"><p class="table">不明</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Currency (スケーリングされた整数)</p></td>
+<td align="left" valign="top"><p class="table">8 バイト</p></td>
+<td align="left" valign="top"><p class="table">-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">8 バイト</p></td>
+<td align="left" valign="top"><p class="table">100 年 1 月 1 日 から 9999 年 12 月 31 日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Decimal</p></td>
+<td align="left" valign="top"><p class="table">14 バイト</p></td>
+<td align="left" valign="top"><p class="table">+/-79,228,162,514,264,337,593,543,950,335 (小数点なし)<br />
++/-7.9228162514264337593543950335 (小数点以下 28 桁)<br />
+<br />
++/-0.0000000000000000000000000001 (0 ではない最小の値)<br /></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Dictionary</p></td>
+<td align="left" valign="top"><p class="table">不明</p></td>
+<td align="left" valign="top"><p class="table">不明</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Double (倍精度浮動小数点数)</p></td>
+<td align="left" valign="top"><p class="table">8 バイト</p></td>
+<td align="left" valign="top"><p class="table">-1.79769313486231E308 から-4.94065645841247E-324 (負の値)<br />
+<br />
+4.94065645841247E-324 から 1.79769313486232E308 (正の値)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Integer</p></td>
+<td align="left" valign="top"><p class="table">2 バイト</p></td>
+<td align="left" valign="top"><p class="table">-32,768 〜 32,767</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Long (Long 整数)</p></td>
+<td align="left" valign="top"><p class="table">4 バイト</p></td>
+<td align="left" valign="top"><p class="table">-2,147, 483,648 〜 2,147, 483,647</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">LongLong (LongLong 整数)</p></td>
+<td align="left" valign="top"><p class="table">8 バイト</p></td>
+<td align="left" valign="top"><p class="table">-9,223,372,036,854,775,808 から 9,223,372, 036,854,775,807<br />
+<br />
+<span class="red">64 ビット プラットフォームでのみ有効。</span></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">LongPtr (32 ビット システムでは Long 整数、64 ビット システムでは LongLong 整数)</p></td>
+<td align="left" valign="top"><p class="table">32 ビット システムでは 4 バイト<br />
+<br />
+64 ビット システムでは 8 バイト</p></td>
+<td align="left" valign="top"><p class="table">-2,147,483,648 から 2,147,483,647 (32 ビットシステム)<br />
+<br />
+-9,223,372,036,854,775,808 から 9,223,372,036,854,775,807 (64 ビット システム)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Object</p></td>
+<td align="left" valign="top"><p class="table">4 バイト</p></td>
+<td align="left" valign="top"><p class="table">任意の Object 参照</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Single (単精度浮動小数点数)</p></td>
+<td align="left" valign="top"><p class="table">4 バイト</p></td>
+<td align="left" valign="top"><p class="table">-3.402823E38 から -1.401298E-45 (負の値)<br />
+<br />
+1.401298E-45 から 3.402823E38 (正の値)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">String (可変長)</p></td>
+<td align="left" valign="top"><p class="table">10 バイト + 文字列の長さ</p></td>
+<td align="left" valign="top"><p class="table">0 〜 約 20 億</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列型 (String) (固定長)</p></td>
+<td align="left" valign="top"><p class="table">文字列の長さ</p></td>
+<td align="left" valign="top"><p class="table">1 〜 約 65,400</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Variant (数値)</p></td>
+<td align="left" valign="top"><p class="table">16 バイト</p></td>
+<td align="left" valign="top"><p class="table">最大で Double の範囲までの任意の数値</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">バリアント型 (Variant) (文字)</p></td>
+<td align="left" valign="top"><p class="table">22 バイト + 文字列長 (64 ビット システムでは 24 バイト)</p></td>
+<td align="left" valign="top"><p class="table">可変長 文字列型 と同じ範囲</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ユーザー定義 (Type を使用)</p></td>
+<td align="left" valign="top"><p class="table">要素に必要な数</p></td>
+<td align="left" valign="top"><p class="table">各要素の範囲は、そのデータ型の範囲と同じです。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_functions_visual_basic_for_applications_関数_visual_basic_for_applications_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/functions-visual-basic-for-applications">関数 (Visual Basic for Applications) | Microsoft Docs</a></h2>
+<div class="sectionbody">
+<div class="ulist"><div class="title">変換関数</div><ul>
+<li>
+<p>
+Asc
+</p>
+</li>
+<li>
+<p>
+Chr
+</p>
+</li>
+<li>
+<p>
+CVErr
+</p>
+</li>
+<li>
+<p>
+Format
+</p>
+</li>
+<li>
+<p>
+16 進数
+</p>
+</li>
+<li>
+<p>
+Oct
+</p>
+</li>
+<li>
+<p>
+Str
+</p>
+</li>
+<li>
+<p>
+Val
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">数学関数</div><ul>
+<li>
+<p>
+Abs
+</p>
+</li>
+<li>
+<p>
+Atn
+</p>
+</li>
+<li>
+<p>
+Cos
+</p>
+</li>
+<li>
+<p>
+Derived Math
+</p>
+</li>
+<li>
+<p>
+Exp
+</p>
+</li>
+<li>
+<p>
+Int、Fix
+</p>
+</li>
+<li>
+<p>
+Log
+</p>
+</li>
+<li>
+<p>
+Rnd
+</p>
+</li>
+<li>
+<p>
+Sgn
+</p>
+</li>
+<li>
+<p>
+Sin
+</p>
+</li>
+<li>
+<p>
+Sqr
+</p>
+</li>
+<li>
+<p>
+Tan
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">データ型変換関数</div><ul>
+<li>
+<p>
+データ型変換関数
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">その他の関数</div><ul>
+<li>
+<p>
+Array
+</p>
+</li>
+<li>
+<p>
+CallByName
+</p>
+</li>
+<li>
+<p>
+Choose
+</p>
+</li>
+<li>
+<p>
+コマンド
+</p>
+</li>
+<li>
+<p>
+CreateObject
+</p>
+</li>
+<li>
+<p>
+CurDir
+</p>
+</li>
+<li>
+<p>
+Date
+</p>
+</li>
+<li>
+<p>
+DateAdd
+</p>
+</li>
+<li>
+<p>
+DateDiff
+</p>
+</li>
+<li>
+<p>
+DatePart
+</p>
+</li>
+<li>
+<p>
+DateSerial
+</p>
+</li>
+<li>
+<p>
+DateValue
+</p>
+</li>
+<li>
+<p>
+Day
+</p>
+</li>
+<li>
+<p>
+DDB
+</p>
+</li>
+<li>
+<p>
+Dir
+</p>
+</li>
+<li>
+<p>
+DoEvents
+</p>
+</li>
+<li>
+<p>
+Environ
+</p>
+</li>
+<li>
+<p>
+EOF
+</p>
+</li>
+<li>
+<p>
+Error
+</p>
+</li>
+<li>
+<p>
+FileAttr
+</p>
+</li>
+<li>
+<p>
+FileDateTime
+</p>
+</li>
+<li>
+<p>
+FileLen
+</p>
+</li>
+<li>
+<p>
+Filter
+</p>
+</li>
+<li>
+<p>
+FormatCurrency
+</p>
+</li>
+<li>
+<p>
+FormatDateTime
+</p>
+</li>
+<li>
+<p>
+FormatNumber
+</p>
+</li>
+<li>
+<p>
+FormatPercent
+</p>
+</li>
+<li>
+<p>
+FreeFile
+</p>
+</li>
+<li>
+<p>
+FV
+</p>
+</li>
+<li>
+<p>
+GetAllSettings
+</p>
+</li>
+<li>
+<p>
+GetAttr
+</p>
+</li>
+<li>
+<p>
+GetObject
+</p>
+</li>
+<li>
+<p>
+GetSetting
+</p>
+</li>
+<li>
+<p>
+Hour
+</p>
+</li>
+<li>
+<p>
+IIf
+</p>
+</li>
+<li>
+<p>
+IMEStatus
+</p>
+</li>
+<li>
+<p>
+Input
+</p>
+</li>
+<li>
+<p>
+InputBox
+</p>
+</li>
+<li>
+<p>
+InStr
+</p>
+</li>
+<li>
+<p>
+InStrRev
+</p>
+</li>
+<li>
+<p>
+IPmt
+</p>
+</li>
+<li>
+<p>
+IRR
+</p>
+</li>
+<li>
+<p>
+IsArray
+</p>
+</li>
+<li>
+<p>
+IsDate
+</p>
+</li>
+<li>
+<p>
+IsEmpty
+</p>
+</li>
+<li>
+<p>
+IsError
+</p>
+</li>
+<li>
+<p>
+IsMissing
+</p>
+</li>
+<li>
+<p>
+IsNull
+</p>
+</li>
+<li>
+<p>
+IsNumeric
+</p>
+</li>
+<li>
+<p>
+IsObject
+</p>
+</li>
+<li>
+<p>
+Join
+</p>
+</li>
+<li>
+<p>
+LBound
+</p>
+</li>
+<li>
+<p>
+LCase
+</p>
+</li>
+<li>
+<p>
+Left
+</p>
+</li>
+<li>
+<p>
+Len
+</p>
+</li>
+<li>
+<p>
+Loc
+</p>
+</li>
+<li>
+<p>
+LOF
+</p>
+</li>
+<li>
+<p>
+LTrim、RTrim、および Trim
+</p>
+</li>
+<li>
+<p>
+MacID
+</p>
+</li>
+<li>
+<p>
+MacScript
+</p>
+</li>
+<li>
+<p>
+Mid
+</p>
+</li>
+<li>
+<p>
+Minute
+</p>
+</li>
+<li>
+<p>
+MIRR
+</p>
+</li>
+<li>
+<p>
+Month
+</p>
+</li>
+<li>
+<p>
+MonthName
+</p>
+</li>
+<li>
+<p>
+MsgBox
+</p>
+</li>
+<li>
+<p>
+Now
+</p>
+</li>
+<li>
+<p>
+NPer
+</p>
+</li>
+<li>
+<p>
+NPV
+</p>
+</li>
+<li>
+<p>
+Partition
+</p>
+</li>
+<li>
+<p>
+Pmt
+</p>
+</li>
+<li>
+<p>
+PPmt
+</p>
+</li>
+<li>
+<p>
+PV
+</p>
+</li>
+<li>
+<p>
+QBColor
+</p>
+</li>
+<li>
+<p>
+Rate
+</p>
+</li>
+<li>
+<p>
+Replace
+</p>
+</li>
+<li>
+<p>
+RGB
+</p>
+</li>
+<li>
+<p>
+Right
+</p>
+</li>
+<li>
+<p>
+Round
+</p>
+</li>
+<li>
+<p>
+Second
+</p>
+</li>
+<li>
+<p>
+Seek
+</p>
+</li>
+<li>
+<p>
+Shell
+</p>
+</li>
+<li>
+<p>
+SLN
+</p>
+</li>
+<li>
+<p>
+Space
+</p>
+</li>
+<li>
+<p>
+Spc
+</p>
+</li>
+<li>
+<p>
+Split
+</p>
+</li>
+<li>
+<p>
+StrComp
+</p>
+</li>
+<li>
+<p>
+StrConv
+</p>
+</li>
+<li>
+<p>
+String
+</p>
+</li>
+<li>
+<p>
+StrReverse
+</p>
+</li>
+<li>
+<p>
+Switch
+</p>
+</li>
+<li>
+<p>
+SYD
+</p>
+</li>
+<li>
+<p>
+Tab
+</p>
+</li>
+<li>
+<p>
+Time
+</p>
+</li>
+<li>
+<p>
+Timer
+</p>
+</li>
+<li>
+<p>
+TimeSerial
+</p>
+</li>
+<li>
+<p>
+TimeValue
+</p>
+</li>
+<li>
+<p>
+TypeName
+</p>
+</li>
+<li>
+<p>
+UBound
+</p>
+</li>
+<li>
+<p>
+UCase
+</p>
+</li>
+<li>
+<p>
+VarType
+</p>
+</li>
+<li>
+<p>
+Weekday
+</p>
+</li>
+<li>
+<p>
+WeekdayName
+</p>
+</li>
+<li>
+<p>
+Year
+</p>
+</li>
+</ul></div>
 <div class="paragraph"><p>Version is 0.1</p></div>
 <div class="paragraph"><p>Visual Basic の概念に関するトピック | Microsoft Docs
 <a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-conceptual-topics">https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-conceptual-topics</a></p></div>
-</div>
 </div>
 </div>
 </div>
@@ -6471,7 +7327,7 @@ cellspacing="0" cellpadding="4">
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-09-16 00:21:35 JST
+Last updated 2020-09-18 06:08:43 JST
 </div>
 </div>
 </body>

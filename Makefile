@@ -6,12 +6,15 @@ all:	VBA.html AsciiCode.html bash.html
 # 	asciidoc -a toc -a toclevels=3 -a sectnums bash.adoc
 
 VBA.html:	VBA.adoc Makefile
-	asciidoc -a toc -a toclevels=3 -a sectnums VBA.adoc
+	asciidoc -a toc2  VBA.adoc
+	# asciidoc -a toc  VBA.adoc
+	#asciidoc -a toc -a toclevels=3 -a sectnums VBA.adoc
+	#asciidoc -a toc2 -a theme=flask VBA.adoc
 
 AsciiCode.html:	AsciiCode.adoc Makefile
-	asciidoc -a toc -a toclevels=3 -a sectnums AsciiCode.adoc
+	asciidoc -a toc  AsciiCode.adoc
 
 bash.html:	bash.adoc
-	asciidoc -a toc -a toclevels=3 -a sectnums bash.adoc
+	asciidoc -a toc  bash.adoc
 
 

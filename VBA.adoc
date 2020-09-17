@@ -708,13 +708,25 @@ ts.Close
 === ファイル読み込み(UTF-8,ADODB)
 
 参照設定::
-ActiveX Data Objects 6.1 Library
+Microsoft ActiveX Data Objects 6.0 Library
 
 [source,VBSCRIPT]
 ----
-
+Dim i As Long
+Dim s As String
+Dim text As String
+Dim ado As New ADODB.Stream
+With ado
+    .Charset = "utf-8"
+    .Open
+    .LoadFromFile (Filename)
+    .Close
+        text = Split(s, vbLf)
+        For i = LBound(text) To UBound(text)
+    	Debug.Print text(i)
+        Next
+End With
 ----
-
 
 === ファイル書き込み(sjis,FileSystemObject)
 
@@ -2307,7 +2319,15 @@ ListBox1.List(ListBox1.ListCount -1, 0) = "左"
 ListBox1.List(ListBox1.ListCount -1, 1) = "右"
 ----
 
+.選択行取得
 
+
+[source,vbscript]
+----
+' 選択されていない場合は -1
+ListBox1.ListIndex
+ListBox1.List(ListBox1.ListIndex)
+----
 
 
 
@@ -4523,7 +4543,7 @@ For i = LBound(arrSplitStrings2, 1) To UBound(arrSplitStrings2, 1)
 Next i
 ----
 
-=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/join-function[配列]
+=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/join-function[Join 関数 (Visual Basic for Applications) | Microsoft Docs]
 
 配列に含まれている数多くのサブ文字列を結合して作成した文字列を返します。
 
@@ -4550,6 +4570,25 @@ Join 関数の構文には、次の名前付き引数があります。
 
 
 
+== 配列の内容をセルにコピー
+
+[source,vbscript]
+----
+Dim a(0 To 3) As String
+Dim i As Long
+
+'abc
+'bob
+'alice
+'nancy
+
+For i = 0 To 3
+a(i) = Cells(i + 1, 1)
+Next
+
+Range(Cells(1, 3), Cells(1, 3 + 3)) = a
+' abc bob alice   nancy
+----
 
 
 
@@ -4562,15 +4601,192 @@ Join 関数の構文には、次の名前付き引数があります。
 
 
 
+== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary[データ型の概要 | Microsoft Docs]
 
+データ型は、保持できるデータの種類を決定する変数の特性です。 データ型には、次
+の表で示されているもの、ユーザー定義型、およびオブジェクトに固有の型が含まれま
+す。
 
+組み込みのデータ型を設定する
 
+次の表では、サポートされる データ型および記憶域のサイズと範囲を示します。
+組み込みのデータ型を設定する
 
+[options="header"]
+|===
+|データ型 |記憶領域サイズ |範囲
+|Boolean |2 バイト |True または False
+|Byte |1 バイト |0 ～ 255
+|Collection |不明 |不明
+|Currency (スケーリングされた整数) |8 バイト |-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807
+|Date |8 バイト |100 年 1 月 1 日 から 9999 年 12 月 31 日
+|Decimal |14 バイト |+/-79,228,162,514,264,337,593,543,950,335 (小数点なし) +
++/-7.9228162514264337593543950335 (小数点以下 28 桁) +
+ +
++/-0.0000000000000000000000000001 (0 ではない最小の値) +
+|Dictionary |不明 |不明
+|Double (倍精度浮動小数点数) |8 バイト |-1.79769313486231E308 から-4.94065645841247E-324 (負の値) +
+ +
+4.94065645841247E-324 から 1.79769313486232E308 (正の値)
+|Integer |2 バイト |-32,768 〜 32,767
+|Long (Long 整数) |4 バイト |-2,147, 483,648 〜 2,147, 483,647
+|LongLong (LongLong 整数) |8 バイト |-9,223,372,036,854,775,808 から 9,223,372, 036,854,775,807 +
+ +
+[red]#64 ビット プラットフォームでのみ有効。#
+|LongPtr (32 ビット システムでは Long 整数、64 ビット システムでは LongLong 整数) |32 ビット システムでは 4 バイト +
+ +
+64 ビット システムでは 8 バイト |-2,147,483,648 から 2,147,483,647 (32 ビットシステム) +
+ +
+-9,223,372,036,854,775,808 から 9,223,372,036,854,775,807 (64 ビット システム)
+|Object |4 バイト |任意の Object 参照
+|Single (単精度浮動小数点数) |4 バイト |-3.402823E38 から -1.401298E-45 (負の値) +
+ +
+1.401298E-45 から 3.402823E38 (正の値)
+|String (可変長) |10 バイト + 文字列の長さ |0 〜 約 20 億
+|文字列型 (String) (固定長) |文字列の長さ |1 〜 約 65,400
+|Variant (数値) |16 バイト |最大で Double の範囲までの任意の数値
+|バリアント型 (Variant) (文字) |22 バイト + 文字列長 (64 ビット システムでは 24 バイト) |可変長 文字列型 と同じ範囲
+|ユーザー定義 (Type を使用) |要素に必要な数 |各要素の範囲は、そのデータ型の範囲と同じです。
+|===
 
+== https://docs.microsoft.com/ja-jp/office/vba/language/reference/functions-visual-basic-for-applications[関数 (Visual Basic for Applications) | Microsoft Docs]
 
+.変換関数
 
+* Asc
+* Chr
+* CVErr
+* Format
+* 16 進数
+* Oct
+* Str
+* Val
 
+.数学関数
 
+*    Abs
+*    Atn
+*    Cos
+*    Derived Math
+*    Exp
+*    Int、Fix
+*    Log
+*    Rnd
+*    Sgn
+*    Sin
+*    Sqr
+*    Tan
+
+.データ型変換関数
+
+*    データ型変換関数
+
+.その他の関数
+
+* Array
+* CallByName
+* Choose
+* コマンド
+* CreateObject
+* CurDir
+* Date
+* DateAdd
+* DateDiff
+* DatePart
+* DateSerial
+* DateValue
+* Day
+* DDB
+* Dir
+* DoEvents
+* Environ
+* EOF
+* Error
+* FileAttr
+* FileDateTime
+* FileLen
+* Filter
+* FormatCurrency
+* FormatDateTime
+* FormatNumber
+* FormatPercent
+* FreeFile
+* FV
+* GetAllSettings
+* GetAttr
+* GetObject
+* GetSetting
+* Hour
+* IIf
+* IMEStatus
+* Input
+* InputBox
+* InStr
+* InStrRev
+* IPmt
+* IRR
+* IsArray
+* IsDate
+* IsEmpty
+* IsError
+* IsMissing
+* IsNull
+* IsNumeric
+* IsObject
+* Join
+* LBound
+* LCase
+* Left
+* Len
+* Loc
+* LOF
+* LTrim、RTrim、および Trim
+* MacID
+* MacScript
+* Mid
+* Minute
+* MIRR
+* Month
+* MonthName
+* MsgBox
+* Now
+* NPer
+* NPV
+* Partition
+* Pmt
+* PPmt
+* PV
+* QBColor
+* Rate
+* Replace
+* RGB
+* Right
+* Round
+* Second
+* Seek
+* Shell
+* SLN
+* Space
+* Spc
+* Split
+* StrComp
+* StrConv
+* String
+* StrReverse
+* Switch
+* SYD
+* Tab
+* Time
+* Timer
+* TimeSerial
+* TimeValue
+* TypeName
+* UBound
+* UCase
+* VarType
+* Weekday
+* WeekdayName
+* Year
 
 
 

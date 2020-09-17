@@ -80,3 +80,106 @@ y=100
 echo $((x+y))
 200
 ----
+
+== 条件式
+
+[cols="1,4",options="header"]
+|===
+|options|説明
+|-a file| file が存在すれば真となります。
+|-b file| file が存在し、かつブロック特殊ファイルならば真となります。
+|-c file| file が存在し、かつキャラクター特殊ファイルならば真となります。
+|-d file| file が存在し、かつディレクトリならば真となります。
+|-e file| file が存在すれば真となります。
+|-f file| file が存在し、かつ通常ファイルならば真となります。
+|-g file| file が存在し、かつ set-group-id されていれば真となります。
+|-h file| file が存在し、かつシンボリックリンクならば真となります。
+|-k file| file が存在し、かつ ``sticky'' ビットが設定されていれば真となります。
+|-p file| file が存在し、かつ名前付きパイプ (FIFO) ならば真となります。
+|-r file| file が存在し、かつ読み込み可能ならば真となります。
+|-s file| file が存在し、かつそのサイズが 0 より大きければ真となります。
+|-t fd|ファイル・ディスクリプター fd がオープンされており、かつ端末を参照していれば真となります。
+|-u file| file が存在し、 かつ set-user-id ビットが設定されていれば真となります。
+|-w file| file が存在し、かつ書き込み可能ならば真となります。
+|-x file| file が存在し、かつ実行可能ならば真となります。
+|-G file| file が存在し、かつ (実行中のシェルの) 実効グループ ID に所有されていれば真となります。
+|-L file| file が存在し、かつシンボリックリンクならば真となります。
+|-N file| file が存在し、 かつ前回読み込まれた以降に修正されていれば真となります。
+|-O file| file が存在し、かつ (実行中のシェルの) 実効ユーザ ID に所有されていれば真となります。
+|-S file| file が存在し、かつソケットならば真となります。
+|file1 -ef file2| file1 と file2 とで デバイス番号と i-ノード番号が同じならば真となります。
+|file1 -nt file2| file1 が (変更日時に関して) file2 より新しいか、 file1 が存在するが file2 が存在しなければ、真となります。
+|file1 -ot file2| file1 が file2 より古いか、 file2 が存在するのに file1 が存在しなければ、真となります。
+|-o optname|シェルオプション optname が有効ならば真となります。後述する組み込みコマンド set に対するオプションの説明中にある -o オプションを参照してください。
+|-v varname|シェル変数 varname がセットされている (値が代入されている) ならば真となります。
+|-z string| string の長さが 0 ならば真となります。
+|===
+
+.string
+
+[cols="1,4",options="header"]
+|===
+|options|説明
+|-n string| string の長さが 0 でなければ真となります。
+|string1 == string2 +
+string1 = string2|文字列が同じならば真となります。 POSIX に準拠する形で test
+コマンドを使う場合には = を使う必要があります。
+|string1 != string2| 2 つの文字列が異なれば真となります。
+|string1 < string2|現在のロケールにおいて、string1 が string2 よりも 辞書順で前にある場合に真となります。
+|string1 > string2|現在のロケールにおいて、string1 が string2 よりも 辞書順で後にある場合に真となります。
+|===
+
+[cols="1,4",options="header"]
+|===
+|options|説明
+|arg1 OP arg2| OP は -eq, -ne, -lt, -le, -gt, -ge. のいずれかです。 これらの算
+術二値演算子が真を返すのはそれぞれ、 arg1 が arg2 に対して等しい場合、 等しく
+ない場合、小さい場合、小さいか等しい場合、大きい場合、 大きいか等しい場合です。
+arg1 や arg2 には、正または負の整数を使用できます。
+|===
+
+== lsを配列に入れる
+
+
+[source,vbscript]
+----
+#!/usr/bin/bash
+# set -x
+
+declare ls_result=$(ls *.adoc)
+
+echo ${#ls_result[0]}
+echo ${#ls_result[*]}
+
+declare i=0
+if [ ${#ls_result[0]} -gt 0 ] ; then
+    for line in ${ls_result}
+    do
+        echo  ${line} ${i}
+        let i++
+        # i=${i}+1
+    done
+fi
+
+# *.txtが存在したら実行
+# 判定しないとエラーとなる。
+if [ -a *.txt ]; then
+
+    ls_result=$(ls *.txt)
+
+    echo ${#ls_result[0]}
+    echo ${#ls_result[*]}
+
+    declare i=0
+    if [ ${#ls_result[0]} -gt 0 ] ; then
+        for line in ${ls_result}
+        do
+            echo  ${line} ${i}
+            let i++
+            # i=${i}+1
+        done
+    fi
+
+fi
+----
+
