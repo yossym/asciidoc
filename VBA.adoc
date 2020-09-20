@@ -56,6 +56,13 @@ Variant::
 
 fso
 
+=== その他
+
+閾値::
+	Threshold
+
+整列::
+	Alignment
 
 
 == Workbook
@@ -525,6 +532,10 @@ Range(cells(1,1),cells(5,3))
 
 Call Range("A1:C5").Sort(key1:=Range("A1"), _
     order1:=xlDescending)
+
+'タイトルありの場合
+Call Range(Cells(HEADER_SPACE + 1, DstColmn), Cells(LastRow, DstColmn)). _
+    Sort(Header:=xlYes, key1:=Cells(HEADER_SPACE + 1, DstColmn), order1:=xlAscending)
 
 Call Range(Cells(1, 1), Cells(5, 3)).Sort(key1:=Range(Cells(1, 1), Cells(1, 1)), _
     order1:=xlDescending)
@@ -3512,6 +3523,13 @@ With ActiveSheet.ChartObjects(1).Chart
     .HasTitle = True	'　まずは有効にしてから内容を指定する
     .ChartTitle.Text = "タイトル"
 End With
+
+
+With ActiveChart
+	.HasTitle = True
+	.ChartTitle.Caption = "=cells(sum,1)"
+End With
+
 ----
 
 [source,VBSCRIPT]
@@ -3522,6 +3540,15 @@ With ActiveChart
     .ChartTitle.Caption = "title"
 End With
 ----
+
+=== グラフ移動
+
+[source,vbscript]
+----
+ActiveChart.ChartArea.Left = Cells(6, DstColmn).Left
+ActiveChart.ChartArea.Top = Cells(6, DstColmn).Top
+----
+
 
 === 軸の設定
 ==== 軸のタイトル
@@ -4593,12 +4620,120 @@ Range(Cells(1, 3), Cells(1, 3 + 3)) = a
 
 
 
+== 罫線
+
+[source,vbscript]
+----
+Range("A1").Select
+Selection.CurrentRegion.Select
+Selection.Borders.LineStyle = True
+----
+
+
+== https://docs.microsoft.com/ja-jp/office/vba/api/excel.borders[Borders オブジェクト (Excel) | Microsoft Docs]
+
+Range オブジェクトまたは**Style** オブジェクトの4つの罫線を表す、4つの
+**Border** オブジェクトのコレクションです。
+
+.注釈
+
+4 つの罫線すべてが属している Borders コレクションを取得するには、Borders プロ
+  パティを使用します。
+
+輪郭の辺ごとに扱えるのは、Range オブジェクトと Style オブジェクトだけです。 誤
+差範囲や区分線など、輪郭がある他のオブジェクトは、辺の数にかかわらず、1 つのエ
+ンティティとして扱われます。 このオブジェクトは、輪郭全体を 1 単位としてプロパ
+ティを取得、設定する必要があります。 詳細については、Border オブジェクトを参照
+してください。
+
+.例
+
+次の使用例は、ワークシート 1 のセル A1 の下側の罫線を二重線に設定します。
+
+[source,vbscript]
+----
+Worksheets(1).Range("A1").Borders.LineStyle = xlDouble
+----
+
+
+罫線**** (インデックス) を使用して、1つのborderオブジェクトを取得するには、_引
+数 index_に罫線を指定します。 次の使用例は、セル範囲 A1: G1 ~ 赤の下罫線の色を
+設定します。
+
+[source,vbscript]
+----
+Worksheets("Sheet1").Range("A1:G1"). _ 
+ Borders(xlEdgeBottom).Color = RGB(255, 0, 0)
+----
+
+_Index_には、次の**xlbordersindex** 定数のいずれかを指定できます:
+xlDiagonalDown、使用できる、 xxlEdgeLeft gebottom、 ****、 x ger視覚、
+xledgebottom、 xledgebottom、またはxlinsidevertical。
 
 
 
 
 
+.Properties
 
+* Application
+* Color
+* ColorIndex
+* Count
+* Creator
+* Item
+* LineStyle
+* Parent
+* ThemeColor
+* TintAndShade
+* Value
+* Weight
+
+=== https://docs.microsoft.com/ja-jp/office/vba/api/excel.borders.linestyle[Borders プロパティ (Excel) | Microsoft Docs]
+
+罫線または輪郭線の種類を設定します。 XlLineStyle、 xlGray25、 xlGray50、
+xlGray75、または 、xlautomaticを読み取り/書き込み。
+
+.構文
+
+[source,vbscript]
+----
+expression.LineStyle
+----
+
+式Borders オブジェクトを表す変数を取得します。
+
+
+.例
+
+次の使用例は、グラフ 1 のグラフ エリアおよびプロット エリアに輪郭線を設定しま
+す。
+
+[source,vbscript]
+----
+With Charts("Chart1") 
+ .ChartArea.Border.LineStyle = xlDashDot 
+ With .PlotArea.Border 
+ .LineStyle = xlDashDotDot 
+ .Weight = xlThick 
+ End With 
+End With
+----
+
+=== https://docs.microsoft.com/ja-jp/office/vba/api/excel.xllinestyle[XlLineStyle 列挙 (Excel) | Microsoft Docs]
+
+[cols="4,1,1",options="header"]
+|===
+|名前 |値 |説明
+|xlcontinuous |1 |実線
+|xlDash |-4115 |破線
+|xlDashDot |4 |一点鎖線
+|xlDashDotDot |5 |ニ点鎖線
+|xldot |-4118 |点線
+|xlDouble |-4119 |2 本線
+|xlLineStyleNone |-4142 |線なし
+|xlslantdashdot は、 |13 |斜破線
+|===
 
 
 == https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary[データ型の概要 | Microsoft Docs]

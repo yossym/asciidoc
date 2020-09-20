@@ -855,6 +855,27 @@ Variant
 <h3 id="_filesystemobject">FilesystemObject</h3>
 <div class="paragraph"><p>fso</p></div>
 </div>
+<div class="sect2">
+<h3 id="_その他">その他</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+閾値
+</dt>
+<dd>
+<p>
+        Threshold
+</p>
+</dd>
+<dt class="hdlist1">
+整列
+</dt>
+<dd>
+<p>
+        Alignment
+</p>
+</dd>
+</dl></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1444,6 +1465,10 @@ http://www.gnu.org/software/src-highlite -->
 
 <span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:C5"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Sort</span></span><span style="color: #990000">(</span>key1<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1"</span><span style="color: #990000">),</span> _
     order1<span style="color: #990000">:=</span>xlDescending<span style="color: #990000">)</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">'タイトルありの場合</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>HEADER_SPACE <span style="color: #990000">+</span> <span style="color: #993399">1</span><span style="color: #990000">,</span> DstColmn<span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>LastRow<span style="color: #990000">,</span> DstColmn<span style="color: #990000">)).</span> _
+    <span style="font-weight: bold"><span style="color: #000000">Sort</span></span><span style="color: #990000">(</span>Header<span style="color: #990000">:=</span>xlYes<span style="color: #990000">,</span> key1<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>HEADER_SPACE <span style="color: #990000">+</span> <span style="color: #993399">1</span><span style="color: #990000">,</span> DstColmn<span style="color: #990000">),</span> order1<span style="color: #990000">:=</span>xlAscending<span style="color: #990000">)</span>
 
 <span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">5</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">)).</span><span style="font-weight: bold"><span style="color: #000000">Sort</span></span><span style="color: #990000">(</span>key1<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)),</span> _
     order1<span style="color: #990000">:=</span>xlDescending<span style="color: #990000">)</span>
@@ -5189,7 +5214,14 @@ http://www.gnu.org/software/src-highlite -->
 <pre><tt>With ActiveSheet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">ChartObjects</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span>Chart
     <span style="color: #990000">.</span>HasTitle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>    <span style="font-style: italic"><span style="color: #9A1900">'　まずは有効にしてから内容を指定する</span></span>
     <span style="color: #990000">.</span>ChartTitle<span style="color: #990000">.</span>Text <span style="color: #990000">=</span> <span style="color: #FF0000">"タイトル"</span>
-<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With</tt></pre></div></div>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+
+
+With ActiveChart
+        <span style="color: #990000">.</span>HasTitle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+        <span style="color: #990000">.</span>ChartTitle<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"=cells(sum,1)"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+</tt></pre></div></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -5200,6 +5232,16 @@ With ActiveChart
     <span style="color: #990000">.</span>HasTitle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>    <span style="font-style: italic"><span style="color: #9A1900">'　まずは有効にしてから内容を指定する</span></span>
     <span style="color: #990000">.</span>ChartTitle<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"title"</span>
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_グラフ移動">グラフ移動</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>ActiveChart<span style="color: #990000">.</span>ChartArea<span style="color: #990000">.</span>Left <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">6</span><span style="color: #990000">,</span> DstColmn<span style="color: #990000">).</span>Left
+ActiveChart<span style="color: #990000">.</span>ChartArea<span style="color: #990000">.</span>Top <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">6</span><span style="color: #990000">,</span> DstColmn<span style="color: #990000">).</span>Top</tt></pre></div></div>
 </div>
 <div class="sect2">
 <h3 id="_軸の設定">軸の設定</h3>
@@ -6544,6 +6586,204 @@ http://www.gnu.org/software/src-highlite -->
 </div>
 </div>
 <div class="sect1">
+<h2 id="_罫線">罫線</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+Selection<span style="color: #990000">.</span>CurrentRegion<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+Selection<span style="color: #990000">.</span>Borders<span style="color: #990000">.</span>LineStyle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_api_excel_borders_borders_オブジェクト_excel_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/api/excel.borders">Borders オブジェクト (Excel) | Microsoft Docs</a></h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Range オブジェクトまたは<strong>Style</strong> オブジェクトの4つの罫線を表す、4つの
+<strong>Border</strong> オブジェクトのコレクションです。</p></div>
+<div class="paragraph"><div class="title">注釈</div><p>4 つの罫線すべてが属している Borders コレクションを取得するには、Borders プロ
+  パティを使用します。</p></div>
+<div class="paragraph"><p>輪郭の辺ごとに扱えるのは、Range オブジェクトと Style オブジェクトだけです。 誤
+差範囲や区分線など、輪郭がある他のオブジェクトは、辺の数にかかわらず、1 つのエ
+ンティティとして扱われます。 このオブジェクトは、輪郭全体を 1 単位としてプロパ
+ティを取得、設定する必要があります。 詳細については、Border オブジェクトを参照
+してください。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の使用例は、ワークシート 1 のセル A1 の下側の罫線を二重線に設定します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1"</span><span style="color: #990000">).</span>Borders<span style="color: #990000">.</span>LineStyle <span style="color: #990000">=</span> xlDouble</tt></pre></div></div>
+<div class="paragraph"><p>罫線<strong>*</strong>* (インデックス) を使用して、1つのborderオブジェクトを取得するには、_引
+数 index_に罫線を指定します。 次の使用例は、セル範囲 A1: G1 ~ 赤の下罫線の色を
+設定します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sheet1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:G1"</span><span style="color: #990000">).</span> _
+ <span style="font-weight: bold"><span style="color: #000000">Borders</span></span><span style="color: #990000">(</span>xlEdgeBottom<span style="color: #990000">).</span>Color <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">RGB</span></span><span style="color: #990000">(</span><span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>_Index_には、次の<strong>xlbordersindex</strong> 定数のいずれかを指定できます:
+xlDiagonalDown、使用できる、 xxlEdgeLeft gebottom、 <strong>*</strong>*、 x ger視覚、
+xledgebottom、 xledgebottom、またはxlinsidevertical。</p></div>
+<div class="ulist"><div class="title">Properties</div><ul>
+<li>
+<p>
+Application
+</p>
+</li>
+<li>
+<p>
+Color
+</p>
+</li>
+<li>
+<p>
+ColorIndex
+</p>
+</li>
+<li>
+<p>
+Count
+</p>
+</li>
+<li>
+<p>
+Creator
+</p>
+</li>
+<li>
+<p>
+Item
+</p>
+</li>
+<li>
+<p>
+LineStyle
+</p>
+</li>
+<li>
+<p>
+Parent
+</p>
+</li>
+<li>
+<p>
+ThemeColor
+</p>
+</li>
+<li>
+<p>
+TintAndShade
+</p>
+</li>
+<li>
+<p>
+Value
+</p>
+</li>
+<li>
+<p>
+Weight
+</p>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_api_excel_borders_linestyle_borders_プロパティ_excel_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/api/excel.borders.linestyle">Borders プロパティ (Excel) | Microsoft Docs</a></h3>
+<div class="paragraph"><p>罫線または輪郭線の種類を設定します。 XlLineStyle、 xlGray25、 xlGray50、
+xlGray75、または 、xlautomaticを読み取り/書き込み。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>expression<span style="color: #990000">.</span>LineStyle</tt></pre></div></div>
+<div class="paragraph"><p>式Borders オブジェクトを表す変数を取得します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の使用例は、グラフ 1 のグラフ エリアおよびプロット エリアに輪郭線を設定しま
+す。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>With <span style="font-weight: bold"><span style="color: #000000">Charts</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Chart1"</span><span style="color: #990000">)</span>
+ <span style="color: #990000">.</span>ChartArea<span style="color: #990000">.</span>Border<span style="color: #990000">.</span>LineStyle <span style="color: #990000">=</span> xlDashDot
+ With <span style="color: #990000">.</span>PlotArea<span style="color: #990000">.</span>Border
+ <span style="color: #990000">.</span>LineStyle <span style="color: #990000">=</span> xlDashDotDot
+ <span style="color: #990000">.</span>Weight <span style="color: #990000">=</span> xlThick
+ <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_api_excel_xllinestyle_xllinestyle_列挙_excel_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/api/excel.xllinestyle">XlLineStyle 列挙 (Excel) | Microsoft Docs</a></h3>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="66%" />
+<col width="16%" />
+<col width="16%" />
+<thead>
+<tr>
+<th align="left" valign="top">名前 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">xlcontinuous</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">実線</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">xlDash</p></td>
+<td align="left" valign="top"><p class="table">-4115</p></td>
+<td align="left" valign="top"><p class="table">破線</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">xlDashDot</p></td>
+<td align="left" valign="top"><p class="table">4</p></td>
+<td align="left" valign="top"><p class="table">一点鎖線</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">xlDashDotDot</p></td>
+<td align="left" valign="top"><p class="table">5</p></td>
+<td align="left" valign="top"><p class="table">ニ点鎖線</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">xldot</p></td>
+<td align="left" valign="top"><p class="table">-4118</p></td>
+<td align="left" valign="top"><p class="table">点線</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">xlDouble</p></td>
+<td align="left" valign="top"><p class="table">-4119</p></td>
+<td align="left" valign="top"><p class="table">2 本線</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">xlLineStyleNone</p></td>
+<td align="left" valign="top"><p class="table">-4142</p></td>
+<td align="left" valign="top"><p class="table">線なし</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">xlslantdashdot は、</p></td>
+<td align="left" valign="top"><p class="table">13</p></td>
+<td align="left" valign="top"><p class="table">斜破線</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_data_type_summary_データ型の概要_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary">データ型の概要 | Microsoft Docs</a></h2>
 <div class="sectionbody">
 <div class="paragraph"><p>データ型は、保持できるデータの種類を決定する変数の特性です。 データ型には、次
@@ -7327,7 +7567,7 @@ Year
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-09-18 06:08:43 JST
+Last updated 2020-09-20 23:24:10 JST
 </div>
 </div>
 </body>

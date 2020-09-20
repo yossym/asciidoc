@@ -1,20 +1,34 @@
+CC	= asciidoc
+FLAGS	= -a toc2
+FILES	= VBA.adoc 
+
+
 all:	VBA.html AsciiCode.html bash.html
-# ALL: *.adoc
-# 	# asciidoc -a toc -a toclevels=3 -a sectnums -a stylesheet=./scss/asciidoctor.scss VBA.adoc
-# 	asciidoc -a toc -a toclevels=3 -a sectnums VBA.adoc
-# 	asciidoc -a toc -a toclevels=3 -a sectnums AsciiCode.adoc
-# 	asciidoc -a toc -a toclevels=3 -a sectnums bash.adoc
 
 VBA.html:	VBA.adoc Makefile
-	asciidoc -a toc2  VBA.adoc
-	# asciidoc -a toc  VBA.adoc
-	#asciidoc -a toc -a toclevels=3 -a sectnums VBA.adoc
-	#asciidoc -a toc2 -a theme=flask VBA.adoc
+	$(CC) $(FLAGS) VBA.adoc
 
 AsciiCode.html:	AsciiCode.adoc Makefile
-	asciidoc -a toc  AsciiCode.adoc
+	$(CC) $(FLAGS) AsciiCode.adoc
 
 bash.html:	bash.adoc
-	asciidoc -a toc  bash.adoc
+	$(CC) $(FLAGS) bash.adoc
 
-
+# all:	VBA.html AsciiCode.html bash.html
+# # ALL: *.adoc
+# # 	# asciidoc -a toc -a toclevels=3 -a sectnums -a stylesheet=./scss/asciidoctor.scss VBA.adoc
+# # 	asciidoc -a toc -a toclevels=3 -a sectnums VBA.adoc
+# # 	asciidoc -a toc -a toclevels=3 -a sectnums AsciiCode.adoc
+# # 	asciidoc -a toc -a toclevels=3 -a sectnums bash.adoc
+#
+# VBA.html:	VBA.adoc Makefile
+# 	asciidoc -a toc2  VBA.adoc
+# 	#asciidoc -a toc2 -a theme=flask VBA.adoc
+#
+# AsciiCode.html:	AsciiCode.adoc Makefile
+# 	asciidoc -a toc  AsciiCode.adoc
+#
+# bash.html:	bash.adoc
+# 	asciidoc -a toc  bash.adoc
+#
+#
