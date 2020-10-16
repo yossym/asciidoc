@@ -1,0 +1,130 @@
+= VBAreference
+// 著者の名前(省略可)<メールアドレス(省略可能)>
+// バージョンや作成日(省略可)
+:Author:	yossym
+:Email:     docomoxyz@gmail.com
+:Date:      	2020-09-11
+:Revision:  0.1
+
+
+:toc:
+:sectnums:
+:toclevels: 5
+
+:lang: ja
+:doctype: book
+:docname: VBA
+:toclevels: 5
+:sectnums:
+:sectnumlevels: 5
+// :source-highlighter: pygments
+:source-language: VBscript
+:toc: right
+// :toc: left
+:toc-title: 目次
+
+////
+Excel VBA リファレンス
+
+言語リファレンス
+	概要
+	概念
+		Visual Basic
+			概要
+		Microsoft Forms の概念に関するトピック
+	使用方法に関するトピック
+	Visual Basic の操作手順のトピック
+	Visual Basic 言語リファレンス
+		定数 (Visual Basic for Applications)
+		データ型の概要
+		イベント (Visual Basic for Applications)
+		関数 (Visual Basic for Applications)
+		タスク別のキーワード
+		オブジェクト (Visual Basic for Applications)
+		Statements
+
+Excel Visual Basic for Applications (VBA) リファレンス | Microsoft Docs
+https://docs.microsoft.com/ja-jp/office/vba/api/overview/excel
+
+Visual Basic for Applications (VBA) の言語リファレンス | Microsoft Docs
+https://docs.microsoft.com/ja-jp/office/vba/api/overview/language-reference
+
+Visual Basic 言語リファレンス | Microsoft Docs
+https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference
+
+/////
+
+
+
+
+== 変数
+
+hoge, fuga, piyo, hogera
+
+WorkBook::
+        wb
+WorkSheet::
+        ws
+Range::
+        rng, rg
+
+最初::
+        FirstRow, FirstColumn
+最終::
+        LastRow, LastColumn
+
+
+Controls ::
+	ctl
+
+=== 関数系
+
+テキスト読み込み::
+	s
+
+Variant::
+	Var
+
+
+=== FilesystemObject
+
+fso
+
+=== その他
+
+閾値::
+	Threshold
+
+整列::
+	Alignment
+
+
+下限値::
+	lower limit
+
+上限値::
+	upper limit
+
+中間値::
+	Median
+
+
+summary	|まとめ
+
+== 初期値
+
+===  長さ0の文字列（""）
+===  値0の文字列（vbNullString）
+
+[source,vbscript]
+----
+    Dim s As String
+    s = "a"
+    Debug.Print StrPtr(s)
+    s = ""
+    Debug.Print StrPtr(s)
+    s = vbNullString
+    Debug.Print StrPtr(s)
+----
+
+//	vim:fileencoding=utf-8:ff=unix:

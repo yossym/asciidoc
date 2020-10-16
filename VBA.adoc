@@ -23,46 +23,80 @@
 // :toc: left
 :toc-title: 目次
 
-== 変数
+////
+Excel VBA リファレンス
 
-hoge, fuga, piyo, hogera
+言語リファレンス
+	概要
+	概念
+		Visual Basic
+			概要
+		Microsoft Forms
+			概要
+	使用方法に関するトピック
+		概要
+	リファレンス
+		概要
+		文字セット
+		定数
+		データ型
+		ディレクティブ
+		イベント
+		関数
+		キーワード
+		Microsoft Forms
+		オブジェクト
+		演算子
+		財務諸表
+		Visual Basic アドインモデル
+	ユーザインターフェースのヘルプ
+		概要
+		ダイアログボックス
+		メニューとコマンド
+		ツールバー
+		ウィンドウ要素
+		エラーメッセージ
+	用語
 
-WorkBook::
-        wb
-WorkSheet::
-        ws
-Range::
-        rng, rg
 
-最初::
-        FirstRow, FirstColumn
-最終::
-        LastRow, LastColumn
+Excel Visual Basic for Applications (VBA) リファレンス | Microsoft Docs
+https://docs.microsoft.com/ja-jp/office/vba/api/overview/excel
 
+Visual Basic for Applications (VBA) の言語リファレンス | Microsoft Docs
+https://docs.microsoft.com/ja-jp/office/vba/api/overview/language-reference
 
-Controls ::
-	ctl
+Visual Basic 言語リファレンス | Microsoft Docs
+https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference
 
-=== 関数系
+/////
 
-テキスト読み込み::
-	s
+/////
+JScript
+VBScript
+	ユーザーズガイド
+	リファレンス
+		リファレンス
+		バージョン情報
+		定数
+		VBScriptのエラー
+		VBScriptのイベント
+		VBScriptの関数
+		キーワード
+		VBScriptのメソッド
+		その他
+		VBScriptのオブジェクトとコレクション
+		VBScriptの演算子
+		VBScriptのプロパティ
+		VBScriptのステートメント
+Scriptランタイム
+	Dictionaryオブジェクト
+	FileSystemObjectオブジェクト
+	スクリプトエンコーダ
 
-Variant::
-	Var
+/////
 
+include::VBAvariable.adoc[]
 
-=== FilesystemObject
-
-fso
-
-=== その他
-
-閾値::
-	Threshold
-
-整列::
-	Alignment
 
 
 == Workbook
@@ -72,8 +106,8 @@ fso
 [source,vbscript]
 ----
 Dim wb As Workbook
-Applicatioin.SheetsInNewWorkbook = 1
-Set wb = Workbook.
+Application.SheetsInNewWorkbook = 1
+Set wb = Workbooks.Add
 ----
 
 === Workbook 開く
@@ -104,12 +138,56 @@ Set wb = Workbook.Open(FileName:="hoge.xlsx",ReadOnly:=True)
 
 [source,vbscript]
 ----
-Applicatioin.DisplayAlerts=False
+Application.DisplayAlerts=False
 wb.Close
-Applicatioin.DisplayAlerts=True
+Application.DisplayAlerts=True
 ----
 
 === Workbook 保存
+
+.(1)とか_1とかをファイル末尾につけたりする自作関数
+[source,vbscript]
+----
+    Dim s As String
+    Dim r As String
+    s = Replace(Range("A1"), Chr(34), "")
+    r = GetSerialNumberLatestFile(s, "_")
+    MsgBox r
+
+
+Function GetSerialNumberLatestFile(FileName As String, Separater As String) As String
+    Const MAX_LONG As Long = 256
+    Dim i As Long
+    Dim fso As New Scripting.FileSystemObject
+    Dim ext As String
+    Dim Path As String
+    Dim fn As String
+    Dim Result As String
+    fn = Replace(FileName, Chr(34), "")
+    fn = fso.GetBaseName(fn)
+    ext = fso.GetExtensionName(FileName)
+    Path = fso.GetParentFolderName(FileName)
+    Dim Rt As String, Lt As String
+    Lt = Mid(Separater, 1, 1): Rt = Mid(Separater, 2, 1)
+
+    For i = MAX_LONG To 0 Step -1
+        If i = 0 Then
+            Result = fso.BuildPath(Path, fn & "." & ext)
+        Else
+            Result = fso.BuildPath(Path, fn & Lt & i & Rt & "." & ext)
+        End If
+'            Debug.Print i, Result
+        If fso.FileExists(Result) Then
+
+                Result = fso.BuildPath(Path, fn & Lt & i + 1 & Rt & "." & ext)
+
+'            Debug.Print "#", i, Result
+            Exit For
+        End If
+    Next
+    GetSerialNumberLatestFile = Result
+End Function
+----
 
 [source,vbscript]
 ----
@@ -453,7 +531,19 @@ Range("A3:B6,C9:D12").Select
 	3｜
 ----
 
+==== セルの指定
 
+
+
+[source,vbscript]
+----
+?range(cells(1,1),cells(3,3)).Address
+$A$1:$C$3
+?range(rows(1),rows(3)).Address
+$1:$3
+?range(columns(1),columns(3)).Address
+$A:$C
+----
 
 === セルの追加
 
@@ -595,13 +685,13 @@ expression は Range オブジェクトを表す変数です。
 
 [source,vbscript]
 ----
-Set mc = Worksheets("Sheet1").Cells(1, 1) 
+Set mc = Worksheets("Sheet1").Cells(1, 1)
 MsgBox mc.Address() ' $A$1 ★
-MsgBox mc.Address(RowAbsolute:=False) ' $A1 
+MsgBox mc.Address(RowAbsolute:=False) ' $A1
 MsgBox mc.Address(ReferenceStyle:=xlR1C1) ' R1C1 ★
-MsgBox mc.Address(ReferenceStyle:=xlR1C1, _ 
- RowAbsolute:=False, _ 
- ColumnAbsolute:=False, _ 
+MsgBox mc.Address(ReferenceStyle:=xlR1C1, _
+ RowAbsolute:=False, _
+ ColumnAbsolute:=False, _
  RelativeTo:=Worksheets(1).Cells(3, 3)) ' R[-2]C[-2]
 ----
 
@@ -1190,9 +1280,9 @@ FileSystemObject.CopyFolder "c:\mydocuments\*\*", "c:\tempfolder\"
 
 source にワイルドカード文字が含まれている場合や、destination がパスの区切り文
 字 ()) で終わっている場合は、destination は一致するフォルダーとサブフォルダー
-のコピー先となる既存のフォルダーと見なされます。 
+のコピー先となる既存のフォルダーと見なされます。
 
-それ以外の場合は、destinationは作成するフォルダーの名前と見なされます。 
+それ以外の場合は、destinationは作成するフォルダーの名前と見なされます。
 
 いずれの場合も、個々のフォルダーがコピーされるときに起こり得ることは 4 つあり
 ます。
@@ -1866,7 +1956,7 @@ Sub ShowDriveList
     Set fs = CreateObject("Scripting.FileSystemObject")
     Set dc = fs.Drives
     For Each d in dc
-        s = s & d.DriveLetter & " - " 
+        s = s & d.DriveLetter & " - "
         If d.DriveType = 3 Then
             n = d.ShareName
         Else
@@ -1913,7 +2003,7 @@ Sub ShowFileAccessInfo(filespec)
     s = f.Name & " on Drive " & UCase(f.Drive) & vbCrLf
     s = s & "Created: " & f.DateCreated & vbCrLf
     s = s & "Last Accessed: " & f.DateLastAccessed & vbCrLf
-    s = s & "Last Modified: " & f.DateLastModified  
+    s = s & "Last Modified: " & f.DateLastModified
     MsgBox s, 0, "File Access Info"
 End Sub
 ----
@@ -1992,6 +2082,9 @@ object.Close
 ----
 
 object は常に TextStream オブジェクトの名前となります。
+
+
+
 
 
 ==== Read メソッド
@@ -2731,9 +2824,9 @@ index の値がコレクションの既存のメンバーのいずれとも一�
 [source,vbscript]
 ----
 Dim Num, MyClasses
-For Num = 1 To MyClasses.Count    
+For Num = 1 To MyClasses.Count
     MyClasses.Remove 1    ' Remove the first object each time
-            ' through the loop until there are 
+            ' through the loop until there are
             ' no objects left in the collection.
 Next Num
 ----
@@ -3549,6 +3642,14 @@ ActiveChart.ChartArea.Left = Cells(6, DstColmn).Left
 ActiveChart.ChartArea.Top = Cells(6, DstColmn).Top
 ----
 
+=== グラフ行列入れ替え
+
+[source,vbscript]
+----
+ActiveChart.PlotBy = xlRows
+ActiveChart.PlotBy = xlColumns
+----
+
 
 === 軸の設定
 ==== 軸のタイトル
@@ -3564,7 +3665,7 @@ ActiveChart.Axes(xlCategory, xlPrimary).AxisTitle.Characters.Text = "X軸タイ�
 ----
 ' グラフのY軸(縦軸)のタイトルを設定
 ActiveChart.Axes(xlValue, xlPrimary).HasTitle = True
-ActiveChart.Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Y軸タイトル" 
+ActiveChart.Axes(xlValue, xlPrimary).AxisTitle.Characters.Text = "Y軸タイトル"
 ----
 
 ==== 横軸？の最小値、最大値
@@ -3614,594 +3715,6 @@ For Each Co In ActiveSheet.ChartObjects
     Next
 Next
 ----
-
-== https://docs.microsoft.com/ja-jp/previous-versions/windows/scripting/cc392484(v=msdn.10)[VBScript のオブジェクトとコレクション | Microsoft Docs]
-
-[cols="3,2", options="header"]
-|===
-|内容 |言語要素
-|クラスのイベントにアクセスする手段を提供します。 |Class オブジェクト
-|Err オブジェクトは、実行時エラーに関する情報を保有しています。 |Err オブジェクト
-|正規表現で一致した文字列の読み取り専用プロパティにアクセスする手段を提供します。 |Match オブジェクト
-|正規表現の Match オブジェクトのコレクションです。 |Matches コレクション
-|正規表現の機能を提供します。 |RegExp オブジェクト
-|正規表現のサブマッチ文字列のコレクションです。 |<<SubMatches,SubMatches コレクション>>
-|===
-
-
-=== Match オブジェクト
-
-正規表現で一致した文字列の読み取り専用プロパティにアクセスする手段を提供します。
-
-.解説
-
-Match オブジェクトは、RegExp オブジェクトの Execute メソッドによってのみ作成が
-可能です。このメソッドが実際に返すのは、Match オブジェクトのコレクションです。
-Match オブジェクトのプロパティは、すべて読み取り専用です。
-
-正規表現で検索を実行すると、Match オブジェクトが 0 個以上作成されます。それぞ
-れの Match オブジェクトは、正規表現で検索された文字列、文字列の長さ、および文
-字列が検索された場所のインデックスにアクセスする手段を提供します。
-
-次のコードは、Match オブジェクトの使用例です。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-   Dim regEx, Match, Matches   ' 変数を作成します。
-   Set regEx = New RegExp   ' 正規表現を作成します。
-   regEx.Pattern = patrn   ' パターンを設定します。
-   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
-   regEx.Global = True   ' 文字列全体を検索するように設定します。
-   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
-      RetStr = RetStr & "一致 " & I & " が、"
-      RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列は、"
-      RetStr = RetStr & Match.Value & " です。" & vbCRLF
-   Next
-   RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-.プロパティ
-
-Match オブジェクトのプロパティ
-
-
-.参照
-
-Matches コレクション | RegExp オブジェクト | SubMatches コレクション
-
-
-==== Match オブジェクトのプロパティ
-
-
-Match オブジェクトを使用すると、正規表現で一致した文字列の読み取り専用プロパテ
-ィにアクセスできます。
-
-.プロパティ
-
-FirstIndex プロパティ
-
-Length プロパティ
-
-Value プロパティ
-
-
-==== FirstIndex プロパティ
-
-検索対象の文字列内で一致が見つかった場所を返します。
-
-[source,vbscript]
-----
-object.FirstIndex
-----
-
-引数 object には、Match オブジェクトを指定します。
-
-.解説
-
-FirstIndex プロパティは、検索文字列の始めを基点の 0 とするオフセットを使用しま
-す。つまり、文字列の最初の文字が 0 として識別されます。次のコードは、
-FirstIndex プロパティの使用例です。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-   Dim regEx, Match, Matches   ' 変数を作成します。
-   Set regEx = New RegExp   ' 正規表現を作成します。
-   regEx.Pattern = patrn   ' パターンを設定します。
-   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
-   regEx.Global = True   ' 文字列全体を検索するように設定します。
-   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
-RetStr = RetStr & "一致 " & I & " が、"
-RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列は、"
-RetStr = RetStr & Match.Value & " です。" & vbCRLF
-   Next
-   RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-
-==== Length プロパティ
-
-検索対象の文字列内で一致した文字列の長さを返します。
-
-[source,vbscript]
-----
-object.Length
-----
-
-引数 object には、Match オブジェクトを指定します。
-
-.解説
-
-次のコードは、Length プロパティの使用例です。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-   Dim regEx, Match, Matches   ' 変数を作成します。
-   Set regEx = New RegExp   ' 正規表現を作成します。
-   regEx.Pattern = patrn   ' パターンを設定します。
-   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
-   regEx.Global = True   ' 文字列全体を検索するように設定します。
-   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
-RetStr = RetStr & "一致 " & I & " が、"
-RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列の長さは、"
-RetStr = RetStr & Match.Length
-RetStr = RetStr & " 文字です。" & vbCRLF
-   Next
-   RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-.参照
-
-FirstIndex プロパティ | Value プロパティ
-
-対象: Match オブジェクト
-
-
-==== Value プロパティ
-
-検索対象の文字列内で一致した値またはテキストを返します。
-
-[source,vbscript]
-----
-object.Value
-----
-
-引数 object には、Match オブジェクトを指定します。
-
-.解説
-
-次のコードは、Value プロパティの使用例です。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-   Dim regEx, Match, Matches   ' 変数を作成します。
-   Set regEx = New RegExp   ' 正規表現を作成します。
-   regEx.Pattern = patrn   ' パターンを設定します。
-   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
-   regEx.Global = True   ' 文字列全体を検索するように設定します。
-   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
-RetStr = RetStr & "一致 " & I & " が、"
-RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列は、"
-RetStr = RetStr & Match.Value & " です。" & vbCRLF
-   Next
-   RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-=== Matches コレクション
-
-正規表現の Match オブジェクトのコレクションです。
-
-.解説
-
-Matches コレクションには、個別の Match オブジェクトが格納されます。このコレク
-ションは、RegExp オブジェクトの Execute メソッドによってのみ作成可能です。個別
-の Match オブジェクトのプロパティと同様、Matches コレクションのプロパティは読
-み取り専用です。
-
-正規表現で検索を実行すると、Match オブジェクトが 0 個以上作成されます。それぞ
-れの Match オブジェクトは、正規表現で検索された文字列、文字列の長さ、および文
-字列が検索された場所のインデックスにアクセスする手段を提供します。
-
-次のコードは、正規表現の検索で Matches コレクションを取得し、コレクションに対
-して繰り返し処理を行う例です。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-   Dim regEx, Match, Matches   ' 変数を作成します。
-   Set regEx = New RegExp   ' 正規表現を作成します。
-   regEx.Pattern = patrn   ' パターンを設定します。
-   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
-   regEx.Global = True   ' 文字列全体を検索するように設定します。
-   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
-RetStr = RetStr & "一致する文字列が見つかった位置は、"
-      RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
-      RetStr = RetStr & Match.Value & " です。" & vbCRLF
-   Next
-   RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-.参照
-
-For Each...Next ステートメント | Match オブジェクト | RegExp オブジェクト | SubMatches コレクション
-
-
-=== RegExp オブジェクト
-
-正規表現の機能を提供します。
-
-.解説
-
-次のコードは、RegExp オブジェクトの使用例です。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-   Dim regEx, Match, Matches   ' 変数を作成します。
-   Set regEx = New RegExp   ' 正規表現を作成します。
-   regEx.Pattern = patrn   ' パターンを設定します。
-   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
-   regEx.Global = True   ' 文字列全体を検索するように設定します。
-   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
-      RetStr = RetStr & "一致する文字列が見つかった位置は、"
-      RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
-      RetStr = RetStr & Match.Value & " です。" & vbCRLF
-   Next
-   RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-.プロパティとメソッド
-
-Regular Expression オブジェクトのプロパティとメソッド
-
-.参照
-
-Match オブジェクト | Matches コレクション
-
-
-=== Regular Expression オブジェクトのプロパティとメソッド
-
-Regular Expression オブジェクトは、簡単な正規表現をサポートします。
-
-.プロパティ
-
-Global プロパティ
-
-IgnoreCase プロパティ
-
-Pattern プロパティ
-
-.メソッド
-
-Execute メソッド
-
-Replace メソッド
-
-Test メソッド
-
-
-==== Global プロパティ
-
-検索文字列全体についてのパターンとの一致を検索するか、最初の一致だけを検索する
-かを示すブール (Boolean) 値を設定します。
-
-[source,vbscript]
-----
-object.Global [= True | False ]
-----
-
-引数 object には、RegExp オブジェクトを指定します。Global プロパティの値は、文
-字列全体に検索が適用されると True、適用されないと False です。既定値は False
-です。
-
-.解説
-
-次のコードは、Global プロパティの使用例です。Global プロパティに代入された値を
-変更し、結果を確認してください。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-   Dim regEx, Match, Matches   ' 変数を作成します。
-   Set regEx = New RegExp   ' 正規表現を作成します。
-   regEx.Pattern = patrn   ' パターンを設定します。
-   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
-   regEx.Global = True   ' 文字列全体を検索するように設定します。
-   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
-RetStr = RetStr & "一致する文字列が見つかった位置は、"
-RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
-RetStr = RetStr & Match.Value & " です。" & vbCRLF
-   Next
-   RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-.参照
-
-IgnoreCase プロパティ | Pattern プロパティ
-
-対象: RegExp オブジェクト
-
-==== IgnoreCase プロパティ
-
-パターン検索で大文字と小文字を区別するかどうかを示すブール (Boolean) 値を設定
-します。
-
-[source,vbscript]
-----
-object.IgnoreCase [= True | False ]
-----
-
-引数 object には、RegExp オブジェクトを指定します。IgnoreCase プロパティの値は、
-検索するときに大文字と小文字を区別すると False、区別しないと True です。既定値
-は False です。
-
-.解説
-
-次のコードは、IgnoreCase プロパティの使用例です。IgnoreCase プロパティに代入す
-る値を変更して、結果を確認してください。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-   Dim regEx, Match, Matches   ' 変数を作成します。
-   Set regEx = New RegExp   ' 正規表現を作成します。
-   regEx.Pattern = patrn   ' パターンを設定します。
-   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
-   regEx.Global = True   ' 文字列全体を検索するように設定します。
-   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
-RetStr = RetStr & "一致する文字列が見つかった位置は、"
-RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
-RetStr = RetStr & Match.Value & " です。" & vbCRLF
-   Next
-   RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-.参照
-
-Global プロパティ | Pattern プロパティ
-
-対象: RegExp オブジェクト
-
-
-==== Pattern プロパティ
-
-検索される正規表現のパターンを設定します。値の取得も可能です。
-
-[source,vbscript]
-----
-object.Pattern [= "searchstring"]
-----
-
-.引数
-
-* object
-
-必ず指定します。RegExp オブジェクト変数を指定します。
-
-* searchstring
-
-省略可能です。検索される文字列式を指定します。Settings セクションの表で定義された正規表現の文字をどれでも使用できます。
-
-.設定値
-
-正規表現のパターンの記述には、特別な文字およびエスケープ シーケンスが使用され
-ます。次の表は、正規表現で使用できる文字およびエスケープ シーケンスの一覧です。
-この表では、簡単な使用例も含めて説明します。
-
-[cols="1,4",options="header"]
-|===
-|文字 |内容
-|\ |次に続く文字が特別な文字またはリテラルであることを示します。たとえば、"n" は "n" という文字と一致します。"\n"は、改行文字と一致します。"\\" は、"\" と一致します。"\(" は "(" と一致します。
-|^ |入力の開始と一致します。
-|$ |入力の終端と一致します。
-|* |直前の文字と 0 回以上一致します。たとえば、"zo*" は "z" とも "zoo" とも一致します。
-|+ |直前の文字と 1 回以上一致します。たとえば、"zo+" は "zoo" とは一致しますが、"z" とは一致しません。
-|? |直前の文字と 0 回または 1 回一致します。たとえば、"a?ve?" は "never" の "ve" に一致します。
-|. |改行文字以外の任意の単独文字と一致します。
-|(pattern) |引数 pattern に指定した文字と一致します。一致する文字列が見つかったら、記憶されます。一致した部分は、Matches コレクションの項目 [0]...[n] から取得できます。かっこ文字、() を指定するには、"\(" および "\)" を使用します。
-|x｜y |x と y のどちらかと一致します。たとえば、"z｜wood" は "z" と "wood" に一致します。"(z|w)oo" は、"zoo" と "wood" に一致します。
-|{n} |n には、0 以上の整数を指定します。直前の文字と正確に n 回一致します。たとえば、"o{2}" は、"Bob" の "o" とは一致しませんが、"foooood" の最初の 2 つの o とは一致します。
-|{n,} |n には、0 以上の整数を指定します。直前の文字と少なくとも n 回一致します。たとえば、"o{2,}" は、"Bob" の "o" とは一致しませんが、"foooood" のすべての o と一致します。"o{1,}" は、"o+" と同じ意味になります。"o{0,}" は、"o*" と同じ意味になります。
-|{n,m} |m および n には、0 以上の整数を指定します。直前の文字と n ～ m 回一致します。たとえば、"o{1,3}" は、"fooooood" の最初の 3 つの o と一致します。"o{0,1}" は、"o?" と同じ意味になります。
-|[xyz] |文字セット。角かっこで囲まれた文字の中のいずれかと一致します。たとえば、"[abc]" は "plain" の "a" と一致します。
-|[^xyz] |否定の文字セット。角かっこで囲まれた文字にはない任意の文字と一致します。"[^abc]" は、"plain" の "p" と一致します。
-|[a-z] |文字の範囲。指定した範囲に含まれる任意の文字に一致します。たとえば、"[a-z]" は、"a" から "z" までの任意のアルファベットの小文字に一致します。
-|[^m-z] |否定の文字の範囲。指定した範囲に含まれていない任意の文字に一致します。たとえば、"[^m-z]" は "m" から "z" までの範囲に含まれない任意の文字に一致します。
-|\b |単語の境界と一致します。単語の境界とは、単語とスペースの間の位置のことです。たとえば、"er\b" は、"never" の "er" に一致します。"verb" の "er" には一致しません。
-|\B |単語の境界ではない部分と一致します。たとえば、"ea*r\B" は、"never early" の "ear" と一致します。
-|\d |数字と一致します。[0-9] と指定した場合と同じ意味になります。
-|\D |数字以外の文字と一致します。[^0-9] と指定した場合と同じ意味になります。
-|\f |フォームフィード文字と一致します。
-|\n |改行文字と一致します。
-|\r |キャリッジ リターン文字と一致します。
-|\s |スペース、タブ、フォームフィードなどの任意の空白文字と一致します。"[ \f\n\r\t\v]" と指定した場合と同じ意味になります。
-|\S |空白文字のない部分と一致します。"[^ \f\n\r\t\v]" と指定した場合と同じ意味になります。
-|\t |タブ文字と一致します。
-|\v |垂直タブ文字と一致します。
-|\w |単語に使用される任意の文字と一致します。これには、アンダースコアも含まれます。"[A-Za-z0-9_]" と指定した場合と同じ意味になります。
-|\W |単語に使用される文字以外の任意の文字と一致します。"[^A-Za-z0-9_]" と指定した場合と同じ意味になります。
-|\num |>num には、正の整数を指定します。既に見つかり、記憶されている部分と一致します。たとえば、"(.)\1" は、連続する 2 つの同じ文字に一致します。
-|\n |n に指定した 8 進数のエスケープ値と一致します。8 進数の値には、1 桁、2 桁、または 3 桁で指定します。たとえば、"\11" と "\011" は、両方ともタブ文字に一致します。"\0011" は、"\001" および "1" と同じ意味になります。8 進数のエスケープ値は、256 を超えることはできません。256 を超える数値を指定した場合、初めの 2 桁で値が評価されます。この表記により、正規表現で ASCII コードを使用できるようになります。
-|\xn |n に指定した 16 進数のエスケープ値と一致します。16 進数のエスケープ値は、2 桁である必要があります。たとえば、"\x41" は、"A" に一致します。"\x041" は、"\x04" および "1"と同じ意味になります。この表記により、正規表現で ASCII コードを使用できるようになります。
-|===
-
-.解説
-
-次のコードは、Pattern プロパティの使用例です。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-   Dim regEx, Match, Matches   ' 変数を作成します。
-   Set regEx = New RegExp   ' 正規表現を作成します。
-   regEx.Pattern = patrn   ' パターンを設定します。
-   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
-   regEx.Global = True   ' 文字列全体を検索するように設定します。
-   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
-RetStr = RetStr & "一致する文字列が見つかった位置は、"
-RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
-RetStr = RetStr & Match.Value & " です。" & vbCRLF
-   Next
-   RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-.参照
-
-Global プロパティ | IgnoreCase プロパティ
-
-対象: RegExp オブジェクト
-
-==== Execute メソッド
-
-指定された文字列を正規表現で検索します。
-
-[source,vbscript]
-----
-object.Execute(string) 
-----
-
-.引数
-
-* object
-
-必ず指定します。RegExp オブジェクトの名前を指定します。
-
-* string
-
-必ず指定します。正規表現による検索の対象となるテキスト文字列を指定します。
-
-.解説
-
-正規表現による検索の実際のパターンは、RegExp オブジェクトの Pattern プロパティ
-を使って設定されます。
-
-Execute メソッドは、string 内で見つかった文字列ごとに存在する Match オブジェク
-トを含む、Matches コレクションを返します。一致する文字列が見つからない場合、空
-の Matches コレクションを返します。
-
-次のコードは、Execute メソッドの使用例です。
-
-[source,vbscript]
-----
-Function RegExpTest(patrn, strng)
-Dim regEx, Match, Matches      ' 変数を作成します。
-Set regEx = New RegExp         ' 正規表現を作成します。
-regEx.Pattern = patrn         ' パターンを設定します。
-regEx.IgnoreCase = True         ' 大文字と小文字を区別しないように設定します。
-regEx.Global = True         ' 文字列全体を検索するように設定します。
-Set Matches = regEx.Execute(strng)   ' 検索を実行します。
-For Each Match in Matches      ' Matches コレクションに対して繰り返し処理を行います。
-RetStr = RetStr & "一致する文字列が見つかった位置は、"
-RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
-RetStr = RetStr & Match.Value & " です。" & vbCRLF
-  Next
-  RegExpTest = RetStr
-End Function
-MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
-----
-
-.参照
-
-Replace メソッド | Test メソッド
-
-対象: RegExp オブジェクト
-
-
-==== Replace メソッド
-
-正規表現による検索で見つかったテキストを置換します。
-
-[source,vbscript]
-----
-object.Replace(string1, string2) 
-----
-
-.引数
-
-* object
-
-    必ず指定します。RegExp オブジェクトの名前を指定します。
-
-* string1
-
-    必ず指定します。String1 には、検索および置換の対象となるテキスト文字列を指定します。
-
-* string2
-
-    必ず指定します。String2 には、置換するテキスト文字列を指定します。
-
-.解説
-
-置換されるテキスト文字列の実際のパターンは、RegExp オブジェクトの Pattern プロ
-パティを使って設定されます。
-
-Replace メソッドは、string1 のコピーと、string2 で置換された RegExp.Pattern の
-テキストを返します。一致する文字列が見つからない場合、string1 のコピーが変更さ
-れずに返されます。
-
-次のコードは、Replace メソッドの使用例です。
-
-[source,vbscript]
-----
-Function ReplaceTest(patrn, replStr)
-Dim regEx, str1               ' 変数を作成します。
-  str1 = "The quick brown fox jumped over the lazy dog."
-Set regEx = New RegExp            ' 正規表現を作成します。
-regEx.Pattern = patrn            ' パターンを設定します。
-regEx.IgnoreCase = True           ' 大文字と小文字を区別しないように設定します。
-ReplaceTest = regEx.Replace(str1, replStr)   ' 置換します。
-End Function
-----
-
-[source,vbscript]
-----
-MsgBox(ReplaceTest("fox", "cat"))      ' 'fox' を 'cat' で置換します。
-----
-
-Replace メソッドを使って、パターンに一致する文字列どうしを置換することもできま
-す。上の例に示された関数を次のように呼び出すと、元の文字列に含まれる単語の各ペ
-アが交換されます。
-
-[source,vbscript]
-----
-MsgBox(ReplaceText("(\S+)(\s+)(\S+)", "$3$2$1"))   ' 単語のペアを交換します。
-----
-
-.参照
-
-Execute メソッド | Test メソッド
-
-対象: RegExp オブジェクト
 
 
 
@@ -4545,28 +4058,28 @@ Dim strSingleString2 As String
 Dim strSingleString3 As String
 Dim i As Long
 
-strFull = "Some - Old - Hags - Can - Always - Hide - Their - Old - Age"    ' String that will be used. 
+strFull = "Some - Old - Hags - Can - Always - Hide - Their - Old - Age"    ' String that will be used.
 
-arrSplitStrings1 = Split(strFull, "-")      ' arrSplitStrings1 will be an array from 0 To 8. 
-                                            ' arrSplitStrings1(0) = "Some " and arrSplitStrings1(1) = " Old ". 
-                                            ' The delimiter did not include spaces, so the spaces in strFull will be included in the returned array values. 
+arrSplitStrings1 = Split(strFull, "-")      ' arrSplitStrings1 will be an array from 0 To 8.
+                                            ' arrSplitStrings1(0) = "Some " and arrSplitStrings1(1) = " Old ".
+                                            ' The delimiter did not include spaces, so the spaces in strFull will be included in the returned array values.
 
-arrSplitStrings2 = Split(strFull, " - ")    ' arrSplitStrings2 will be an array from 0 To 8. 
-                                            ' arrSplitStrings2(0) = "Some" and arrSplitStrings2(1) = "Old". 
-                                            ' The delimiter includes the spaces, so the spaces will not be included in the returned array values. 
+arrSplitStrings2 = Split(strFull, " - ")    ' arrSplitStrings2 will be an array from 0 To 8.
+                                            ' arrSplitStrings2(0) = "Some" and arrSplitStrings2(1) = "Old".
+                                            ' The delimiter includes the spaces, so the spaces will not be included in the returned array values.
 
-'Multiple examples of how to return the value "Can" (array position 3). 
+'Multiple examples of how to return the value "Can" (array position 3).
 
-strSingleString1 = arrSplitStrings2(3)      ' strSingleString1 = "Can". 
+strSingleString1 = arrSplitStrings2(3)      ' strSingleString1 = "Can".
 
 strSingleString2 = Split(strFull, " - ")(3) ' strSingleString2 = "Can".
-                                            ' This syntax can be used if the entire array is not needed, and the position in the returned array for the desired value is known. 
+                                            ' This syntax can be used if the entire array is not needed, and the position in the returned array for the desired value is known.
 
 For i = LBound(arrSplitStrings2, 1) To UBound(arrSplitStrings2, 1)
     If InStr(1, arrSplitStrings2(i), "Can", vbTextCompare) > 0 Then
         strSingleString3 = arrSplitStrings2(i)
         Exit For
-    End If 
+    End If
 Next i
 ----
 
@@ -4662,7 +4175,7 @@ Worksheets(1).Range("A1").Borders.LineStyle = xlDouble
 
 [source,vbscript]
 ----
-Worksheets("Sheet1").Range("A1:G1"). _ 
+Worksheets("Sheet1").Range("A1:G1"). _
  Borders(xlEdgeBottom).Color = RGB(255, 0, 0)
 ----
 
@@ -4711,12 +4224,12 @@ expression.LineStyle
 
 [source,vbscript]
 ----
-With Charts("Chart1") 
- .ChartArea.Border.LineStyle = xlDashDot 
- With .PlotArea.Border 
- .LineStyle = xlDashDotDot 
- .Weight = xlThick 
- End With 
+With Charts("Chart1")
+ .ChartArea.Border.LineStyle = xlDashDot
+ With .PlotArea.Border
+ .LineStyle = xlDashDotDot
+ .Weight = xlThick
+ End With
 End With
 ----
 
@@ -4783,6 +4296,16 @@ End With
 |バリアント型 (Variant) (文字) |22 バイト + 文字列長 (64 ビット システムでは 24 バイト) |可変長 文字列型 と同じ範囲
 |ユーザー定義 (Type を使用) |要素に必要な数 |各要素の範囲は、そのデータ型の範囲と同じです。
 |===
+
+
+== https://docs.microsoft.com/ja-jp/office/vba/language/reference/directives[ディレクティブ | Microsoft Docs]
+
+== https://docs.microsoft.com/ja-jp/office/vba/language/reference/events-visual-basic-for-applications[イベント (Visual Basic for Applications) | Microsoft Docs]
+
+
+
+
+include::VBAFunction.adoc[]
 
 == https://docs.microsoft.com/ja-jp/office/vba/language/reference/functions-visual-basic-for-applications[関数 (Visual Basic for Applications) | Microsoft Docs]
 
@@ -4924,6 +4447,525 @@ End With
 * Year
 
 
+=== InStr 関数
+
+ある文字列が別の文字列の中で最初に現れる位置を指定するVariant（Long）を返しま
+す。
+
+
+
+
+
+
+
+
+
+
+=== is関数
+.is関数
+[cols="1,4",options="header"]
+|===
+|IsArray 関数|変数が配列かどうかを示す Boolean 値を返します。
+|IsDate 関数|式が日付であるか、有効な日付または時刻として認識可能な場合にはTrue を返し、それ以外の場合には False を返します。
+|IsEmpty 関数|変数が初期化されているかどうかを示す Boolean 値を返します。
+|IsError 関数|式がエラー値かどうかを示すブール型 (Boolean) の値を返します。
+|IsMissing 関数|省略可能なVariant 引数がプロシージャに渡されたかどうかを示すブール型 (Boolean ) の値を返します。
+|IsNull 関数|式に無効なデータ (Null) が含まれていないかどうかを示すブール型 (Boolean) の値を返します。
+|IsNumeric 関数|式を数値として評価できるかどうかを示すブール型 (Boolean) の値を返します。
+|IsObject 関数|識別子がオブジェクト変数を表しているかどうかを示す Boolean 値を返します。
+|===
+
+
+
+
+=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/isarray-function[IsArray 関数 (Visual Basic for Applications) | Microsoft Docs]
+
+変数が配列かどうかを示す Boolean 値を返します。
+
+.構文
+
+[source,vbscript]
+----
+IsArray(varname)
+----
+
+
+== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/keywords-by-task[タスク別のキーワード | Microsoft Docs]
+
+include::VBAKeyword.adoc[]
+
+
+== https://docs.microsoft.com/ja-jp/office/vba/language/reference/statements[ステートメント | Microsoft Docs]
+
+=== [[Close]]Close ステートメント
+
+<<Open,Open>> ステートメントを使用して開いたファイルへの入力/出力 (I/O) を終了します。
+
+.構文
+
+[source,vbscript]
+----
+Close [ filenumberlist ]
+----
+
+filenumberlist 引数はオプションであり、1 つまたは複数の ファイル番号を指定でき
+ます。次の構文を使用します。filenumber は有効なファイル番号です: [[ # ]
+filenumber ] [ , [ # ] filenumber ] . . .
+
+.注釈
+
+filenumberlist を省略すると、Open ステートメントで開いたすべてのアクティブなフ
+ァイルが閉じられます。
+
+出力または追加のために開かれたファイルを閉じると、出力の最終バッファーが、オペ
+レーティング システムのそのファイル用のバッファーに書き込まれます。 閉じられた
+ファイルに関連付けられているすべてのバッファー領域が解放されます。
+
+Close ステートメントを実行すると、ファイルとそのファイル番号の関連付けが終了し
+ます。
+
+
+.例
+
+この例では、<<Close,Close>> ステートメントを使用して、出力用に開いていた 3 つのファイル
+をすべて閉じます。
+
+[source,vbscript]
+----
+Dim I, FileName
+For I = 1 To 3 ' Loop 3 times.
+ FileName = "TEST" & I ' Create file name.
+ Open FileName For Output As #I ' Open file.
+ Print #I, "This is a test." ' Write string to file.
+Next I
+Close ' Close all 3 open files.
+----
+
+=== Do...Loop ステートメント
+
+条件が True の間または True になるまで、一連のステートメントを繰り返し実行しま
+す。
+
+.構文
+
+[source,vbscript]
+----
+Do [{ While | Until } condition ]
+[ statements ]
+[ Exit Do ]
+[ statements ]
+Loop
+----
+
+次の構文も使用できます。
+
+[source,vbscript]
+----
+Do
+[ statements ]
+[ Exit Do ]
+[ statements ]
+Loop [{ While | Until } condition ]
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|condition |省略可能。 True または False の数式または文字列式。 condition が
+Null である場合、condition は False として処理されます。
+|statements |condition が True の間または True になるまで繰り返し実行される 1
+つ以上のステートメント。
+|===
+
+.注釈
+
+Do…Loop を終了する代替方法として、Do…Loop 内の任意の場所に任意の数の Exit Do
+ステートメントを配置できます。 Exit Do ステートメントに到達すると、Loop の直後
+にあるステートメントに制御が移される Exit Do は、If…Then など、何らかの条件を
+評価した後によく使用されます。
+
+入れ子になった Do…Loop ステートメント内で Exit Do を使用する場合は、Exit Do
+に到達したループの 1 つ上のレベルのループに制御が移ります。
+
+.例
+
+次の例では、Do...Loop ステートメントの使用方法を示します。 内部 Do...Loop ステ
+ートメントは 10 回ループされ、ユーザーに継続するかどうかをたずね、ユーザーが
+No を選択すると、フラグの値を False に設定し、Exit Do ステートメントを使用して、
+処理途中で終了します。 外側のループは、フラグの値を確認して直ちに終了します。
+
+
+[source,vbscript]
+----
+Public Sub LoopExample()
+    Dim Check As Boolean, Counter As Long, Total As Long
+    Check = True: Counter = 0: Total = 0 ' Initialize variables.
+    Do ' Outer loop.
+        Do While Counter < 20 ' Inner Loop
+            Counter = Counter + 1 ' Increment Counter.
+            If Counter Mod 10 = 0 Then ' Check in with the user on every multiple of 10.
+                Check = (MsgBox("Keep going?", vbYesNo) = vbYes) ' Stop when user click's on No
+                If Not Check Then Exit Do ' Exit inner loop.
+            End If
+        Loop
+        Total = Total + Counter ' Exit Do Lands here.
+        Counter = 0
+    Loop Until Check = False ' Exit outer loop immediately.
+    MsgBox "Counted to: " & Total
+End Sub
+----
+
+=== For Each...Next ステートメント
+
+配列またはコレクションの各要素に対して、ステートメントのグループを繰り返します。
+
+.構文
+
+[source,vbscript]
+----
+For Each element In group
+[ statements ]
+[ Exit For ]
+[ statements ]
+Next [ element ]
+----
+
+
+For...Each...Next ステートメントの構文には、次の指定項目があります。
+
+[source,vbscript]
+----
+|パーツ |説明
+|element |必須。 コレクションまたは配列の要素を反復処理するために使用される 変数です。 コレクションの場合、_要素_には、バリアント型 の変数、汎用オブジェクト変数、または特定のオブジェクト変数のみを指定できます。 配列の場合は、element に使用できるのは Variant 変数だけです。
+|group |必須。 オブジェクトのコレクションまたは配列の名前です (ユーザー定義型の配列を除きます)。
+|statements |省略可能。 group の各アイテムに対して実行される 1 つ以上のステートメントです。
+----
+
+.注釈
+
+group に少なくとも 1 つの要素がある場合、For…Each ブロックに入ります。 ループ
+が入力されると、ループ内のすべてのステートメントが_グループ_内の最初の要素に対
+して実行されます。 group にさらに要素がある場合、各要素に対してループ内のステ
+ートメントの実行が続けられます。 group にそれ以上要素がなくなると、ループは終
+了し、Next ステートメントの後のステートメントから実行が続けられます。
+
+ループ内の任意の数の**exit** ステートメントは、別の方法で終了することができま
+す。 Exit For は、何らかの条件 (たとえば If…Then ) を評価した後、 Next の直後
+のステートメントに制御を移す場合によく使用されます。
+
+For…Each…Next ループを別のループの内部に置くことによって、For...Each...Next
+ループを入れ子にできます。 ただし、各ループの element が一意である必要がありま
+す。
+
+CAUTION:	Next ステートメント内の element を省略すると、element が含まれ
+る場合と同じように実行が続けられます。 対応する For ステートメントの前で Next
+ステートメントが検出された場合は、エラーが発生します。
+
+
+Variant はユーザー定義型を含むことができないため、ユーザー定義型の配列では
+For...Each...Next ステートメントを使用できません。
+
+.例
+
+次の例では、For Each...Next ステートメントを使用して、コレクション内のすべての
+要素の Text プロパティで文字列 "Hello" があるかどうか検索しています。 この例で
+は、MyObject はテキストに関するオブジェクトであり、MyCollection コレクションの
+要素です。 どちらも例示のみを目的として使用されている汎用名です。
+
+
+
+[source,vbscript]
+----
+Dim Found, MyObject, MyCollection
+Found = False    ' Initialize variable.
+For Each MyObject In MyCollection    ' Iterate through each element.
+    If MyObject.Text = "Hello" Then    ' If Text equals "Hello".
+        Found = True    ' Set Found to True.
+        Exit For    ' Exit loop.
+    End If
+Next
+----
+
+=== For...Next ステートメント
+
+指定した回数だけ、一連のステートメントを繰り返します。
+
+.構文
+
+[source,vbscript]
+----
+For counter = start To end [ Step step ]
+[ statements ]
+[ Exit For ]
+[ statements ]
+Next [ counter ]
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|counter |必須です。 ループ カウンターとして使用する数値変数を指定します。 こ
+の変数には、ブール値または配列要素を指定できません。
+|start |必須です。 counter の初期値を指定します。
+|end |必須。 counter の最終値を指定します。
+|step |オプション。 ループを繰り返すたびに、counter の数が変更されます。 省略
+されると、step は既定値の 0 になります。
+|statements |省略可能。 指定した回数だけ実行さ**** れる、との間の1 つ以上のス
+テートメント。
+|===
+
+.注釈
+
+引数_step_ は、正または負のいずれかを指定できます。 引数_step_の値は、次のよう
+にループ処理を決定します。
+
+
+[cols="1,4",options="header"]
+|===
+|値 |ループの実行条件
+|正の数または 0 |counter <= end
+|負の数 |counter >= end
+|===
+
+
+ループ内のすべてのステートメントが実行されると、step の値が counteｒ に加算さ
+れます。 この時点で、(ループを最初に実行した同じテストに基づいて) ループ内のス
+テートメントが再び実行されるか、ループを抜け出して Next ステートメントの次のス
+テートメントから実行が継続されます。
+
+
+
+NOTE:	ループ内で counteｒ の値を変更すると、コードの解読とデバッグが困難にな
+る可能性があります。
+
+
+ループ内の任意の数の**exit** ステートメントは、別の方法で終了することができま
+す。 **** 通常は、何らかの条件を評価した後に、たとえば ... 次に、その直後のス
+テートメントに制御を**** 転送します。
+
+For...Next ループの内部に別の For...Next ループを入れて、For...Next ループをネ
+ストできます。 各ループには、counter として一意の変数名を指定してください。 以
+下に正しい構造を示します。
+
+[source,vbscript]
+----
+For I = 1 To 10
+ For J = 1 To 10
+ For K = 1 To 10
+ ...
+ Next K
+ Next J
+Next I
+----
+
+CAUTION:	Next ステートメントの counter を省略しても、実行は_counter_ が
+指定されているのと同様に継続されます。 対応する For ステートメントの前に Next
+ステートメントを指定すると、エラーが発生します。
+
+.例
+
+この例では、を使用します。Next statement を使用して、0から9までの数値の10個の
+インスタンスを含む文字列を作成します。各文字列は、1つのスペースで区切られてい
+ます。 外側のループでは、ループを実行するたびにデクリメントされるループカウン
+ター変数を使用します。
+
+[source,vbscript]
+----
+Dim Words, Chars, MyString
+For Words = 10 To 1 Step -1 ' Set up 10 repetitions.
+ For Chars = 0 To 9 ' Set up 10 repetitions.
+ MyString = MyString & Chars ' Append number to string.
+ Next Chars ' Increment counter
+ MyString = MyString & " " ' Append a space.
+Next Words
+----
+
+=== Function
+
+==== 配列を引数として渡す
+
+[source,vbscript]
+----
+Sub main()
+
+    Dim arr(2) As Long
+    arr(0) = 1
+    arr(1) = 2
+    arr(2) = 3
+
+    Call test(arr())
+
+End Sub
+
+
+Sub test(ByRef arr() As Long)
+
+    Dim val As Variant
+    For Each val In arr
+        Debug.Print val
+    Next
+
+End Sub
+----
+
+==== 配列を戻り値として受け取る
+
+[source,vbscript]
+----
+Sub main()
+
+    Dim arr() As Long
+    arr() = test()
+
+    Dim val As Variant
+    For Each val In arr
+        Debug.Print val
+    Next
+
+End Sub
+
+Function test() As Long()
+
+    Dim arr(2) As Long
+    arr(0) = 1
+    arr(1) = 2
+    arr(2) = 3
+
+    test = arr()
+
+End Function
+----
+
+
+=== If...Then...Else ステートメント
+
+式の値に基づいて、条件に応じてステートメントのグループを実行します。
+
+.構文
+
+[source,vbscript]
+----
+If condition Then [ statements ] [ Else elsestatements ]
+----
+
+または、ブロック形式の構文を使用できます。
+
+[source,vbscript]
+----
+If condition Then
+[ statements ]
+[ ElseIf condition-n Then
+[ elseifstatements ]]
+[ Else
+[ elsestatements ]]
+End If
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|condition |必須。 次の 2 種類の式の 1 つ以上を指定します。 +
+ +
+True または False に評価される数値式または文字列式です。 condition が Null の場合は、condition が False として処理されます。 +
+
+TypeOf objectname Is objecttype 形式の式。 objectname は任意のオブジェクト参照 +
+であり、objecttype は任意の有効なオブジェクト タイプです。 _objectname_が +
+objecttype で指定されたオブジェクトの種類のいずれかである場合、式は True です。+
+それ以外の場合は False です。
+|statements |ブロック形式では省略可能で、Else 句がない 1 行形式では必要です。
+condition が Trueの場合にコロンで区切られる、または実行されるステートメントを
+指定します。
+|condition-n |省略可能です。 condition と同じです。
+|elseifstatements |省略可能。 関連する condition-n が True の場合に実行される
+ステートメントを指定します。
+|elsestatements |省略可能です。 以前の condition または condition-n 式がどれも
+True でない場合に実行されるステートメントを指定します。
+|===
+
+.注釈
+
+短く簡単なテストに 1 行形式 (最初の構文) を使用できます。 しかし、ブロック形式
+(2 番目の構文) では、1 行形式よりも構造化され柔軟性に富みます。一般的に、読み
+やすくなり保守とデバッグが簡単になります。
+
+CAUTION:	1 行の形式でも、If...Then 判定の結果として実行される複数のステ
+ートメントを指定できます。 次のステートメントのように、すべてのステートメント
+は同じ行にコロンで区切って記述する必要があります。
+
+[source,vbscript]
+----
+If A > 10 Then A = A + 1 : B = B + A : C = C + B
+----
+
+
+ブロック形式 If ステートメントは行の最初のステートメントである必要があります。
+ステートメントの Else、 ElseIf、End If の部分には、行番号またはその前の行ライ
+ンのみを含めることができます。 ブロック If は End If ステートメントで終了する
+必要があります。
+
+ステートメントがブロック If かどうかを判断するには、Then キーワードの後に何が
+指定されているかを確認します。 同じ行の Then の後に表示されるコメント以外の場
+合、ステートメントは 1 行形式の If ステートメントとして処理されます。
+
+Else 句と ElseIf 句は、省略可能です。 ブロック If では必要なだけ ElseIf 句を含
+めることができますが、Else 句の後には何も表示されません。 ブロック If ステート
+メントはネストできます。つまりそれぞれに含まれます。
+
+ブロック If (2 番目の構文) を実行するときに、condition がテストされます。
+condition が True の場合は、Then に続くステートメントが実行されます。
+condition が False の場合は、代わりに ElseIf で指定した各条件 (ある場合) が評
+価されます。 True 条件が見つかると、関連する Then の直後のステートメントが実行
+されます。 ElseIf 条件が True でなければ (または ElseIf 句がなければ)、Else に
+続くステートメントが実行されます。 Then または Else に続くステートメントを実行
+した後は、End If に続くステートメントから実行が続けられます。
+
+NOTE:	TipSelect Case は、いくつかの可能性のあるアクションを持つ 1 つの式を評
+価する際にさらに役立ちます。 ただし、TypeOf objectname Is objecttype 節は、
+Select Case ステートメントで使用できません。
+
+CAUTION:	TypeOf は、Object 以外の Long、Integer などのハード データの種
+類では使用できません。
+
+
+.例
+
+この例では、If...Then...Else ステートメントのブロック形式と 1 行形式の両方を示
+します。 If TypeOf...Then...Else の使用方法も示します。
+
+[source,vbscript]
+----
+Dim Number, Digits, MyString
+Number = 53 ' Initialize variable.
+If Number < 10 Then
+ Digits = 1
+ElseIf Number < 100 Then
+' Condition evaluates to True so the next statement is executed.
+ Digits = 2
+Else
+ Digits = 3
+End If
+
+' Assign a value using the single-line form of syntax.
+If Digits = 1 Then MyString = "One" Else MyString = "More than one"
+----
+
+
+If TypeOf 構造を使用して、プロシージャに渡されたコントロールがテキスト ボック
+スかどうかを判断します。
+
+
+[source,vbscript]
+----
+Sub ControlProcessor(MyControl As Control)
+ If TypeOf MyControl Is CommandButton Then
+ Debug.Print "You passed in a " & TypeName(MyControl)
+ ElseIf TypeOf MyControl Is CheckBox Then
+ Debug.Print "You passed in a " & TypeName(MyControl)
+ ElseIf TypeOf MyControl Is TextBox Then
+ Debug.Print "You passed in a " & TypeName(MyControl)
+ End If
+End Sub
+----
 
 
 
@@ -4944,6 +4986,482 @@ End With
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== ReDim ステートメント
+
+プロシージャレベルで使用され、動的配列変数の記憶領域を再割り当てします。
+
+.構文
+
+[source,vbscript]
+----
+ReDim [ Preserve ] varname ( subscripts ) [ As type ], [ varname ( subscripts ) [ As type ]] . . .
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|Preserve |オプション。 最後のディメンションのサイズを変更するとき、既存の配列のデータを保持する際に使用されるキーワードです。
+|varname |必須。 変数の名前です。標準の変数の名前付け規則に従ってください。
+|subscripts |必須です。 配列変数の次元です。最大 60 までの多次元を宣言できます。
+添字引数には、次の構文を使用します。 +
+
+[source,vbscript]
+----
+[ lowerTo ] upper [ , [ lowerTo ] upper ] . . .
+----
+
+lower で明示的に指定していないときには、配列の下限が Option Base ステートメントによって制御されます。 Option Base ステートメントが存在しない場合、下限は 0 になります。
+|type |省略可能。 変数のデータ型です。Byte、 Boolean、 Integer、 Long、
+Currency、 Single、 Double、 Decimal (現時点ではサポートされていません)、日付、
+文字列(可変長文字列の場合) 、文字列の_長さ_(固定長文字列の場合)、 object、
+Variant、ユーザー定義型、またはオブジェクト型。 +
+ +
+定義する変数**** ごとに、 _type_句を個別に使用します。 配列を含むバリアント型 (variant __ ) の場合は、配列の各要素の型を説明しますが、バリアント型 ( variant ) は他の型には変更しません。
+
+|===
+
+
+.解説
+
+ReDimステートメントは、 Private、 Public、または**Dim** ステートメント (次元の
+添字なし) を使用して、既に正式に宣言されている動的配列のサイズを変更したり、サ
+イズを変更したりするために使用します。
+
+ReDimステートメントを繰り返し使用して、配列内の要素と次元の数を変更できます。
+ただし、配列がバリアント型 ( Variant) に含まれていない場合は、1つのデータ型の
+配列を宣言してから、 ReDimを使用して配列を別のデータ型に変更することはできませ
+ん。 配列がVariantに含まれている場合、 As _type_句を使用して要素の型を変更でき
+ます。ただし、 Preserveキーワードを使用していない場合は、データ型の変更は許可
+されません。
+
+Preserveキーワードを使用した場合、最後の配列の次元のサイズのみを変更でき、次元
+の数を変更することはできません。 たとえば、配列にディメンションが1つしかない場
+合は、ディメンションのサイズを変更することができます。 ただし、配列に2つ以上の
+次元がある場合は、最後の次元のサイズのみを変更して、配列の内容を保持することが
+できます。
+
+次の例は、配列に含まれる既存のデータを消去することなく、動的配列の最後の次元の
+サイズを拡大する方法を示しています。
+
+[source,vbscript]
+----
+ReDim X(10, 10, 10)
+. . .
+ReDim Preserve X(10, 10, 15)
+----
+
+同様に、Preserve を使用する場合、配列のサイズを変更するには、必ず上限を変更す
+る必要があります。下限を変更すると、エラーが発生します。
+
+配列を元のサイズよりも小さくすると、排除された要素のデータは失われます。
+
+変数の初期化時に、数値変数は 0 に、可変長文字列は長さ 0 の文字列 ("") に、固定
+長文字列は 0 で埋められた文字列に初期化されます。 Variant 変数は、Empty に初期
+化されます。 ユーザー定義型変数の各要素は、それぞれの要素が個別の変数であるも
+のとして初期化されます。
+
+オブジェクトを参照する変数には、 Set ステートメントを使用して既存のオブジェク
+トを割り当てる必要があります。その場合は、そのオブジェクトを使用できます。 オ
+ブジェクトが割り当てられるまで、宣言されたオブジェクト変数には**Nothing** とい
+う特殊な値が含まれています。これは、オブジェクトの特定のインスタンスを参照して
+いないことを示します。
+
+ReDimステートメントは、宣言された変数がモジュールレベルまたはプロシージャレベ
+ルに存在しない場合、宣言ステートメントとして機能します。 後で同じ名前を持つ別
+の変数が作成されると、 ReDimは以降の変数を参照します。 Option Explicitが有効に
+なっていても、必ずしもコンパイルエラーを引き起こすことはありません。 このよう
+な競合を回避するには、 ReDimを宣言的なステートメントとして使用しないでください。
+ただし、単に配列を再設定する必要があります。
+
+CAUTION:	バリアント型 (Variant) に含まれる配列のサイズを変更するには、
+その配列のサイズ変更を試みる前に、バリアント型 (Variant) 変数を明示的に宣言す
+る必要があります。
+
+
+.例
+
+この例では、ReDim ステートメントを使用して、動的配列変数に対する記憶域の容量の
+割り当ておよび再割り当てを行っています。 Option Base は 1 であることを前提とし
+ています。
+
+[source,vbscript]
+----
+Dim MyArray() As Integer ' Declare dynamic array.
+Redim MyArray(5) ' Allocate 5 elements.
+For I = 1 To 5 ' Loop 5 times.
+ MyArray(I) = I ' Initialize array.
+Next I
+----
+
+
+次のステートメントは、配列のサイズを変更し、要素を消去します。
+
+[source,vbscript]
+----
+Redim MyArray(10) ' Resize to 10 elements.
+For I = 1 To 10 ' Loop 10 times.
+ MyArray(I) = I ' Initialize array.
+Next I
+----
+
+次のステートメントは、配列のサイズを変更し、要素は消去しません。
+
+[source,vbscript]
+----
+Redim Preserve MyArray(15) ' Resize to 15 elements.
+----
+
+
+
+
+=== [[Open]]Open ステートメント
+
+ファイルへの入出力 (I/O) を有効にします。
+
+.構文
+
+[source,vbscript]
+----
+Open pathname For mode [ Access access ] [ lock ] As [ # ] filenumber [ Len = reclength ]
+----
+
+[cols="4,1,4",options="header"]
+|===
+|指定項目 |説明
+|pathname |必須です。 ファイル名を指定する文字列式です。ディレクトリまたはフォ
+ルダーとドライブを含めることもできます。
+|mode |必須。 ファイル モードを指定するキーワード (Append、Binary、Input、
+Output、または Random) です。 指定していない場合、ファイルは Random アクセス用
+に開かれます。
+|access |省略可能です。 開いたファイルに対して許可される操作を指定するキーワー
+ド (Read、Write、または Read Write) です。
+|lock |省略可能。 開いたファイルに対する他のプロセスからの操作の制限を指定する
+キーワード (Shared、Lock Read、Lock Write、および Lock Read Write) です。
+|filenumber |必須。 範囲が 1 以上 511 以下の有効なファイル番号です。 次に使用
+可能なファイル番号を取得するには、FreeFile 関数を使用します。
+|reclength |省略可能。 32,767 (バイト) 以下の数値です。 ランダム アクセス用に
+開いたファイルの場合、この値がレコード長になります。 シーケンシャル ファイルの
+場合、この値はバッファーされる文字数になります。
+|===
+
+.解説
+
+ファイルに対する I/O 操作を実行する場合は、その前にファイルを開いておく必要が
+あります。 Open により、ファイルへの I/O のためのバッファーが割り当てられて、
+そのバッファーで使用するアクセス モードが決まります。
+
+pathname で指定したファイルが存在しない場合に、Append、Binary、Output、または
+Random モードでファイルを開くと、そのファイルが作成されます。
+
+ファイルが別のプロセスで開かれていて、指定した種類のアクセスが許可されていない
+場合は、Open 操作が失敗してエラーが発生します。
+
+mode が Binary の場合、Len 句は無視されます。
+
+IMPORTANT:	Binary、Input、および Random モードでは、別のファイル番号を使
+用することで、先にファイルを閉じていなくてもファイルを開くことができます。
+Append および Output モードでは、別のファイル番号でファイルを開く前に、そのフ
+ァイルを閉じておく必要があります。
+
+.例
+
+この例では、ファイルへの入出力を有効にする Open ステートメントの使用方法を示し
+ます。
+
+次のコードでは、シーケンシャル入力モードでファイルを開きます。
+
+[source,vbscript]
+----
+Open "TESTFILE" For Input As #1
+' Close before reopening in another mode.
+Close #1
+----
+
+
+この例では、書き込み操作のためにのみ Binary モードでファイルを開きます。
+
+[source,vbscript]
+----
+Open "TESTFILE" For Binary Access Write As #1
+' Close before reopening in another mode.
+Close #1
+----
+
+
+次の例では、Random モードでファイルを開きます。 ファイルには、ユーザー定義型の
+レコードが格納されています。
+
+
+[source,vbscript]
+----
+Type Record ' Define user-defined type.
+ ID As Integer
+ Name As String * 20
+End Type
+
+
+Dim MyRecord As Record ' Declare variable.
+Open "TESTFILE" For Random As #1 Len = Len(MyRecord)
+' Close before reopening in another mode.
+Close #1
+
+----
+
+このコード例では、シーケンシャル出力のためにファイルを開きます。どのプロセスか
+らでもファイルの読み取りまたは書き込みを実行できます。
+
+[source,vbscript]
+----
+Open "TESTFILE" For Output Shared As #1
+' Close before reopening in another mode.
+Close #1
+----
+
+
+このコード例では、読み取りのために Binary モードでファイルを開きます。このファ
+イルは別のプロセスから読み取ることができなくなります。
+
+[source,vbscript]
+----
+Open "TESTFILE" For Binary Access Read Lock Read As #1
+----
+
+
+=== Unload ステートメント
+
+メモリからオブジェクトを削除します。
+
+.構文
+
+[source,vbscript]
+----
+Unload object
+----
+
+必須の object プレースホルダーは、[次に適用] リスト内のオブジェクトに評価され
+るオブジェクト式を表します。
+
+.解説
+
+オブジェクトは、アンロード時にメモリから削除され、そのオブジェクトに関連付けら
+れていたすべてのメモリが解放されます。 Load ステートメントを使用して再度メモリ
+に配置されるまで、ユーザーはオブジェクトを操作できなくなり、プログラムでオブジ
+ェクトを操作することもできなくなります。
+
+.例
+
+次の例は、プログラム内に 2 つの UserForm があると仮定しています。 UserForm1 の
+初期化イベントで、UserForm2 が読み込まれて表示されます。 UserForm2 はユーザー
+がクリックしたときにアンロードされ、UserForm1 が表示されます。 その後で
+UserForm1 をクリックすると、それがアンロードされます。
+
+
+
+[source,vbscript]
+----
+' This is the Initialize event procedure for UserForm1
+Private Sub UserForm_Initialize()
+ Load UserForm2
+ UserForm2.Show
+End Sub
+' This is the Click event for UserForm2
+Private Sub UserForm_Click()
+ Unload UserForm2
+End Sub
+
+' This is the Click event for UserForm1
+Private Sub UserForm_Click()
+ Unload UserForm1
+End Sub
+----
+
+
+=== While...Wend ステートメント
+
+特定の条件が True である限り一連のステートメントを実行します。
+
+.構文
+
+[source,vbscript]
+----
+While condition [ statements ] Wend
+----
+
+While...Wend ステートメントの構文には、次の指定項目があります。
+
+.構文
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|condition |必須。 True または False に評価される数値式または文字列式です。
+condition が Null の場合は、condition が False として処理されます。
+|statements |省略可能。 条件が True の間に実行される 1 つ以上のステートメント
+です。
+|===
+
+.解説
+
+condition が True の場合は、Wend ステートメントにたどり着くまで、すべての
+statements が実行されます。 その後で、制御は While ステートメントに戻って、
+condition が再度チェックされます。 condition が True のままの場合は、処理が繰
+り返されます。 True ではない場合、プログラムの実行は Wend ステートメントの次の
+ステートメントから再開されます。
+
+While...Wend ループは、どのレベルまででも入れ子にできます。 それぞれの Wend は
+直前の While に対応します。
+
+
+NOTE:	Do...Loop ステートメントを使用すると、より構造化された柔軟な方法でルー
+プを実行できます。
+
+
+
+.例
+
+この例では、While...Wend ステートメントを使用してカウンター変数の値を増やして
+います。 ループ内のステートメントは、条件が True に評価されなくなるまで実行さ
+れます。
+
+[source,vbscript]
+----
+Dim Counter
+Counter = 0 ' Initialize variable.
+While Counter < 20 ' Test value of Counter.
+ Counter = Counter + 1 ' Increment Counter.
+Wend ' End While loop when Counter > 19.
+Debug.Print Counter ' Prints 20 in the Immediate window.
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+== sleep関数を使う
+
+
+[source,vbscript]
+----
+#If VBA7 Then
+    Private Declare PtrSafe Sub Sleep Lib "kernel32" (ByVal ms As LongPtr)
+#Else
+    Private Declare Sub Sleep Lib "kernel32" (ByVal ms As Long)
+#End If
+
+
+Sleep 500
+----
+
+
+
+
+== エクセルシート関数
+=== シート名取得
+[source,vbscript]
+----
+=RIGHT(CELL("filename",A1),LEN(CELL("filename",A1))-FIND("]",CELL("filename",A1)))
+----
+=== ファイル名取得
+[source,vbscript]
+----
+=MID(CELL("filename",A2),FIND("[",CELL("filename",A2))+1,FIND("]",CELL("filename",A2))-(FIND("[",CELL("filename",A2))+1))
+----
+
+
+
+
+include::VBSctipt.adoc[]
 
 
 ////

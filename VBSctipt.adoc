@@ -1,0 +1,728 @@
+= https://docs.microsoft.com/ja-jp/previous-versions/windows/scripting/cc392489(v=msdn.10)[VBScript | Microsoft Docs]
+// 著者の名前(省略可)<メールアドレス(省略可能)>
+// バージョンや作成日(省略可)
+:Author:	yossym
+:Email:     docomoxyz@gmail.com
+:Date:      	2020-09-11
+:Revision:  0.1
+
+
+:toc:
+:sectnums:
+:toclevels: 5
+
+:lang: ja
+:doctype: book
+:docname: VBA
+:toclevels: 5
+:sectnums:
+:sectnumlevels: 5
+// :source-highlighter: pygments
+:source-language: VBscript
+:toc: right
+// :toc: left
+:toc-title: 目次
+
+
+
+
+
+
+[cols="3,2", options="header"]
+|===
+|内容 |言語要素
+|クラスのイベントにアクセスする手段を提供します。 |Class オブジェクト
+|Err オブジェクトは、実行時エラーに関する情報を保有しています。 |Err オブジェクト
+|正規表現で一致した文字列の読み取り専用プロパティにアクセスする手段を提供します。 |Match オブジェクト
+|正規表現の Match オブジェクトのコレクションです。 |Matches コレクション
+|正規表現の機能を提供します。 |RegExp オブジェクト
+|正規表現のサブマッチ文字列のコレクションです。 |<<SubMatches,SubMatches コレクション>>
+|===
+
+== s
+=== Match オブジェクト
+
+正規表現で一致した文字列の読み取り専用プロパティにアクセスする手段を提供します。
+
+.解説
+
+Match オブジェクトは、RegExp オブジェクトの Execute メソッドによってのみ作成が
+可能です。このメソッドが実際に返すのは、Match オブジェクトのコレクションです。
+Match オブジェクトのプロパティは、すべて読み取り専用です。
+
+正規表現で検索を実行すると、Match オブジェクトが 0 個以上作成されます。それぞ
+れの Match オブジェクトは、正規表現で検索された文字列、文字列の長さ、および文
+字列が検索された場所のインデックスにアクセスする手段を提供します。
+
+次のコードは、Match オブジェクトの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+      RetStr = RetStr & "一致 " & I & " が、"
+      RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列は、"
+      RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.プロパティ
+
+Match オブジェクトのプロパティ
+
+
+.参照
+
+Matches コレクション | RegExp オブジェクト | SubMatches コレクション
+
+
+==== Match オブジェクトのプロパティ
+
+
+Match オブジェクトを使用すると、正規表現で一致した文字列の読み取り専用プロパテ
+ィにアクセスできます。
+
+.プロパティ
+
+FirstIndex プロパティ
+
+Length プロパティ
+
+Value プロパティ
+
+
+==== FirstIndex プロパティ
+
+検索対象の文字列内で一致が見つかった場所を返します。
+
+[source,vbscript]
+----
+object.FirstIndex
+----
+
+引数 object には、Match オブジェクトを指定します。
+
+.解説
+
+FirstIndex プロパティは、検索文字列の始めを基点の 0 とするオフセットを使用しま
+す。つまり、文字列の最初の文字が 0 として識別されます。次のコードは、
+FirstIndex プロパティの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致 " & I & " が、"
+RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+
+==== Length プロパティ
+
+検索対象の文字列内で一致した文字列の長さを返します。
+
+[source,vbscript]
+----
+object.Length
+----
+
+引数 object には、Match オブジェクトを指定します。
+
+.解説
+
+次のコードは、Length プロパティの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致 " & I & " が、"
+RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列の長さは、"
+RetStr = RetStr & Match.Length
+RetStr = RetStr & " 文字です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+FirstIndex プロパティ | Value プロパティ
+
+対象: Match オブジェクト
+
+
+==== Value プロパティ
+
+検索対象の文字列内で一致した値またはテキストを返します。
+
+[source,vbscript]
+----
+object.Value
+----
+
+引数 object には、Match オブジェクトを指定します。
+
+.解説
+
+次のコードは、Value プロパティの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致 " & I & " が、"
+RetStr = RetStr & Match.FirstIndex & " で見つかりました。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+=== Matches コレクション
+
+正規表現の Match オブジェクトのコレクションです。
+
+.解説
+
+Matches コレクションには、個別の Match オブジェクトが格納されます。このコレク
+ションは、RegExp オブジェクトの Execute メソッドによってのみ作成可能です。個別
+の Match オブジェクトのプロパティと同様、Matches コレクションのプロパティは読
+み取り専用です。
+
+正規表現で検索を実行すると、Match オブジェクトが 0 個以上作成されます。それぞ
+れの Match オブジェクトは、正規表現で検索された文字列、文字列の長さ、および文
+字列が検索された場所のインデックスにアクセスする手段を提供します。
+
+次のコードは、正規表現の検索で Matches コレクションを取得し、コレクションに対
+して繰り返し処理を行う例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+      RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+      RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+For Each...Next ステートメント | Match オブジェクト | RegExp オブジェクト | SubMatches コレクション
+
+
+=== RegExp オブジェクト
+
+正規表現の機能を提供します。
+
+.解説
+
+次のコードは、RegExp オブジェクトの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+      RetStr = RetStr & "一致する文字列が見つかった位置は、"
+      RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+      RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.プロパティとメソッド
+
+Regular Expression オブジェクトのプロパティとメソッド
+
+.参照
+
+Match オブジェクト | Matches コレクション
+
+
+=== Regular Expression オブジェクトのプロパティとメソッド
+
+Regular Expression オブジェクトは、簡単な正規表現をサポートします。
+
+.プロパティ
+
+Global プロパティ
+
+IgnoreCase プロパティ
+
+Pattern プロパティ
+
+.メソッド
+
+Execute メソッド
+
+Replace メソッド
+
+Test メソッド
+
+
+==== Global プロパティ
+
+検索文字列全体についてのパターンとの一致を検索するか、最初の一致だけを検索する
+かを示すブール (Boolean) 値を設定します。
+
+[source,vbscript]
+----
+object.Global [= True | False ]
+----
+
+引数 object には、RegExp オブジェクトを指定します。Global プロパティの値は、文
+字列全体に検索が適用されると True、適用されないと False です。既定値は False
+です。
+
+.解説
+
+次のコードは、Global プロパティの使用例です。Global プロパティに代入された値を
+変更し、結果を確認してください。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+IgnoreCase プロパティ | Pattern プロパティ
+
+対象: RegExp オブジェクト
+
+==== IgnoreCase プロパティ
+
+パターン検索で大文字と小文字を区別するかどうかを示すブール (Boolean) 値を設定
+します。
+
+[source,vbscript]
+----
+object.IgnoreCase [= True | False ]
+----
+
+引数 object には、RegExp オブジェクトを指定します。IgnoreCase プロパティの値は、
+検索するときに大文字と小文字を区別すると False、区別しないと True です。既定値
+は False です。
+
+.解説
+
+次のコードは、IgnoreCase プロパティの使用例です。IgnoreCase プロパティに代入す
+る値を変更して、結果を確認してください。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+Global プロパティ | Pattern プロパティ
+
+対象: RegExp オブジェクト
+
+
+==== Pattern プロパティ
+
+検索される正規表現のパターンを設定します。値の取得も可能です。
+
+[source,vbscript]
+----
+object.Pattern [= "searchstring"]
+----
+
+.引数
+
+* object
+
+必ず指定します。RegExp オブジェクト変数を指定します。
+
+* searchstring
+
+省略可能です。検索される文字列式を指定します。Settings セクションの表で定義された正規表現の文字をどれでも使用できます。
+
+.設定値
+
+正規表現のパターンの記述には、特別な文字およびエスケープ シーケンスが使用され
+ます。次の表は、正規表現で使用できる文字およびエスケープ シーケンスの一覧です。
+この表では、簡単な使用例も含めて説明します。
+
+[cols="1,4",options="header"]
+|===
+|文字 |内容
+|\ |次に続く文字が特別な文字またはリテラルであることを示します。たとえば、"n" は "n" という文字と一致します。"\n"は、改行文字と一致します。"\\" は、"\" と一致します。"\(" は "(" と一致します。
+|^ |入力の開始と一致します。
+|$ |入力の終端と一致します。
+|* |直前の文字と 0 回以上一致します。たとえば、"zo*" は "z" とも "zoo" とも一致します。
+|+ |直前の文字と 1 回以上一致します。たとえば、"zo+" は "zoo" とは一致しますが、"z" とは一致しません。
+|? |直前の文字と 0 回または 1 回一致します。たとえば、"a?ve?" は "never" の "ve" に一致します。
+|. |改行文字以外の任意の単独文字と一致します。
+|(pattern) |引数 pattern に指定した文字と一致します。一致する文字列が見つかったら、記憶されます。一致した部分は、Matches コレクションの項目 [0]...[n] から取得できます。かっこ文字、() を指定するには、"\(" および "\)" を使用します。
+|x｜y |x と y のどちらかと一致します。たとえば、"z｜wood" は "z" と "wood" に一致します。"(z|w)oo" は、"zoo" と "wood" に一致します。
+|{n} |n には、0 以上の整数を指定します。直前の文字と正確に n 回一致します。たとえば、"o{2}" は、"Bob" の "o" とは一致しませんが、"foooood" の最初の 2 つの o とは一致します。
+|{n,} |n には、0 以上の整数を指定します。直前の文字と少なくとも n 回一致します。たとえば、"o{2,}" は、"Bob" の "o" とは一致しませんが、"foooood" のすべての o と一致します。"o{1,}" は、"o+" と同じ意味になります。"o{0,}" は、"o*" と同じ意味になります。
+|{n,m} |m および n には、0 以上の整数を指定します。直前の文字と n ～ m 回一致します。たとえば、"o{1,3}" は、"fooooood" の最初の 3 つの o と一致します。"o{0,1}" は、"o?" と同じ意味になります。
+|[xyz] |文字セット。角かっこで囲まれた文字の中のいずれかと一致します。たとえば、"[abc]" は "plain" の "a" と一致します。
+|[^xyz] |否定の文字セット。角かっこで囲まれた文字にはない任意の文字と一致します。"[^abc]" は、"plain" の "p" と一致します。
+|[a-z] |文字の範囲。指定した範囲に含まれる任意の文字に一致します。たとえば、"[a-z]" は、"a" から "z" までの任意のアルファベットの小文字に一致します。
+|[^m-z] |否定の文字の範囲。指定した範囲に含まれていない任意の文字に一致します。たとえば、"[^m-z]" は "m" から "z" までの範囲に含まれない任意の文字に一致します。
+|\b |単語の境界と一致します。単語の境界とは、単語とスペースの間の位置のことです。たとえば、"er\b" は、"never" の "er" に一致します。"verb" の "er" には一致しません。
+|\B |単語の境界ではない部分と一致します。たとえば、"ea*r\B" は、"never early" の "ear" と一致します。
+|\d |数字と一致します。[0-9] と指定した場合と同じ意味になります。
+|\D |数字以外の文字と一致します。[^0-9] と指定した場合と同じ意味になります。
+|\f |フォームフィード文字と一致します。
+|\n |改行文字と一致します。
+|\r |キャリッジ リターン文字と一致します。
+|\s |スペース、タブ、フォームフィードなどの任意の空白文字と一致します。"[ \f\n\r\t\v]" と指定した場合と同じ意味になります。
+|\S |空白文字のない部分と一致します。"[^ \f\n\r\t\v]" と指定した場合と同じ意味になります。
+|\t |タブ文字と一致します。
+|\v |垂直タブ文字と一致します。
+|\w |単語に使用される任意の文字と一致します。これには、アンダースコアも含まれます。"[A-Za-z0-9_]" と指定した場合と同じ意味になります。
+|\W |単語に使用される文字以外の任意の文字と一致します。"[^A-Za-z0-9_]" と指定した場合と同じ意味になります。
+|\num |>num には、正の整数を指定します。既に見つかり、記憶されている部分と一致します。たとえば、"(.)\1" は、連続する 2 つの同じ文字に一致します。
+|\n |n に指定した 8 進数のエスケープ値と一致します。8 進数の値には、1 桁、2 桁、または 3 桁で指定します。たとえば、"\11" と "\011" は、両方ともタブ文字に一致します。"\0011" は、"\001" および "1" と同じ意味になります。8 進数のエスケープ値は、256 を超えることはできません。256 を超える数値を指定した場合、初めの 2 桁で値が評価されます。この表記により、正規表現で ASCII コードを使用できるようになります。
+|\xn |n に指定した 16 進数のエスケープ値と一致します。16 進数のエスケープ値は、2 桁である必要があります。たとえば、"\x41" は、"A" に一致します。"\x041" は、"\x04" および "1"と同じ意味になります。この表記により、正規表現で ASCII コードを使用できるようになります。
+|===
+
+.解説
+
+次のコードは、Pattern プロパティの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+   Dim regEx, Match, Matches   ' 変数を作成します。
+   Set regEx = New RegExp   ' 正規表現を作成します。
+   regEx.Pattern = patrn   ' パターンを設定します。
+   regEx.IgnoreCase = True   ' 大文字と小文字を区別しないように設定します。
+   regEx.Global = True   ' 文字列全体を検索するように設定します。
+   Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+   For Each Match in Matches   ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+   Next
+   RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+Global プロパティ | IgnoreCase プロパティ
+
+対象: RegExp オブジェクト
+
+==== Execute メソッド
+
+指定された文字列を正規表現で検索します。
+
+[source,vbscript]
+----
+object.Execute(string)
+----
+
+.引数
+
+* object
+
+必ず指定します。RegExp オブジェクトの名前を指定します。
+
+* string
+
+必ず指定します。正規表現による検索の対象となるテキスト文字列を指定します。
+
+.解説
+
+正規表現による検索の実際のパターンは、RegExp オブジェクトの Pattern プロパティ
+を使って設定されます。
+
+Execute メソッドは、string 内で見つかった文字列ごとに存在する Match オブジェク
+トを含む、Matches コレクションを返します。一致する文字列が見つからない場合、空
+の Matches コレクションを返します。
+
+次のコードは、Execute メソッドの使用例です。
+
+[source,vbscript]
+----
+Function RegExpTest(patrn, strng)
+Dim regEx, Match, Matches      ' 変数を作成します。
+Set regEx = New RegExp         ' 正規表現を作成します。
+regEx.Pattern = patrn         ' パターンを設定します。
+regEx.IgnoreCase = True         ' 大文字と小文字を区別しないように設定します。
+regEx.Global = True         ' 文字列全体を検索するように設定します。
+Set Matches = regEx.Execute(strng)   ' 検索を実行します。
+For Each Match in Matches      ' Matches コレクションに対して繰り返し処理を行います。
+RetStr = RetStr & "一致する文字列が見つかった位置は、"
+RetStr = RetStr & Match.FirstIndex & " です。一致した文字列は、"
+RetStr = RetStr & Match.Value & " です。" & vbCRLF
+  Next
+  RegExpTest = RetStr
+End Function
+MsgBox(RegExpTest("is.", "IS1 is2 IS3 is4"))
+----
+
+.参照
+
+Replace メソッド | Test メソッド
+
+対象: RegExp オブジェクト
+
+
+==== Replace メソッド
+
+正規表現による検索で見つかったテキストを置換します。
+
+[source,vbscript]
+----
+object.Replace(string1, string2)
+----
+
+.引数
+
+* object
+
+    必ず指定します。RegExp オブジェクトの名前を指定します。
+
+* string1
+
+    必ず指定します。String1 には、検索および置換の対象となるテキスト文字列を指定します。
+
+* string2
+
+    必ず指定します。String2 には、置換するテキスト文字列を指定します。
+
+.解説
+
+置換されるテキスト文字列の実際のパターンは、RegExp オブジェクトの Pattern プロ
+パティを使って設定されます。
+
+Replace メソッドは、string1 のコピーと、string2 で置換された RegExp.Pattern の
+テキストを返します。一致する文字列が見つからない場合、string1 のコピーが変更さ
+れずに返されます。
+
+次のコードは、Replace メソッドの使用例です。
+
+[source,vbscript]
+----
+Function ReplaceTest(patrn, replStr)
+Dim regEx, str1               ' 変数を作成します。
+  str1 = "The quick brown fox jumped over the lazy dog."
+Set regEx = New RegExp            ' 正規表現を作成します。
+regEx.Pattern = patrn            ' パターンを設定します。
+regEx.IgnoreCase = True           ' 大文字と小文字を区別しないように設定します。
+ReplaceTest = regEx.Replace(str1, replStr)   ' 置換します。
+End Function
+----
+
+[source,vbscript]
+----
+MsgBox(ReplaceTest("fox", "cat"))      ' 'fox' を 'cat' で置換します。
+----
+
+Replace メソッドを使って、パターンに一致する文字列どうしを置換することもできま
+す。上の例に示された関数を次のように呼び出すと、元の文字列に含まれる単語の各ペ
+アが交換されます。
+
+[source,vbscript]
+----
+MsgBox(ReplaceText("(\S+)(\s+)(\S+)", "$3$2$1"))   ' 単語のペアを交換します。
+----
+
+.参照
+
+Execute メソッド | Test メソッド
+
+対象: RegExp オブジェクト
+
+== Scriptランタイム
+
+=== Dictionaryオブジェクト
+
+キーと項目を対で格納するオブジェクトです。
+
+.解説
+
+Dictionary オブジェクトは、PERL 関連の配列と同じです。項目はデータの任意の形式
+で配列に保存されます。各項目には、項目を一意に識別するためのキーが関連付けられ
+ます。キーは、それぞれの項目を取り出すときに使用されます。キーは、配列以外の値
+を使用します。通常では整数値または文字列を使用します。
+
+次のコードは、Dictionary オブジェクトを作成する例です。
+
+[source,javascript]
+----
+[JScript]
+var y = new ActiveXObject("Scripting.Dictionary");
+y.add ("a", "test");
+if (y.Exists("a"))
+   document.write("true");
+...
+[source,vbscript]
+----
+----
+[VBScript]
+Dim d   ' Create a variable.
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "アテネ"   ' キーと項目を追加します。
+d.Add "b", "ベオグラード"
+d.Add "c", "カイロ"
+...
+----
+
+.メソッド
+
+Add メソッド (Dictionary オブジェクト) | Exists メソッド | Items メソッド | Keys メソッド | Remove メソッド | RemoveAll メソッド
+
+.プロパティ
+
+Count プロパティ | Item プロパティ | Key プロパティ
+
+.参照
+
+FileSystemObject オブジェクト | TextStream オブジェクト
+
+==== プロパティ
+===== Count プロパティ
+===== item プロパティ
+===== key  プロパティ
+==== メソッド
+===== Add メソッド
+===== Exists メソッド
+
+=== FileSystemObject オブジェクト
+==== FileSystemObject の概要
+Active Server Pages、Windows Script Host、またはその他のスクリプト対応アプリケ
+ーションでスクリプトを記述する場合、Web サーバー上のファイルやフォルダを追加、
+移動、変更、作成または削除する必要がしばし発生します。また、Web サーバーに接続
+されたドライブの情報を取得したり、操作する必要もあります。
+
+Scripting では、FileSystemObject (FSO) を使用してドライブ、ファイルおよびフォ
+ルダの操作を行うことができます。FSO について、次のセクションで説明します。
+
+FileSystemObject オブジェクト モデル
+
+FileSystemObject オブジェクト モデルは、使い慣れた object.method 形式の構文と
+豊富なプロパティ、メソッド、およびイベントのセットによってフォルダとファイルを
+処理できます。
+
+<<FileSystemObject のオブジェクト,FileSystemObject のオブジェクト>>
+
+FileSystemObject オブジェクト モデルのオブジェクトおよびコレクションの一覧を示します。
+
+FileSystemObject のプログラミング
+
+FileSystemObject を使用したプログラミングについて説明します。
+
+ドライブとフォルダの操作
+
+FileSystemObject を使用して、フォルダのコピーおよび移動について説明します。また、ドライブやフォルダ情報の取得方法について説明します。
+
+ファイルの操作
+
+FileSystemObject を使用して、ファイル操作を行う方法について説明します。
+
+FileSystemObject のサンプル コード
+
+FileSystemObject オブジェクト モデルで利用可能な機能を取り扱った具体的な例を示します。
+
+===== FileSystemObject のオブジェクト[[FileSystemObject のオブジェクト]]
+
+FileSystemObject (FSO) オブジェクト モデルでは、使い慣れた object.method 形式
+の構文と豊富なプロパティ、メソッド、およびイベントのセットによってフォルダとフ
+ァイルを処理できます。
+
+オブジェクト ベースのこのツールは、次の処理に使います。
+
+* HTML による Web ページの作成
+* Windows Scripting Host による Microsoft Windows 用バッチ ファイルの作成
+* スクリプト コントロールによる、他の言語で開発されたアプリケーションへのスクリプト機能の提供
+
+クライアント側で FSO を使用すると、クライアント側のローカル ファイル システムに望ましくないアクセスを受ける可能性があります。このようなセキュリティ上の重大な問題があるため、このドキュメントでは、サーバー側の Web ページで実行されるスクリプトの作成に、FSO オブジェクト モデルを使用します。サーバー側で使用されるため、Internet Explorer の既定の設定では FileSystemObject オブジェクトをクライアント側で使用することができません。これらの既定値を無効にすると、ローカル システムのファイル システムに望ましくないアクセスを受け、ファイル システムの整合性やデータそのものが失われたり、さらに重大な障害が発生する恐れがあります。
+
+FSO オブジェクト モデルを使用することにより、サーバー側のアプリケーションでは、フォルダの作成、変更、移動、および削除を行ったり、特定のフォルダがあるかどうかを確認し、場合によってはその位置を探し当てることができるようになります。名前、作成日、最終更新日など、フォルダに関する情報も検索できます。
+
+FSO オブジェクト モデルでは、ファイルの処理も簡単になっています。ファイル処理の主要な目標は、データをアクセスしやすい形式に変換し、容量とリソースの両面において効率的に保存することです。ユーザーは、ファイルの作成、データの挿入および変更、データの出力 (読み込み) を実行できなければなりません。Microsoft Access や Microsoft SQL Server などのデータベースにデータを保存するとアプリケーションのオーバーヘッドが大幅に増加するため、バイナリ ファイルまたはテキスト ファイルにデータを保存するのが最も効率的です。ユーザー自身がオーバーヘッドの増大を望まないこともあれば、フル装備のデータベースに関連した特別な機能が、データへのアクセスに必要ないこともあります。
+
+FSO オブジェクト モデルは、スクリプティング タイプ ライブラリ (Scrrun.dll) に格納されており、TextStream オブジェクトによってテキスト ファイルの作成および操作をサポートします。バイナリ ファイルの作成および操作については、まだサポートしていませんが、将来サポートする予定です。
+
+//	vim:fileencoding=utf-8:ff=unix:
