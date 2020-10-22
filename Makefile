@@ -1,11 +1,12 @@
 CC	= asciidoc
 FLAGS	= -a toc2 -a toclevels=3
-FILES	= VBA.adoc
+FILES	= VBA.adoc Makefile VBA*.adoc
 
 
 all:	VBA.html AsciiCode.html bash.html
 
-VBA.html:	VBA.adoc Makefile VBAFunction.adoc VBAKeyword.adoc VBSctipt.adoc VBAvariable.adoc
+# VBA.html:	VBA.adoc Makefile VBAFunction.adoc VBAKeyword.adoc VBSctipt.adoc VBAvariable.adoc
+VBA.html:	$(FILES)
 	$(CC) $(FLAGS) VBA.adoc
 
 AsciiCode.html:	AsciiCode.adoc Makefile

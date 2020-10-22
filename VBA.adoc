@@ -46,6 +46,7 @@ Excel VBA リファレンス
 		キーワード
 		Microsoft Forms
 		オブジェクト
+			a
 		演算子
 		財務諸表
 		Visual Basic アドインモデル
@@ -92,6 +93,23 @@ Scriptランタイム
 	Dictionaryオブジェクト
 	FileSystemObjectオブジェクト
 	スクリプトエンコーダ
+
+/////
+
+/////
+NOTE: 脚注段落は補足情報を示すものです。
+段落冒頭のラベルによって脚注の種類を使い分けることができます。
+
+NOTE以外にも下記のような脚注があります。
+
+TIP: チップスを記述します。
+
+IMPORTANT: 重要事項を記述します。
+
+WARNING: 警告を記述します。
+
+CAUTION: 注意を記述します。
+
 
 /////
 
@@ -848,10 +866,42 @@ ts.Close
 === ファイル書き込み(UTF-8,ADODB)
 
 
+参照設定::
+Microsoft ActiveX Data Objects 6.0 Library
+
+[source,VBSCRIPT]
+----
+Dim ado As New ADODB.STream
+dim d as string
+
+ado.Type = adTypeText
+ado.LineSeparator = 10
+ado.Charset = "UTF-8"
+ado.Open
+ado.WriteText "This is a pen.",adWriteLine
+ado.SaveToFile "C:\text.txt", assaveCreateoverwrite
+ado.close
 
 
+----
 
 
+[source,VBSCRIPT]
+----
+Dim ado As New ADODB.STream
+
+ado.Type = adTypeText
+ado.Charset = "UTF-8"
+ado.LineSeparator = 10
+
+ado.Open
+ado.WriteText "これはぺんです", 0	' 改行コードなし
+ado.WriteText "これはぺんです", 1	' 改行コードあり
+Dim s As String
+s = ThisWorkbook.Path & "\f.txt"
+ado.SaveToFile s, adSaveCreateOverWrite
+ado.Close
+----
 
 
 
@@ -1064,6 +1114,40 @@ Private Function SelectFolder() As String
 End Function
 ----
 
+
+== VBScript これだけ書いとけ
+
+[source,vbscript]
+----
+Option Explicit
+
+Dim w,args
+Set w = WScript
+Set args = w.Arguments
+
+sub Usage
+	w.echo w.ScriptName  _
+	, VBNewLine _
+	, " bat arguments"
+end sub
+
+if w.Arguments.Count = 0 then
+	usage
+end if
+
+dim i
+
+dim arg
+for each arg in args
+	w.echo w.scriptFullName _
+	, vbnewline _
+	, w.scriptname _
+	, vbnewline _
+	, arg
+next
+
+w.echo args(0) &  args(1)
+----
 
 == FileSystemObject オブジェクト
 
@@ -3322,7 +3406,7 @@ End Function
 
 === DictionaryにClassを追加
 
-独自の構造体？を配列にするよりリストにしたいときは以下を使用する
+独自の構造体？ユーザ定義型?を配列にするよりリストにしたいときは以下を使用する
 
 
 参照設定::
@@ -3357,6 +3441,7 @@ Sub sample()
         c.Keyword = CStr(i)
         c.Width = i * 0.2
         c.Height = i * 0.4
+
         d.Add c.Keyword, c
     Next
 
@@ -3370,7 +3455,44 @@ End Sub
 ----
 
 
+=== ユーザ定義型
 
+
+[source,vbscript]
+----
+
+x	y
+87.46262547	93.74511603
+14.68437308	45.9871718
+15.84922519	37.55625453
+20.61633409	98.4689104
+59.2607724	92.96599402
+53.36464653	23.2974936
+63.87788748	26.76635907
+55.97209731	6.687294902
+67.2954545	31.49184379
+
+
+Type PointF
+    x As Double
+    y As Double
+End Type
+
+Sub sample()
+    Dim p() As PointF
+    Dim i As Long
+
+    For i = 2 To 10
+        ReDim Preserve p(i - 2)
+        p(i - 2).x = Cells(i, 24)
+        p(i - 2).y = Cells(i, 25)
+    Next
+
+Stop
+End Sub
+
+
+----
 
 
 
@@ -4249,53 +4371,6 @@ End With
 |===
 
 
-== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary[データ型の概要 | Microsoft Docs]
-
-データ型は、保持できるデータの種類を決定する変数の特性です。 データ型には、次
-の表で示されているもの、ユーザー定義型、およびオブジェクトに固有の型が含まれま
-す。
-
-組み込みのデータ型を設定する
-
-次の表では、サポートされる データ型および記憶域のサイズと範囲を示します。
-組み込みのデータ型を設定する
-
-[options="header"]
-|===
-|データ型 |記憶領域サイズ |範囲
-|Boolean |2 バイト |True または False
-|Byte |1 バイト |0 ～ 255
-|Collection |不明 |不明
-|Currency (スケーリングされた整数) |8 バイト |-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807
-|Date |8 バイト |100 年 1 月 1 日 から 9999 年 12 月 31 日
-|Decimal |14 バイト |+/-79,228,162,514,264,337,593,543,950,335 (小数点なし) +
-+/-7.9228162514264337593543950335 (小数点以下 28 桁) +
- +
-+/-0.0000000000000000000000000001 (0 ではない最小の値) +
-|Dictionary |不明 |不明
-|Double (倍精度浮動小数点数) |8 バイト |-1.79769313486231E308 から-4.94065645841247E-324 (負の値) +
- +
-4.94065645841247E-324 から 1.79769313486232E308 (正の値)
-|Integer |2 バイト |-32,768 〜 32,767
-|Long (Long 整数) |4 バイト |-2,147, 483,648 〜 2,147, 483,647
-|LongLong (LongLong 整数) |8 バイト |-9,223,372,036,854,775,808 から 9,223,372, 036,854,775,807 +
- +
-[red]#64 ビット プラットフォームでのみ有効。#
-|LongPtr (32 ビット システムでは Long 整数、64 ビット システムでは LongLong 整数) |32 ビット システムでは 4 バイト +
- +
-64 ビット システムでは 8 バイト |-2,147,483,648 から 2,147,483,647 (32 ビットシステム) +
- +
--9,223,372,036,854,775,808 から 9,223,372,036,854,775,807 (64 ビット システム)
-|Object |4 バイト |任意の Object 参照
-|Single (単精度浮動小数点数) |4 バイト |-3.402823E38 から -1.401298E-45 (負の値) +
- +
-1.401298E-45 から 3.402823E38 (正の値)
-|String (可変長) |10 バイト + 文字列の長さ |0 〜 約 20 億
-|文字列型 (String) (固定長) |文字列の長さ |1 〜 約 65,400
-|Variant (数値) |16 バイト |最大で Double の範囲までの任意の数値
-|バリアント型 (Variant) (文字) |22 バイト + 文字列長 (64 ビット システムでは 24 バイト) |可変長 文字列型 と同じ範囲
-|ユーザー定義 (Type を使用) |要素に必要な数 |各要素の範囲は、そのデータ型の範囲と同じです。
-|===
 
 
 == https://docs.microsoft.com/ja-jp/office/vba/language/reference/directives[ディレクティブ | Microsoft Docs]
@@ -4491,6 +4566,9 @@ IsArray(varname)
 
 
 == https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/keywords-by-task[タスク別のキーワード | Microsoft Docs]
+
+
+
 
 include::VBAKeyword.adoc[]
 
@@ -5097,7 +5175,7 @@ ReDim Preserve X(10, 10, 15)
 
 ReDimステートメントは、宣言された変数がモジュールレベルまたはプロシージャレベ
 ルに存在しない場合、宣言ステートメントとして機能します。 後で同じ名前を持つ別
-の変数が作成されると、 ReDimは以降の変数を参照します。 Option Explicitが有効に
+の変数が作成されると、 ReDimは以降の変数を参照します。 Option Explicit が有効に
 なっていても、必ずしもコンパイルエラーを引き起こすことはありません。 このよう
 な競合を回避するには、 ReDimを宣言的なステートメントとして使用しないでください。
 ただし、単に配列を再設定する必要があります。
@@ -5460,35 +5538,10 @@ Sleep 500
 
 
 
-
+include::VBAreference.adoc[]
 include::VBSctipt.adoc[]
 
 
-////
-.AsciiDocの歴史
-****
-AsciiDocは、Stuart Rackhamが2002年11月にリリースした
-AsciiDocは、DocBookやLaTeXのような専門的な文章を作成するためのもので、
-より簡単な文法で専門的は文章が書けるようにデザインされていた。
-****
-
-[[app-listing]]
-[source,ruby]
-.app.rb
-----
-require 'sinatra'
-
-get '/hi' do
-  "Hello World!"
-end
-----
-////
-Version is {revision}
-
-
-
-Visual Basic の概念に関するトピック | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-conceptual-topics
 
 
 //	vim:fileencoding=utf-8:ff=unix:

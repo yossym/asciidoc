@@ -780,8 +780,23 @@ asciidoc.install(3);
 <div class="sect1">
 <h2 id="_変数">変数</h2>
 <div class="sectionbody">
-<div class="paragraph"><p>hoge, fuga, piyo, hogera</p></div>
 <div class="dlist"><dl>
+<dt class="hdlist1">
+メタ構文変数（メタこうぶんへんすう、metasyntactic variable）
+</dt>
+<dd>
+<p>
+        hoge, fuga, piyo, hogera
+</p>
+</dd>
+<dt class="hdlist1">
+フォルダ
+</dt>
+<dd>
+<p>
+        fldr
+</p>
+</dd>
 <dt class="hdlist1">
 WorkBook
 </dt>
@@ -925,6 +940,22 @@ http://www.gnu.org/software/src-highlite -->
     s <span style="color: #990000">=</span> vbNullString
     Debug<span style="color: #990000">.</span>Print <span style="font-weight: bold"><span style="color: #000000">StrPtr</span></span><span style="color: #990000">(</span>s<span style="color: #990000">)</span></tt></pre></div></div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lorem_ipsum">lorem ipsum</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>lorem ipsum（ロレム・イプサム、略してリプサム lipsum ともいう）</p></div>
+<div class="paragraph"><p>ダミーテキスト</p></div>
+<div class="literalblock">
+<div class="content">
+<pre><code> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+in culpa qui officia deserunt mollit anim id est laborum.</code></pre>
+</div></div>
 </div>
 </div>
 <div class="sect1">
@@ -1774,6 +1805,51 @@ ts<span style="color: #990000">.</span>Close</tt></pre></div></div>
 </div>
 <div class="sect2">
 <h3 id="_ファイル書き込み_utf_8_adodb">ファイル書き込み(UTF-8,ADODB)</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+Microsoft ActiveX Data Objects 6.0 Library
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> ado As New ADODB<span style="color: #990000">.</span>STream
+<span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> d as string
+
+ado<span style="color: #990000">.</span>Type <span style="color: #990000">=</span> adTypeText
+ado<span style="color: #990000">.</span>LineSeparator <span style="color: #990000">=</span> <span style="color: #993399">10</span>
+ado<span style="color: #990000">.</span>Charset <span style="color: #990000">=</span> <span style="color: #FF0000">"UTF-8"</span>
+ado<span style="color: #990000">.</span>Open
+ado<span style="color: #990000">.</span>WriteText <span style="color: #FF0000">"This is a pen."</span><span style="color: #990000">,</span>adWriteLine
+ado<span style="color: #990000">.</span>SaveToFile <span style="color: #FF0000">"C:</span><span style="color: #CC33CC">\t</span><span style="color: #FF0000">ext.txt"</span><span style="color: #990000">,</span> assaveCreateoverwrite
+ado<span style="color: #990000">.</span>close
+
+</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> ado As New ADODB<span style="color: #990000">.</span>STream
+
+ado<span style="color: #990000">.</span>Type <span style="color: #990000">=</span> adTypeText
+ado<span style="color: #990000">.</span>Charset <span style="color: #990000">=</span> <span style="color: #FF0000">"UTF-8"</span>
+ado<span style="color: #990000">.</span>LineSeparator <span style="color: #990000">=</span> <span style="color: #993399">10</span>
+
+ado<span style="color: #990000">.</span>Open
+ado<span style="color: #990000">.</span>WriteText <span style="color: #FF0000">"これはぺんです"</span><span style="color: #990000">,</span> <span style="color: #993399">0</span>        <span style="font-style: italic"><span style="color: #9A1900">' 改行コードなし</span></span>
+ado<span style="color: #990000">.</span>WriteText <span style="color: #FF0000">"これはぺんです"</span><span style="color: #990000">,</span> <span style="color: #993399">1</span>        <span style="font-style: italic"><span style="color: #9A1900">' 改行コードあり</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> s As String
+s <span style="color: #990000">=</span> ThisWorkbook<span style="color: #990000">.</span>Path <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"</span><span style="color: #CC33CC">\f</span><span style="color: #FF0000">.txt"</span>
+ado<span style="color: #990000">.</span>SaveToFile s<span style="color: #990000">,</span> adSaveCreateOverWrite
+ado<span style="color: #990000">.</span>Close</tt></pre></div></div>
 </div>
 <div class="sect2">
 <h3 id="_ファイル一覧取得">ファイル一覧取得</h3>
@@ -2019,6 +2095,44 @@ http://www.gnu.org/software/src-highlite -->
     <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> With
     SelectFolder <span style="color: #990000">=</span> Result
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vbscript_これだけ書いとけ">VBScript これだけ書いとけ</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Option Explicit
+
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> w<span style="color: #990000">,</span>args
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> w <span style="color: #990000">=</span> WScript
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> args <span style="color: #990000">=</span> w<span style="color: #990000">.</span>Arguments
+
+<span style="font-weight: bold"><span style="color: #0000FF">sub</span></span> Usage
+        w<span style="color: #990000">.</span>echo w<span style="color: #990000">.</span>ScriptName  _
+        <span style="color: #990000">,</span> VBNewLine _
+        <span style="color: #990000">,</span> <span style="color: #FF0000">" bat arguments"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">sub</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> w<span style="color: #990000">.</span>Arguments<span style="color: #990000">.</span>Count <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+        usage
+<span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> i
+
+<span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> arg
+<span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="font-weight: bold"><span style="color: #0000FF">each</span></span> arg in args
+        w<span style="color: #990000">.</span>echo w<span style="color: #990000">.</span>scriptFullName _
+        <span style="color: #990000">,</span> vbnewline _
+        <span style="color: #990000">,</span> w<span style="color: #990000">.</span>scriptname _
+        <span style="color: #990000">,</span> vbnewline _
+        <span style="color: #990000">,</span> arg
+<span style="font-weight: bold"><span style="color: #0000FF">next</span></span>
+
+w<span style="color: #990000">.</span>echo <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span>  <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span></tt></pre></div></div>
 </div>
 </div>
 <div class="sect1">
@@ -5123,7 +5237,7 @@ http://www.gnu.org/software/src-highlite -->
 </div>
 <div class="sect2">
 <h3 id="_dictionaryにclassを追加">DictionaryにClassを追加</h3>
-<div class="paragraph"><p>独自の構造体？を配列にするよりリストにしたいときは以下を使用する</p></div>
+<div class="paragraph"><p>独自の構造体？ユーザ定義型?を配列にするよりリストにしたいときは以下を使用する</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 参照設定
@@ -5169,6 +5283,7 @@ http://www.gnu.org/software/src-highlite -->
         c<span style="color: #990000">.</span>Keyword <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CStr</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>
         c<span style="color: #990000">.</span>Width <span style="color: #990000">=</span> i <span style="color: #990000">*</span> <span style="color: #993399">0.2</span>
         c<span style="color: #990000">.</span>Height <span style="color: #990000">=</span> i <span style="color: #990000">*</span> <span style="color: #993399">0.4</span>
+
         d<span style="color: #990000">.</span>Add c<span style="color: #990000">.</span>Keyword<span style="color: #990000">,</span> c
     <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
 
@@ -5179,6 +5294,46 @@ http://www.gnu.org/software/src-highlite -->
     <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
 
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_ユーザ定義型">ユーザ定義型</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>
+x       y
+<span style="color: #993399">87.46262547</span>     <span style="color: #993399">93.74511603</span>
+<span style="color: #993399">14.68437308</span>     <span style="color: #993399">45.9871718</span>
+<span style="color: #993399">15.84922519</span>     <span style="color: #993399">37.55625453</span>
+<span style="color: #993399">20.61633409</span>     <span style="color: #993399">98.4689104</span>
+<span style="color: #993399">59.2607724</span>      <span style="color: #993399">92.96599402</span>
+<span style="color: #993399">53.36464653</span>     <span style="color: #993399">23.2974936</span>
+<span style="color: #993399">63.87788748</span>     <span style="color: #993399">26.76635907</span>
+<span style="color: #993399">55.97209731</span>     <span style="color: #993399">6.687294902</span>
+<span style="color: #993399">67.2954545</span>      <span style="color: #993399">31.49184379</span>
+
+
+Type PointF
+    x As Double
+    y As Double
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> Type
+
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">sample</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">p</span></span><span style="color: #990000">()</span> As PointF
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">2</span> To <span style="color: #993399">10</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">ReDim</span></span> Preserve <span style="font-weight: bold"><span style="color: #000000">p</span></span><span style="color: #990000">(</span>i <span style="color: #990000">-</span> <span style="color: #993399">2</span><span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #000000">p</span></span><span style="color: #990000">(</span>i <span style="color: #990000">-</span> <span style="color: #993399">2</span><span style="color: #990000">).</span>x <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>i<span style="color: #990000">,</span> <span style="color: #993399">24</span><span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #000000">p</span></span><span style="color: #990000">(</span>i <span style="color: #990000">-</span> <span style="color: #993399">2</span><span style="color: #990000">).</span>y <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>i<span style="color: #990000">,</span> <span style="color: #993399">25</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+Stop
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+</tt></pre></div></div>
 </div>
 </div>
 </div>
@@ -6237,144 +6392,6 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_data_type_summary_データ型の概要_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary">データ型の概要 | Microsoft Docs</a></h2>
-<div class="sectionbody">
-<div class="paragraph"><p>データ型は、保持できるデータの種類を決定する変数の特性です。 データ型には、次
-の表で示されているもの、ユーザー定義型、およびオブジェクトに固有の型が含まれま
-す。</p></div>
-<div class="paragraph"><p>組み込みのデータ型を設定する</p></div>
-<div class="paragraph"><p>次の表では、サポートされる データ型および記憶域のサイズと範囲を示します。
-組み込みのデータ型を設定する</p></div>
-<div class="tableblock">
-<table rules="all"
-width="100%"
-frame="border"
-cellspacing="0" cellpadding="4">
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-<thead>
-<tr>
-<th align="left" valign="top">データ型 </th>
-<th align="left" valign="top">記憶領域サイズ </th>
-<th align="left" valign="top">範囲</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left" valign="top"><p class="table">Boolean</p></td>
-<td align="left" valign="top"><p class="table">2 バイト</p></td>
-<td align="left" valign="top"><p class="table">True または False</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Byte</p></td>
-<td align="left" valign="top"><p class="table">1 バイト</p></td>
-<td align="left" valign="top"><p class="table">0 ～ 255</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Collection</p></td>
-<td align="left" valign="top"><p class="table">不明</p></td>
-<td align="left" valign="top"><p class="table">不明</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Currency (スケーリングされた整数)</p></td>
-<td align="left" valign="top"><p class="table">8 バイト</p></td>
-<td align="left" valign="top"><p class="table">-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Date</p></td>
-<td align="left" valign="top"><p class="table">8 バイト</p></td>
-<td align="left" valign="top"><p class="table">100 年 1 月 1 日 から 9999 年 12 月 31 日</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Decimal</p></td>
-<td align="left" valign="top"><p class="table">14 バイト</p></td>
-<td align="left" valign="top"><p class="table">+/-79,228,162,514,264,337,593,543,950,335 (小数点なし)<br />
-+/-7.9228162514264337593543950335 (小数点以下 28 桁)<br />
-<br />
-+/-0.0000000000000000000000000001 (0 ではない最小の値)<br /></p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Dictionary</p></td>
-<td align="left" valign="top"><p class="table">不明</p></td>
-<td align="left" valign="top"><p class="table">不明</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Double (倍精度浮動小数点数)</p></td>
-<td align="left" valign="top"><p class="table">8 バイト</p></td>
-<td align="left" valign="top"><p class="table">-1.79769313486231E308 から-4.94065645841247E-324 (負の値)<br />
-<br />
-4.94065645841247E-324 から 1.79769313486232E308 (正の値)</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Integer</p></td>
-<td align="left" valign="top"><p class="table">2 バイト</p></td>
-<td align="left" valign="top"><p class="table">-32,768 〜 32,767</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Long (Long 整数)</p></td>
-<td align="left" valign="top"><p class="table">4 バイト</p></td>
-<td align="left" valign="top"><p class="table">-2,147, 483,648 〜 2,147, 483,647</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">LongLong (LongLong 整数)</p></td>
-<td align="left" valign="top"><p class="table">8 バイト</p></td>
-<td align="left" valign="top"><p class="table">-9,223,372,036,854,775,808 から 9,223,372, 036,854,775,807<br />
-<br />
-<span class="red">64 ビット プラットフォームでのみ有効。</span></p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">LongPtr (32 ビット システムでは Long 整数、64 ビット システムでは LongLong 整数)</p></td>
-<td align="left" valign="top"><p class="table">32 ビット システムでは 4 バイト<br />
-<br />
-64 ビット システムでは 8 バイト</p></td>
-<td align="left" valign="top"><p class="table">-2,147,483,648 から 2,147,483,647 (32 ビットシステム)<br />
-<br />
--9,223,372,036,854,775,808 から 9,223,372,036,854,775,807 (64 ビット システム)</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Object</p></td>
-<td align="left" valign="top"><p class="table">4 バイト</p></td>
-<td align="left" valign="top"><p class="table">任意の Object 参照</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Single (単精度浮動小数点数)</p></td>
-<td align="left" valign="top"><p class="table">4 バイト</p></td>
-<td align="left" valign="top"><p class="table">-3.402823E38 から -1.401298E-45 (負の値)<br />
-<br />
-1.401298E-45 から 3.402823E38 (正の値)</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">String (可変長)</p></td>
-<td align="left" valign="top"><p class="table">10 バイト + 文字列の長さ</p></td>
-<td align="left" valign="top"><p class="table">0 〜 約 20 億</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">文字列型 (String) (固定長)</p></td>
-<td align="left" valign="top"><p class="table">文字列の長さ</p></td>
-<td align="left" valign="top"><p class="table">1 〜 約 65,400</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">Variant (数値)</p></td>
-<td align="left" valign="top"><p class="table">16 バイト</p></td>
-<td align="left" valign="top"><p class="table">最大で Double の範囲までの任意の数値</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">バリアント型 (Variant) (文字)</p></td>
-<td align="left" valign="top"><p class="table">22 バイト + 文字列長 (64 ビット システムでは 24 バイト)</p></td>
-<td align="left" valign="top"><p class="table">可変長 文字列型 と同じ範囲</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">ユーザー定義 (Type を使用)</p></td>
-<td align="left" valign="top"><p class="table">要素に必要な数</p></td>
-<td align="left" valign="top"><p class="table">各要素の範囲は、そのデータ型の範囲と同じです。</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
@@ -9146,7 +9163,7 @@ http://www.gnu.org/software/src-highlite -->
 いないことを示します。</p></div>
 <div class="paragraph"><p>ReDimステートメントは、宣言された変数がモジュールレベルまたはプロシージャレベ
 ルに存在しない場合、宣言ステートメントとして機能します。 後で同じ名前を持つ別
-の変数が作成されると、 ReDimは以降の変数を参照します。 Option Explicitが有効に
+の変数が作成されると、 ReDimは以降の変数を参照します。 Option Explicit が有効に
 なっていても、必ずしもコンパイルエラーを引き起こすことはありません。 このよう
 な競合を回避するには、 ReDimを宣言的なステートメントとして使用しないでください。
 ただし、単に配列を再設定する必要があります。</p></div>
@@ -9467,6 +9484,2874 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="color: #990000">=</span><span style="font-weight: bold"><span style="color: #000000">MID</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">CELL</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"filename"</span><span style="color: #990000">,</span>A2<span style="color: #990000">),</span><span style="font-weight: bold"><span style="color: #000000">FIND</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"["</span><span style="color: #990000">,</span><span style="font-weight: bold"><span style="color: #000000">CELL</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"filename"</span><span style="color: #990000">,</span>A2<span style="color: #990000">))+</span><span style="color: #993399">1</span><span style="color: #990000">,</span><span style="font-weight: bold"><span style="color: #000000">FIND</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"]"</span><span style="color: #990000">,</span><span style="font-weight: bold"><span style="color: #000000">CELL</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"filename"</span><span style="color: #990000">,</span>A2<span style="color: #990000">))-(</span><span style="font-weight: bold"><span style="color: #000000">FIND</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"["</span><span style="color: #990000">,</span><span style="font-weight: bold"><span style="color: #000000">CELL</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"filename"</span><span style="color: #990000">,</span>A2<span style="color: #990000">))+</span><span style="color: #993399">1</span><span style="color: #990000">))</span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<h1 id="_visual_basic_for_applications_vba_の言語リファレンス">Visual Basic for Applications (VBA) の言語リファレンス</h1>
+<div class="sect1">
+<h2 id="_visual_basic_言語リファレンス">Visual Basic 言語リファレンス</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Visual Basic 言語 (すべてのメソッド、プロパティ、ステートメント、関数、演算子、
+およびオブジェクト) に関するドキュメントが用意されています。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+文字セット
+</p>
+</li>
+<li>
+<p>
+定数
+</p>
+</li>
+<li>
+<p>
+データ型
+</p>
+</li>
+<li>
+<p>
+ディレクティブ
+</p>
+</li>
+<li>
+<p>
+イベント
+</p>
+</li>
+<li>
+<p>
+関数
+</p>
+</li>
+<li>
+<p>
+キーワード
+</p>
+</li>
+<li>
+<p>
+Microsoft Forms
+</p>
+</li>
+<li>
+<p>
+オブジェクト
+</p>
+</li>
+<li>
+<p>
+Operators
+</p>
+</li>
+<li>
+<p>
+ステートメント
+</p>
+</li>
+<li>
+<p>
+Visual Basic アドイン モデル
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">関連項目</div><ul>
+<li>
+<p>
+メソッドとプロパティ (オブジェクトの下になりました)
+</p>
+</li>
+<li>
+<p>
+オブジェクト ブラウザー
+</p>
+</li>
+<li>
+<p>
+Visual Basic ユーザー インターフェイスのヘルプ
+</p>
+</li>
+<li>
+<p>
+Office 用オブジェクト ライブラリ リファレンス (メンバー、プロパティ、メソッド)
+</p>
+</li>
+<li>
+<p>
+Office クライアントの開発リファレンス
+</p>
+</li>
+</ul></div>
+<div class="sect2">
+<h3 id="_文字セット">文字セット</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+文字セット (0 から 127)
+</p>
+</li>
+<li>
+<p>
+文字セット (128 から 255)
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect2">
+<h3 id="_定数_visual_basic_for_applications">定数 (Visual Basic for Applications)</h3>
+<div class="sect3">
+<h4 id="_カレンダー定数">カレンダー定数</h4>
+<div class="literalblock">
+<div class="title">関連項目</div>
+<div class="content">
+<pre><code>2018/12/11</code></pre>
+</div></div>
+<div class="paragraph"><p>次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">説明</p></td>
+<td align="left" valign="top"><p class="table">vbCalGreg</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">グレゴリオ暦を使用することを示します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbCalHijri</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_calltype_定数">CallType 定数</h4>
+<div class="paragraph"><p>次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="16%" />
+<col width="16%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbMethod</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+<td align="left" valign="top"><p class="table">メソッドが呼び出されることを指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbGet</p></td>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">Property Get プロシージャを示します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbLet</p></td>
+<td align="left" valign="top"><p class="table">2/4</p></td>
+<td align="left" valign="top"><p class="table">Property Let プロシージャを示します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbSet</p></td>
+<td align="left" valign="top"><p class="table">8</p></td>
+<td align="left" valign="top"><p class="table">Property Set プロシージャを示します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_カラー定数">カラー定数</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="42%" />
+<col width="42%" />
+<col width="14%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbBlack</p></td>
+<td align="left" valign="top"><p class="table">0x0</p></td>
+<td align="left" valign="top"><p class="table">黒</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbRed</p></td>
+<td align="left" valign="top"><p class="table">0xFF</p></td>
+<td align="left" valign="top"><p class="table">赤</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbGreen</p></td>
+<td align="left" valign="top"><p class="table">0xFF00</p></td>
+<td align="left" valign="top"><p class="table">緑</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbYellow</p></td>
+<td align="left" valign="top"><p class="table">0xFFFF</p></td>
+<td align="left" valign="top"><p class="table">黄</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbBlue</p></td>
+<td align="left" valign="top"><p class="table">0xFF0000</p></td>
+<td align="left" valign="top"><p class="table">青</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbMagenta</p></td>
+<td align="left" valign="top"><p class="table">0xFF00FF</p></td>
+<td align="left" valign="top"><p class="table">紫</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbCyan</p></td>
+<td align="left" valign="top"><p class="table">0xFFFF00</p></td>
+<td align="left" valign="top"><p class="table">シアン</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbWhite</p></td>
+<td align="left" valign="top"><p class="table">0xFFFFFF</p></td>
+<td align="left" valign="top"><p class="table">白</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_比較定数">比較定数</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="28%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseCompareOption</p></td>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">Option Compare ステートメントの設定を使用して比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbBinaryCompare</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">バイナリ比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbTextCompare</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+<td align="left" valign="top"><p class="table">テキスト比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbDatabaseCompare</p></td>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">Microsoft Access (Windows のみ) で、データベースに格納されている情報に基づいて比較を実行します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_tristate_定数">Tristate 定数</h4>
+<div class="paragraph"><p>この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
+に参照される場合にのみ使用できます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbTrue</p></td>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">True</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFalse</p></td>
+<td align="left" valign="top"><p class="table">;0</p></td>
+<td align="left" valign="top"><p class="table">False</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseDefault</p></td>
+<td align="left" valign="top"><p class="table">-2</p></td>
+<td align="left" valign="top"><p class="table">既定の設定を使用</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_https">https:</h3>
+<div class="paragraph"><p>データ型は、保持できるデータの種類を決定する変数の特性です。 データ型には、次
+の表で示されているもの、ユーザー定義型、およびオブジェクトに固有の型が含まれま
+す。</p></div>
+<div class="paragraph"><p>組み込みのデータ型を設定する</p></div>
+<div class="paragraph"><p>次の表では、サポートされる データ型および記憶域のサイズと範囲を示します。
+組み込みのデータ型を設定する</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+<thead>
+<tr>
+<th align="left" valign="top">データ型 </th>
+<th align="left" valign="top">記憶領域サイズ </th>
+<th align="left" valign="top">範囲</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Boolean</p></td>
+<td align="left" valign="top"><p class="table">2 バイト</p></td>
+<td align="left" valign="top"><p class="table">True または False</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Byte</p></td>
+<td align="left" valign="top"><p class="table">1 バイト</p></td>
+<td align="left" valign="top"><p class="table">0 ～ 255</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Collection</p></td>
+<td align="left" valign="top"><p class="table">不明</p></td>
+<td align="left" valign="top"><p class="table">不明</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Currency (スケーリングされた整数)</p></td>
+<td align="left" valign="top"><p class="table">8 バイト</p></td>
+<td align="left" valign="top"><p class="table">-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">8 バイト</p></td>
+<td align="left" valign="top"><p class="table">100 年 1 月 1 日 から 9999 年 12 月 31 日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Decimal</p></td>
+<td align="left" valign="top"><p class="table">14 バイト</p></td>
+<td align="left" valign="top"><p class="table">+/-79,228,162,514,264,337,593,543,950,335 (小数点なし)<br />
++/-7.9228162514264337593543950335 (小数点以下 28 桁)<br />
+<br />
++/-0.0000000000000000000000000001 (0 ではない最小の値)<br /></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Dictionary</p></td>
+<td align="left" valign="top"><p class="table">不明</p></td>
+<td align="left" valign="top"><p class="table">不明</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Double (倍精度浮動小数点数)</p></td>
+<td align="left" valign="top"><p class="table">8 バイト</p></td>
+<td align="left" valign="top"><p class="table">-1.79769313486231E308 から-4.94065645841247E-324 (負の値)<br />
+<br />
+4.94065645841247E-324 から 1.79769313486232E308 (正の値)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Integer</p></td>
+<td align="left" valign="top"><p class="table">2 バイト</p></td>
+<td align="left" valign="top"><p class="table">-32,768 〜 32,767</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Long (Long 整数)</p></td>
+<td align="left" valign="top"><p class="table">4 バイト</p></td>
+<td align="left" valign="top"><p class="table">-2,147, 483,648 〜 2,147, 483,647</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">LongLong (LongLong 整数)</p></td>
+<td align="left" valign="top"><p class="table">8 バイト</p></td>
+<td align="left" valign="top"><p class="table">-9,223,372,036,854,775,808 から 9,223,372, 036,854,775,807<br />
+<br />
+<span class="red">64 ビット プラットフォームでのみ有効。</span></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">LongPtr (32 ビット システムでは Long 整数、64 ビット システムでは LongLong 整数)</p></td>
+<td align="left" valign="top"><p class="table">32 ビット システムでは 4 バイト<br />
+<br />
+64 ビット システムでは 8 バイト</p></td>
+<td align="left" valign="top"><p class="table">-2,147,483,648 から 2,147,483,647 (32 ビットシステム)<br />
+<br />
+-9,223,372,036,854,775,808 から 9,223,372,036,854,775,807 (64 ビット システム)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Object</p></td>
+<td align="left" valign="top"><p class="table">4 バイト</p></td>
+<td align="left" valign="top"><p class="table">任意の Object 参照</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Single (単精度浮動小数点数)</p></td>
+<td align="left" valign="top"><p class="table">4 バイト</p></td>
+<td align="left" valign="top"><p class="table">-3.402823E38 から -1.401298E-45 (負の値)<br />
+<br />
+1.401298E-45 から 3.402823E38 (正の値)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">String (可変長)</p></td>
+<td align="left" valign="top"><p class="table">10 バイト + 文字列の長さ</p></td>
+<td align="left" valign="top"><p class="table">0 〜 約 20 億</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列型 (String) (固定長)</p></td>
+<td align="left" valign="top"><p class="table">文字列の長さ</p></td>
+<td align="left" valign="top"><p class="table">1 〜 約 65,400</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Variant (数値)</p></td>
+<td align="left" valign="top"><p class="table">16 バイト</p></td>
+<td align="left" valign="top"><p class="table">最大で Double の範囲までの任意の数値</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">バリアント型 (Variant) (文字)</p></td>
+<td align="left" valign="top"><p class="table">22 バイト + 文字列長 (64 ビット システムでは 24 バイト)</p></td>
+<td align="left" valign="top"><p class="table">可変長 文字列型 と同じ範囲</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ユーザー定義 (Type を使用)</p></td>
+<td align="left" valign="top"><p class="table">要素に必要な数</p></td>
+<td align="left" valign="top"><p class="table">各要素の範囲は、そのデータ型の範囲と同じです。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">データ型を変換する</div><p>式を特定のデータ型に強制変換する次の関数の使用方法の例については、「データ型変
+換関数」をご覧ください。CBool、CByte、CCur、CDate、CDbl、CDec、CInt、CLng、
+CLngLng、CLngPtr、CSng、CStr、CVar。</p></div>
+<div class="paragraph"><p>次の各関数については、それぞれのページをご覧ください。CVErr、Fix、Int。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">CLngLng は、64 ビット プラットフォームでのみ有効です。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">データ型を確認する</div><p>データ型を確認するには、以下の関数をご覧ください。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+IsArray
+</p>
+</li>
+<li>
+<p>
+IsDate
+</p>
+</li>
+<li>
+<p>
+IsEmpty
+</p>
+</li>
+<li>
+<p>
+IsError
+</p>
+</li>
+<li>
+<p>
+IsMissing
+</p>
+</li>
+<li>
+<p>
+IsNull
+</p>
+</li>
+<li>
+<p>
+IsNumeric
+</p>
+</li>
+<li>
+<p>
+IsObject
+</p>
+</li>
+</ul></div>
+<div class="literalblock">
+<div class="title">CStr の戻り値</div>
+<div class="content">
+<pre><code> expression の値
+CStr の戻り値</code></pre>
+</div></div>
+<div class="paragraph"><p>:-----------------
+:-----------</p></div>
+<div class="paragraph"><p>Boolean
+True または False を含む文字列。</p></div>
+<div class="paragraph"><p>Date
+システムの短い日付形式の日付を含む文字列。</p></div>
+<div class="paragraph"><p>Empty
+長さ 0 の文字列 ("")。</p></div>
+<div class="paragraph"><p>Error
+Error という単語とエラー番号を含む文字列。</p></div>
+<div class="paragraph"><p>Null
+実行時エラー。</p></div>
+<div class="paragraph"><p>その他の数値
+数字を含む文字列。</p></div>
+</div>
+<div class="sect2">
+<h3 id="_ディレクティブ">ディレクティブ</h3>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="42%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">コンパイラ ディレクティブ </th>
+<th align="left" valign="top">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#Const ディレクティブ">Const ディレクティブ</a></p></td>
+<td align="left" valign="top"><p class="table">コンパイラ定数を定義します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#If&#8230;Then&#8230;Else ディレクティブ">If&#8230;Then&#8230;Else ディレクティブ</a></p></td>
+<td align="left" valign="top"><p class="table">選択したコード ブロックをコンパイルします。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_const_ディレクティブ">#Const ディレクティブ</h4>
+<div class="paragraph"><p>Visual Basic の 条件付きコンパイラ定数を定義するために使用されます。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>#Const constname <span style="color: #990000">=</span> expression</tt></pre></div></div>
+<div class="paragraph"><p>#Const コンパイラ ディレクティブの構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">constname</p></td>
+<td align="left" valign="top"><p class="table">必須。Variant (String)。 定数の名前です。変数の名前付け規則に従います。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">expression</p></td>
+<td align="left" valign="top"><p class="table">必須。 リテラル、その他の条件付きコンパイラ定数、またはを除くすべての算術演算子または論理演算子を含む組み合わせ。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>条件付きコンパイラ定数は常に、定義されているモジュールの Private 定数になりま
+す。 #Constディレクティブを使用して、パブリックコンパイラ定数を作成することは
+できません。 Public コンパイラ定数は、ユーザー インターフェイスでのみ作成でき
+ます。</p></div>
+<div class="paragraph"><p>expression で使用できるのは、条件付きコンパイラ定数とリテラルだけです。 Const
+を使用して定義された標準の定数を使用したり、未定義の定数を使用したりすると、エ
+ラーが発生します。 反対に、 #Const キーワードを使用して定義された定数は、条件
+付きコンパイルにのみ使用できます。</p></div>
+<div class="paragraph"><p>条件付きコンパイラ定数は、コード内の位置に関わらず、常にモジュール レベルで評
+価されます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、#Const ディレクティブを使用して、#If&#8230;#Else&#8230;#End If コンストラ
+クトで使用するための条件付きコンパイラ定数を宣言します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>#Const DebugVersion <span style="color: #990000">=</span> <span style="color: #993399">1</span> <span style="font-style: italic"><span style="color: #9A1900">' Will evaluate true in #If block.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_if_8230_then_8230_else_ディレクティブ">#If&#8230;Then&#8230;#Else ディレクティブ</h4>
+<div class="paragraph"><p>選択した Visual Basic コードのブロックを条件付きでコンパイルします。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>#<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> expression <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+statements
+<span style="color: #990000">[</span> #ElseIf expression<span style="color: #990000">-</span>n <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+<span style="color: #990000">[</span> elseifstatements <span style="color: #990000">]]</span>
+<span style="color: #990000">[</span> #<span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+<span style="color: #990000">[</span> elsestatements <span style="color: #990000">]]</span>
+#<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span></tt></pre></div></div>
+<div class="paragraph"><p>#If&#8230;Then&#8230;#Else ディレクティブの構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 15. 構文</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">expression</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 1 つ以上の条件付きコンパイラ定数、リテラル、および演算子のみで構成された、True または False に評価される任意の式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">statements</p></td>
+<td align="left" valign="top"><p class="table">必須。 関連付けられている式が True の場合に評価される Visual Basic プログラムの行またはコンパイラ ディレクティブです。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">expression-n</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 1 つ以上の条件付きコンパイラ定数、リテラル、および演算子のみで構成された、True または False に評価される任意の式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">elseifstatements</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 expression-n が True の場合に評価される 1 つ以上のプログラム行またはコンパイラ ディレクティブです。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">elsestatements</p></td>
+<td align="left" valign="top"><p class="table">省略可能です。 前の expression および expression-n がいずれも True に評価されなかった場合に評価される 1 つ以上のプログラム行またはコンパイラ ディレクティブです。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>#If&#8230;Then&#8230;#Else ディレクティブの動作は If&#8230;Then&#8230;Else ステートメントと同
+じです。ただし、#If、#Else、#ElseIf、および #End If の各ディレクティブには単一
+行の形式がありません。したがって、これらのディレクティブと同じ行に他のコードを
+含めることはできません。</p></div>
+<div class="paragraph"><p>条件付きコンパイルは、通常、同じプログラムを異なるプラットフォーム用にコンパイ
+ルするために使用されます。 また、実行可能なファイルにデバッグ コードが含まれな
+いようにするためにも使用されます。 条件付きコンパイルで除外されたコードは、最
+終的な実行可能ファイルから完全に削除されるため、サイズやパフォーマンスに影響を
+与えることはありません。</p></div>
+<div class="paragraph"><p>各評価の結果に関係なく、すべての式が評価されます。 したがって、式で使用されて
+いるすべての定数が定義されている必要があります。定義されていない定数は Empty
+として評価されます。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">Option Compare ステートメントは、#If ステートメントと #ElseIf
+ステートメントの式には影響を与えません。 条件付きコンパイラ ディレクティブの式
+は常に Option Compare Text で評価されます。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、#If&#8230;Then&#8230;#Else コンストラクトで条件付きコンパイラ定数を参照し
+て、特定のステートメントをコンパイルするかどうかを決定します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' If Mac evaluates as true, do the statements following the #If.</span></span>
+#<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> Mac <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">'. Place exclusively Mac statements here.</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">'.</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">'.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Otherwise, if it is a 32-bit Windows program, do this:</span></span>
+#ElseIf Win32 <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">'. Place exclusively 32-bit Windows statements here.</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">'.</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">'.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Otherwise, if it is neither, do this:</span></span>
+#<span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">'. Place other platform statements here.</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">'.</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">'.</span></span>
+#<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_イベント_visual_basic_for_applications">イベント (Visual Basic for Applications)</h3>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#Activate、Deactivate">Activate、Deactivate</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Initialize">Initialize</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#QueryClose">QueryClose</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Resize">Resize</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Terminate">Terminate</a>
+</p>
+</li>
+</ul></div>
+<div class="sect3">
+<h4 id="_activate_イベント_deactivate_イベント_a_id_activate_deactivate_a">Activate イベント、Deactivate イベント<a id="Activate、Deactivate"></a></h4>
+<div class="paragraph"><p>Activate イベントは、オブジェクトがアクティブ ウィンドウになると発生します。
+Deactivate イベントは、オブジェクトがアクティブ ウィンドウでなくなると発生しま
+す。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">object_Activate</span></span><span style="color: #990000">(</span> <span style="color: #990000">)</span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">object_Deactivate</span></span><span style="color: #990000">(</span> <span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>object のプレースホルダーは、評価結果が [適用先] リストのオブジェクトとなるオ
+ブジェクトの式を表します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>コードで Show メソッドを使用すると、オブジェクトをアクティブにできます。</p></div>
+<div class="paragraph"><p>Activate イベントは、オブジェクトが表示されている場合のみ発生します。 <a href="#Load">Load</a> で
+読み込まれた <a href="#UserForm">UserForm</a> は、<a href="#Show">Show</a> メソッドを使用しない限り
+表示されません。</p></div>
+<div class="paragraph"><p>Activate イベントと Deactivate イベントは、アプリケーション内でフォーカスが移
+動された場合のみ発生します。 別のアプリケーションで、オブジェクトからまたはオ
+ブジェクトにフォーカスが移動されても、いずれのイベントもトリガーされません。</p></div>
+<div class="paragraph"><p>Deactivate イベントは、オブジェクトの読み込み解除では発生しません。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次のコードでは、UserForm1 と UserForm2 の 2 つの UserForm を使用しています。
+これらのプロシージャを UserForm1 モジュールにコピーしてから、UserForm2 を追加
+します。 UserForm1 のキャプションが、その Activate イベント プロシージャに作成
+されます。 ユーザーが UserForm1 のクライアント領域をクリックすると、UserForm2
+が読み込まれて表示され、UserForm1 の Deactive イベントがトリガーされ、キャプシ
+ョンが変更されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Activate event for UserForm1</span></span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Activate</span></span><span style="color: #990000">()</span>
+    UserForm1<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"Click my client area"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Click event for UserForm1</span></span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Click</span></span><span style="color: #990000">()</span>
+    Load UserForm2
+    UserForm2<span style="color: #990000">.</span>StartUpPosition <span style="color: #990000">=</span> <span style="color: #993399">3</span>
+    UserForm2<span style="color: #990000">.</span>Show
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Deactivate event for UserForm1</span></span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Deactivate</span></span><span style="color: #990000">()</span>
+    UserForm1<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"I just lost the focus!"</span>
+    UserForm2<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"Focus just left UserForm1 and came to me"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_initialize_イベント_a_id_initialize_a">Initialize イベント<a id="Initialize"></a></h4>
+<div class="paragraph"><p>オブジェクトが読み込まれてから表示されるまでに発生します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #000000">Subobject_Initialize</span></span><span style="color: #990000">(</span> <span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>object プレースホルダーは、[適用対象] リスト内のオブジェクトに評価されるオブジ
+ェクト式を表します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>通常、Initialize イベントは、アプリケーションまたは UserForm を使用できるよう
+に準備するために使用されます。変数には初期値が割り当てられ、コントロールは、初
+期化データを収容できるように移動またはサイズ変更される場合があります。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例は、プログラム内に 2 つの UserForm があると仮定しています。 UserForm1 の
+Initialize イベントで、UserForm2 が読み込まれて表示されます。 ユーザーが
+UserForm2 をクリックすると、UserForm2 は非表示となり、UserForm1 が表示されます。
+UserForm1 がクリックされると、UserForm2 が再度表示されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' This is the Initialize event procedure for UserForm1</span></span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Initialize</span></span><span style="color: #990000">()</span>
+    Load UserForm2
+    UserForm2<span style="color: #990000">.</span>Show
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' This is the Click event of UserForm2</span></span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Click</span></span><span style="color: #990000">()</span>
+    UserForm2<span style="color: #990000">.</span>Hide
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' This is the click event for UserForm1</span></span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Click</span></span><span style="color: #990000">()</span>
+    UserForm2<span style="color: #990000">.</span>Show
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_queryclose_イベント_a_id_queryclose_a">QueryClose イベント<a id="QueryClose"></a></h4>
+<div class="paragraph"><p>UserForm が閉じる前に発生します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_QueryClose</span></span><span style="color: #990000">(</span>Cancel As Integer<span style="color: #990000">,</span> CloseMode As Integer<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>QueryClose イベントの構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Cancel</p></td>
+<td align="left" valign="top"><p class="table">整数。 この引数を 0 以外の値に設定すると、読み込み済みのすべてのユーザー フォームで QueryClose イベントが停止され、UserForm とアプリケーションを閉じられなくなります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CloseMode</p></td>
+<td align="left" valign="top"><p class="table">QueryClose イベントの原因を示す値または定数です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">戻り値</div><p>CloseMode 引数は、次の値を返します。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="16%" />
+<col width="16%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbFormControlMenu</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">ユーザーが、UserForm のコントロールメニューで [閉じる] コマンドを選択しました。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFormCode</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+<td align="left" valign="top"><p class="table">コードから Unload ステートメントが呼び出されます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbAppWindows</p></td>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">現在の Windows オペレーティング環境セッションが終了しようとしています。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbAppTaskManager</p></td>
+<td align="left" valign="top"><p class="table">1/3</p></td>
+<td align="left" valign="top"><p class="table">Windows タスク マネージャーがアプリケーションを閉じようとしています。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>これらの定数は、オブジェクト ブラウザーの [Visual Basic for Applications] オブ
+ジェクト ライブラリに一覧表示されます。 vbFormMDIForm もオブジェクト ブラウザ
+ーで指定されますが、まだサポートされていません。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>このイベントは通常、アプリケーションが閉じる前に、完了していないタスクがアプリ
+ケーションのユーザー フォームに含まれていないかどうかを確認するために使用され
+ます。 たとえば、ユーザーが UserForm 内の新しいデータを保存していない場合、デ
+ータの保存を求めるプロンプトをアプリケーションで表示できます。</p></div>
+<div class="paragraph"><p>アプリケーションが閉じるときに、QueryClose イベント プロシージャを使用して
+Cancel プロパティを True に設定することで、閉じるプロセスを停止できます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次のコードでは、UserFormクライアント領域をクリックして閉じるようにユーザーに強
+制します。 ユーザーがタイトル バーの [閉じる] ボックスを使用しようとすると、
+Cancel パラメーターが 0 以外の値に設定され、終了できなくなります。 一方、ユー
+ザーがクライアント領域をクリックした場合は、CloseMode の値が 1 となり、Unload
+Me が実行されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Activate</span></span><span style="color: #990000">()</span>
+    Me<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"You must Click me to kill me!"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Click</span></span><span style="color: #990000">()</span>
+  Unload Me
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_QueryClose</span></span><span style="color: #990000">(</span>Cancel As Integer<span style="color: #990000">,</span> CloseMode As Integer<span style="color: #990000">)</span>
+    <span style="font-style: italic"><span style="color: #9A1900">'Prevent user from closing with the Close box in the title bar.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> CloseMode <span style="color: #990000">&lt;&gt;</span> <span style="color: #993399">1</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span> Cancel <span style="color: #990000">=</span> <span style="color: #993399">1</span>
+    Me<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"The Close box won't work! Click me!"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_resize_イベント_a_id_resize_a">Resize イベント<a id="Resize"></a></h4>
+<div class="paragraph"><p>ユーザー フォームのサイズが変更されると発生します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Resize</span></span><span style="color: #990000">(</span> <span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">解説</div><p>Resize イベント プロシージャを使用すると、親 UserForm のサイズが変更されたとき
+に コントロールを移動したりそのサイズを変更したりすることができます。 このイベ
+ント プロシージャを使用して、変数やプロパティを再計算することもできます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、Activate イベントと Click イベントを使用して、UserForm の Resize
+イベントをトリガーする方法を示しています。 ユーザーがフォームのクライアント領
+域をクリックすると、フォームが拡大または縮小してタイトル バーに新しい高さが示
+されます。 Tag プロパティを使用して UserForm の最初の高さを格納しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Activate event for UserForm1</span></span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Activate</span></span><span style="color: #990000">()</span>
+    UserForm1<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"Click me to make me taller!"</span>
+    Tag <span style="color: #990000">=</span> Height    <span style="font-style: italic"><span style="color: #9A1900">' Save the initial height.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Click event for UserForm1</span></span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Click</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> NewHeight As Single
+    NewHeight <span style="color: #990000">=</span> Height
+    <span style="font-style: italic"><span style="color: #9A1900">' If the form is small, make it tall.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> NewHeight <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Val</span></span><span style="color: #990000">(</span>Tag<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        Height <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Val</span></span><span style="color: #990000">(</span>Tag<span style="color: #990000">)</span> <span style="color: #990000">*</span> <span style="color: #993399">2</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">' If the form is tall, make it small.</span></span>
+        Height <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Val</span></span><span style="color: #990000">(</span>Tag<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Resize event for UserForm1</span></span>
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Resize</span></span><span style="color: #990000">()</span>
+    UserForm1<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"New Height: "</span> <span style="color: #990000">&amp;</span> Height <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"  "</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"Click to resize me!"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_terminate_イベント_a_id_terminate_a">Terminate イベント<a id="Terminate"></a></h4>
+<div class="paragraph"><p>オブジェクトを参照するすべての変数が Nothing に設定され、オブジェクトのインス
+タンスへの参照がメモリからすべて削除されるか、オブジェクトへの最後の参照がスコ
+ープ外になったときに発生します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">object_Terminate</span></span><span style="color: #990000">(</span> <span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>object のプレースホルダーは、評価結果が [適用先] リストのオブジェクトとなるオ
+ブジェクトの式を表します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>Terminate イベントは、オブジェクトの読み込み解除後に発生します。 メモリから
+UserForm またはクラスのインスタンスが削除された場合、アプリケーションは異常終
+了しているため、<strong>Terminate </strong> イベントはトリガーされません。</p></div>
+<div class="paragraph"><p>たとえば、クラスまたは UserForm の既存のすべてのインスタンスをメモリから削除す
+る前にアプリケーションが End ステートメントを起動した場合、Terminate イベント
+はそのクラスまたは UserForm に対してトリガーされません。</p></div>
+<div class="paragraph"><div class="title">例</div><p>ユーザーがフォームを閉じるためにクライアント領域をクリックすると、次のイベント
+プロシージャにより UserForm で警告音が数秒間鳴ります。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Activate</span></span><span style="color: #990000">()</span>
+    UserForm1<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"Click me to kill me!"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Click</span></span><span style="color: #990000">()</span>
+  Unload Me
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">UserForm_Terminate</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Count As Integer
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Count <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">100</span>
+        Beep
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_関数_visual_basic_for_applications">関数 (Visual Basic for Applications)</h3>
+<div class="ulist"><div class="title">変換関数</div><ul>
+<li>
+<p>
+<a href="#Asc">Asc</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Chr">Chr</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#CVErr">CVErr</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Format">Format</a>
+</p>
+</li>
+<li>
+<p>
+16 進数
+</p>
+</li>
+<li>
+<p>
+<a href="#Oct">Oct</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Str">Str</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Val">Val</a>
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">数学関数</div><ul>
+<li>
+<p>
+<a href="#Abs">Abs</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Atn">Atn</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Cos">Cos</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Derived Math">Derived Math</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Exp">Exp</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Int">Int</a>、<a href="#Fix">Fix</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Log">Log</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Rnd">Rnd</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Sgn">Sgn</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Sin">Sin</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Sqr">Sqr</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Tan">Tan</a>
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">データ型変換関数</div><ul>
+<li>
+<p>
+データ型変換関数
+</p>
+</li>
+</ul></div>
+<div class="ulist"><div class="title">その他の関数</div><ul>
+<li>
+<p>
+<a href="#Array">Array</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#CallByName">CallByName</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Choose">Choose</a>
+</p>
+</li>
+<li>
+<p>
+コマンド
+</p>
+</li>
+<li>
+<p>
+<a href="#CreateObject">CreateObject</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#CurDir">CurDir</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Date">Date</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#DateAdd">DateAdd</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#DateDiff">DateDiff</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#DatePart">DatePart</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#DateSerial">DateSerial</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#DateValue">DateValue</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Day">Day</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#DDB">DDB</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Dir">Dir</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#DoEvents">DoEvents</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Environ">Environ</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#EOF">EOF</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Error">Error</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#FileAttr">FileAttr</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#FileDateTime">FileDateTime</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#FileLen">FileLen</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Filter">Filter</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#FormatCurrency">FormatCurrency</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#FormatDateTime">FormatDateTime</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#FormatNumber">FormatNumber</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#FormatPercent">FormatPercent</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#FreeFile">FreeFile</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#FV">FV</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#GetAllSettings">GetAllSettings</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#GetAttr">GetAttr</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#GetObject">GetObject</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#GetSetting">GetSetting</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Hour">Hour</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IIf">IIf</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IMEStatus">IMEStatus</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Input">Input</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#InputBox">InputBox</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#InStr">InStr</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#InStrRev">InStrRev</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IPmt">IPmt</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IRR">IRR</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IsArray">IsArray</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IsDate">IsDate</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IsEmpty">IsEmpty</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IsError">IsError</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IsMissing">IsMissing</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IsNull">IsNull</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IsNumeric">IsNumeric</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#IsObject">IsObject</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Join">Join</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#LBound">LBound</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#LCase">LCase</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Left">Left</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Len">Len</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Loc">Loc</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#LOF">LOF</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#LTrim">LTrim</a>、<a href="#RTrim">RTrim</a>、および <a href="#Trim">Trim</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#MacID">MacID</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#MacScript">MacScript</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Mid">Mid</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Minute">Minute</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#MIRR">MIRR</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Month">Month</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#MonthName">MonthName</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#MsgBox">MsgBox</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Now">Now</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#NPer">NPer</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#NPV">NPV</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Partition">Partition</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Pmt">Pmt</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#PPmt">PPmt</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#PV">PV</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#QBColor">QBColor</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Rate">Rate</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Replace">Replace</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#RGB">RGB</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Right">Right</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Round">Round</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Second">Second</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Seek">Seek</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Shell">Shell</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#SLN">SLN</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Space">Space</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Spc">Spc</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Split">Split</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#StrComp">StrComp</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#StrConv">StrConv</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#String">String</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#StrReverse">StrReverse</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Switch">Switch</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#SYD">SYD</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Tab">Tab</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Time">Time</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Timer">Timer</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#TimeSerial">TimeSerial</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#TimeValue">TimeValue</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#TypeName">TypeName</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#UBound">UBound</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#UCase">UCase</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#VarType">VarType</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Weekday">Weekday</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#WeekdayName">WeekdayName</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Year">Year</a>
+</p>
+</li>
+</ul></div>
+<div class="sect3">
+<h4 id="_array_関数_a_id_array_a">Array 関数<a id="Array"></a></h4>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_タスク別のキーワード">タスク別のキーワード</h3>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">カテゴリ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">配列</p></td>
+<td align="left" valign="top"><p class="table">配列を作成、定義、使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">コンパイラディレクティブ</p></td>
+<td align="left" valign="top"><p class="table">コンパイラの動作を制御します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">制御フロー</p></td>
+<td align="left" valign="top"><p class="table">プロシージャのフローをループおよび制御します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">変換</p></td>
+<td align="left" valign="top"><p class="table">数値とデータ型を変換します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">データ型</p></td>
+<td align="left" valign="top"><p class="table">データ型およびバリアント サブタイプ。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">日付と時刻</p></td>
+<td align="left" valign="top"><p class="table">日付と時刻の式を変換および使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ディレクトリとファイル</p></td>
+<td align="left" valign="top"><p class="table">ファイル システムを制御し、ファイルを処理します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">エラー</p></td>
+<td align="left" valign="top"><p class="table">エラー値をトラッピングして返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">財務</p></td>
+<td align="left" valign="top"><p class="table">財務計算を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">入力と出力</p></td>
+<td align="left" valign="top"><p class="table">入力を受け取って、出力を表示または印刷します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">算術</p></td>
+<td align="left" valign="top"><p class="table">三角関数およびその他の算術計算を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">その他</p></td>
+<td align="left" valign="top"><p class="table">他のアプリケーションを開始し、イベントを処理します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">演算子</p></td>
+<td align="left" valign="top"><p class="table">式の比較および他の操作を行います。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">レジストリ</p></td>
+<td align="left" valign="top"><p class="table">プログラムの設定を管理する。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列の操作</p></td>
+<td align="left" valign="top"><p class="table">文字列および文字列型データを操作します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">変数と定数</p></td>
+<td align="left" valign="top"><p class="table">変数および定数を宣言および定義します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_キーワード_visual_basic_for_applications">キーワード (Visual Basic for Applications)</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">キーワード </th>
+<th align="left" valign="top">使用されるコンテキスト</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">As</p></td>
+<td align="left" valign="top"><p class="table">Const ステートメント<br />
+Declare ステートメント<br />
+Dim ステートメント<br />
+Function ステートメント<br />
+Name ステートメント<br />
+Open ステートメント<br />
+Private ステートメント<br />
+Property Get ステートメント<br />
+Property Let ステートメント<br />
+Property Set ステートメント<br />
+Public ステートメント<br />
+ReDim ステートメント<br />
+Static ステートメント<br />
+Sub ステートメント<br />
+Type ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Binary</p></td>
+<td align="left" valign="top"><p class="table">Open ステートメント<br />
+Option Compare ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ByRef</p></td>
+<td align="left" valign="top"><p class="table">Call ステートメント<br />
+Declare ステートメント<br />
+Function ステートメント<br />
+Property Get ステートメント<br />
+Property Let ステートメント<br />
+Property Set ステートメント<br />
+Sub ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ByVal</p></td>
+<td align="left" valign="top"><p class="table">Call ステートメント<br />
+Declare ステートメント<br />
+Function ステートメント<br />
+Property Get ステートメント<br />
+Property Let ステートメント<br />
+Property Set ステートメント<br />
+Sub ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">Date データ型<br />
+Date 関数<br />
+Date ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Else</p></td>
+<td align="left" valign="top"><p class="table">If&#8230;Then&#8230;Else ステートメント<br />
+Select Case ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Empty</p></td>
+<td align="left" valign="top"><p class="table">初期化されていない変数値を示す Variant サブタイプとして使用されます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Error</p></td>
+<td align="left" valign="top"><p class="table">Error 関数<br />
+Error ステートメント<br />
+On Error ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">False</p></td>
+<td align="left" valign="top"><p class="table">値は 0 です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">For</p></td>
+<td align="left" valign="top"><p class="table">For&#8230;Next ステートメント<br />
+For Each&#8230;Next ステートメント<br />
+Open ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Friend</p></td>
+<td align="left" valign="top"><p class="table">「Friend」をご覧ください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Get</p></td>
+<td align="left" valign="top"><p class="table">Get ステートメント<br />
+Property Get ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Input</p></td>
+<td align="left" valign="top"><p class="table">Input 関数<br />
+Input # ステートメント<br />
+Line Input # ステートメント<br />
+Open ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Is</p></td>
+<td align="left" valign="top"><p class="table">If&#8230;Then&#8230;Else ステートメント<br />
+Is 演算子<br />
+Select Case ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Len</p></td>
+<td align="left" valign="top"><p class="table">Len 関数<br />
+Open ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Let</p></td>
+<td align="left" valign="top"><p class="table">Let ステートメント<br />
+Property Let ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Lock</p></td>
+<td align="left" valign="top"><p class="table">Lock、Unlock ステートメント<br />
+Open ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Me</p></td>
+<td align="left" valign="top"><p class="table">「Me」をご覧ください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Mid</p></td>
+<td align="left" valign="top"><p class="table">Mid 関数<br />
+Mid ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">New</p></td>
+<td align="left" valign="top"><p class="table">Dim ステートメント<br />
+Private ステートメント<br />
+Public ステートメント<br />
+Set ステートメント<br />
+Static ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Next</p></td>
+<td align="left" valign="top"><p class="table">For&#8230;Next ステートメント<br />
+For Each&#8230;Next ステートメント<br />
+On Error ステートメント<br />
+Resume ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Nothing</p></td>
+<td align="left" valign="top"><p class="table">「Nothing」をご覧ください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Null</p></td>
+<td align="left" valign="top"><p class="table">変数に有効な値が含まれないことを示す Variant サブタイプとして使用されます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">On</p></td>
+<td align="left" valign="top"><p class="table">On Error ステートメント<br />
+On&#8230;GoSub ステートメント<br />
+On&#8230;GoTo ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Option</p></td>
+<td align="left" valign="top"><p class="table">Option Base ステートメント<br />
+Option Compare ステートメント<br />
+Option Explicit ステートメント<br />
+Option Private ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Optional</p></td>
+<td align="left" valign="top"><p class="table">Declare ステートメント<br />
+Function ステートメント<br />
+Property Get ステートメント<br />
+Property Let ステートメント<br />
+Property Set ステートメント<br />
+Sub ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ParamArray</p></td>
+<td align="left" valign="top"><p class="table">Declare ステートメント<br />
+Function ステートメント<br />
+Property Get ステートメント<br />
+Property Let ステートメント<br />
+Property Set ステートメント<br />
+Sub ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Print</p></td>
+<td align="left" valign="top"><p class="table">Print メソッド<br />
+Print # ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Private</p></td>
+<td align="left" valign="top"><p class="table">Const ステートメント<br />
+Declare ステートメント<br />
+Enum ステートメント<br />
+Function ステートメント<br />
+Option Private ステートメント<br />
+Private ステートメント<br />
+Property Get ステートメント<br />
+Property Let ステートメント<br />
+Property Set ステートメント<br />
+Sub ステートメント<br />
+Type ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Property</p></td>
+<td align="left" valign="top"><p class="table">Property Get ステートメント<br />
+Property Let ステートメント<br />
+Property Set ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">PtrSafe</p></td>
+<td align="left" valign="top"><p class="table">「PtrSafe」をご覧ください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Public</p></td>
+<td align="left" valign="top"><p class="table">Const ステートメント<br />
+Declare ステートメント<br />
+Enum ステートメント<br />
+Event ステートメント<br />
+Function ステートメント<br />
+Property Get ステートメント<br />
+Property Let ステートメント<br />
+Property Set ステートメント<br />
+Public ステートメント<br />
+Sub ステートメント<br />
+Type ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Resume</p></td>
+<td align="left" valign="top"><p class="table">On Error ステートメント<br />
+Resume ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Seek</p></td>
+<td align="left" valign="top"><p class="table">Seek 関数<br />
+Seek ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Set</p></td>
+<td align="left" valign="top"><p class="table">Set ステートメント<br />
+Property Set ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Static</p></td>
+<td align="left" valign="top"><p class="table">Function ステートメント<br />
+Property Get ステートメント<br />
+Property Let ステートメント<br />
+Property Set ステートメント<br />
+Static ステートメント<br />
+Sub ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Step</p></td>
+<td align="left" valign="top"><p class="table">For&#8230;Next ステートメント<br />
+For Each&#8230;Next ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">String</p></td>
+<td align="left" valign="top"><p class="table">String データ型<br />
+String 関数</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Then</p></td>
+<td align="left" valign="top"><p class="table">If&#8230;Then&#8230;Else ディレクティブ<br />
+If&#8230;Then&#8230;Else ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Time</p></td>
+<td align="left" valign="top"><p class="table">Time 関数<br />
+Time ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">To</p></td>
+<td align="left" valign="top"><p class="table">Dim ステートメント<br />
+For&#8230;Next ステートメント<br />
+Lock、Unlock ステートメント<br />
+Private ステートメント<br />
+Public ステートメント<br />
+ReDim ステートメント<br />
+Select Case ステートメント<br />
+Static ステートメント<br />
+Type ステートメント</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">True</p></td>
+<td align="left" valign="top"><p class="table">値は -1 です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">WithEvents</p></td>
+<td align="left" valign="top"><p class="table">Dim ステートメント<br />
+Private ステートメント<br /></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">Public ステートメント</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_friend_キーワード">Friend キーワード</h5>
+<div class="paragraph"><p>フォームモジュールまたはクラスモジュールのプロシージャの定義を変更して、プロシ
+ージャをクラスの外部のモジュールから呼び出し可能にします。ただし、クラスが定義
+されているプロジェクトの一部である必要があります。 Friendプロシージャは標準モ
+ジュールでは使用できません。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">[</span> Private <span style="color: #990000">|</span> Friend <span style="color: #990000">|</span> Public <span style="color: #990000">]</span> <span style="color: #990000">[</span> Static <span style="color: #990000">]</span> <span style="color: #990000">[</span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="color: #990000">|</span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="color: #990000">|</span> Property <span style="color: #990000">]</span> procedurename</tt></pre></div></div>
+<div class="paragraph"><p>必須の __ procedurename は、プロジェクト全体で可視にされるプロシージャの名前で
+すが、クラスのコントローラーには不可視となります。</p></div>
+<div class="paragraph"><div class="title">注釈</div><p>クラスのパブリックプロシージャは、クラスのインスタンスのコントローラーであって
+も、どこからでも呼び出すことができます。 プロシージャをプライベートに宣言する
+と、オブジェクトのコントローラーがプロシージャを呼び出せるようになります。また、
+クラス自体が定義されているプロジェクト内からプロシージャを呼び出すこともできな
+くなります。</p></div>
+<div class="paragraph"><p>Friendは、プロジェクト全体でプロシージャを参照できるようにしますが、オブジェク
+トのインスタンスのコントローラーに対しては使用できません。 フレンドは、フォー
+ムモジュールおよびクラスモジュールにのみ表示され、変数や型ではなく、プロシージ
+ャ名のみを変更できます。 クラスのプロシージャは、プロジェクト内の他のすべての
+クラスのFriendプロシージャにアクセスできます。 フレンドプロシージャは、そのク
+ラスのタイプライブラリには表示されません。 Friendプロシージャは、遅延バインデ
+ィングすることはできません。</p></div>
+<div class="paragraph"><div class="title">例</div><p>クラスモジュールに配置されると、次のコードによって、プロジェクト内のクラスのす
+べてのユーザーがメンバー変数 dblBalance にアクセスできるようになります。 クラ
+スのすべてのユーザーが値を取得できます。プロジェクト内のコードのみが、その変数
+に値を割り当てることができます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private dblBalance As Double
+
+Public Property Get <span style="font-weight: bold"><span style="color: #000000">Balance</span></span><span style="color: #990000">()</span> As Double
+ Balance <span style="color: #990000">=</span> dblBalance
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> Property
+
+Friend Property Let <span style="font-weight: bold"><span style="color: #000000">Balance</span></span><span style="color: #990000">(</span>dblNewBalance As Double<span style="color: #990000">)</span>
+ dblBalance <span style="color: #990000">=</span> dblNewBalance
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> Property</tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_me_キーワード_a_id_me_a">Me キーワード<a id="Me"></a></h5>
+<div class="paragraph"><p>Me キーワードは暗黙的に宣言された変数と同様に動作します。 クラス モジュール内
+のすべてのプロシージャは、これを自動的に利用できます。</p></div>
+<div class="paragraph"><p>クラスに複数のインスタンスが含まれる可能性がある場合、Me を使用して、コードが
+実行されているクラスの特定のインスタンスを参照できます。 現在実行されているク
+ラスのインスタンスに関する情報を別のモジュール内のプロシージャに渡す場合、Me
+を使用すると特に便利です。</p></div>
+<div class="paragraph"><p>たとえば、モジュールに以下のプロシージャが含まれているとします。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">ChangeFormColor</span></span><span style="color: #990000">(</span>FormName As <span style="font-weight: bold"><span style="color: #0000FF">Form</span></span><span style="color: #990000">)</span>
+ FormName<span style="color: #990000">.</span>BackColor <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">RGB</span></span><span style="color: #990000">(</span>Rnd <span style="color: #990000">*</span> <span style="color: #993399">256</span><span style="color: #990000">,</span> Rnd <span style="color: #990000">*</span> <span style="color: #993399">256</span><span style="color: #990000">,</span> Rnd <span style="color: #990000">*</span> <span style="color: #993399">256</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+<div class="paragraph"><p>以下のステートメントを使用し、このプロシージャを呼び出して Form クラスの現在の
+インスタンスを引数として渡すことができます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>ChangeFormColor Me</tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_nothing_キーワード_a_id_nothing_a">Nothing キーワード<a id="Nothing"></a></h5>
+<div class="paragraph"><p>Nothing キーワードは、オブジェクト変数と実際のオブジェクトの関連付けを解除する
+ために使用されます。 Nothingをオブジェクト変数に代入するには、 <a href="#Set">Set</a> ス
+テートメントを使用します。 次に例を示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> MyObject <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">Nothing</span></span></tt></pre></div></div>
+<div class="paragraph"><p>複数のオブジェクト変数が同じ実際のオブジェクトを参照していることがあります。
+オブジェクト変数に Nothing を代入すると、その変数は実際のオブジェクトを参照し
+なくなります。</p></div>
+<div class="paragraph"><p>複数のオブジェクト変数が同じオブジェクトを参照する場合、変数が参照するオブジェ
+クトに関連付けられているメモリおよびシステムリソースは、 setを使用して明
+示的に設定されているか、または暗黙的に設定されている場合にのみ解放されます。実
+際のオブジェクトを参照している最後のオブジェクト変数がスコープ外になった後。</p></div>
+</div>
+<div class="sect4">
+<h5 id="_ptrsafe_キーワード_a_id_ptrsafe_a">PtrSafe キーワード<a id="PtrSafe"></a></h5>
+<div class="paragraph"><p>PtrSafeキーワードは、次のコンテキストで使用されます。 Declare ステートメントで
+す。</p></div>
+<div class="paragraph"><p>PtrSafe キーワードを含む Declare ステートメントが推奨される構文です。 PtrSafe
+が含まれる Declare ステートメントが 32 ビットおよび 64 ビット プラットフォーム
+の VBA7 開発環境で正常に機能するのは、64 ビット数を格納する必要がある Declare
+ステートメント内のすべてのデータ型 (パラメーターおよび戻り値) が 64 ビット整数
+用の LongLong またはポインターおよびハンドル用の LongPtr を使用するように更新
+されている場合のみです。</p></div>
+<div class="paragraph"><p>VBA バージョン6以前との下位互換性を確保するには、次の構文を使用します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>#<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> VBA7 <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+Declare PtrSafe <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span><span style="color: #990000">...</span>
+#<span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+Declare <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span><span style="color: #990000">...</span>
+#EndIf</tt></pre></div></div>
+<div class="paragraph"><p>64ビットバージョンの Office で実行する場合、 DeclareステートメントにはPtrSafe
+キーワードを含める必要があります。 PtrSafe キーワードは、Declare ステートメン
+トを 64 ビットの開発環境で安全に実行できることを示すキーワードです。</p></div>
+<div class="paragraph"><p>DeclareステートメントにPtrSafeキーワードを追加した場合のみ、 declareステートメ
+ントが明示的に64ビットを対象としていることを意味します。 64ビットを格納する必
+要があるステートメント内のすべてのデータ型 (戻り値とパラメーターを含む) は、64
+ビット積分またはLongPtrのポインターとハンドルに対してlonglongを使用して、64ビ
+ットの数を保持するように変更する必要があります。</p></div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_配列キーワードの概要">配列キーワードの概要</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">配列かどうかを確認します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#IsArray">IsArray</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">配列を作成します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Array">Array</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">既定の下限を変更します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Option Base">Option Base</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">配列を宣言および初期化します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Dim">Dim</a>、<a href="#Private">Private</a>、<a href="#Public">Public</a>、<a href="#ReDim">ReDim</a>、<a href="#Static">Static</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">配列の限界を調べます。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#LBound">LBound</a>、<a href="#UBound">UBound</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">配列を再初期化します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Erase">Erase</a>、<a href="#ReDim">ReDim</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_制御フローキーワードの概要">制御フローキーワードの概要</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">構内</p></td>
+<td align="left" valign="top"><p class="table"><a href="#GoSub&#8230;Return">GoSub&#8230;Return</a>、<a href="#GoTo">GoTo</a>、<a href="#On Error">On Error</a>、
+<a href="#On&#8230;GoSub">On&#8230;GoSub</a>、<a href="#On&#8230;GoTo">On&#8230;GoTo</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">プログラムを終了または一時停止する</p></td>
+<td align="left" valign="top"><p class="table"><a href="#DoEvents">DoEvents</a>、<a href="#End">End</a>、
+<a href="#Exit">Exit</a>、<a href="#Stop">Stop</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Loop</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Do&#8230;Loop">Do&#8230;Loop</a>、<a href="#For&#8230;Next">For&#8230;Next</a>、<a href="#For Each&#8230;Next">For Each&#8230;Next</a>、<a href="#While&#8230;Wend">While&#8230;Wend</a>、<a href="#With">With</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">決定を行う</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Choose">Choose</a>、<a href="#If&#8230;Then&#8230;Else">If&#8230;Then&#8230;Else</a>、
+<a href="#Select Case">Select Case</a>、<a href="#Switch">Switch</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">プロシージャを使用する</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Call">Call</a>、<a href="#Function">Function</a>、<a href="#Property Get">Property Get</a>、
+<a href="#Property Let">Property Let</a>、<a href="#Property Set">Property Set</a>、<a href="#Sub">Sub</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_変換キーワードの概要">変換キーワードの概要</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">ANSI 値を文字列に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Chr">Chr</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列を小文字または大文字に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Format">Format</a>、<a href="#LCase">LCase</a>、<a href="#Ucase">Ucase</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">日付をシリアル値に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#DateSerial">DateSerial</a>、<a href="#DateValue">DateValue</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">10 進数を他の基数に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Hex">Hex</a>、<a href="#Oct">Oct</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">数値を文字列に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Format">Format</a>、<a href="#Str">Str</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">あるデータ型を別のデータ型に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#データ型の概要">データ型の概要</a>を参照してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">日付を日、月、週、または年に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Day">Day</a>、<a href="#Month">Month</a>、<a href="#Weekday">Weekday</a>、<a href="#Year">Year</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">時刻を時、分、または秒に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Hour">Hour</a>、<a href="#Minute">Minute</a>、<a href="#Second">Second</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列を ASCII 値に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Asc">Asc</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列を数値に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Val">Val</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">時刻をシリアル値に。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#TimeSerial">TimeSerial</a>、<a href="#TimeValue">TimeValue</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_日付と時刻のキーワード_サマリー">日付と時刻のキーワード サマリー</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">アクション </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">現在の日付または時刻を取得します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Date">Date</a>、<a href="#Now">Now</a>、<a href="#Time">Time</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">日付の計算を実行します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#DateAdd">DateAdd</a>、<a href="#DateDiff">DateDiff</a>、
+<a href="#DatePart">DatePart</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">日付を返します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#DateSerial">DateSerial</a>、<a href="#DateValue">DateValue</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">時刻を返します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#TimeSerial">TimeSerial</a>、<a href="#TimeValue">TimeValue</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">日付または時刻を設定します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Date">Date</a>、<a href="#Time">Time</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">処理時間を計測します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Timer">Timer</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ディレクトリとファイルのキーワード_サマリー">ディレクトリとファイルのキーワード サマリー</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">ディレクトリまたはフォルダーを変更します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#ChDir">ChDir</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ドライブを変更します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#ChDrive">ChDrive</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルをコピーします。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#FileCopy">FileCopy</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ディレクトリまたはフォルダーを作成します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#MkDir">MkDir</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ディレクトリまたはフォルダーを削除します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#RmDir">RmDir</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイル、ディレクトリ、またはフォルダーの名前を変更します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Name">Name</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">現在のパスを取得します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#CurDir">CurDir</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルの日付/時刻スタンプを取得します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#FileDateTime">FileDateTime</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイル、ディレクトリ、ラベルの属性を取得します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#GetAttr">GetAttr</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルの長さを取得します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#FileLen">FileLen</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイル名またはボリューム ラベルを取得します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Dir">Dir</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルの属性情報を設定します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#SetAttr">SetAttr</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_エラー_キーワード_サマリー">エラー キーワード サマリー</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">実行時エラーを生成する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Clear">Clear</a>、<a href="#Error">Error</a>、<a href="#Raise">Raise</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">エラー メッセージを取得する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Error">Error</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">エラー情報を提供する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Err">Err</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Error バリアントを返す。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#CVErr">CVErr</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">実行時にエラーをトラップする。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#On Error">On Error</a>、<a href="#Resume">Resume</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">検証を入力する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#IsError">IsError</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_財務キーワードの概要">財務キーワードの概要</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">減価償却費の計算</p></td>
+<td align="left" valign="top"><p class="table"><a href="#DDB">DDB</a>、<a href="#SLN">SLN</a>、<a href="#SYD">SYD</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">将来価値の計算</p></td>
+<td align="left" valign="top"><p class="table"><a href="#FV">FV</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">利率の計算</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Rate">Rate</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">内部利益率の計算</p></td>
+<td align="left" valign="top"><p class="table"><a href="#IRR">IRR</a>、<a href="#MIRR">MIRR</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">期間数の計算</p></td>
+<td align="left" valign="top"><p class="table"><a href="#NPer">NPer</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">支払い額の計算</p></td>
+<td align="left" valign="top"><p class="table"><a href="#IPmt">IPmt</a>、<a href="#Pmt">Pmt</a>、<a href="#PPmt">PPmt</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">現在価値の計算</p></td>
+<td align="left" valign="top"><p class="table"><a href="#NPV">NPV</a>、<a href="#PV">PV</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_入力と出力のキーワードの概要">入力と出力のキーワードの概要</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルにアクセスするかファイルを作成します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Open">Open</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルを閉じます。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Close">Close</a>、<a href="#Reset">Reset</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">出力の表示を管理します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Format">Format</a>、<a href="#Print">Print</a>、
+<a href="#Print #">Print #</a>、<a href="#Spc">Spc</a>、<a href="#Tab">Tab</a>、<a href="#Width #">Width #</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルをコピーします。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#FileCopy">FileCopy</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルに関する情報を取得します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#EOF">EOF</a>、<a href="#FileAttr">FileAttr</a>、
+<a href="#FileDateTime">FileDateTime</a>、<a href="#FileLen">FileLen</a>、<a href="#FreeFile">FreeFile</a>、
+<a href="#GetAttr">GetAttr</a>、<a href="#Loc">Loc</a>、<a href="#LOF">LOF</a>、<a href="#Seek">Seek</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルを管理します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Dir">Dir</a>、<a href="#Kill">Kill</a>、<a href="#Lock">Lock</a>、<a href="#Unlock">Unlock</a>、<a href="#Name">Name</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルを読み取ります。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Get">Get</a>、<a href="#Input">Input</a>、<a href="#Input #">Input #</a>、
+<a href="#Line Input #">Line Input #</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルの長さを返します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#FileLen">FileLen</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイル属性を設定または取得します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#FileAttr">FileAttr</a>、 <a href="#GetAttr">GetAttr</a>、 <a href="#SetAttr">SetAttr</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイル内の読み取り/書き込み位置を設定します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Seek">Seek</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ファイルに書き込みます。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Print #">Print #</a>、<a href="#Put">Put</a>、
+<a href="#Write #">Write #</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_数学キーワード_サマリー">数学キーワード サマリー</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">アクション </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">三角関数を派生させる。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Atn">Atn</a>、<a href="#Cos">Cos</a>、<a href="#Sin">Sin</a>、<a href="#Tan">Tan</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">一般的な計算。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Exp">Exp</a>、<a href="#Log">Log</a>、<a href="#Sqr">Sqr</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">乱数を生成する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Randomize">Randomize</a>、<a href="#Rnd">Rnd</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">絶対値を取得する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Abs">Abs</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">式の符号を取得する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Sgn">Sgn</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">数値変換を実行する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Fix">Fix</a>、<a href="#Int">Int</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_その他のキーワード_サマリー">その他のキーワード サマリー</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">アクション </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">保留中のイベントを処理する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#DoEvents">DoEvents</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">他のプログラムを実行する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#AppActivate">AppActivate</a>、<a href="#Shell">Shell</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">キー操作をアプリケーションへ送信する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#SendKeys">SendKeys</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">コンピューターから警告音を鳴らす。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Beep">Beep</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">システム</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Environ">Environ</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">コマンド ライン文字列を提供する。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Command">Command</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">オートメーション</p></td>
+<td align="left" valign="top"><p class="table"><a href="#CreateObject">CreateObject</a>、<a href="#GetObject">GetObject</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">色</p></td>
+<td align="left" valign="top"><p class="table"><a href="#QBColor">QBColor</a>、<a href="#RGB">RGB</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_レジストリ_キーワードの概要">レジストリ キーワードの概要</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">プログラムの設定を削除します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#DeleteSetting">DeleteSetting</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">プログラムの設定を読み込みます。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#GetSetting">GetSetting</a>、<a href="#GetAllSettings">GetAllSettings</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">プログラムの設定を保存します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#SaveSetting">SaveSetting</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_文字列操作キーワードの概要">文字列操作キーワードの概要</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="50%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">2 個の文字列を比較します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#StrComp">StrComp</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列を変換します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#StrConv">StrConv</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">小文字または大文字に変換します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Format">Format</a>、<a href="#Lcase">Lcase</a>、<a href="#Ucase">Ucase</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字を繰り返し並べた文字列を作成します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Space">Space</a>、<a href="#String">String</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列の長さを検索します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Len">Len</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列の書式設定を行います。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Format">Format</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列を中央に配置します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#LSet">LSet</a>、<a href="#Rset">Rset</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列を操作します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#InStr">InStr</a>、<a href="#Left">Left</a>、<a href="#LTrim">LTrim</a>、
+<a href="#Mid">Mid</a>、<a href="#Right">Right</a>、<a href="#RTrim">RTrim</a>、<a href="#Trim">Trim</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列の比較規則を設定します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Option Compare">Option Compare</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ASCII 値および ANSI 値を使用します。</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Asc">Asc</a>、<a href="#Chr">Chr</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_変数と定数のキーワード_サマリー">変数と定数のキーワード サマリー</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Action </th>
+<th align="left" valign="top">キーワード</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">値の代入</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Let">Let</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">変数または定数の宣言</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Const">Const</a>、<a href="#Dim">Dim</a>、<a href="#Private">Private</a>、
+<a href="#Public">Public</a>、<a href="#New">New</a>、<a href="#Static">Static</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">モジュールをプライベートとして宣言</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Option Private Module">Option Private Module</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">変数に関する情報の取得</p></td>
+<td align="left" valign="top"><p class="table"><a href="#IsArray">IsArray</a>、 <a href="#IsDate">IsDate</a>、 <a href="#IsEmpty">IsEmpty</a>、 <a href="#IsError">IsError</a>、 <a href="#IsMissing">IsMissing</a>、 <a href="#IsNull">IsNull</a>、
+<a href="#IsNumeric">IsNumeric</a>、 <a href="#isobject">isobject</a>、 <a href="#TypeName">TypeName</a>、
+<a href="#VarType">VarType</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">現在のオブジェクトの参照</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Me">Me</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">変数の明示的宣言を要求</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Option Explicit">Option Explicit</a></p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">既定のデータ型の設定</p></td>
+<td align="left" valign="top"><p class="table"><a href="#Deftype">Deftype</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -10206,13 +13091,13 @@ d.Add "c", "カイロ"
 処理できます。</p></div>
 <div class="paragraph"><p><a href="#FileSystemObject のオブジェクト">FileSystemObject のオブジェクト</a></p></div>
 <div class="paragraph"><p>FileSystemObject オブジェクト モデルのオブジェクトおよびコレクションの一覧を示します。</p></div>
-<div class="paragraph"><p>FileSystemObject のプログラミング</p></div>
+<div class="paragraph"><p><a href="#FileSystemObject のプログラミング">FileSystemObject のプログラミング</a></p></div>
 <div class="paragraph"><p>FileSystemObject を使用したプログラミングについて説明します。</p></div>
-<div class="paragraph"><p>ドライブとフォルダの操作</p></div>
+<div class="paragraph"><p><a href="#ドライブとフォルダの操作">ドライブとフォルダの操作</a></p></div>
 <div class="paragraph"><p>FileSystemObject を使用して、フォルダのコピーおよび移動について説明します。また、ドライブやフォルダ情報の取得方法について説明します。</p></div>
-<div class="paragraph"><p>ファイルの操作</p></div>
+<div class="paragraph"><p><a href="#ファイルの操作">ファイルの操作</a></p></div>
 <div class="paragraph"><p>FileSystemObject を使用して、ファイル操作を行う方法について説明します。</p></div>
-<div class="paragraph"><p>FileSystemObject のサンプル コード</p></div>
+<div class="paragraph"><p><a href="#FileSystemObject のサンプル コード">FileSystemObject のサンプル コード</a></p></div>
 <div class="paragraph"><p>FileSystemObject オブジェクト モデルで利用可能な機能を取り扱った具体的な例を示します。</p></div>
 <div class="sect4">
 <h5 id="_filesystemobject_のオブジェクト_a_id_filesystemobject_のオブジェクト_a">FileSystemObject のオブジェクト<a id="FileSystemObject のオブジェクト"></a></h5>
@@ -10233,17 +13118,90 @@ Windows Scripting Host による Microsoft Windows 用バッチ ファイルの�
 </li>
 <li>
 <p>
-スクリプト コントロールによる、他の言語で開発されたアプリケーションへのスクリプト機能の提供
+スクリプト コントロールによる、他の言語で開発されたアプリケーションへのスク
+ リプト機能の提供
 </p>
 </li>
 </ul></div>
-<div class="paragraph"><p>クライアント側で FSO を使用すると、クライアント側のローカル ファイル システムに望ましくないアクセスを受ける可能性があります。このようなセキュリティ上の重大な問題があるため、このドキュメントでは、サーバー側の Web ページで実行されるスクリプトの作成に、FSO オブジェクト モデルを使用します。サーバー側で使用されるため、Internet Explorer の既定の設定では FileSystemObject オブジェクトをクライアント側で使用することができません。これらの既定値を無効にすると、ローカル システムのファイル システムに望ましくないアクセスを受け、ファイル システムの整合性やデータそのものが失われたり、さらに重大な障害が発生する恐れがあります。</p></div>
-<div class="paragraph"><p>FSO オブジェクト モデルを使用することにより、サーバー側のアプリケーションでは、フォルダの作成、変更、移動、および削除を行ったり、特定のフォルダがあるかどうかを確認し、場合によってはその位置を探し当てることができるようになります。名前、作成日、最終更新日など、フォルダに関する情報も検索できます。</p></div>
-<div class="paragraph"><p>FSO オブジェクト モデルでは、ファイルの処理も簡単になっています。ファイル処理の主要な目標は、データをアクセスしやすい形式に変換し、容量とリソースの両面において効率的に保存することです。ユーザーは、ファイルの作成、データの挿入および変更、データの出力 (読み込み) を実行できなければなりません。Microsoft Access や Microsoft SQL Server などのデータベースにデータを保存するとアプリケーションのオーバーヘッドが大幅に増加するため、バイナリ ファイルまたはテキスト ファイルにデータを保存するのが最も効率的です。ユーザー自身がオーバーヘッドの増大を望まないこともあれば、フル装備のデータベースに関連した特別な機能が、データへのアクセスに必要ないこともあります。</p></div>
-<div class="paragraph"><p>FSO オブジェクト モデルは、スクリプティング タイプ ライブラリ (Scrrun.dll) に格納されており、TextStream オブジェクトによってテキスト ファイルの作成および操作をサポートします。バイナリ ファイルの作成および操作については、まだサポートしていませんが、将来サポートする予定です。</p></div>
-<div class="paragraph"><p>Version is 0.1</p></div>
-<div class="paragraph"><p>Visual Basic の概念に関するトピック | Microsoft Docs
-<a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-conceptual-topics">https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-conceptual-topics</a></p></div>
+<div class="paragraph"><p>クライアント側で FSO を使用すると、クライアント側のローカル ファイル システム
+に望ましくないアクセスを受ける可能性があります。このようなセキュリティ上の重大
+な問題があるため、このドキュメントでは、サーバー側の Web ページで実行されるス
+クリプトの作成に、FSO オブジェクト モデルを使用します。サーバー側で使用される
+ため、Internet Explorer の既定の設定では FileSystemObject オブジェクトをクライ
+アント側で使用することができません。これらの既定値を無効にすると、ローカル シ
+ステムのファイル システムに望ましくないアクセスを受け、ファイル システムの整合
+性やデータそのものが失われたり、さらに重大な障害が発生する恐れがあります。</p></div>
+<div class="paragraph"><p>FSO オブジェクト モデルを使用することにより、サーバー側のアプリケーションでは、
+フォルダの作成、変更、移動、および削除を行ったり、特定のフォルダがあるかどうか
+を確認し、場合によってはその位置を探し当てることができるようになります。名前、
+作成日、最終更新日など、フォルダに関する情報も検索できます。</p></div>
+<div class="paragraph"><p>FSO オブジェクト モデルでは、ファイルの処理も簡単になっています。ファイル処理
+の主要な目標は、データをアクセスしやすい形式に変換し、容量とリソースの両面にお
+いて効率的に保存することです。ユーザーは、ファイルの作成、データの挿入および変
+更、データの出力 (読み込み) を実行できなければなりません。Microsoft Access や
+Microsoft SQL Server などのデータベースにデータを保存するとアプリケーションの
+オーバーヘッドが大幅に増加するため、バイナリ ファイルまたはテキスト ファイルに
+データを保存するのが最も効率的です。ユーザー自身がオーバーヘッドの増大を望まな
+いこともあれば、フル装備のデータベースに関連した特別な機能が、データへのアクセ
+スに必要ないこともあります。</p></div>
+<div class="paragraph"><p>FSO オブジェクト モデルは、スクリプティング タイプ ライブラリ (Scrrun.dll) に
+格納されており、TextStream オブジェクトによってテキスト ファイルの作成および操
+作をサポートします。バイナリ ファイルの作成および操作については、まだサポート
+していませんが、将来サポートする予定です。</p></div>
+</div>
+<div class="sect4">
+<h5 id="_filesystemobject_のオブジェクト_a_id_filesystemobject_のオブジェクト_a_2">FileSystemObject のオブジェクト<a id="FileSystemObject のオブジェクト"></a></h5>
+<div class="paragraph"><p>FileSystemObject (FSO) オブジェクトのモデルには、次のオブジェクトとコレクショ
+ンが含まれています。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">オブジェクトまたはコレクション </th>
+<th align="left" valign="top">内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">FileSystemObject</p></td>
+<td align="left" valign="top"><p class="table">メイン オブジェクト。ドライブ、フォルダ、およびファイルに関して、作成、削除、情報の取得などの一般的な操作を行うためのメソッドとプロパティが格納されています。このオブジェクトに関連付けられたメソッドの多くは、他の FSO オブジェクトのメソッドを複製します。これらの複製されたメソッドは、便宜的に用意されています。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Drive</p></td>
+<td align="left" valign="top"><p class="table">オブジェクト。共有名や空き容量など、システムに接続されたドライブについての情報を収集するためのメソッドとプロパティが格納されています。"ドライブ" は、ハード・ディスクだけでなく、CD-ROM ドライブや RAM ディスクも対象になります。また、ドライブは、必ずしもシステムに物理的に接続されている必要はなく、ネットワークを介して論理的に接続されている場合も対象になります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Drives</p></td>
+<td align="left" valign="top"><p class="table">コレクション。システムに物理的または論理的に接続されたドライブの一覧を提供します。Drives コレクションには、種類に関係なくあらゆるドライブが含まれます。リムーバブル メディアは、ドライブにメディアがセットされていなくても Drives コレクションに追加されます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">File</p></td>
+<td align="left" valign="top"><p class="table">オブジェクト。ファイルの作成、削除、または移動に使用するためのメソッドとプロパティが格納されています。ファイル名、パス、およびその他のプロパティをシステムから取得することもできます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Files</p></td>
+<td align="left" valign="top"><p class="table">コレクション。フォルダに格納されたすべてのファイルの一覧を提供します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Folder</p></td>
+<td align="left" valign="top"><p class="table">オブジェクト。フォルダの作成、削除、または移動に使用するためのメソッドとプロパティが格納されています。フォルダ名、パス、およびその他のプロパティをシステムから取得することもできます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Folders</p></td>
+<td align="left" valign="top"><p class="table">コレクション。Folder オブジェクトに格納されたすべてのフォルダの一覧を提供します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">TextStream</p></td>
+<td align="left" valign="top"><p class="table">オブジェクト。テキスト ファイルを読み書きできます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -10254,7 +13212,7 @@ Windows Scripting Host による Microsoft Windows 用バッチ ファイルの�
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-10-17 04:13:05 JST
+Last updated 2020-10-22 22:20:27 JST
 </div>
 </div>
 </body>

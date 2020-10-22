@@ -1,4 +1,4 @@
-= VBAreference
+= Visual Basic for Applications (VBA) の言語リファレンス
 // 著者の名前(省略可)<メールアドレス(省略可能)>
 // バージョンや作成日(省略可)
 :Author:	yossym
@@ -55,76 +55,1460 @@ https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-he
 /////
 
 
+== Visual Basic 言語リファレンス
+
+Visual Basic 言語 (すべてのメソッド、プロパティ、ステートメント、関数、演算子、
+およびオブジェクト) に関するドキュメントが用意されています。
 
 
-== 変数
 
-hoge, fuga, piyo, hogera
+* 文字セット
+* 定数
+* データ型
+* ディレクティブ
+* イベント
+* 関数
+* キーワード
+* Microsoft Forms
+* オブジェクト
+* Operators
+* ステートメント
+* Visual Basic アドイン モデル
 
-WorkBook::
-        wb
-WorkSheet::
-        ws
-Range::
-        rng, rg
+.関連項目
 
-最初::
-        FirstRow, FirstColumn
-最終::
-        LastRow, LastColumn
+* メソッドとプロパティ (オブジェクトの下になりました)
+* オブジェクト ブラウザー
+* Visual Basic ユーザー インターフェイスのヘルプ
+* Office 用オブジェクト ライブラリ リファレンス (メンバー、プロパティ、メソッド)
+* Office クライアントの開発リファレンス
 
+=== 文字セット
 
-Controls ::
-	ctl
+* 文字セット (0 から 127)
+* 文字セット (128 から 255)
 
-=== 関数系
+.関連項目
 
-テキスト読み込み::
-	s
+=== 定数 (Visual Basic for Applications)
 
-Variant::
-	Var
+==== カレンダー定数
 
+    2018/12/11
 
-=== FilesystemObject
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
 
-fso
+[cols="1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbCalGreg |.0 |グレゴリオ暦を使用することを示します。
+|vbCalHijri |1-d |回教暦 (イスラム暦) カレンダーを使用することを示します。
+|===
 
-=== その他
+==== CallType 定数
 
-閾値::
-	Threshold
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
 
-整列::
-	Alignment
-
-
-下限値::
-	lower limit
-
-上限値::
-	upper limit
-
-中間値::
-	Median
+[cols="1,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbMethod |1-d |メソッドが呼び出されることを指定します。
+|vbGet |pbm-2 |Property Get プロシージャを示します。
+|vbLet |2/4 |Property Let プロシージャを示します。
+|vbSet |8 |Property Set プロシージャを示します。
+|===
 
 
-summary	|まとめ
+==== カラー定数
 
-== 初期値
+[cols="3,3,1",options="header"]
+|===
+|定数 |値 |説明
+|vbBlack |0x0 |黒
+|vbRed |0xFF |赤
+|vbGreen |0xFF00 |緑
+|vbYellow |0xFFFF |黄
+|vbBlue |0xFF0000 |青
+|vbMagenta |0xFF00FF |紫
+|vbCyan |0xFFFF00 |シアン
+|vbWhite |0xFFFFFF |白
+|===
 
-===  長さ0の文字列（""）
-===  値0の文字列（vbNullString）
+==== 比較定数
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbUseCompareOption |-1 |Option Compare ステートメントの設定を使用して比較を実行します。
+|vbBinaryCompare |.0 |バイナリ比較を実行します。
+|vbTextCompare |1-d |テキスト比較を実行します。
+|vbDatabaseCompare |pbm-2 |Microsoft Access (Windows のみ) で、データベースに格納されている情報に基づいて比較を実行します。
+|===
+
+
+
+
+
+
+==== Tristate 定数
+
+この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
+に参照される場合にのみ使用できます。
+
+[options="header"]
+|===
+|定数 |値 |説明
+|vbTrue |-1 |True
+|vbFalse |;0 |False
+|vbUseDefault |-2 |既定の設定を使用
+|===
+
+
+=== https:
+//docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary[データ型の概要 | Microsoft Docs][[データ型の概要]]
+
+データ型は、保持できるデータの種類を決定する変数の特性です。 データ型には、次
+の表で示されているもの、ユーザー定義型、およびオブジェクトに固有の型が含まれま
+す。
+
+組み込みのデータ型を設定する
+
+次の表では、サポートされる データ型および記憶域のサイズと範囲を示します。
+組み込みのデータ型を設定する
+
+[options="header"]
+|===
+|データ型 |記憶領域サイズ |範囲
+|Boolean |2 バイト |True または False
+|Byte |1 バイト |0 ～ 255
+|Collection |不明 |不明
+|Currency (スケーリングされた整数) |8 バイト |-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807
+|Date |8 バイト |100 年 1 月 1 日 から 9999 年 12 月 31 日
+|Decimal |14 バイト |+/-79,228,162,514,264,337,593,543,950,335 (小数点なし) +
++/-7.9228162514264337593543950335 (小数点以下 28 桁) +
+ +
++/-0.0000000000000000000000000001 (0 ではない最小の値) +
+|Dictionary |不明 |不明
+|Double (倍精度浮動小数点数) |8 バイト |-1.79769313486231E308 から-4.94065645841247E-324 (負の値) +
+ +
+4.94065645841247E-324 から 1.79769313486232E308 (正の値)
+|Integer |2 バイト |-32,768 〜 32,767
+|Long (Long 整数) |4 バイト |-2,147, 483,648 〜 2,147, 483,647
+|LongLong (LongLong 整数) |8 バイト |-9,223,372,036,854,775,808 から 9,223,372, 036,854,775,807 +
+ +
+[red]#64 ビット プラットフォームでのみ有効。#
+|LongPtr (32 ビット システムでは Long 整数、64 ビット システムでは LongLong 整数) |32 ビット システムでは 4 バイト +
+ +
+64 ビット システムでは 8 バイト |-2,147,483,648 から 2,147,483,647 (32 ビットシステム) +
+ +
+-9,223,372,036,854,775,808 から 9,223,372,036,854,775,807 (64 ビット システム)
+|Object |4 バイト |任意の Object 参照
+|Single (単精度浮動小数点数) |4 バイト |-3.402823E38 から -1.401298E-45 (負の値) +
+ +
+1.401298E-45 から 3.402823E38 (正の値)
+|String (可変長) |10 バイト + 文字列の長さ |0 〜 約 20 億
+|文字列型 (String) (固定長) |文字列の長さ |1 〜 約 65,400
+|Variant (数値) |16 バイト |最大で Double の範囲までの任意の数値
+|バリアント型 (Variant) (文字) |22 バイト + 文字列長 (64 ビット システムでは 24 バイト) |可変長 文字列型 と同じ範囲
+|ユーザー定義 (Type を使用) |要素に必要な数 |各要素の範囲は、そのデータ型の範囲と同じです。
+|===
+
+
+
+
+.データ型を変換する
+
+式を特定のデータ型に強制変換する次の関数の使用方法の例については、「データ型変
+換関数」をご覧ください。CBool、CByte、CCur、CDate、CDbl、CDec、CInt、CLng、
+CLngLng、CLngPtr、CSng、CStr、CVar。
+
+次の各関数については、それぞれのページをご覧ください。CVErr、Fix、Int。
+
+
+WARNING: CLngLng は、64 ビット プラットフォームでのみ有効です。
+
+.データ型を確認する
+
+データ型を確認するには、以下の関数をご覧ください。
+
+* IsArray
+* IsDate
+* IsEmpty
+* IsError
+* IsMissing
+* IsNull
+* IsNumeric
+* IsObject
+
+.CStr の戻り値
+
+
+ expression の値
+CStr の戻り値
+ 
+:-----------------
+:-----------
+ 
+Boolean
+True または False を含む文字列。
+ 
+Date
+システムの短い日付形式の日付を含む文字列。
+ 
+Empty
+長さ 0 の文字列 ("")。
+ 
+Error
+Error という単語とエラー番号を含む文字列。
+ 
+Null
+実行時エラー。
+ 
+その他の数値
+数字を含む文字列。
+
+
+
+
+
+=== ディレクティブ
+
+[cols="3,4",options="header"]
+|===
+|コンパイラ ディレクティブ |操作
+|<<Const ディレクティブ,Const ディレクティブ>> |コンパイラ定数を定義します。
+|<<If...Then...Else ディレクティブ,If...Then...Else ディレクティブ>> |選択したコード ブロックをコンパイルします。
+|===
+
+==== #Const ディレクティブ
+
+Visual Basic の 条件付きコンパイラ定数を定義するために使用されます。
+
+.構文
 
 [source,vbscript]
 ----
-    Dim s As String
-    s = "a"
-    Debug.Print StrPtr(s)
-    s = ""
-    Debug.Print StrPtr(s)
-    s = vbNullString
-    Debug.Print StrPtr(s)
+#Const constname = expression
 ----
+
+#Const コンパイラ ディレクティブの構文には、次の指定項目があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|constname |必須。Variant (String)。 定数の名前です。変数の名前付け規則に従います。
+|expression |必須。 リテラル、その他の条件付きコンパイラ定数、またはを除くすべての算術演算子または論理演算子を含む組み合わせ。
+|===
+
+.注釈
+
+条件付きコンパイラ定数は常に、定義されているモジュールの Private 定数になりま
+す。 #Constディレクティブを使用して、パブリックコンパイラ定数を作成することは
+できません。 Public コンパイラ定数は、ユーザー インターフェイスでのみ作成でき
+ます。
+
+expression で使用できるのは、条件付きコンパイラ定数とリテラルだけです。 Const
+を使用して定義された標準の定数を使用したり、未定義の定数を使用したりすると、エ
+ラーが発生します。 反対に、 #Const キーワードを使用して定義された定数は、条件
+付きコンパイルにのみ使用できます。
+
+条件付きコンパイラ定数は、コード内の位置に関わらず、常にモジュール レベルで評
+価されます。
+
+.例
+
+この例では、#Const ディレクティブを使用して、#If...#Else...#End If コンストラ
+クトで使用するための条件付きコンパイラ定数を宣言します。
+
+
+[source,vbscript]
+----
+#Const DebugVersion = 1 ' Will evaluate true in #If block.
+----
+
+==== #If...Then...#Else ディレクティブ
+
+
+選択した Visual Basic コードのブロックを条件付きでコンパイルします。
+
+.構文
+
+[source,vbscript]
+----
+#If expression Then
+statements
+[ #ElseIf expression-n Then
+[ elseifstatements ]]
+[ #Else
+[ elsestatements ]]
+#End If
+----
+
+#If...Then...#Else ディレクティブの構文には、次の指定項目があります。
+
+.構文
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|expression |必ず指定します。 1 つ以上の条件付きコンパイラ定数、リテラル、および演算子のみで構成された、True または False に評価される任意の式です。
+|statements |必須。 関連付けられている式が True の場合に評価される Visual Basic プログラムの行またはコンパイラ ディレクティブです。
+|expression-n |省略可能。 1 つ以上の条件付きコンパイラ定数、リテラル、および演算子のみで構成された、True または False に評価される任意の式です。
+|elseifstatements |省略可能。 expression-n が True の場合に評価される 1 つ以上のプログラム行またはコンパイラ ディレクティブです。
+|elsestatements |省略可能です。 前の expression および expression-n がいずれも True に評価されなかった場合に評価される 1 つ以上のプログラム行またはコンパイラ ディレクティブです。
+|===
+
+.解説
+
+#If...Then...#Else ディレクティブの動作は If...Then...Else ステートメントと同
+じです。ただし、#If、#Else、#ElseIf、および #End If の各ディレクティブには単一
+行の形式がありません。したがって、これらのディレクティブと同じ行に他のコードを
+含めることはできません。
+
+条件付きコンパイルは、通常、同じプログラムを異なるプラットフォーム用にコンパイ
+ルするために使用されます。 また、実行可能なファイルにデバッグ コードが含まれな
+いようにするためにも使用されます。 条件付きコンパイルで除外されたコードは、最
+終的な実行可能ファイルから完全に削除されるため、サイズやパフォーマンスに影響を
+与えることはありません。
+
+各評価の結果に関係なく、すべての式が評価されます。 したがって、式で使用されて
+いるすべての定数が定義されている必要があります。定義されていない定数は Empty
+として評価されます。
+
+CAUTION:	Option Compare ステートメントは、#If ステートメントと #ElseIf
+ステートメントの式には影響を与えません。 条件付きコンパイラ ディレクティブの式
+は常に Option Compare Text で評価されます。
+
+
+.例
+
+この例では、#If...Then...#Else コンストラクトで条件付きコンパイラ定数を参照し
+て、特定のステートメントをコンパイルするかどうかを決定します。
+
+[source,vbscript]
+----
+' If Mac evaluates as true, do the statements following the #If. 
+#If Mac Then 
+ '. Place exclusively Mac statements here. 
+ '. 
+ '. 
+' Otherwise, if it is a 32-bit Windows program, do this: 
+#ElseIf Win32 Then 
+ '. Place exclusively 32-bit Windows statements here. 
+ '. 
+ '. 
+' Otherwise, if it is neither, do this: 
+#Else 
+ '. Place other platform statements here. 
+ '. 
+ '. 
+#End If
+----
+
+=== イベント (Visual Basic for Applications)
+
+* <<Activate、Deactivate, Activate、Deactivate>>
+* <<Initialize, Initialize>>
+* <<QueryClose, QueryClose>>
+* <<Resize, Resize>>
+* <<Terminate, Terminate>>
+
+==== Activate イベント、Deactivate イベント[[Activate、Deactivate]]
+
+Activate イベントは、オブジェクトがアクティブ ウィンドウになると発生します。
+Deactivate イベントは、オブジェクトがアクティブ ウィンドウでなくなると発生しま
+す。
+
+.構文
+
+
+[source,vbscript]
+----
+Private Sub object_Activate( )
+Private Sub object_Deactivate( )
+----
+
+object のプレースホルダーは、評価結果が [適用先] リストのオブジェクトとなるオ
+ブジェクトの式を表します。
+
+.解説
+
+コードで Show メソッドを使用すると、オブジェクトをアクティブにできます。
+
+Activate イベントは、オブジェクトが表示されている場合のみ発生します。 <<Load,
+Load>> で
+読み込まれた <<UserForm,UserForm>> は、<<Show,Show>> メソッドを使用しない限り
+表示されません。
+
+Activate イベントと Deactivate イベントは、アプリケーション内でフォーカスが移
+動された場合のみ発生します。 別のアプリケーションで、オブジェクトからまたはオ
+ブジェクトにフォーカスが移動されても、いずれのイベントもトリガーされません。
+
+Deactivate イベントは、オブジェクトの読み込み解除では発生しません。
+
+
+
+.例
+
+次のコードでは、UserForm1 と UserForm2 の 2 つの UserForm を使用しています。
+これらのプロシージャを UserForm1 モジュールにコピーしてから、UserForm2 を追加
+します。 UserForm1 のキャプションが、その Activate イベント プロシージャに作成
+されます。 ユーザーが UserForm1 のクライアント領域をクリックすると、UserForm2
+が読み込まれて表示され、UserForm1 の Deactive イベントがトリガーされ、キャプシ
+ョンが変更されます。
+
+[source,vbscript]
+----
+' Activate event for UserForm1
+Private Sub UserForm_Activate()
+    UserForm1.Caption = "Click my client area"
+End Sub
+
+' Click event for UserForm1
+Private Sub UserForm_Click()
+    Load UserForm2
+    UserForm2.StartUpPosition = 3
+    UserForm2.Show
+End Sub
+
+' Deactivate event for UserForm1
+Private Sub UserForm_Deactivate()
+    UserForm1.Caption = "I just lost the focus!"
+    UserForm2.Caption = "Focus just left UserForm1 and came to me"
+End Sub
+----
+
+
+
+==== Initialize イベント[[Initialize]]
+
+オブジェクトが読み込まれてから表示されるまでに発生します。
+
+.構文
+
+[source,vbscript]
+----
+Private Subobject_Initialize( )
+----
+
+object プレースホルダーは、[適用対象] リスト内のオブジェクトに評価されるオブジ
+ェクト式を表します。
+
+
+.解説
+
+通常、Initialize イベントは、アプリケーションまたは UserForm を使用できるよう
+に準備するために使用されます。変数には初期値が割り当てられ、コントロールは、初
+期化データを収容できるように移動またはサイズ変更される場合があります。
+
+.例
+
+次の例は、プログラム内に 2 つの UserForm があると仮定しています。 UserForm1 の
+Initialize イベントで、UserForm2 が読み込まれて表示されます。 ユーザーが
+UserForm2 をクリックすると、UserForm2 は非表示となり、UserForm1 が表示されます。
+UserForm1 がクリックされると、UserForm2 が再度表示されます。
+
+[source,vbscript]
+----
+' This is the Initialize event procedure for UserForm1
+Private Sub UserForm_Initialize()
+    Load UserForm2
+    UserForm2.Show
+End Sub
+' This is the Click event of UserForm2
+Private Sub UserForm_Click()
+    UserForm2.Hide
+End Sub
+
+' This is the click event for UserForm1
+Private Sub UserForm_Click()
+    UserForm2.Show
+End Sub
+----
+
+
+
+
+==== QueryClose イベント[[QueryClose]]
+
+UserForm が閉じる前に発生します。
+
+.構文
+
+[source,vbscript]
+----
+Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
+----
+
+QueryClose イベントの構文には、次の指定項目があります。
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|Cancel |整数。 この引数を 0 以外の値に設定すると、読み込み済みのすべてのユーザー フォームで QueryClose イベントが停止され、UserForm とアプリケーションを閉じられなくなります。
+|CloseMode |QueryClose イベントの原因を示す値または定数です。
+|===
+
+
+.戻り値
+
+CloseMode 引数は、次の値を返します。
+
+[cols="1,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbFormControlMenu |.0 |ユーザーが、UserForm のコントロールメニューで [閉じる] コマンドを選択しました。
+|vbFormCode |1-d |コードから Unload ステートメントが呼び出されます。
+|vbAppWindows |pbm-2 |現在の Windows オペレーティング環境セッションが終了しようとしています。
+|vbAppTaskManager |1/3 |Windows タスク マネージャーがアプリケーションを閉じようとしています。
+|===
+
+これらの定数は、オブジェクト ブラウザーの [Visual Basic for Applications] オブ
+ジェクト ライブラリに一覧表示されます。 vbFormMDIForm もオブジェクト ブラウザ
+ーで指定されますが、まだサポートされていません。
+
+.解説
+
+このイベントは通常、アプリケーションが閉じる前に、完了していないタスクがアプリ
+ケーションのユーザー フォームに含まれていないかどうかを確認するために使用され
+ます。 たとえば、ユーザーが UserForm 内の新しいデータを保存していない場合、デ
+ータの保存を求めるプロンプトをアプリケーションで表示できます。
+
+アプリケーションが閉じるときに、QueryClose イベント プロシージャを使用して
+Cancel プロパティを True に設定することで、閉じるプロセスを停止できます。
+
+.例
+
+次のコードでは、UserFormクライアント領域をクリックして閉じるようにユーザーに強
+制します。 ユーザーがタイトル バーの [閉じる] ボックスを使用しようとすると、
+Cancel パラメーターが 0 以外の値に設定され、終了できなくなります。 一方、ユー
+ザーがクライアント領域をクリックした場合は、CloseMode の値が 1 となり、Unload
+Me が実行されます。
+
+[source,vbscript]
+----
+Private Sub UserForm_Activate()
+    Me.Caption = "You must Click me to kill me!"
+End Sub
+
+Private Sub UserForm_Click()
+  Unload Me
+End Sub
+
+Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
+    'Prevent user from closing with the Close box in the title bar.
+    If CloseMode <> 1 Then Cancel = 1
+    Me.Caption = "The Close box won't work! Click me!"
+End Sub
+----
+
+
+==== Resize イベント[[Resize]]
+
+
+ユーザー フォームのサイズが変更されると発生します。
+
+.構文
+
+[source,vbscript]
+----
+Private Sub UserForm_Resize( )
+----
+
+.解説
+
+Resize イベント プロシージャを使用すると、親 UserForm のサイズが変更されたとき
+に コントロールを移動したりそのサイズを変更したりすることができます。 このイベ
+ント プロシージャを使用して、変数やプロパティを再計算することもできます。
+
+
+.例
+
+次の例では、Activate イベントと Click イベントを使用して、UserForm の Resize
+イベントをトリガーする方法を示しています。 ユーザーがフォームのクライアント領
+域をクリックすると、フォームが拡大または縮小してタイトル バーに新しい高さが示
+されます。 Tag プロパティを使用して UserForm の最初の高さを格納しています。
+
+[source,vbscript]
+----
+' Activate event for UserForm1
+Private Sub UserForm_Activate()
+    UserForm1.Caption = "Click me to make me taller!"
+    Tag = Height    ' Save the initial height.
+End Sub
+
+' Click event for UserForm1
+Private Sub UserForm_Click()
+    Dim NewHeight As Single
+    NewHeight = Height
+    ' If the form is small, make it tall.
+    If NewHeight = Val(Tag) Then
+        Height = Val(Tag) * 2
+    Else
+    ' If the form is tall, make it small.
+        Height = Val(Tag)
+    End If
+End Sub
+
+' Resize event for UserForm1
+Private Sub UserForm_Resize()
+    UserForm1.Caption = "New Height: " & Height & "  " & "Click to resize me!"
+End Sub
+----
+
+
+==== Terminate イベント[[Terminate]]
+
+オブジェクトを参照するすべての変数が Nothing に設定され、オブジェクトのインス
+タンスへの参照がメモリからすべて削除されるか、オブジェクトへの最後の参照がスコ
+ープ外になったときに発生します。
+
+.構文
+
+[source,vbscript]
+----
+Private Sub object_Terminate( )
+----
+
+object のプレースホルダーは、評価結果が [適用先] リストのオブジェクトとなるオ
+ブジェクトの式を表します。
+
+.解説
+
+Terminate イベントは、オブジェクトの読み込み解除後に発生します。 メモリから
+UserForm またはクラスのインスタンスが削除された場合、アプリケーションは異常終
+了しているため、**Terminate ** イベントはトリガーされません。
+
+たとえば、クラスまたは UserForm の既存のすべてのインスタンスをメモリから削除す
+る前にアプリケーションが End ステートメントを起動した場合、Terminate イベント
+はそのクラスまたは UserForm に対してトリガーされません。
+
+
+.例
+
+ユーザーがフォームを閉じるためにクライアント領域をクリックすると、次のイベント
+プロシージャにより UserForm で警告音が数秒間鳴ります。
+
+[source,vbscript]
+----
+Private Sub UserForm_Activate()
+    UserForm1.Caption = "Click me to kill me!"
+End Sub
+
+Private Sub UserForm_Click()
+  Unload Me
+End Sub
+
+Private Sub UserForm_Terminate()
+    Dim Count As Integer
+    For Count = 1 To 100
+        Beep
+    Next
+End Sub
+----
+
+
+=== 関数 (Visual Basic for Applications)
+
+
+.変換関数
+
+* <<Asc,Asc>>
+* <<Chr,Chr>>
+* <<CVErr,CVErr>>
+* <<Format,Format>>
+* 16 進数
+* <<Oct,Oct>>
+* <<Str,Str>>
+* <<Val,Val>>
+
+.数学関数
+
+* <<Abs,Abs>>
+* <<Atn,Atn>>
+* <<Cos,Cos>>
+* <<Derived Math,Derived Math>>
+* <<Exp,Exp>>
+* <<Int,Int>>、<<Fix,Fix>>
+* <<Log,Log>>
+* <<Rnd,Rnd>>
+* <<Sgn,Sgn>>
+* <<Sin,Sin>>
+* <<Sqr,Sqr>>
+* <<Tan,Tan>>
+
+.データ型変換関数
+
+* データ型変換関数
+
+.その他の関数
+
+* <<Array,Array>>
+* <<CallByName,CallByName>>
+* <<Choose,Choose>>
+* コマンド
+* <<CreateObject,CreateObject>>
+* <<CurDir,CurDir>>
+* <<Date,Date>>
+* <<DateAdd,DateAdd>>
+* <<DateDiff,DateDiff>>
+* <<DatePart,DatePart>>
+* <<DateSerial,DateSerial>>
+* <<DateValue,DateValue>>
+* <<Day,Day>>
+* <<DDB,DDB>>
+* <<Dir,Dir>>
+* <<DoEvents,DoEvents>>
+* <<Environ,Environ>>
+* <<EOF,EOF>>
+* <<Error,Error>>
+* <<FileAttr,FileAttr>>
+* <<FileDateTime,FileDateTime>>
+* <<FileLen,FileLen>>
+* <<Filter,Filter>>
+* <<FormatCurrency,FormatCurrency>>
+* <<FormatDateTime,FormatDateTime>>
+* <<FormatNumber,FormatNumber>>
+* <<FormatPercent,FormatPercent>>
+* <<FreeFile,FreeFile>>
+* <<FV,FV>>
+* <<GetAllSettings,GetAllSettings>>
+* <<GetAttr,GetAttr>>
+* <<GetObject,GetObject>>
+* <<GetSetting,GetSetting>>
+* <<Hour,Hour>>
+* <<IIf,IIf>>
+* <<IMEStatus,IMEStatus>>
+* <<Input,Input>>
+* <<InputBox,InputBox>>
+* <<InStr,InStr>>
+* <<InStrRev,InStrRev>>
+* <<IPmt,IPmt>>
+* <<IRR,IRR>>
+* <<IsArray,IsArray>>
+* <<IsDate,IsDate>>
+* <<IsEmpty,IsEmpty>>
+* <<IsError,IsError>>
+* <<IsMissing,IsMissing>>
+* <<IsNull,IsNull>>
+* <<IsNumeric,IsNumeric>>
+* <<IsObject,IsObject>>
+* <<Join,Join>>
+* <<LBound,LBound>>
+* <<LCase,LCase>>
+* <<Left,Left>>
+* <<Len,Len>>
+* <<Loc,Loc>>
+* <<LOF,LOF>>
+* <<LTrim,LTrim>>、<<RTrim,RTrim>>、および <<Trim,Trim>>
+* <<MacID,MacID>>
+* <<MacScript,MacScript>>
+* <<Mid,Mid>>
+* <<Minute,Minute>>
+* <<MIRR,MIRR>>
+* <<Month,Month>>
+* <<MonthName,MonthName>>
+* <<MsgBox,MsgBox>>
+* <<Now,Now>>
+* <<NPer,NPer>>
+* <<NPV,NPV>>
+* <<Partition,Partition>>
+* <<Pmt,Pmt>>
+* <<PPmt,PPmt>>
+* <<PV,PV>>
+* <<QBColor,QBColor>>
+* <<Rate,Rate>>
+* <<Replace,Replace>>
+* <<RGB,RGB>>
+* <<Right,Right>>
+* <<Round,Round>>
+* <<Second,Second>>
+* <<Seek,Seek>>
+* <<Shell,Shell>>
+* <<SLN,SLN>>
+* <<Space,Space>>
+* <<Spc,Spc>>
+* <<Split,Split>>
+* <<StrComp,StrComp>>
+* <<StrConv,StrConv>>
+* <<String,String>>
+* <<StrReverse,StrReverse>>
+* <<Switch,Switch>>
+* <<SYD,SYD>>
+* <<Tab,Tab>>
+* <<Time,Time>>
+* <<Timer,Timer>>
+* <<TimeSerial,TimeSerial>>
+* <<TimeValue,TimeValue>>
+* <<TypeName,TypeName>>
+* <<UBound,UBound>>
+* <<UCase,UCase>>
+* <<VarType,VarType>>
+* <<Weekday,Weekday>>
+* <<WeekdayName,WeekdayName>>
+* <<Year,Year>>
+
+==== Array 関数[[Array]]
+
+
+
+
+=== タスク別のキーワード
+
+[cols="1,4",options="header"]
+|===
+|カテゴリ |説明
+|配列 |配列を作成、定義、使用します。
+|コンパイラディレクティブ |コンパイラの動作を制御します。
+|制御フロー |プロシージャのフローをループおよび制御します。
+|変換 |数値とデータ型を変換します。
+|データ型 |データ型およびバリアント サブタイプ。
+|日付と時刻 |日付と時刻の式を変換および使用します。
+|ディレクトリとファイル |ファイル システムを制御し、ファイルを処理します。
+|エラー |エラー値をトラッピングして返します。
+|財務 |財務計算を実行します。
+|入力と出力 |入力を受け取って、出力を表示または印刷します。
+|算術 |三角関数およびその他の算術計算を実行します。
+|その他 |他のアプリケーションを開始し、イベントを処理します。
+|演算子 |式の比較および他の操作を行います。
+|レジストリ |プログラムの設定を管理する。
+|文字列の操作 |文字列および文字列型データを操作します。
+|変数と定数 |変数および定数を宣言および定義します。
+|===
+
+==== キーワード (Visual Basic for Applications)
+
+[cols="1,4",options="header"]
+|===
+|キーワード |使用されるコンテキスト
+|As |Const ステートメント +
+Declare ステートメント +
+Dim ステートメント +
+Function ステートメント +
+Name ステートメント +
+Open ステートメント +
+Private ステートメント +
+Property Get ステートメント +
+Property Let ステートメント +
+Property Set ステートメント +
+Public ステートメント +
+ReDim ステートメント +
+Static ステートメント +
+Sub ステートメント +
+Type ステートメント
+|Binary |Open ステートメント +
+Option Compare ステートメント
+|ByRef |Call ステートメント +
+Declare ステートメント +
+Function ステートメント +
+Property Get ステートメント +
+Property Let ステートメント +
+Property Set ステートメント +
+Sub ステートメント
+|ByVal |Call ステートメント +
+Declare ステートメント +
+Function ステートメント +
+Property Get ステートメント +
+Property Let ステートメント +
+Property Set ステートメント +
+Sub ステートメント
+|Date |Date データ型 +
+Date 関数 +
+Date ステートメント
+|Else |If...Then...Else ステートメント +
+Select Case ステートメント
+|Empty |初期化されていない変数値を示す Variant サブタイプとして使用されます。
+|Error |Error 関数 +
+Error ステートメント +
+On Error ステートメント
+|False |値は 0 です。
+|For |For...Next ステートメント +
+For Each...Next ステートメント +
+Open ステートメント
+|Friend |「Friend」をご覧ください。
+|Get |Get ステートメント +
+Property Get ステートメント
+|Input |Input 関数 +
+Input # ステートメント +
+Line Input # ステートメント +
+Open ステートメント
+|Is |If...Then...Else ステートメント +
+Is 演算子 +
+Select Case ステートメント
+|Len |Len 関数 +
+Open ステートメント
+|Let |Let ステートメント +
+Property Let ステートメント
+|Lock |Lock、Unlock ステートメント +
+Open ステートメント
+|Me |「Me」をご覧ください。
+|Mid |Mid 関数 +
+Mid ステートメント
+|New |Dim ステートメント +
+Private ステートメント +
+Public ステートメント +
+Set ステートメント +
+Static ステートメント
+|Next |For...Next ステートメント +
+For Each...Next ステートメント +
+On Error ステートメント +
+Resume ステートメント
+|Nothing |「Nothing」をご覧ください。
+|Null |変数に有効な値が含まれないことを示す Variant サブタイプとして使用されます。
+|On |On Error ステートメント +
+On...GoSub ステートメント +
+On...GoTo ステートメント
+|Option |Option Base ステートメント +
+Option Compare ステートメント +
+Option Explicit ステートメント +
+Option Private ステートメント
+|Optional |Declare ステートメント +
+Function ステートメント +
+Property Get ステートメント +
+Property Let ステートメント +
+Property Set ステートメント +
+Sub ステートメント
+|ParamArray |Declare ステートメント +
+Function ステートメント +
+Property Get ステートメント +
+Property Let ステートメント +
+Property Set ステートメント +
+Sub ステートメント
+|Print |Print メソッド +
+Print # ステートメント
+|Private |Const ステートメント +
+Declare ステートメント +
+Enum ステートメント +
+Function ステートメント +
+Option Private ステートメント +
+Private ステートメント +
+Property Get ステートメント +
+Property Let ステートメント +
+Property Set ステートメント +
+Sub ステートメント +
+Type ステートメント
+|Property |Property Get ステートメント +
+Property Let ステートメント +
+Property Set ステートメント
+|PtrSafe |「PtrSafe」をご覧ください。
+|Public |Const ステートメント +
+Declare ステートメント +
+Enum ステートメント +
+Event ステートメント +
+Function ステートメント +
+Property Get ステートメント +
+Property Let ステートメント +
+Property Set ステートメント +
+Public ステートメント +
+Sub ステートメント +
+Type ステートメント
+|Resume |On Error ステートメント +
+Resume ステートメント
+|Seek |Seek 関数 +
+Seek ステートメント
+|Set |Set ステートメント +
+Property Set ステートメント
+|Static |Function ステートメント +
+Property Get ステートメント +
+Property Let ステートメント +
+Property Set ステートメント +
+Static ステートメント +
+Sub ステートメント
+|Step |For...Next ステートメント +
+For Each...Next ステートメント
+|String |String データ型 +
+String 関数
+|Then |If...Then...Else ディレクティブ +
+If...Then...Else ステートメント
+|Time |Time 関数 +
+Time ステートメント
+|To |Dim ステートメント +
+For...Next ステートメント +
+Lock、Unlock ステートメント +
+Private ステートメント +
+Public ステートメント +
+ReDim ステートメント +
+Select Case ステートメント +
+Static ステートメント +
+Type ステートメント
+|True |値は -1 です。
+|WithEvents |Dim ステートメント +
+Private ステートメント +
+||Public ステートメント
+|===
+
+===== Friend キーワード
+
+フォームモジュールまたはクラスモジュールのプロシージャの定義を変更して、プロシ
+ージャをクラスの外部のモジュールから呼び出し可能にします。ただし、クラスが定義
+されているプロジェクトの一部である必要があります。 Friendプロシージャは標準モ
+ジュールでは使用できません。
+
+.構文
+
+[source,vbscript]
+----
+[ Private | Friend | Public ] [ Static ] [ Sub | Function | Property ] procedurename
+----
+
+必須の __ procedurename は、プロジェクト全体で可視にされるプロシージャの名前で
+すが、クラスのコントローラーには不可視となります。
+
+.注釈
+
+クラスのパブリックプロシージャは、クラスのインスタンスのコントローラーであって
+も、どこからでも呼び出すことができます。 プロシージャをプライベートに宣言する
+と、オブジェクトのコントローラーがプロシージャを呼び出せるようになります。また、
+クラス自体が定義されているプロジェクト内からプロシージャを呼び出すこともできな
+くなります。
+
+Friendは、プロジェクト全体でプロシージャを参照できるようにしますが、オブジェク
+トのインスタンスのコントローラーに対しては使用できません。 フレンドは、フォー
+ムモジュールおよびクラスモジュールにのみ表示され、変数や型ではなく、プロシージ
+ャ名のみを変更できます。 クラスのプロシージャは、プロジェクト内の他のすべての
+クラスのFriendプロシージャにアクセスできます。 フレンドプロシージャは、そのク
+ラスのタイプライブラリには表示されません。 Friendプロシージャは、遅延バインデ
+ィングすることはできません。
+
+
+.例
+
+クラスモジュールに配置されると、次のコードによって、プロジェクト内のクラスのす
+べてのユーザーがメンバー変数 dblBalance にアクセスできるようになります。 クラ
+スのすべてのユーザーが値を取得できます。プロジェクト内のコードのみが、その変数
+に値を割り当てることができます。
+
+[source,vbscript]
+----
+Private dblBalance As Double 
+ 
+Public Property Get Balance() As Double 
+ Balance = dblBalance 
+End Property 
+ 
+Friend Property Let Balance(dblNewBalance As Double) 
+ dblBalance = dblNewBalance 
+End Property 
+----
+
+===== Me キーワード[[Me]]
+
+Me キーワードは暗黙的に宣言された変数と同様に動作します。 クラス モジュール内
+のすべてのプロシージャは、これを自動的に利用できます。
+
+クラスに複数のインスタンスが含まれる可能性がある場合、Me を使用して、コードが
+実行されているクラスの特定のインスタンスを参照できます。 現在実行されているク
+ラスのインスタンスに関する情報を別のモジュール内のプロシージャに渡す場合、Me
+を使用すると特に便利です。
+
+たとえば、モジュールに以下のプロシージャが含まれているとします。
+
+
+[source,vbscript]
+----
+Sub ChangeFormColor(FormName As Form) 
+ FormName.BackColor = RGB(Rnd * 256, Rnd * 256, Rnd * 256) 
+End Sub
+----
+
+以下のステートメントを使用し、このプロシージャを呼び出して Form クラスの現在の
+インスタンスを引数として渡すことができます。
+
+[source,vbscript]
+----
+ChangeFormColor Me 
+----
+
+===== Nothing キーワード[[Nothing]]
+
+Nothing キーワードは、オブジェクト変数と実際のオブジェクトの関連付けを解除する
+ために使用されます。 Nothingをオブジェクト変数に代入するには、 <<Set,Set>> ス
+テートメントを使用します。 次に例を示します。
+
+
+[source,vbscript]
+----
+Set MyObject = Nothing 
+----
+
+複数のオブジェクト変数が同じ実際のオブジェクトを参照していることがあります。
+オブジェクト変数に Nothing を代入すると、その変数は実際のオブジェクトを参照し
+なくなります。
+
+複数のオブジェクト変数が同じオブジェクトを参照する場合、変数が参照するオブジェ
+クトに関連付けられているメモリおよびシステムリソースは、 setを使用して明
+示的に設定されているか、または暗黙的に設定されている場合にのみ解放されます。実
+際のオブジェクトを参照している最後のオブジェクト変数がスコープ外になった後。
+
+===== PtrSafe キーワード[[PtrSafe]]
+
+PtrSafeキーワードは、次のコンテキストで使用されます。 Declare ステートメントで
+す。
+
+PtrSafe キーワードを含む Declare ステートメントが推奨される構文です。 PtrSafe
+が含まれる Declare ステートメントが 32 ビットおよび 64 ビット プラットフォーム
+の VBA7 開発環境で正常に機能するのは、64 ビット数を格納する必要がある Declare
+ステートメント内のすべてのデータ型 (パラメーターおよび戻り値) が 64 ビット整数
+用の LongLong またはポインターおよびハンドル用の LongPtr を使用するように更新
+されている場合のみです。
+
+VBA バージョン6以前との下位互換性を確保するには、次の構文を使用します。
+
+
+[source,vbscript]
+----
+#If VBA7 Then 
+Declare PtrSafe Sub... 
+#Else 
+Declare Sub... 
+#EndIf
+----
+
+64ビットバージョンの Office で実行する場合、 DeclareステートメントにはPtrSafe
+キーワードを含める必要があります。 PtrSafe キーワードは、Declare ステートメン
+トを 64 ビットの開発環境で安全に実行できることを示すキーワードです。
+
+DeclareステートメントにPtrSafeキーワードを追加した場合のみ、 declareステートメ
+ントが明示的に64ビットを対象としていることを意味します。 64ビットを格納する必
+要があるステートメント内のすべてのデータ型 (戻り値とパラメーターを含む) は、64
+ビット積分またはLongPtrのポインターとハンドルに対してlonglongを使用して、64ビ
+ットの数を保持するように変更する必要があります。
+
+
+
+
+
+
+
+==== 配列キーワードの概要
+
+[cols="4,4",options="header"]
+|===
+|Action |キーワード
+|配列かどうかを確認します。 |<<IsArray,IsArray>>
+|配列を作成します。 |<<Array,Array>>
+|既定の下限を変更します。 |<<Option Base,Option Base>>
+|配列を宣言および初期化します。 |<<Dim,Dim>>、<<Private,Private>>、<<Public,
+Public>>、<<ReDim,ReDim>>、<<Static,Static>>
+|配列の限界を調べます。 |<<LBound,LBound>>、<<UBound,UBound>>
+|配列を再初期化します。 |<<Erase,Erase>>、<<ReDim,ReDim>>
+|===
+
+==== 制御フローキーワードの概要
+
+
+[cols="4,4",options="header"]
+|===
+|Action |キーワード
+|構内 |<<GoSub...Return,GoSub...Return>>、<<GoTo,GoTo>>、<<On Error,On Error>>、
+<<On...GoSub,On...GoSub>>、<<On...GoTo,On...GoTo>>
+|プログラムを終了または一時停止する |<<DoEvents,DoEvents>>、<<End,End>>、
+<<Exit,Exit>>、<<Stop,Stop>>
+|Loop |<<Do...Loop,Do...Loop>>、<<For...Next,For...Next>>、<<For Each...Next,
+For Each...Next>>、<<While...Wend,While...Wend>>、<<With,With>>
+|決定を行う |<<Choose,Choose>>、<<If...Then...Else,If...Then...Else>>、
+<<Select Case,Select Case>>、<<Switch, Switch>>
+|プロシージャを使用する |<<Call,Call>>、<<Function,Function>>、<<Property Get,
+Property Get>>、
+<<Property Let,Property Let>>、<<Property Set,Property Set>>、<<Sub,Sub>>
+|===
+
+==== 変換キーワードの概要
+
+
+[cols="4,4",options="header"]
+|===
+|Action |キーワード
+|ANSI 値を文字列に。 |<<Chr,Chr>>
+|文字列を小文字または大文字に。 |<<Format,Format>>、<<LCase,LCase>>、<<Ucase,
+Ucase>>
+|日付をシリアル値に。 |<<DateSerial,DateSerial>>、<<DateValue,DateValue>>
+|10 進数を他の基数に。 |<<Hex,Hex>>、<<Oct,Oct>>
+|数値を文字列に。 |<<Format,Format>>、<<Str,Str>>
+|あるデータ型を別のデータ型に。 |<<データ型の概要,データ型の概要>>を参照してください。
+|日付を日、月、週、または年に。 |<<Day,Day>>、<<Month,Month>>、<<Weekday,
+Weekday>>、<<Year,Year>>
+|時刻を時、分、または秒に。 |<<Hour,Hour>>、<<Minute,Minute>>、<<Second,
+Second>>
+|文字列を ASCII 値に。 |<<Asc,Asc>>
+|文字列を数値に。 |<<Val,Val>>
+|時刻をシリアル値に。 |<<TimeSerial,TimeSerial>>、<<TimeValue,TimeValue>>
+|===
+
+
+==== 日付と時刻のキーワード サマリー
+
+
+[cols="4,4",options="header"]
+|===
+|アクション |キーワード
+|現在の日付または時刻を取得します。 |<<Date,Date>>、<<Now,Now>>、<<Time,Time>>
+|日付の計算を実行します。 |<<DateAdd,DateAdd>>、<<DateDiff,DateDiff>>、
+<<DatePart,DatePart>>
+|日付を返します。 |<<DateSerial,DateSerial>>、<<DateValue,DateValue>>
+|時刻を返します。 |<<TimeSerial,TimeSerial>>、<<TimeValue,TimeValue>>
+|日付または時刻を設定します。 |<<Date,Date>>、<<Time,Time>>
+|処理時間を計測します。 |<<Timer,Timer>>
+|===
+
+
+==== ディレクトリとファイルのキーワード サマリー
+
+[cols="4,4",options="header"]
+|===
+|Action |キーワード
+|ディレクトリまたはフォルダーを変更します。 |<<ChDir,ChDir>>
+|ドライブを変更します。 |<<ChDrive,ChDrive>>
+|ファイルをコピーします。 |<<FileCopy,FileCopy>>
+|ディレクトリまたはフォルダーを作成します。 |<<MkDir,MkDir>>
+|ディレクトリまたはフォルダーを削除します。 |<<RmDir,RmDir>>
+|ファイル、ディレクトリ、またはフォルダーの名前を変更します。 |<<Name,Name>>
+|現在のパスを取得します。 |<<CurDir,CurDir>>
+|ファイルの日付/時刻スタンプを取得します。 |<<FileDateTime,FileDateTime>>
+|ファイル、ディレクトリ、ラベルの属性を取得します。 |<<GetAttr,GetAttr>>
+|ファイルの長さを取得します。 |<<FileLen,FileLen>>
+|ファイル名またはボリューム ラベルを取得します。 |<<Dir,Dir>>
+|ファイルの属性情報を設定します。 |<<SetAttr,SetAttr>>
+|===
+
+
+
+==== エラー キーワード サマリー
+
+
+
+[cols="4,4",options="header"]
+|===
+|Action |キーワード
+|実行時エラーを生成する。 |<<Clear,Clear>>、<<Error,Error>>、<<Raise,Raise>>
+|エラー メッセージを取得する。 |<<Error,Error>>
+|エラー情報を提供する。 |<<Err,Err>>
+|Error バリアントを返す。 |<<CVErr,CVErr>>
+|実行時にエラーをトラップする。 |<<On Error,On Error>>、<<Resume,Resume>>
+|検証を入力する。 |<<IsError,IsError>>
+|===
+
+==== 財務キーワードの概要
+
+
+[cols="4,4",options="header"]
+|===
+|Action |キーワード
+|減価償却費の計算 |<<DDB,DDB>>、<<SLN,SLN>>、<<SYD,SYD>>
+|将来価値の計算 |<<FV,FV>>
+|利率の計算 |<<Rate,Rate>>
+|内部利益率の計算 |<<IRR,IRR>>、<<MIRR,MIRR>>
+|期間数の計算 |<<NPer,NPer>>
+|支払い額の計算 |<<IPmt,IPmt>>、<<Pmt,Pmt>>、<<PPmt,PPmt>>
+|現在価値の計算 |<<NPV,NPV>>、<<PV,PV>>
+|===
+
+
+==== 入力と出力のキーワードの概要
+
+
+
+[cols="4,4",options="header"]
+|===
+|Action |キーワード
+|ファイルにアクセスするかファイルを作成します。 |<<Open,Open>>
+|ファイルを閉じます。 |<<Close,Close>>、<<Reset,Reset>>
+|出力の表示を管理します。 |<<Format,Format>>、<<Print,Print>>、
+<<Print #,Print #>>、<<Spc,Spc>>、<<Tab,Tab>>、<<Width #,Width #>>
+|ファイルをコピーします。 |<<FileCopy,FileCopy>>
+|ファイルに関する情報を取得します。 |<<EOF,EOF>>、<<FileAttr,FileAttr>>、
+<<FileDateTime,FileDateTime>>、<<FileLen,FileLen>>、<<FreeFile,FreeFile>>、
+<<GetAttr,GetAttr>>、<<Loc,Loc>>、<<LOF,LOF>>、<<Seek,Seek>>
+|ファイルを管理します。 |<<Dir,Dir>>、<<Kill,Kill>>、<<Lock,Lock>>、<<Unlock,
+Unlock>>、<<Name,Name>>
+|ファイルを読み取ります。 |<<Get,Get>>、<<Input,Input>>、<<Input #,Input #>>、
+<<Line Input #,Line Input #>>
+|ファイルの長さを返します。 |<<FileLen,FileLen>>
+|ファイル属性を設定または取得します。 |<<FileAttr,FileAttr>>、 <<GetAttr,
+GetAttr>>、 <<SetAttr,SetAttr>>
+|ファイル内の読み取り/書き込み位置を設定します。 |<<Seek,Seek>>
+|ファイルに書き込みます。 |<<Print #,Print #>>、<<Put,Put>>、
+<<Write #,Write #>>
+|===
+
+
+
+==== 数学キーワード サマリー
+
+
+[cols="4,4",options="header"]
+|===
+|アクション |キーワード
+|三角関数を派生させる。 |<<Atn,Atn>>、<<Cos,Cos>>、<<Sin,Sin>>、<<Tan,Tan>>
+|一般的な計算。 |<<Exp,Exp>>、<<Log,Log>>、<<Sqr,Sqr>>
+|乱数を生成する。 |<<Randomize,Randomize>>、<<Rnd,Rnd>>
+|絶対値を取得する。 |<<Abs,Abs>>
+|式の符号を取得する。 |<<Sgn,Sgn>>
+|数値変換を実行する。 |<<Fix,Fix>>、<<Int,Int>>
+|===
+
+
+
+==== その他のキーワード サマリー
+
+
+[cols="4,4",options="header"]
+|===
+|アクション |キーワード
+|保留中のイベントを処理する。 |<<DoEvents,DoEvents>>
+|他のプログラムを実行する。 |<<AppActivate,AppActivate>>、<<Shell,Shell>>
+|キー操作をアプリケーションへ送信する。 |<<SendKeys,SendKeys>>
+|コンピューターから警告音を鳴らす。 |<<Beep,Beep>>
+|システム |<<Environ,Environ>>
+|コマンド ライン文字列を提供する。 |<<Command,Command>>
+|オートメーション |<<CreateObject,CreateObject>>、<<GetObject,GetObject>>
+|色 |<<QBColor,QBColor>>、<<RGB,RGB>>
+|===
+
+
+==== レジストリ キーワードの概要
+
+
+[cols="4,4",options="header"]
+|===
+|Action |キーワード
+|プログラムの設定を削除します。 |<<DeleteSetting,DeleteSetting>>
+|プログラムの設定を読み込みます。 |<<GetSetting,GetSetting>>、<<GetAllSettings,
+GetAllSettings>>
+|プログラムの設定を保存します。 |<<SaveSetting,SaveSetting>>
+|===
+
+
+
+==== 文字列操作キーワードの概要
+
+
+[cols="4,4",options="header"]
+|===
+|Action |キーワード
+|2 個の文字列を比較します。 |<<StrComp,StrComp>>
+|文字列を変換します。 |<<StrConv,StrConv>>
+|小文字または大文字に変換します。 |<<Format,Format>>、<<Lcase,Lcase>>、<<Ucase,
+Ucase>>
+|文字を繰り返し並べた文字列を作成します。 |<<Space,Space>>、<<String,String>>
+|文字列の長さを検索します。 |<<Len,Len>>
+|文字列の書式設定を行います。 |<<Format,Format>>
+|文字列を中央に配置します。 |<<LSet,LSet>>、<<Rset,Rset>>
+|文字列を操作します。 |<<InStr,InStr>>、<<Left,Left>>、<<LTrim,LTrim>>、
+<<Mid,Mid>>、<<Right,Right>>、<<RTrim,RTrim>>、<<Trim,Trim>>
+|文字列の比較規則を設定します。 |<<Option Compare,Option Compare>>
+|ASCII 値および ANSI 値を使用します。 |<<Asc,Asc>>、<<Chr,Chr>>
+|===
+
+
+==== 変数と定数のキーワード サマリー
+
+
+[cols="1,4",options="header"]
+|===
+|Action |キーワード
+|値の代入 |<<Let,Let>>
+|変数または定数の宣言 |<<Const,Const>>、<<Dim,Dim>>、<<Private,Private>>、
+<<Public,Public>>、<<New,New>>、<<Static,Static>>
+|モジュールをプライベートとして宣言 |
+<<Option Private Module,Option Private Module>>
+|変数に関する情報の取得 |<<IsArray,IsArray>>、 <<IsDate,IsDate>>、 <<IsEmpty,
+IsEmpty>>、 <<IsError,IsError>>、 <<IsMissing,IsMissing>>、 <<IsNull,IsNull>>、
+<<IsNumeric,IsNumeric>>、 <<isobject,isobject>>、 <<TypeName,TypeName>>、
+<<VarType,VarType>>
+|現在のオブジェクトの参照 |<<Me,Me>>
+|変数の明示的宣言を要求 |<<Option Explicit,Option Explicit>>
+|既定のデータ型の設定 |<<Deftype,Deftype>>
+|===
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //	vim:fileencoding=utf-8:ff=unix:
