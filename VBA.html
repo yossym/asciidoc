@@ -776,6 +776,50 @@ asciidoc.install(3);
 </div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_unix形式日付を普通の日付にする">Unix形式日付を普通の日付にする</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Mon as New Scripting<span style="color: #990000">.</span>Dictionary
+
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Jan"</span><span style="color: #990000">,</span><span style="color: #993399">1</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Feb"</span><span style="color: #990000">,</span><span style="color: #993399">2</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Mar"</span><span style="color: #990000">,</span><span style="color: #993399">3</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Apr"</span><span style="color: #990000">,</span><span style="color: #993399">4</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"May"</span><span style="color: #990000">,</span><span style="color: #993399">5</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Jun"</span><span style="color: #990000">,</span><span style="color: #993399">6</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Jul"</span><span style="color: #990000">,</span><span style="color: #993399">7</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Aug"</span><span style="color: #990000">,</span><span style="color: #993399">8</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Sep"</span><span style="color: #990000">,</span><span style="color: #993399">9</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Oct"</span><span style="color: #990000">,</span><span style="color: #993399">10</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Nav"</span><span style="color: #990000">,</span><span style="color: #993399">11</span>
+Mon<span style="color: #990000">.</span>Add <span style="color: #FF0000">"Dec"</span><span style="color: #990000">,</span><span style="color: #993399">12</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> items As Variant
+items <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">split</span></span><span style="color: #990000">(</span>line<span style="color: #990000">,</span><span style="color: #FF0000">" "</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> datetime
+datetime <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">item</span></span><span style="color: #990000">(</span><span style="color: #993399">5</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"/"</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">mon</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">items</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">))</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"/"</span>
+        <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">items</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">items</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)</span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vbe">VBE</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>レジストリ編集を編集してエディタの色を変更する</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>HKEY_CURRENT_USER<span style="color: #990000">\</span>Software<span style="color: #990000">\</span>Microsoft<span style="color: #990000">\</span>VBA<span style="color: #990000">\</span><span style="color: #993399">7.1</span><span style="color: #990000">\</span>Common</tt></pre></div></div>
+<div class="paragraph"><div class="title">CodeBackColors</div><p>4 0 7 7 6 4 4 4 0 0 0 0 0 0 0 0</p></div>
+<div class="paragraph"><div class="title">CodeForeColors</div><p>7 0 5 4 1 9 11 1 0 0 0 0 0 0 0 0</p></div>
+</div>
+</div>
 <h1 id="_vbavariable">VBAvariable</h1>
 <div class="sect1">
 <h2 id="_変数">変数</h2>
@@ -868,8 +912,22 @@ Variant
 </dl></div>
 </div>
 <div class="sect2">
+<h3 id="_文章">文章</h3>
+<div class="paragraph"><p>sentence</p></div>
+<div class="sect3">
+<h4 id="_一行">一行</h4>
+<div class="paragraph"><p>One Line</p></div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_filesystemobject">FilesystemObject</h3>
 <div class="paragraph"><p>fso</p></div>
+</div>
+<div class="sect2">
+<h3 id="_textstream">TextStream</h3>
+<div class="paragraph"><p>ts</p></div>
+<div class="paragraph"><p>ots</p></div>
+<div class="paragraph"><p>its</p></div>
 </div>
 <div class="sect2">
 <h3 id="_その他">その他</h3>
@@ -1111,7 +1169,8 @@ http://www.gnu.org/software/src-highlite -->
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt>Const READ_MENU01 As String <span style="color: #990000">=</span> <span style="color: #FF0000">"MENU01"</span>
+<pre><tt>
+Const READ_MENU01 As String <span style="color: #990000">=</span> <span style="color: #FF0000">"MENU01"</span>
 Public Const MENUBARNAME <span style="color: #990000">=</span> <span style="color: #FF0000">"Worksheet Menu Bar"</span>
 
 <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">auto_open</span></span><span style="color: #990000">()</span>
@@ -1119,9 +1178,8 @@ Public Const MENUBARNAME <span style="color: #990000">=</span> <span style="colo
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
 
 <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">auto_close</span></span><span style="color: #990000">()</span>
-
+    <span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">MenuBtnDelete</span></span><span style="color: #990000">(</span>READ_MENU01<span style="color: #990000">)</span>
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
-
 
 Private <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">MenuSearch</span></span><span style="color: #990000">(</span>MenuTitle As String<span style="color: #990000">)</span> As Boolean
     <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
@@ -1158,6 +1216,25 @@ Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span><
     <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
 
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">MenuBtnDelete</span></span><span style="color: #990000">(</span>MenuTitle As String<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fMenu As CommandBarControl
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Menu As CommandBar
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> Menu <span style="color: #990000">=</span> Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">CommandBars</span></span><span style="color: #990000">(</span>MENUBARNAME<span style="color: #990000">)</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> fMenu In menui<span style="color: #990000">.</span>Controls
+        <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> fMenu<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">""</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+            fMenu<span style="color: #990000">.</span>Delete
+        <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> fMenu<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> MenuTitle <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+            fMenu<span style="color: #990000">.</span>Delete
+            <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+
 
 <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">MENU01</span></span><span style="color: #990000">()</span>
     MsgBox <span style="color: #FF0000">"aaa"</span>
@@ -1625,6 +1702,132 @@ http://www.gnu.org/software/src-highlite -->
     key2<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"B1"</span><span style="color: #990000">),</span> _
     order2<span style="color: #990000">:=</span>xlAscending<span style="color: #990000">)</span></tt></pre></div></div>
 </div>
+<div class="sect2">
+<h3 id="_値のない場合の表現">値のない場合の表現</h3>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="16%" />
+<col width="16%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">種類</th>
+<th align="left" valign="top">型</th>
+<th align="left" valign="top">判定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Empty</p></td>
+<td align="left" valign="top"><p class="table">Variant</p></td>
+<td align="left" valign="top"><p class="table">IsEmpty if(IsEmpty(s)=0)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Nothing</p></td>
+<td align="left" valign="top"><p class="table">Object</p></td>
+<td align="left" valign="top"><p class="table">IsNothing if (Object is Nothing)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Null</p></td>
+<td align="left" valign="top"><p class="table">Variant</p></td>
+<td align="left" valign="top"><p class="table">IsNull　If (isNull(s) = True)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">""</p></td>
+<td align="left" valign="top"><p class="table">String</p></td>
+<td align="left" valign="top"><p class="table">単純比較　IF(s = "")</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">VbNullString</p></td>
+<td align="left" valign="top"><p class="table">String</p></td>
+<td align="left" valign="top"><p class="table">StrPtr if(strPtr(s) = 0)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_empty">Empty</h4>
+<div class="paragraph"><p>空白のセルの値</p></div>
+<div class="paragraph"><p>Variant変数の初期値</p></div>
+<div class="paragraph"><p>IsEmpty</p></div>
+</div>
+<div class="sect3">
+<h4 id="_nothing">Nothing</h4>
+<div class="paragraph"><p>Object 型の初期値</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">IF</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span> <span style="font-weight: bold"><span style="color: #0000FF">is</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Nothing</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+    <span style="color: #990000">...</span>
+<span style="font-weight: bold"><span style="color: #000000">ElseIF</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">Not</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">Object</span></span> <span style="font-weight: bold"><span style="color: #0000FF">is</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Nothing</span></span><span style="color: #990000">))</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_null">Null</h4>
+<div class="paragraph"><p>Variant型で指定</p></div>
+<div class="paragraph"><p>Emptyは[未設定]</p></div>
+<div class="paragraph"><p>Null値は[値が無い]</p></div>
+<div class="paragraph"><p>IsNull</p></div>
+</div>
+<div class="sect3">
+<h4 id="_">""</h4>
+<div class="paragraph"><p>空文字</p></div>
+<div class="paragraph"><p>String型</p></div>
+</div>
+<div class="sect3">
+<h4 id="_vbnullstring">VbNullString</h4>
+<div class="paragraph"><p>String型の初期値</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vbaで関数名を変数で使う">VBAで関数名を変数で使う</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">2</span>
+       Application<span style="color: #990000">.</span>Run <span style="color: #FF0000">"Call_"</span> <span style="color: #990000">&amp;</span> i
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Call_1</span></span><span style="color: #990000">()</span>
+    MsgBox <span style="color: #FF0000">"Call_1"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Call_2</span></span><span style="color: #990000">()</span>
+    MsgBox <span style="color: #FF0000">"Call_2"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_httpリクエスト">HTTPリクエスト</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>参照設定    Microsoft XML v6.0</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">HTTPRequest</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> httpReq As New XMLHTTP60
+    httpReq<span style="color: #990000">.</span>Open <span style="color: #FF0000">"get"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"http://natori-yuko.main.jp/"</span>
+    httpReq<span style="color: #990000">.</span>send
+<span style="font-style: italic"><span style="color: #9A1900">'    Do While httpReq.readyState &lt; READYSTATE_COMPLETE</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> <span style="font-weight: bold"><span style="color: #0000FF">While</span></span> httpReq<span style="color: #990000">.</span>readyState <span style="color: #990000">&lt;</span> <span style="color: #993399">4</span>
+        DoEvents
+    <span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+    Debug<span style="color: #990000">.</span>Print httpReq<span style="color: #990000">.</span>responseText
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
 </div>
 </div>
 <div class="sect1">
@@ -9825,7 +10028,7 @@ cellspacing="0" cellpadding="4">
 </div>
 </div>
 <div class="sect2">
-<h3 id="_https">https:</h3>
+<h3 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_language_reference_user_interface_help_data_type_summary_データ型の概要_microsoft_docs_a_a_id_データ型の概要_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary">データ型の概要 | Microsoft Docs</a><a id="データ型の概要"></a></h3>
 <div class="paragraph"><p>データ型は、保持できるデータの種類を決定する変数の特性です。 データ型には、次
 の表で示されているもの、ユーザー定義型、およびオブジェクトに固有の型が含まれま
 す。</p></div>
@@ -10034,9 +10237,165 @@ Error という単語とエラー番号を含む文字列。</p></div>
 実行時エラー。</p></div>
 <div class="paragraph"><p>その他の数値
 数字を含む文字列。</p></div>
+<div class="sect3">
+<h4 id="_type_conversion_関数_a_id_type_conversion_a">Type Conversion 関数<a id="Type Conversion"></a></h4>
+<div class="paragraph"><p>各関数では、式が特定のデータ型に強制的に変換されます。</p></div>
+<div class="ulist"><div class="title">構文</div><ul>
+<li>
+<p>
+CBool(expression)
+</p>
+</li>
+<li>
+<p>
+CByte(expression)
+</p>
+</li>
+<li>
+<p>
+CCur(expression)
+</p>
+</li>
+<li>
+<p>
+CDate(expression)
+</p>
+</li>
+<li>
+<p>
+CDbl(expression)
+</p>
+</li>
+<li>
+<p>
+CDec(expression)
+</p>
+</li>
+<li>
+<p>
+CInt(expression)
+</p>
+</li>
+<li>
+<p>
+CLng(expression)
+</p>
+</li>
+<li>
+<p>
+CLngLng(expression) (64 ビットのプラットフォームでのみ有効)
+</p>
+</li>
+<li>
+<p>
+CLngPtr(expression)
+</p>
+</li>
+<li>
+<p>
+CSng(expression)
+</p>
+</li>
+<li>
+<p>
+CStr(expression)
+</p>
+</li>
+<li>
+<p>
+CVar(expression)
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>必須の expression 引数は、任意の文字列式または数値式です。</p></div>
+<div class="paragraph"><p>戻り値の型</p></div>
+<div class="paragraph"><p>次に示すように、戻り値の型は関数名によって異なります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="16%" />
+<col width="16%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">Function </th>
+<th align="left" valign="top">戻り値の種類 </th>
+<th align="left" valign="top">expression 引数の範囲</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">CBool</p></td>
+<td align="left" valign="top"><p class="table">Boolean</p></td>
+<td align="left" valign="top"><p class="table">任意の有効な文字列式または数式を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CByte</p></td>
+<td align="left" valign="top"><p class="table">Byte</p></td>
+<td align="left" valign="top"><p class="table">0 から 255。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CCur</p></td>
+<td align="left" valign="top"><p class="table">Currency</p></td>
+<td align="left" valign="top"><p class="table">-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CDate</p></td>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">任意の有効な日付式。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CDbl</p></td>
+<td align="left" valign="top"><p class="table">Double</p></td>
+<td align="left" valign="top"><p class="table">負の値の場合は -1.79769313486231E308 ～ -4.94065645841247E-324、正の値の場合は 4.94065645841247E-324 ～ 1.79769313486232E308。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CDec</p></td>
+<td align="left" valign="top"><p class="table">Decimal</p></td>
+<td align="left" valign="top"><p class="table">ゼロスケールの値 (小数部分がない値) の場合は 79,228,162,514,264,337,593,543,950,335 です。 小数点以下が 28 桁の値の場合は 7.9228162514264337593543950335 です。 0 以外で可能な最小値は 0.0000000000000000000000000001 です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CInt</p></td>
+<td align="left" valign="top"><p class="table">Integer</p></td>
+<td align="left" valign="top"><p class="table">-32,768 から 32,767。小数点以下は丸められます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CLng</p></td>
+<td align="left" valign="top"><p class="table">Long</p></td>
+<td align="left" valign="top"><p class="table">-2,147,483,648 から 2,147,483,647。小数点以下は丸められます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CLngLng</p></td>
+<td align="left" valign="top"><p class="table">LongLong</p></td>
+<td align="left" valign="top"><p class="table">-9,223,372,036,854,775,808 から 9,223,372,036,854,775,807。小数点以下は丸められます (64 ビット プラットフォームのみで有効)。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CLngPtr</p></td>
+<td align="left" valign="top"><p class="table">LongPtr</p></td>
+<td align="left" valign="top"><p class="table">32 ビットのシステムでは -2,147,483,648 ～ 2,147,483,647、64 ビットのシステムでは -9,223,372,036,854,775,808 ～ 9,223,372,036,854,775,807。32 ビットと 64 ビットのどちらのシステムでも、小数部分は丸められます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CSng</p></td>
+<td align="left" valign="top"><p class="table">Single</p></td>
+<td align="left" valign="top"><p class="table">負の値の場合は -3.402823E38 ～ -1.401298E-45、正の値の場合は 1.401298E-45 ～ 3.402823E38。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CStr</p></td>
+<td align="left" valign="top"><p class="table">String</p></td>
+<td align="left" valign="top"><p class="table">CStr の戻り値は、expression 引数に依存します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">CVar</p></td>
+<td align="left" valign="top"><p class="table">Variant</p></td>
+<td align="left" valign="top"><p class="table">数値の場合は Double と同じ範囲です。 数値以外の場合は String と同じ範囲です。</p></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="sect2">
-<h3 id="_ディレクティブ">ディレクティブ</h3>
+<div class="paragraph"><p>★
+=== ディレクティブ</p></div>
 <div class="tableblock">
 <table rules="all"
 width="100%"
@@ -10061,6 +10420,7 @@ cellspacing="0" cellpadding="4">
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_const_ディレクティブ">#Const ディレクティブ</h4>
@@ -10668,7 +11028,7 @@ Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span><
 </li>
 <li>
 <p>
-コマンド
+<a href="#Command">Command</a>
 </p>
 </li>
 <li>
@@ -11174,6 +11534,2231 @@ Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span><
 </ul></div>
 <div class="sect3">
 <h4 id="_array_関数_a_id_array_a">Array 関数<a id="Array"></a></h4>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Array</span></span><span style="color: #990000">(</span>arglist<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の arglist 引数は、Variant に含まれている配列の要素に割り当てられる値のコ
+ンマ区切りのリストです。 引数を指定しない場合は長さ 0 の配列が作成されます。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>配列の要素を参照するために使用される表記は、変数 名とそれに続く括弧で構成され、
+括弧の中には目的の要素を示すインデックス番号が入ります。</p></div>
+<div class="paragraph"><p>次の例では、最初のステートメントにより、Variant として「A」という名前の変数が
+作成されます。 2 つ目のステートメントにより、変数 A に配列が割り当てられます。
+最後のステートメントにより、2 つ目の配列要素に含まれる値が別の変数に割り当てら
+れます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> A As Variant<span style="color: #990000">,</span> B As Long<span style="color: #990000">,</span> i As Long
+A <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Array</span></span><span style="color: #990000">(</span><span style="color: #993399">10</span><span style="color: #990000">,</span> <span style="color: #993399">20</span><span style="color: #990000">,</span> <span style="color: #993399">30</span><span style="color: #990000">)</span>  <span style="font-style: italic"><span style="color: #9A1900">' A is a three element list by default indexed 0 to 2</span></span>
+B <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">A</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">)</span>               <span style="font-style: italic"><span style="color: #9A1900">' B is now 30</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">ReDim</span></span> Preserve <span style="font-weight: bold"><span style="color: #000000">A</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Extend A's length to five elements</span></span>
+<span style="font-weight: bold"><span style="color: #000000">A</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #993399">40</span>              <span style="font-style: italic"><span style="color: #9A1900">' Set the fifth element's value</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">LBound</span></span><span style="color: #990000">(</span>A<span style="color: #990000">)</span> To <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>A<span style="color: #990000">)</span>
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"A("</span> <span style="color: #990000">&amp;</span> i <span style="color: #990000">&amp;</span> <span style="color: #FF0000">") = "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">A</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> i</tt></pre></div></div>
+<div class="paragraph"><p>Array 関数を使用して作成した配列の下限は、Array がタイプ ライブラリの名前で修
+飾 (VBA.Array など) されていない限り、Option Base ステートメントで指定した下限
+によって決まります。 タイプ ライブラリの名前で修飾されている場合は、Array は
+Option Base の影響を受けません。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">配列として宣言されていない Variant には、配列を含めることがで
+きます。 Variant 変数には、固定長の文字列とユーザー定義の型を除き、あらゆる型
+の配列を含めることができます。 配列が含まれている Variant は要素の型が Variant
+の配列とは概念的に異なりますが、配列要素には同じ方法でアクセスされます。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、 Array 関数を使用して、配列を含む Variant を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyWeek<span style="color: #990000">,</span> MyDay
+MyWeek <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Array</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Mon"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Tue"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Wed"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Thu"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Fri"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Sat"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Sun"</span><span style="color: #990000">)</span>
+<span style="font-style: italic"><span style="color: #9A1900">' Return values assume lower bound set to 1 (using Option Base</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' statement).</span></span>
+MyDay <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">MyWeek</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' MyDay contains "Tue".</span></span>
+MyDay <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">MyWeek</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' MyDay contains "Thu".</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_callbyname_関数_a_id_callbyname_a">CallByName 関数<a id="CallByName"></a></h4>
+<div class="paragraph"><p>オブジェクトのメソッドを実行するか、オブジェクトのプロパティを設定するか返しま
+す。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">CallByName</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">,</span> procname<span style="color: #990000">,</span> calltype<span style="color: #990000">,</span> <span style="color: #990000">[</span><span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">()]))</span></tt></pre></div></div>
+<div class="paragraph"><p>CallByName関数の構文に使用される名前付き引数は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須。Variant (Object)。 関数を実行するオブジェクトの名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">procname</p></td>
+<td align="left" valign="top"><p class="table">必須。Variant (String)。 オブジェクトのプロパティまたはメソッドの名前を含む文字列式。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">calltype</p></td>
+<td align="left" valign="top"><p class="table">必須。定数。 呼び出されるプロシージャの型を表す vbCallType 型の定数。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">args()</p></td>
+<td align="left" valign="top"><p class="table">省略可能。Variant (Array)。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>CallByName 関数は、実行時に文字列名を使用してプロパティを取得または設定するか、
+メソッドを呼び出すために使用されます。</p></div>
+<div class="paragraph"><p>次の例では、1 行目で CallByName を使用してテキスト ボックスの MousePointer プ
+ロパティを設定し、2 行目で MousePointer プロパティの値を取得し、3 行目で Move
+メソッドを呼び出してテキスト ボックスを移動します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>CallByName Text1<span style="color: #990000">,</span> <span style="color: #FF0000">"MousePointer"</span><span style="color: #990000">,</span> vbLet<span style="color: #990000">,</span> vbCrosshair
+Result <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CallByName</span></span> <span style="color: #990000">(</span>Text1<span style="color: #990000">,</span> <span style="color: #FF0000">"MousePointer"</span><span style="color: #990000">,</span> vbGet<span style="color: #990000">)</span>
+CallByName Text1<span style="color: #990000">,</span> <span style="color: #FF0000">"Move"</span><span style="color: #990000">,</span> vbMethod<span style="color: #990000">,</span> <span style="color: #993399">100</span><span style="color: #990000">,</span> <span style="color: #993399">100</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、CallByName 関数を使用して、コマンド ボタンの Move メソッドを呼び出
+します。</p></div>
+<div class="paragraph"><p>例ではまた、ボタン (Command1) とラベル (Label1) を含むフォーム (Form1) を使用
+します。 フォームが読み込まれると、ラベルの Caption プロパティが、呼び出すメソ
+ッドの名前に設定されます (この例では "Move")。 ボタンをクリックすると、
+CallByName 関数によって、ボタンの位置を変更するメソッドが呼び出されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Option Explicit
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Form_Load</span></span><span style="color: #990000">()</span>
+    Label1<span style="color: #990000">.</span>Caption <span style="color: #990000">=</span> <span style="color: #FF0000">"Move"</span>        <span style="font-style: italic"><span style="color: #9A1900">' Name of Move method.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Command1_Click</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> Command1<span style="color: #990000">.</span>Left <span style="color: #990000">&lt;&gt;</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        CallByName Command1<span style="color: #990000">,</span> Label1<span style="color: #990000">.</span>Caption<span style="color: #990000">,</span> vbMethod<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">0</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+        CallByName Command1<span style="color: #990000">,</span> Label1<span style="color: #990000">.</span>Caption<span style="color: #990000">,</span> vbMethod<span style="color: #990000">,</span> <span style="color: #993399">500</span><span style="color: #990000">,</span> <span style="color: #993399">500</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_choose_関数_a_id_choose_a">Choose 関数<a id="Choose"></a></h4>
+<div class="paragraph"><p>引数の一覧から値を選択し、返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Choose</span></span><span style="color: #990000">(</span>index<span style="color: #990000">,</span> choice<span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #990000">[</span> choice<span style="color: #990000">-</span><span style="color: #993399">2</span><span style="color: #990000">,</span> <span style="color: #990000">...,</span> <span style="color: #990000">[</span> choice<span style="color: #990000">-</span>n <span style="color: #990000">]]</span> <span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>Choose 関数の構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">index</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 1 から選択肢の数までの値になる 数式またはフィールドです。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">choice</p></td>
+<td align="left" valign="top"><p class="table">必須です。 可能性のある選択肢のいずれか 1 つが含まれる バリアント型の式 です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>Choose は、index の値に基づいて選択肢の一覧から値を返します。 index が 1 の場
+合、Choose は一覧の 1 つ目の選択肢を返します。index が 2 の場合は 2 つ目という
+ようになります。</p></div>
+<div class="paragraph"><p>Choose を使って、可能性の一覧に含まれる値を検索することができます。 たとえば、
+index が 3 で、choice-1 = "1"、choice-2 = "2"、choice-3 = "3" と評価した場合、
+Choose は "3" を返します。 この機能は、index がオプション グループの値を示す場
+合に特に便利です。</p></div>
+<div class="paragraph"><p>Choose は、一覧の選択肢すべてを評価しますが、その 1 つだけが返されます。 その
+ため、望ましくない副作用が生じないように注意する必要があります。 すべての選択
+肢において、式 の一部として MsgBox 関数を使用する場合、メッセージ ボックスは評
+価される各選択肢に対して表示されますが、Choose はそのうちの 1 つだけを返します。</p></div>
+<div class="paragraph"><p>もし index が 1 以下または一覧にある選択肢の数を超える場合、Choose 関数は Null
+を返します。</p></div>
+<div class="paragraph"><p>index が整数ではない場合、最も近い整数に丸めてから評価されます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Choose 関数を使って、Ind パラメーターのプロシージャに渡される
+index に応じた名前を表示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">GetChoice</span></span><span style="color: #990000">(</span>Ind As Integer<span style="color: #990000">)</span>
+    GetChoice <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Choose</span></span><span style="color: #990000">(</span>Ind<span style="color: #990000">,</span> <span style="color: #FF0000">"Speedy"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"United"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Federal"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_command_a_id_command_a">Command<a id="Command"></a></h4>
+<div class="paragraph"><p>Microsoft Visual Basic または Visual Basic で開発された実行可能なプログラムの
+起動に使用されるコマンド ラインの引数部分を返します。 Visual Basic の関数機能
+は、Microsoft Office のアプリケーションでは使用できません。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Command</tt></pre></div></div>
+<div class="paragraph"><div class="title">解説</div><p>コマンドラインから Visual Basic が起動された場合、/cmd に続くすべてのコマンド
+ライン部分がコマンドライン引数として、プログラムに渡されます。 次のコマンドラ
+インの例で、cmdlineargs は、コマンド関数によって返される引数情報を表しています。</p></div>
+<div class="paragraph"><p>VB /cmd cmdlineargs</p></div>
+<div class="paragraph"><p>Visual Basic で開発され、.exe ファイルにコンパイルされたアプリケーションでは、
+Command によって、コマンド ラインのアプリケーション名の後に表示されるすべての
+引数が返されます。 次に例を示します。</p></div>
+<div class="paragraph"><p>MyApp cmdlineargs</p></div>
+<div class="paragraph"><p>使用しているアプリケーションのユーザー インターフェイスでのコマンド ライン引数
+の変更方法の詳細については、ヘルプの「コマンド ライン引数」を参照してください。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、配列を含む Variant でコマンド ライン引数を返す関数内で、Command 関
+数を使用してコマンド ライン引数を取得しています。 Microsoft Office では使用で
+きません。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">GetCommandLine</span></span><span style="color: #990000">(</span>Optional MaxArgs<span style="color: #990000">)</span>
+    <span style="font-style: italic"><span style="color: #9A1900">'Declare variables.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> C<span style="color: #990000">,</span> CmdLine<span style="color: #990000">,</span> CmdLnLen<span style="color: #990000">,</span> InArg<span style="color: #990000">,</span> I<span style="color: #990000">,</span> NumArgs
+    <span style="font-style: italic"><span style="color: #9A1900">'See if MaxArgs was provided.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #000000">IsMissing</span></span><span style="color: #990000">(</span>MaxArgs<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span> MaxArgs <span style="color: #990000">=</span> <span style="color: #993399">10</span>
+    <span style="font-style: italic"><span style="color: #9A1900">'Make array of the correct size.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">ReDim</span></span> <span style="font-weight: bold"><span style="color: #000000">ArgArray</span></span><span style="color: #990000">(</span>MaxArgs<span style="color: #990000">)</span>
+    NumArgs <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">:</span> InArg <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">'Get command line arguments.</span></span>
+    CmdLine <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Command</span></span><span style="color: #990000">()</span>
+    CmdLnLen <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">Len</span></span><span style="color: #990000">(</span>CmdLine<span style="color: #990000">)</span>
+    <span style="font-style: italic"><span style="color: #9A1900">'Go thru command line one character</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">'at a time.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> I <span style="color: #990000">=</span> <span style="color: #993399">1</span> To CmdLnLen
+        C <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Mid</span></span><span style="color: #990000">(</span>CmdLine<span style="color: #990000">,</span> I<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+        <span style="font-style: italic"><span style="color: #9A1900">'Test for space or tab.</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="color: #990000">(</span>C <span style="color: #990000">&lt;&gt;</span> <span style="color: #FF0000">" "</span> <span style="font-weight: bold"><span style="color: #0000FF">And</span></span> C <span style="color: #990000">&lt;&gt;</span> vbTab<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">'Neither space nor tab.</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">'Test if already in argument.</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Not</span></span> InArg <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">'New argument begins.</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">'Test for too many arguments.</span></span>
+                <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> NumArgs <span style="color: #990000">=</span> MaxArgs <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">For</span></span>
+                NumArgs <span style="color: #990000">=</span> NumArgs <span style="color: #990000">+</span> <span style="color: #993399">1</span>
+                InArg <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">'Concatenate character to current argument.</span></span>
+            <span style="font-weight: bold"><span style="color: #000000">ArgArray</span></span><span style="color: #990000">(</span>NumArgs<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">ArgArray</span></span><span style="color: #990000">(</span>NumArgs<span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> C
+        <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">'Found a space or tab.</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">'Set InArg flag to False.</span></span>
+            InArg <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> I
+    <span style="font-style: italic"><span style="color: #9A1900">'Resize array just enough to hold arguments.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">ReDim</span></span> Preserve <span style="font-weight: bold"><span style="color: #000000">ArgArray</span></span><span style="color: #990000">(</span>NumArgs<span style="color: #990000">)</span>
+    <span style="font-style: italic"><span style="color: #9A1900">'Return Array in Function name.</span></span>
+    GetCommandLine <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">ArgArray</span></span><span style="color: #990000">()</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_変換関数">変換関数</h4>
+<div class="sect4">
+<h5 id="_変換関数_2">変換関数</h5>
+<div class="ulist"><ul>
+<li>
+<p>
+<a href="#Asc">Asc 関数</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Chr">Chr 関数</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#CVErr">CVErr 関数</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Format">Format 関数</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Hex">Hex 関数</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Oct">Oct 関数</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Str">Str 関数</a>
+</p>
+</li>
+<li>
+<p>
+<a href="#Val">Val 関数</a>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><div class="title">Type Conversion 関数</div><p>式を特定のデータ型に変換する関数については、<a href="#Type Conversion">Type Conversion 関数</a>ページを参照してください。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+CBool 関数
+</p>
+</li>
+<li>
+<p>
+CByte 関数
+</p>
+</li>
+<li>
+<p>
+CCur 関数
+</p>
+</li>
+<li>
+<p>
+CDate 関数
+</p>
+</li>
+<li>
+<p>
+CDec 関数
+</p>
+</li>
+<li>
+<p>
+CDbl 関数
+</p>
+</li>
+<li>
+<p>
+CInt 関数
+</p>
+</li>
+<li>
+<p>
+CLng 関数
+</p>
+</li>
+<li>
+<p>
+CLngLng 関数
+</p>
+</li>
+<li>
+<p>
+CLngPtr 関数
+</p>
+</li>
+<li>
+<p>
+CSng 関数
+</p>
+</li>
+<li>
+<p>
+CStr 関数
+</p>
+</li>
+<li>
+<p>
+CVar 関数
+</p>
+</li>
+</ul></div>
+</div>
+<div class="sect4">
+<h5 id="_asc_関数_a_id_asc_a">Asc 関数<a id="Asc"></a></h5>
+<div class="paragraph"><p>文字列の最初の文字に対応した文字コードを示す整数を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Asc</span></span><span style="color: #990000">(</span>string<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の string 引数は、任意の有効な文字列式です。 string に文字が含まれていない
+場合、実行時エラーが発生します。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>戻り値の範囲は、非 DBCS システムでは 0–255 ですが、DBCS システムでは -32768–
+32767 です。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">AscB 関数は、文字列に含まれるバイト データの場合に使用します。 先頭の文字の文
+字コードを返す代わりに、AscB は最初のバイトを返します。 AscW 関数は、Unicode
+文字コードを返します。ただし、Unicode がサポートされていないプラットフォームで
+は、Asc 関数と同じ動作になります。</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">Visual Basic for the Macintosh では、Unicode 文字列をサポート
+していません。 このため、Windows 環境とは異なり、AscW (n) は 128 – 65,535 の
+範囲の n の値に対するすべての Unicode 文字を返すことができません。 代わりに、
+AscW (n) は、127 より大きい Unicode 値 n について "最適なものを推測" します。
+したがって、Macintosh 環境では、AscW を使用してはいけません。。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>関数<a href="#Chr">Chr ()、ChrB ()、および ChrW ()</a> は、 Asc ()、ascb ()、ascb () の逆
+です。Chr () 関数は、整数を文字列に変換します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Asc 関数を使って、文字列の先頭の文字に対応する文字コードを返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyNumber
+MyNumber <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Asc</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 65.</span></span>
+MyNumber <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Asc</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"a"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 97.</span></span>
+MyNumber <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Asc</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Apple"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 65.</span></span></tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_chr_関数_a_id_chr_a">Chr 関数<a id="Chr"></a></h5>
+<div class="paragraph"><p>指定した文字コードと関連付けられている文字を含む String を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Chr</span></span><span style="color: #990000">(</span>charcode<span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #000000">ChrB</span></span><span style="color: #990000">(</span>charcode<span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #000000">ChrW</span></span><span style="color: #990000">(</span>charcode<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の charcode 引数は、文字を識別する Long です。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>0 から 31 の数値は、標準の印刷できない ASCII コードと同じです。 たとえば、
+  Chr(10) は改行文字を返します。 charcode の通常の範囲は 0 から 255 です。 た
+だし、DBCS システムでは、charcode の実際の範囲は -32768 から 65535 です。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">ChrB関数は、String に含まれるバイト データの場合に使用します。
+ChrBは、1 バイトまたは 2 バイトの文字ではなく、常に 1 バイトを返します。
+ChrW 関数は、Unicode 文字を含む String を返します。ただし、Unicode がサポート
+されていないプラットフォームでは、Chr 関数と同じ動作になります。</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">Visual Basic for the Macintosh では、Unicode 文字列をサポート
+していません。 このため、Windows 環境とは異なり、ChrW(n) は 128 から 65,535 の
+範囲の n の値に対するすべての Unicode 文字を返すことができません。 代わりに、
+ChrW(n) は、127 より大きい Unicode 値 n について "最適なものを推測" します。
+したがって、Macintosh 環境では、ChrW を使用する必要はありません。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>関数 <a href="#Asc">Asc()、AscB()、および AscW()</a> は Chr()、ChrB()、および ChrW() の反対です。
+Asc() 関数は、文字列を整数に変換します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、Chr 関数を使用して、指定した文字コードと関連付けられている文字を返
+します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyChar
+MyChar <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Chr</span></span><span style="color: #990000">(</span><span style="color: #993399">65</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns A.</span></span>
+MyChar <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Chr</span></span><span style="color: #990000">(</span><span style="color: #993399">97</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns a.</span></span>
+MyChar <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Chr</span></span><span style="color: #990000">(</span><span style="color: #993399">62</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns &gt;.</span></span>
+MyChar <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Chr</span></span><span style="color: #990000">(</span><span style="color: #993399">37</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns %.</span></span></tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_cverr_関数_a_id_cverr_a">CVErr 関数<a id="CVErr"></a></h5>
+<div class="paragraph"><p>ユーザーによって指定されたエラー番号を含むサブタイプ Error の Variant を返しま
+す。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">CVErr</span></span><span style="color: #990000">(</span>errornumber<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の errornumber 引数は、任意の有効なエラー番号です。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>CVErr 関数は、ユーザーが作成するプロシージャでユーザー定義のエラーを作成するた
+めに使用されます。 たとえば、複数の引数を受け取って普通に文字列を返す関数を作
+成する場合は、関数で入力引数を評価し、受け付けられる範囲内の値であることを確認
+できます。 そうでない場合、関数は期待する結果を返しません。 このような場合、
+CVErr を使用することで、実行する処理の内容を通知するエラー番号を返すことができ
+ます。</p></div>
+<div class="paragraph"><p>Error の暗黙的な変換はできないことに注意してください。 たとえば、CVErr の戻り
+値を、Variant ではない変数に直接割り当てることはできません。 ただし、CVErr に
+よって返される値の明示的な変換を実行し (CInt、CDbl などを使用)、それを適切なデ
+ータ型の変数に割り当てることはできます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、CVErr 関数を使用して、VarType が vbError (10) である Variant を返
+します。 ユーザー定義関数 CalculateDouble は、渡された引数が数値でない場合にエ
+ラーを返します。 CVErr を使用して、ユーザー定義プロシージャからユーザー定義エ
+ラーを返すことも、実行時エラーの処理を遅らせることもできます。 値がエラーを表
+しているかどうかを調べるには、IsError 関数を使用します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Call CalculateDouble with an error-producing argument.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">Test</span></span><span style="color: #990000">()</span>
+    Debug<span style="color: #990000">.</span>Print <span style="font-weight: bold"><span style="color: #000000">CalculateDouble</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"345.45robert"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Define CalculateDouble Function procedure.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">CalculateDouble</span></span><span style="color: #990000">(</span>Number<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #000000">IsNumeric</span></span><span style="color: #990000">(</span>Number<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        CalculateDouble <span style="color: #990000">=</span> Number <span style="color: #990000">*</span> <span style="color: #993399">2</span>    <span style="font-style: italic"><span style="color: #9A1900">' Return result.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+        CalculateDouble <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CVErr</span></span><span style="color: #990000">(</span><span style="color: #993399">2001</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Return a user-defined error</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' number.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_format_関数_a_id_format_a">Format 関数<a id="Format"></a></h5>
+<div class="paragraph"><p>書式指定式の指示に従って書式設定される式を含む Variant (String) を戻します。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">複数のプラットフォーム間で Office エクスペリエンスを拡張するソ
+リューションを開発することに関心がありますか? 新しい Office アドイン モデルを
+参照してください。 Office アドインには、VSTO アドインおよびソリューションと比
+較して、小さな設置面積があります。 HTML5、JavaScript、CSS3、XML など、ほぼすべ
+ての web プログラミングテクノロジを使用して構築できます。</td>
+</tr></table>
+</div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span>Expression<span style="color: #990000">,</span> <span style="color: #990000">[</span>Format<span style="color: #990000">],</span> <span style="color: #990000">[</span>FirstDayOfWeek<span style="color: #990000">],</span> <span style="color: #990000">[</span>FirstWeekOfYear<span style="color: #990000">])</span></tt></pre></div></div>
+<div class="paragraph"><p>Format 関数の構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">指定項目 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Expression</p></td>
+<td align="left" valign="top"><p class="table">必須。 必ず指定します。任意の有効な式。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Format</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 有効な名前を持つ、またはユーザー定義の書式指定式。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">FirstDayOfWeek</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 週の最初の曜日を指定する定数です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">FirstWeekOfYear</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 年内で、最初の週を指定する定数です。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>firstdayofweek 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="16%" />
+<col width="16%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseSystem</p></td>
+<td align="left" valign="top"><p class="table">0</p></td>
+<td align="left" valign="top"><p class="table">NLS API 設定を使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbSunday</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">日曜日 (既定)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbMonday</p></td>
+<td align="left" valign="top"><p class="table">2</p></td>
+<td align="left" valign="top"><p class="table">月曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbTuesday</p></td>
+<td align="left" valign="top"><p class="table">3</p></td>
+<td align="left" valign="top"><p class="table">火曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbWednesday</p></td>
+<td align="left" valign="top"><p class="table">4</p></td>
+<td align="left" valign="top"><p class="table">水曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbThursday</p></td>
+<td align="left" valign="top"><p class="table">5</p></td>
+<td align="left" valign="top"><p class="table">木曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFriday</p></td>
+<td align="left" valign="top"><p class="table">6</p></td>
+<td align="left" valign="top"><p class="table">金曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbSaturday</p></td>
+<td align="left" valign="top"><p class="table">7</p></td>
+<td align="left" valign="top"><p class="table">土曜日</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>firstweekofyear 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="16%" />
+<col width="16%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseSystem</p></td>
+<td align="left" valign="top"><p class="table">0</p></td>
+<td align="left" valign="top"><p class="table">NLS API 設定を使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFirstJan1</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">1 月 1 日が含まれる週から開始します (既定)。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFirstFourDays</p></td>
+<td align="left" valign="top"><p class="table">2</p></td>
+<td align="left" valign="top"><p class="table">4 日以上が含まれる最初の週が年の第 1 週目になります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFirstFullWeek</p></td>
+<td align="left" valign="top"><p class="table">3</p></td>
+<td align="left" valign="top"><p class="table">1 週間全体が含まれる最初の週がその年の第 1 週目になります。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 16. 解説</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">書式設定の対象 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">数値</p></td>
+<td align="left" valign="top"><p class="table">定義済みの名前付き数値書式を使用するか、ユーザー定義の数値書式を作成します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">日付と時刻</p></td>
+<td align="left" valign="top"><p class="table">定義済みの名前付き日付/時刻書式を使用するか、ユーザー定義の日付/時刻書式を作成します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">日付と時刻の連続番号</p></td>
+<td align="left" valign="top"><p class="table">日付および時間書式または数値書式を使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">文字列</p></td>
+<td align="left" valign="top"><p class="table">自分のユーザー定義文字列書式を作成します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>Format は、format を 257 文字に切り捨てます。</p></div>
+<div class="paragraph"><p>format を指定せずに数値を書式設定する場合、Format は Str 関数と同様の、ただし
+国際対応がされた機能を提供します。 しかし、Format を使用して文字列として書式設
+定された正の数値には、値の記号用に予約済みの先頭のスペースは含まれません。Str
+を使用して変換された数値では、先頭のスペースは保持されます。</p></div>
+<div class="paragraph"><p>ローカライズされていない数値文字列を書式設定する場合、目的の書式を実現するには、
+ユーザー定義数値書式を使用する必要があります。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">Calendar プロパティの設定が Gregorian で、format が日付書式を
+指定する場合、指定する expression は Gregorian である必要があります。 Visual
+Basic Calendar プロパティ設定が Hijri である場合、指定する expression は Hijri
+である必要があります。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>カレンダーがグレゴリオ暦である場合、format 式記号の意味は変わりません。 カレンダーがイスラム暦の場合、すべての日付書式記号 (たとえば、dddd、mmmm、yyyy) は同じ意味を持ちますが、イスラム暦に適用されます。 書式記号は英語のままです。テキスト表示 (たとえば、AM や PM) になる記号では、その記号に対応する文字列 (英語またはアラビア語) が表示されます。 カレンダーがイスラム暦の場合、特定の記号の範囲は変わります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 17. 日付記号</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">記号 </th>
+<th align="left" valign="top">範囲</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">d</p></td>
+<td align="left" valign="top"><p class="table">1 〜 31 (前に 0 を付けない、月の日付)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">dd</p></td>
+<td align="left" valign="top"><p class="table">01 〜 31 (前に 0 を付ける、月の日付)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">w</p></td>
+<td align="left" valign="top"><p class="table">1 〜 7 (週の曜日。土曜日 = 1 から開始)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ww</p></td>
+<td align="left" valign="top"><p class="table">1 〜 53 (1 年のうちで何週目かを表す数値。前に 0 を付けず、1 月 1 日から開始。)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">m</p></td>
+<td align="left" valign="top"><p class="table">1 〜 12 (月。前に 0 を付けず、1 月 = 1 から開始。)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">mm</p></td>
+<td align="left" valign="top"><p class="table">01 〜 12 (月。前に 0 を付け、1 月 = 01 から開始。)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">mmm</p></td>
+<td align="left" valign="top"><p class="table">月の省略名を表示 (イスラム暦の月の名前には省略形はありません)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">mmmm</p></td>
+<td align="left" valign="top"><p class="table">完全な月名を表示</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">y</p></td>
+<td align="left" valign="top"><p class="table">1 〜 366 (1 年のうちで何日目かを表す数値)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">yy</p></td>
+<td align="left" valign="top"><p class="table">00 〜 99 (西暦年の下 2 桁)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">yyyy</p></td>
+<td align="left" valign="top"><p class="table">100 〜 9999 (3 桁または 4 桁の西暦年)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 18. 時間記号</caption>
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">記号 </th>
+<th align="left" valign="top">範囲</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">h</p></td>
+<td align="left" valign="top"><p class="table">0 〜 23 (「AM」または「PM」を追加した 1 〜 12 の数値) (前に 0 を付けない、1 日の中の時間)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">hh</p></td>
+<td align="left" valign="top"><p class="table">00 〜 23 (「AM」または「PM」を追加した 01 〜 12 の数値) (前に 0 を付ける、1 日の中の時間)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">n</p></td>
+<td align="left" valign="top"><p class="table">0 〜 59 (前に 0 を付けない、1 時間の中の分)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">nn</p></td>
+<td align="left" valign="top"><p class="table">00 〜 59 (前に 0 を付ける、1 時間の中の分)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">m</p></td>
+<td align="left" valign="top"><p class="table">0 〜 59 (前に 0 を付けない、1 時間の中の分) h または hh が先行する場合のみ</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">mm</p></td>
+<td align="left" valign="top"><p class="table">00 〜 59 (前に 0 を付ける、1 時間の中の分) h または hh が先行する場合のみ</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">s</p></td>
+<td align="left" valign="top"><p class="table">0 〜 59 (前に 0 を付けない、1分の中の秒)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ss</p></td>
+<td align="left" valign="top"><p class="table">00 〜 59 (前に 0 を付ける、1分の中の秒)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">使用例</div><p>この例では、名前付き書式とユーザー定義書式の両方を使用して値の書式設定を行う、
+Format 関数のさまざまな使用例を示します。 日付の区切り記号 ( / )、時間の区切り
+記号 (<strong> :</strong> )、リテラルの AM/PM、およびシステムで表示される実際の書式設定され
+る出力は、コードが実行中のロケール設定に基づきます。 時間と日付が開発環境で表
+示されるとき、コード ロケールでの短い時間形式と短い日付形式が使用されます。 コ
+ードの実行により表示される場合は、システム ロケールの短い時間形式と短い日付形
+式が使用されます。これはコード ロケールとは異なることがあります。 この例では、
+English/U.S. を使用します。 MyTime と MyDate が、現在のシステムでの短い時間設
+定と短い日付設定を使用して、開発環境で表示されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyTime<span style="color: #990000">,</span> MyDate<span style="color: #990000">,</span> MyStr
+MyTime <span style="color: #990000">=</span> #<span style="color: #993399">17</span><span style="color: #990000">:</span><span style="color: #993399">04</span><span style="color: #990000">:</span><span style="color: #993399">23</span>#
+MyDate <span style="color: #990000">=</span> #January <span style="color: #993399">27</span><span style="color: #990000">,</span> <span style="color: #993399">1993</span>#
+
+<span style="font-style: italic"><span style="color: #9A1900">' Returns current system time in the system-defined long time format.</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span>Time<span style="color: #990000">,</span> <span style="color: #FF0000">"Long Time"</span><span style="color: #990000">)</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Returns current system date in the system-defined long date format.</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">Date</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Long Date"</span><span style="color: #990000">)</span>
+
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span>MyTime<span style="color: #990000">,</span> <span style="color: #FF0000">"h:m:s"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "17:4:23".</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span>MyTime<span style="color: #990000">,</span> <span style="color: #FF0000">"hh:mm:ss am/pm"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "05:04:23 pm".</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span>MyTime<span style="color: #990000">,</span> <span style="color: #FF0000">"hh:mm:ss AM/PM"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "05:04:23 PM".</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span>MyDate<span style="color: #990000">,</span> <span style="color: #FF0000">"dddd, mmm d yyyy"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "Wednesday, Jan 27 1993".</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' If format is not supplied, a string is returned.</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span><span style="color: #993399">23</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "23".</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' User-defined formats.</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span><span style="color: #993399">5459.4</span><span style="color: #990000">,</span> <span style="color: #FF0000">"##,##0.00"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "5,459.40".</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span><span style="color: #993399">334.9</span><span style="color: #990000">,</span> <span style="color: #FF0000">"###0.00"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "334.90".</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span><span style="color: #993399">5</span><span style="color: #990000">,</span> <span style="color: #FF0000">"0.00%"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "500.00%".</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"HELLO"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"&lt;"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "hello".</span></span>
+MyStr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"This is it"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"&gt;"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "THIS IS IT".</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">さまざまな数値のさまざまな書式</div><p>ユーザー定義の数値書式指定 式は、セミコロンで区切られた 1 から 4 のセクションを持つことができます。 書式引数に名前付き数値書式が含まれる場合は、1 つのセクションのみが許可されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">|</span>使用するセクション数 <span style="color: #990000">|</span>結果
+<span style="color: #990000">|</span><span style="color: #993399">1</span> セクションのみ <span style="color: #990000">|</span>書式指定式はすべての値に適用されます。
+<span style="color: #990000">|</span><span style="color: #993399">2</span> セクション <span style="color: #990000">|</span>最初のセクションは正の値と <span style="color: #993399">0</span> に適用され、第 <span style="color: #993399">2</span> のセクションは負の値に適用されます。
+<span style="color: #990000">|</span><span style="color: #993399">3</span> セクション <span style="color: #990000">|</span>最初のセクションは正の値、第 <span style="color: #993399">2</span> のセクションは負の値、第 <span style="color: #993399">3</span> のセクションは <span style="color: #993399">0</span> に適用されます。
+<span style="color: #990000">|</span><span style="color: #993399">4</span> セクション <span style="color: #990000">|</span>最初のセクションは正の値、第 <span style="color: #993399">2</span> のセクションは負の値、第 <span style="color: #993399">3</span> のセクションは <span style="color: #993399">0</span>、第 <span style="color: #993399">4</span> のセクションは <span style="font-weight: bold"><span style="color: #0000FF">Null</span></span> 値に適用されます。</tt></pre></div></div>
+<div class="paragraph"><p>"$,0;($,0)"</p></div>
+<div class="paragraph"><p>間に何も入れずに複数のセミコロンを含めた場合、欠けているセクションは、正の値の
+書式を使用して出力されます。 たとえば、以下の書式は、最初のセクションで書式を
+使用して正と負の値を表示し、値が 0 の場合は、"Zero" を表示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #FF0000">"$#,##0;;</span><span style="color: #CC33CC">\Z\e\r\o</span><span style="color: #FF0000">"</span></tt></pre></div></div>
+<div class="paragraph"><p>さまざまな文字列値のさまざまな書式</p></div>
+<div class="paragraph"><p>文字列の書式指定式は、セミコロン (;) で区切られた 1 つまたは 2 つのセクション
+を持つことができます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">|</span>使用するセクション数 <span style="color: #990000">|</span>結果
+<span style="color: #990000">|</span><span style="color: #993399">1</span> セクションのみ <span style="color: #990000">|</span>書式はすべての文字列データに適用されます。
+<span style="color: #990000">|</span><span style="color: #993399">2</span> セクション <span style="color: #990000">|</span>最初のセクションは文字列データに適用され、第 <span style="color: #993399">2</span> のセクションは <span style="font-weight: bold"><span style="color: #0000FF">Null</span></span> 値と長さ <span style="color: #993399">0</span> の文字列 <span style="color: #990000">(</span><span style="color: #FF0000">""</span><span style="color: #990000">)</span> に適用されます。</tt></pre></div></div>
+<div class="paragraph"><div class="title">名前付き日付/時刻書式</div><p>以下の表は、定義済みの日付および時間の書式名を示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">|</span>書式名 <span style="color: #990000">|</span>説明
+<span style="color: #990000">|</span>General <span style="font-weight: bold"><span style="color: #0000FF">Date</span></span> <span style="color: #990000">|</span>日付と時刻のどちらか、または両方を表示します <span style="color: #990000">(</span>例<span style="color: #990000">:</span> <span style="color: #993399">4</span><span style="color: #990000">/</span><span style="color: #993399">3</span><span style="color: #990000">/</span><span style="color: #993399">93</span> <span style="color: #993399">05</span><span style="color: #990000">:</span><span style="color: #993399">34</span> PM<span style="color: #990000">)</span>。 小数の部分がない場合、日付だけを表示します <span style="color: #990000">(</span>例<span style="color: #990000">:</span> <span style="color: #993399">4</span><span style="color: #990000">/</span><span style="color: #993399">3</span><span style="color: #990000">/</span><span style="color: #993399">93</span><span style="color: #990000">)</span>。 整数の部分がない場合、時間のみを表示します<span style="color: #990000">(</span>例<span style="color: #990000">:</span> <span style="color: #993399">05</span><span style="color: #990000">:</span><span style="color: #993399">34</span> PM<span style="color: #990000">)</span>。 日付表示はシステム設定に依存します。
+<span style="color: #990000">|</span>Long <span style="font-weight: bold"><span style="color: #0000FF">Date</span></span> <span style="color: #990000">|</span>システムの長い日付形式の書式に従って日付を表示します。
+<span style="color: #990000">|</span>Medium <span style="font-weight: bold"><span style="color: #0000FF">Date</span></span> <span style="color: #990000">|</span>ホスト アプリケーションの言語バージョンで適切な、中間の長さの日付書式を使用して日付を表示します。
+<span style="color: #990000">|</span>Short <span style="font-weight: bold"><span style="color: #0000FF">Date</span></span> <span style="color: #990000">|</span>システムの短い日付書式を使用して日付を表示します。
+<span style="color: #990000">|</span>Long Time <span style="color: #990000">|</span>システムの長い時間形式を使用して時間を表示します。時間、分、秒が含まれます。
+<span style="color: #990000">|</span>Medium Time <span style="color: #990000">|</span>時間と分を、<span style="color: #993399">12</span> 時間の書式と AM<span style="color: #990000">/</span>PM を使用して表示します。
+<span style="color: #990000">|</span>Short Time <span style="color: #990000">|</span><span style="color: #993399">24</span> 時間の形式を使用して時間を表示します <span style="color: #990000">(</span>例<span style="color: #990000">:</span> <span style="color: #993399">17</span><span style="color: #990000">:</span> <span style="color: #993399">45</span><span style="color: #990000">)</span>。</tt></pre></div></div>
+<div class="paragraph"><div class="title">名前付き数値書式</div><p>以下の表は、定義済みの数値の書式名を示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">|</span>書式名 <span style="color: #990000">|</span>説明
+<span style="color: #990000">|</span>General Number <span style="color: #990000">|</span>桁区切り記号を付けずに数を表示します。
+<span style="color: #990000">|</span>Currency <span style="color: #990000">|</span>適切な場合は、桁区切り記号を付けて数を表示します。小数点記号の右 <span style="color: #993399">2</span> 桁を表示します。 出力はシステム ロケール設定に基づきます。
+<span style="color: #990000">|</span>Fixed <span style="color: #990000">|</span>少なくとも整数部 <span style="color: #993399">1</span> 桁、小数部 <span style="color: #993399">2</span> 桁を表示します。
+<span style="color: #990000">|</span>Standard <span style="color: #990000">|</span>区切り記号を付けて、少なくとも整数部 <span style="color: #993399">1</span> 桁、小数部 <span style="color: #993399">2</span> 桁を表示します。
+<span style="color: #990000">|</span>Percent <span style="color: #990000">|</span>数値を <span style="color: #993399">100</span> 倍して、右側にパーセント記号 <span style="color: #990000">(%)</span> を付けて表示します。小数部は常に <span style="color: #993399">2</span> 桁です。
+<span style="color: #990000">|</span>Scientific <span style="color: #990000">|</span>標準の指数表記を使用します。
+<span style="color: #990000">|</span>Yes<span style="color: #990000">/</span>No <span style="color: #990000">|</span>数値が <span style="color: #993399">0</span> の場合は No を表示します。それ以外の場合は Yes を表示します。
+<span style="color: #990000">|</span><span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">/</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span> <span style="color: #990000">|</span>数値が <span style="color: #993399">0</span> の場合は <span style="font-weight: bold"><span style="color: #0000FF">False</span></span> を表示します。それ以外の場合は <span style="font-weight: bold"><span style="color: #0000FF">True</span></span> を表示します。
+<span style="color: #990000">|</span>On<span style="color: #990000">/</span>Off <span style="color: #990000">|</span>数値が <span style="color: #993399">0</span> の場合は Off を表示します。それ以外の場合は On を表示します。</tt></pre></div></div>
+<div class="paragraph"><div class="title">ユーザー定義文字列書式</div><p>以下の文字を使用して、文字列の書式指定式を作成できます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">|</span>文字 <span style="color: #990000">|</span>説明
+<span style="color: #990000">|</span>@ <span style="color: #990000">|</span>文字プレースホルダー。 文字またはスペースを表示します。 書式文字列でアット マーク <span style="color: #990000">(</span>@ <span style="color: #990000">)</span> の表示位置に文字がある文字列の場合は、その文字が表示されます。それ以外の場合は、その位置にスペースが表示されます。 書式文字列に感嘆符 <span style="color: #990000">(**</span> <span style="color: #990000">!**</span> <span style="color: #990000">)</span> がある場合を除き、プレースホルダーは右側から左側に向かって埋められます。
+<span style="color: #990000">|&amp;</span> <span style="color: #990000">|</span>文字プレースホルダー。 文字が表示されるか、または何も表示されません。 アンパサンド <span style="color: #990000">(&amp;)</span> の表示位置に文字がある文字列の場合は、その文字が表示されます。それ以外の場合は、何も表示されません。 書式文字列に感嘆符 <span style="color: #990000">(**</span> <span style="color: #990000">!**</span> <span style="color: #990000">)</span> がある場合を除き、プレースホルダーは右側から左側に向かって埋められます。
+<span style="color: #990000">|&lt;</span> <span style="color: #990000">|</span>強制的に小文字にします。 すべての文字を小文字で表示します。
+<span style="color: #990000">|&gt;</span> <span style="color: #990000">|</span>強制的に大文字にします。 すべての文字を大文字で表示します。
+<span style="color: #990000">|!</span> <span style="color: #990000">|</span>プレースホルダーを左から右に向かって埋めるように強制的に設定します。 既定では、プレースホルダーは右から左に向かって埋めように設定されています。</tt></pre></div></div>
+<div class="paragraph"><div class="title">ユーザー定義日付/時刻書式</div><p>以下の表は、ユーザー定義日付/時刻書式の作成に使用できる文字を示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">|</span>文字 <span style="color: #990000">|</span>説明
+<span style="color: #990000">|(:)</span> <span style="color: #990000">|</span>時刻の区切り記号。 一部のロケールでは、時刻区切り文字を表す目的で他の文字が使用されることがあります。 時刻の値が書式設定されるときに、時刻区切り文字によって時、分、および秒が区切られます。 書式設定された出力で時刻区切り文字として使用される実際の文字は、システム設定によって決まります。
+<span style="color: #990000">|(/)</span> <span style="color: #990000">|</span>日付の区切り記号。 一部のロケールでは、日付区切り文字を表す目的で他の文字が使用されることがあります。 日付値の書式が設定されている場合、日付、月、および年は、日付の区切り記号によって区切られます。 書式設定された出力で、日付の区切り文字として実際に使用される文字は、システム設定によって決まります。
+<span style="color: #990000">|</span>c <span style="color: #990000">|</span>日付を ddddd、時刻を ttttt 形式で、日付、時刻の順序で表示します。 日付の連続数値に小数部がない場合は、日付情報だけを表示します。時刻に整数部がない場合は、時刻情報のみを表示します。
+<span style="color: #990000">|</span>d <span style="color: #990000">|</span>日を先頭に <span style="color: #993399">0</span> のない数値 <span style="color: #990000">(</span><span style="color: #993399">1</span> 〜 <span style="color: #993399">31</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>dd <span style="color: #990000">|</span>日を先頭に <span style="color: #993399">0</span> のある数値 <span style="color: #990000">(</span><span style="color: #993399">01</span> 〜 <span style="color: #993399">31</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>ddd <span style="color: #990000">|</span>日を曜日の省略形 <span style="color: #990000">(</span>日〜 土<span style="color: #990000">)</span> で表示します。 ローカライズされています。
+<span style="color: #990000">|</span>dddd <span style="color: #990000">|</span>日を曜日の完全な名前 <span style="color: #990000">(</span>日曜日〜 土曜日<span style="color: #990000">)</span> で表示します。 ローカライズされています。
+<span style="color: #990000">|</span>ddddd <span style="color: #990000">|</span>日付を完全な日付 <span style="color: #990000">(</span>日、月、および年を含む<span style="color: #990000">)</span> で表示します。表示形式は各システムの短い日付形式の設定に従っています。 既定の短縮日付フォーマットは、m<span style="color: #990000">/</span>d<span style="color: #990000">/</span>yy です。
+<span style="color: #990000">|</span>dddddd <span style="color: #990000">|</span>日付の連続数値を完全な日付 <span style="color: #990000">(</span>日、月、および年を含む<span style="color: #990000">)</span> で表示します。表示形式は各システムが認識する長い日付形式の設定に従っています。 既定の長い日付形式は、mmmm dd<span style="color: #990000">,</span> yyyy です。
+<span style="color: #990000">|</span>w <span style="color: #990000">|</span>曜日を数値 <span style="color: #990000">(</span>日曜日が <span style="color: #993399">1</span> で土曜日が <span style="color: #993399">7</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>ww <span style="color: #990000">|</span><span style="color: #993399">1</span> 年のうちの何週目であるかを数値 <span style="color: #990000">(</span><span style="color: #993399">1</span> 〜 <span style="color: #993399">54</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>m <span style="color: #990000">|</span>月を先頭に <span style="color: #993399">0</span> のない数値 <span style="color: #990000">(</span><span style="color: #993399">1</span> 〜 <span style="color: #993399">12</span><span style="color: #990000">)</span> で表示します。 h または hh の直後に m が続く場合は、月ではなく分が表示されます。
+<span style="color: #990000">|</span>mm <span style="color: #990000">|</span>月を先頭に <span style="color: #993399">0</span> のある数値 <span style="color: #990000">(</span><span style="color: #993399">01</span> 〜 <span style="color: #993399">12</span><span style="color: #990000">)</span> で表示します。 h または hh の直後に m が続く場合は、月ではなく分が表示されます。
+<span style="color: #990000">|</span>mmm <span style="color: #990000">|</span>月を月名の省略形 <span style="color: #990000">(</span><span style="color: #993399">1</span> 月〜 <span style="color: #993399">12</span> 月<span style="color: #990000">)</span> で表示します。 ローカライズされています。
+<span style="color: #990000">|</span>mmmm <span style="color: #990000">|</span>月を完全な月名 <span style="color: #990000">(</span><span style="color: #993399">1</span> 月〜 <span style="color: #993399">12</span> 月<span style="color: #990000">)</span> で表示します。 ローカライズされています。
+<span style="color: #990000">|</span>q <span style="color: #990000">|</span><span style="color: #993399">1</span> 年の四半期を数値 <span style="color: #990000">(</span><span style="color: #993399">1</span> 〜 <span style="color: #993399">4</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>y <span style="color: #990000">|</span><span style="color: #993399">1</span> 年の何日目かを数値 <span style="color: #990000">(</span><span style="color: #993399">1</span> 〜 <span style="color: #993399">366</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>yy <span style="color: #990000">|</span>西暦の年を下 <span style="color: #993399">2</span> 桁の数値 <span style="color: #990000">(</span><span style="color: #993399">00</span> 〜 <span style="color: #993399">99</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>yyyy <span style="color: #990000">|</span>西暦の年を <span style="color: #993399">4</span> 桁の数値 <span style="color: #990000">(</span><span style="color: #993399">100</span> 〜 <span style="color: #993399">9999</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>h <span style="color: #990000">|</span>時を先頭に <span style="color: #993399">0</span> のない数値 <span style="color: #990000">(</span><span style="color: #993399">0</span> 〜 <span style="color: #993399">23</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>Hh <span style="color: #990000">|</span>時を先頭に <span style="color: #993399">0</span> のある数値 <span style="color: #990000">(</span><span style="color: #993399">00</span> 〜 <span style="color: #993399">23</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>n <span style="color: #990000">|</span>分を先頭に <span style="color: #993399">0</span> のない数値 <span style="color: #990000">(</span><span style="color: #993399">0</span> 〜 <span style="color: #993399">59</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>nn <span style="color: #990000">|</span>分を先頭に <span style="color: #993399">0</span> のある数値 <span style="color: #990000">(</span><span style="color: #993399">00</span> 〜 <span style="color: #993399">59</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>s <span style="color: #990000">|</span>秒を先頭に <span style="color: #993399">0</span> のない数値 <span style="color: #990000">(</span><span style="color: #993399">0</span> 〜 <span style="color: #993399">59</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>ss <span style="color: #990000">|</span>秒を先頭に <span style="color: #993399">0</span> のある数値 <span style="color: #990000">(</span><span style="color: #993399">00</span> 〜 <span style="color: #993399">59</span><span style="color: #990000">)</span> で表示します。
+<span style="color: #990000">|</span>ttttt <span style="color: #990000">|</span>時刻を完全な時刻 <span style="color: #990000">(</span>時間、分、および秒を含む<span style="color: #990000">)</span> で表示します。表示形式は、各システムが認識する時刻書式で定義された時刻区切り文字を使用します。 先頭に <span style="color: #993399">0</span> を付ける形式が選択されていて、時刻が午前 <span style="color: #993399">10</span><span style="color: #990000">:</span><span style="color: #993399">00</span> または 午後 <span style="color: #993399">10</span><span style="color: #990000">:</span><span style="color: #993399">00</span> より前の場合は、時刻の前に <span style="color: #993399">0</span> を表示します。 既定の時刻書式は、h<span style="color: #990000">:</span>mm<span style="color: #990000">:</span>ss です。
+<span style="color: #990000">|</span>AM<span style="color: #990000">/</span>PM <span style="color: #990000">|</span><span style="color: #993399">12</span> 時間形式を使用します。正午までの時間に大文字の AM を、正午から午後 <span style="color: #993399">11</span><span style="color: #990000">:</span><span style="color: #993399">59</span> 時までの時間に大文字の PM を付けて表示します。
+<span style="color: #990000">|</span>am<span style="color: #990000">/</span>pm <span style="color: #990000">|</span><span style="color: #993399">12</span> 時間形式を使用します。正午までの時間に小文字の AM を、正午から午後 <span style="color: #993399">11</span><span style="color: #990000">:</span><span style="color: #993399">59</span> 時までの時間に小文字の PM を付けて表示します。
+<span style="color: #990000">|</span>A<span style="color: #990000">/</span>P <span style="color: #990000">|</span><span style="color: #993399">12</span> 時間形式を使用します。正午までの時間に大文字の A を、正午から午後 <span style="color: #993399">11</span><span style="color: #990000">:</span><span style="color: #993399">59</span> 時までの時間に大文字の P を付けて表示します。
+<span style="color: #990000">|</span>a<span style="color: #990000">/</span>p <span style="color: #990000">|</span><span style="color: #993399">12</span> 時間形式を使用します。正午までの時間に小文字の a を、正午から午後 <span style="color: #993399">11</span><span style="color: #990000">:</span><span style="color: #993399">59</span> 時までの時間に小文字の p を付けて表示します。
+<span style="color: #990000">|</span>AMPM <span style="color: #990000">|</span><span style="color: #993399">12</span> 時間形式を使用します。正午までの時間にはシステムで定義された AM 文字列リテラルを、正午から午後 <span style="color: #993399">11</span><span style="color: #990000">:</span><span style="color: #993399">59</span> 時までの時間にはシステムで定義された PM 文字列リテラルを付けて表示します。 AMPM は大文字、小文字のどちらでもかまいません。ただし、表示される文字列の大文字、小文字の区別は、システムの設定で定義した文字列に一致します。 既定の形式は AM<span style="color: #990000">/</span>PM です。 システムで <span style="color: #993399">24</span> 時間時計に設定されている場合は、文字列は通常、長さ <span style="color: #993399">0</span> の文字列に設定されます。</tt></pre></div></div>
+<div class="paragraph"><div class="title">ユーザー定義数値書式</div><p>以下の表は、ユーザー定義数値書式の作成に使用できる文字を示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">|</span>文字 <span style="color: #990000">|</span>説明
+<span style="color: #990000">|</span>なし <span style="color: #990000">|</span>書式指定なしで数値を表示します。
+<span style="color: #990000">|(</span><span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #990000">|</span>桁のプレースホルダーです。 <span style="color: #993399">1</span> 桁の数または <span style="color: #993399">0</span> を表示します。 式で、書式指定文字列で <span style="color: #993399">0</span> が指定されている場所に <span style="color: #993399">1</span> 桁の数字がある場合は、その数字が表示されます。それ以外の場合は、その場所に <span style="color: #993399">0</span> を表示します。数値の整数部または小数部の桁数が、書式指定式内の <span style="color: #993399">0</span> の桁数より少ない場合は、先行ゼロまたは後置ゼロを表示します。 数値の小数部の桁数が、書式指定式の小数部で指定されている <span style="color: #993399">0</span> の数より多い場合は、<span style="color: #993399">0</span> の数と同じ桁数に数値が丸められます。 数値の整数部の桁数が、書式指定式の整数部の <span style="color: #993399">0</span> の数より多い場合は、桁をそのまま表示します。
+<span style="color: #990000">|(</span>#<span style="color: #990000">)</span> <span style="color: #990000">|</span>桁のプレースホルダーです。 <span style="color: #993399">1</span> 桁の数字または <span style="color: #993399">0</span> を表示します。 式で、書式指定文字列で # が指定されている場所に該当する桁がある場合は、その数字が表示されます。それ以外の場合は、その場所には何も表示されません。 この記号は <span style="color: #993399">0</span> 桁プレースホルダーと同様の機能を持ちます。ただし、数値の桁数が、書式指定式の整数部および小数部にある # 記号よりも同じか少ない場合でも、先頭および末尾に <span style="color: #993399">0</span> が表示されません。
+<span style="color: #990000">|(.)</span> <span style="color: #990000">|</span>小数点のプレースホルダーです。 ロケールによっては、小数点の区切り記号としてコンマが使用されます。 小数点のプレースホルダーは、整数部および小数部に表示する桁数を決定します。 書式指定式でこの記号の左に # 記号だけがある場合、<span style="color: #993399">1</span> 未満の数値の先頭は小数点区切り記号になります。 小数値の先頭に <span style="color: #993399">0</span> を表示するには、整数部の最初の桁のプレースホルダーとして <span style="color: #993399">0</span> を使用します。 書式指定結果で小数点のプレースホルダーとして実際に使用される記号は、システムで認識される数値書式によって異なります。
+<span style="color: #990000">|(%)</span> <span style="color: #990000">|</span>パーセントのプレースホルダーです。 式を <span style="color: #993399">100</span> 倍します。 書式指定文字列の表示位置にパーセント記号 <span style="color: #990000">(</span> <span style="color: #990000">%</span> <span style="color: #990000">)</span> が挿入されます。
+<span style="color: #990000">|(,)</span> <span style="color: #990000">|</span><span style="color: #993399">1</span><span style="color: #990000">,</span><span style="color: #993399">000</span> 単位の区切り記号。 ロケールによっては、桁区切り記号としてピリオドが使用されます。 桁区切り記号は、整数部に <span style="color: #993399">4</span> 桁以上ある数値の百の位と千の位を区切ります。 書式にある桁区切り記号が桁のプレースホルダー <span style="color: #990000">(</span><span style="color: #993399">0</span> または #<span style="color: #990000">)</span> で囲まれている場合は、桁区切り記号の標準使用が指定されます。 小数部の指定の有無にかかわらず、小数点のすぐ左に、桁区切り記号が <span style="color: #993399">2</span> つ隣接する場合や、桁区切り記号がある場合は、<span style="color: #FF0000">"数値を 1000 で割って、必要に応じて丸める"</span> ことを意味します。 たとえば、書式指定文字列 <span style="color: #FF0000">"##0,,"</span> を使用して、<span style="color: #993399">1</span> 億を <span style="color: #993399">100</span> として表せます。 百万より小さい数字は <span style="color: #993399">0</span> として表示されます。 小数点のすぐ左以外の位置に <span style="color: #993399">2</span> つの隣接する区切り記号がある場合は、通常の桁区切り記号を指定したものとして処理されます。 書式指定された出力で、実際に桁区切り記号として使用される記号は、システムで認識される数値書式によって異なります。
+<span style="color: #990000">|(:)</span> <span style="color: #990000">|</span>時刻の区切り記号。 一部のロケールでは、時刻区切り文字を表す目的で他の文字が使用されることがあります。 時刻の値が書式設定されるときに、時刻区切り文字によって時、分、および秒が区切られます。 書式設定された出力で時刻区切り文字として使用される実際の文字は、システム設定によって決まります。
+<span style="color: #990000">|(/)</span> <span style="color: #990000">|</span>日付の区切り記号。 一部のロケールでは、日付区切り文字を表す目的で他の文字が使用されることがあります。 日付値の書式が設定されている場合、日付、月、および年は、日付の区切り記号によって区切られます。 書式設定された出力で、日付の区切り文字として実際に使用される文字は、システム設定によって決まります。
+<span style="color: #990000">|(</span>E<span style="color: #990000">-</span> E<span style="color: #990000">+</span> e<span style="color: #990000">-</span> e<span style="color: #990000">+)</span> <span style="color: #990000">|</span>指数形式。 書式指定式で、E<span style="color: #990000">-</span>、E<span style="color: #990000">+</span>、e<span style="color: #990000">-</span>、または e<span style="color: #990000">+</span> の左に少なくとも <span style="color: #993399">1</span> つの桁プレースホルダー <span style="color: #990000">(</span> <span style="color: #993399">0</span> または # <span style="color: #990000">)</span> がある場合、数値は、数値と指数部の間に E または e を挿入して指数形式で表示されます。 右にある桁プレースホルダーの数で、指数の桁数が決まります。 負の指数にマイナス記号を挿入するには、E<span style="color: #990000">-</span> または e<span style="color: #990000">-</span> を使用します。 負の指数にマイナス記号を入れて、正の指数にプラス記号を入れるには、E<span style="color: #990000">+</span> または e<span style="color: #990000">+</span> を使用します。
+<span style="color: #990000">|-</span> <span style="color: #990000">+</span> $ <span style="color: #990000">(</span> <span style="color: #990000">)</span> <span style="color: #990000">|</span>リテラル文字を表示します。 これ以外の文字をリテラルとして表示するには、その文字の前に円記号 <span style="color: #990000">(\)</span> を付けるか、または二重引用符記号 <span style="color: #990000">(</span><span style="color: #FF0000">" "</span><span style="color: #990000">)</span> で囲みます。
+<span style="color: #990000">|(\)</span> <span style="color: #990000">|</span>書式指定文字列内の次の文字を表示します。 特殊な意味を持つ文字をリテラル文字として表示するには、その文字の前に円記号 <span style="color: #990000">(\)</span> を付けます。 円記号自体は表示されません。 円記号を使用するのは、その文字を二重引用符記号で囲むことと同じです。 円記号自体を表示するには、円記号を <span style="color: #993399">2</span> つ <span style="color: #990000">(\\)</span> 使用します。 リテラル文字として表示できない文字には次のような文字があります。日付書式文字および時刻書式文字 <span style="color: #990000">(</span>a、c、d、h、m、n、p、q、s、t、w、y、<span style="color: #990000">/</span>、および <span style="color: #990000">:)</span>、数値書式文字 <span style="color: #990000">(</span>#、<span style="color: #993399">0</span>、<span style="color: #990000">%</span>、E、e、コンマ、およびピリオド<span style="color: #990000">)</span>、および文字列書式文字 <span style="color: #990000">(</span>@、<span style="color: #990000">&amp;</span>、<span style="color: #990000">&lt;</span>、<span style="color: #990000">&gt;</span>、および <span style="color: #990000">!)</span>。
+<span style="color: #990000">|(</span><span style="color: #FF0000">"ABC"</span><span style="color: #990000">)</span> <span style="color: #990000">|</span>二重引用符 <span style="color: #990000">(</span><span style="color: #FF0000">" "</span><span style="color: #990000">)</span> で囲まれた文字列を表示します。 コードから<span style="color: #990000">**</span>書式<span style="color: #990000">**</span> に文字列を含めるには、<span style="font-weight: bold"><span style="color: #000000">Chr</span></span><span style="color: #990000">(</span><span style="color: #993399">34</span><span style="color: #990000">)</span> を使ってテキストを囲みます <span style="color: #990000">(</span><span style="color: #993399">34</span> は引用符 <span style="color: #990000">(</span><span style="color: #FF0000">") を表す文字コードです)。</span></tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_hex_関数_a_id_hex_a">Hex 関数<a id="Hex"></a></h5>
+<div class="paragraph"><p>数値を 16 進数で表す String を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Hex</span></span><span style="color: #990000">(</span>number<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の number 引数は、任意の有効な数値式または文字列式です。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">number の値 </th>
+<th align="left" valign="top">Hex の戻り値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">-2,147, 483,648 〜 2,147, 483,647</p></td>
+<td align="left" valign="top"><p class="table">最大 8 桁の 16 進文字</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Null</p></td>
+<td align="left" valign="top"><p class="table">Null</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">空</p></td>
+<td align="left" valign="top"><p class="table">ゼロ (0)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>number が整数ではない場合、最も近い整数に丸めてから評価されます。</p></div>
+<div class="paragraph"><p>16進数の逆にする場合は、16進数の値の前に &amp;Hを付けます。 たとえば、Hex(255) は
+文字列 FF を返し、&amp;HFF は数値 255 を返します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例は、Hex 関数を使用して、数値の 16 進数値を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyHex
+MyHex <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Hex</span></span><span style="color: #990000">(</span><span style="color: #993399">5</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 5.</span></span>
+MyHex <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Hex</span></span><span style="color: #990000">(</span><span style="color: #993399">10</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns A.</span></span>
+MyHex <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Hex</span></span><span style="color: #990000">(</span><span style="color: #993399">459</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 1CB.</span></span></tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_oct_関数_a_id_oct_a">Oct 関数<a id="Oct"></a></h5>
+<div class="paragraph"><p>数値を 8 進数で表す Variant (String) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Oct</span></span><span style="color: #990000">(</span>number<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の number 引数は、任意の有効な数式または文字列式です。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>number が整数ではない場合、最も近い整数に丸めてから評価されます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">number の値 </th>
+<th align="left" valign="top">Oct の戻り値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Null</p></td>
+<td align="left" valign="top"><p class="table">Null</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">空</p></td>
+<td align="left" valign="top"><p class="table">ゼロ (0)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">それ以外の値</p></td>
+<td align="left" valign="top"><p class="table">最大 11 桁の 8 進数</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>適切な範囲の数値の前に &amp;O を付けて記述すると、値を直接 8 進数で表すことができ
+ます。 たとえば、10 進数の 8 の場合は、&amp;O10 のように 8 進数で表記することがで
+きます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例は、Oct 関数を使用して、数値の 8 進数値を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyOct
+MyOct <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Oct</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)</span>     <span style="font-style: italic"><span style="color: #9A1900">' Returns 4.</span></span>
+MyOct <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Oct</span></span><span style="color: #990000">(</span><span style="color: #993399">8</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 10.</span></span>
+MyOct <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Oct</span></span><span style="color: #990000">(</span><span style="color: #993399">459</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 713.</span></span></tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_str_関数_a_id_str_a">Str 関数<a id="Str"></a></h5>
+<div class="paragraph"><p>数を示す Variant (String) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Str</span></span><span style="color: #990000">(</span>number<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の number 引数は、任意の有効な数式を含む Long です。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>数値が文字列に変換されるとき、先頭のスペースは number の符号用に常に予約されま
+す。 number が正の場合、返される文字列には先頭のスペースが含まれ、プラス記号は
+省略されています。</p></div>
+<div class="paragraph"><p>日付、時刻、通貨、または他のユーザー定義書式として書式設定する数値を変換するに
+は、Format 関数を使用します。 Str とは異なり、Format 関数は number の符号用に
+先頭のスペースを含みません。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">Str 関数は、有効な桁区切り記号としてピリオド (.) のみを 認識し
+ます。 他の桁区切り記号を使う場合は (国際アプリケーションの場合など)、CStr を
+使って数値を文字列に変換します。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Str 関数を使って、数値の文字列表現を返しています。 数値が文字列に
+変換されるとき、先頭のスペースは常に符号用に予約されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyString
+MyString <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Str</span></span><span style="color: #990000">(</span><span style="color: #993399">459</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns " 459".</span></span>
+MyString <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Str</span></span><span style="color: #990000">(-</span><span style="color: #993399">459.65</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "-459.65".</span></span>
+MyString <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Str</span></span><span style="color: #990000">(</span><span style="color: #993399">459.001</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns " 459.001".</span></span></tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_val_関数_a_id_val_a">Val 関数<a id="Val"></a></h5>
+<div class="paragraph"><p>文字列に含まれる数値を、適切な型の数値として返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Val</span></span><span style="color: #990000">(</span>string<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の string 引数は、任意の有効な文字列式です。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>Val 関数は、数値の一部として認識できない最初の文字で、文字列の読み取りを中止し
+ます。 数値の一部と見なされることが多い記号や文字 (ドル記号、コンマなど) は、
+認識されません。</p></div>
+<div class="paragraph"><p>ただし、この関数は、基数プレフィックス &amp;O (8 進数) と &amp;H (16 進数) を認識しま
+す。 空白、タブ、およびライン フィード文字は、引数から削除されます。</p></div>
+<div class="paragraph"><p>次の例では、値 1615198 が返されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Val</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"    1615 198th Street N.E."</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>次のコード例の Val は、示されている 16 進数値の 10 進数値である -1 を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Val</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"&amp;HFFFF"</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">Val 関数は、ピリオド (.) のみを 有効な小数点の記号として認識し
+ます。 別の小数点の記号を使用する場合は (国際的なアプリケーションの場合など)、
+代わりに CDbl を使用して文字列を数値に変換します。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、Val 関数を使用して、文字列に含まれる数値を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyValue
+MyValue <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Val</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"2457"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 2457.</span></span>
+MyValue <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Val</span></span><span style="color: #990000">(</span><span style="color: #FF0000">" 2 45 7"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 2457.</span></span>
+MyValue <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Val</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"24 and 57"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 24.</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_createobject_関数_a_id_createobject_a">CreateObject 関数<a id="CreateObject"></a></h4>
+<div class="paragraph"><p>ActiveX オブジェクトへの参照を作成して返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span>class<span style="color: #990000">,</span> <span style="color: #990000">[</span> servername <span style="color: #990000">])</span></tt></pre></div></div>
+<div class="paragraph"><p>CreateObject 関数の構文は、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">指定項目 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">class</p></td>
+<td align="left" valign="top"><p class="table">必須。Variant (String)。 作成するオブジェクトのアプリケーション名とクラス。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">servername</p></td>
+<td align="left" valign="top"><p class="table">省略可能。Variant (String)。 オブジェクトを作成するネットワーク サーバーの名前。 servername は、空の文字列 ("") である場合、ローカル コンピューターが使用されます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>class 引数の構文は appname.objecttype で、指定項目は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">指定項目 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">appname</p></td>
+<td align="left" valign="top"><p class="table">必須。Variant (String)。 オブジェクトを提供するアプリケーションの名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">objecttype</p></td>
+<td align="left" valign="top"><p class="table">必須。Variant (String)。 作成するオブジェクトの型またはクラス。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>オートメーションをサポートするアプリケーションはすべて、1 つ以上の型のオブジェ
+クトを提供します。 たとえば、ワード プロセッシング アプリケーションでは、アプ
+リケーション オブジェクト、文書オブジェクト、ツール バー オブジェクトが提供さ
+れます。</p></div>
+<div class="paragraph"><p>ActiveX オブジェクトを作成するには、CreateObject によって返されたオブジェクト
+をオブジェクト変数に割り当てます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Declare an object variable to hold the object</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' reference. Dim as Object causes late binding.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> ExcelSheet As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> ExcelSheet <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Excel.Sheet"</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>このコードでは、オブジェクトを作成するアプリケーション (この場合は Microsoft
+Excel のスプレッドシート) を起動します。 作成されたオブジェクトをコードで参照
+するには、定義したオブジェクト変数を使用します。 次の例では、オブジェクト変数
+ExcelSheet とその他の Excel オブジェクト (Application オブジェクト、Cells コレ
+クションなど) を使用して、新しいオブジェクトのプロパティおよびメソッドにアクセ
+スします。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Make Excel visible through the Application object.</span></span>
+ExcelSheet<span style="color: #990000">.</span>Application<span style="color: #990000">.</span>Visible <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Place some text in the first cell of the sheet.</span></span>
+ExcelSheet<span style="color: #990000">.</span>Application<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">).</span>Value <span style="color: #990000">=</span> <span style="color: #FF0000">"This is column A, row 1"</span>
+<span style="font-style: italic"><span style="color: #9A1900">' Save the sheet to C:\test.xls directory.</span></span>
+ExcelSheet<span style="color: #990000">.</span>SaveAs <span style="color: #FF0000">"C:</span><span style="color: #CC33CC">\T</span><span style="color: #FF0000">EST.XLS"</span>
+<span style="font-style: italic"><span style="color: #9A1900">' Close Excel with the Quit method on the Application object.</span></span>
+ExcelSheet<span style="color: #990000">.</span>Application<span style="color: #990000">.</span>Quit
+<span style="font-style: italic"><span style="color: #9A1900">' Release the object variable.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> ExcelSheet <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">Nothing</span></span></tt></pre></div></div>
+<div class="paragraph"><p>As Object 句を使用してオブジェクト変数を宣言すると、任意の型のオブジェクトへの
+参照を含めることができる変数が作成されます。 ただし、遅延バインディングの変数
+を使用してオブジェクトにアクセスします。つまり、プログラムの実行時にバインドが
+行われます。 事前バインドを発生させるオブジェクト変数を作成する、つまり、プロ
+グラムがコンパイルされたときにバインドするには、特定のクラス ID を使用してオブ
+ジェクト変数を宣言します。 たとえば、次のような Microsoft Excel の参照を宣言し
+て作成することができます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> xlApp As Excel<span style="color: #990000">.</span>Application
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> xlBook As Excel<span style="color: #990000">.</span>Workbook
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> xlSheet As Excel<span style="color: #990000">.</span>WorkSheet
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> xlApp <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Excel.Application"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> xlBook <span style="color: #990000">=</span> xlApp<span style="color: #990000">.</span>Workbooks<span style="color: #990000">.</span>Add
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> xlSheet <span style="color: #990000">=</span> xlBook<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>事前バインド変数を使用して参照すると、パフォーマンスは向上する可能性があります
+が、宣言で指定したクラスへの参照しか含めることができません。</p></div>
+<div class="paragraph"><p>CreateObject 関数によって返されるオブジェクトを、オブジェクトを必要とする関数
+に引数として渡すことができます。 たとえば、次のコードでは、Excel.Application
+オブジェクトへの参照を作成して渡します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Call</span></span> <span style="font-weight: bold"><span style="color: #000000">MySub</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Excel.Application"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><p>コンピューターの名前を CreateObject の servername 引数に渡して、ネットワーク接
+続されたリモート コンピューターにオブジェクトを作成することができます。 この名
+前は、共有名のコンピューター名の部分と同じです。共有名が "\MyServer\Public" の
+場合、servername は "MyServer" です。</p></div>
+<div class="paragraph"><p>次のコードは、MyServer という名前のリモート コンピューターで実行されている
+Excel のインスタンスのバージョン番号を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> xlApp As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> xlApp <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Excel.Application"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"MyServer"</span><span style="color: #990000">)</span>
+Debug<span style="color: #990000">.</span>Print xlApp<span style="color: #990000">.</span>Version</tt></pre></div></div>
+<div class="paragraph"><p>このリモート サーバーが存在しない場合または使用できない場合は、実行時エラーが
+発生します。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">CreateObject は、オブジェクトの現在のインスタンスがない場合に
+使用します。 オブジェクトのインスタンスが既に実行されている場合は、新しいイン
+スタンスが開始され、指定した型のオブジェクトが作成されます。 現在のインスタン
+スを使用する、またはアプリケーションを起動してファイルを読み込ませるには、
+GetObject 関数を使用します。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>オブジェクトが単一インスタンスのオブジェクトとして登録されている場合は、
+CreateObject を何回実行しても、そのオブジェクトのインスタンスは 1 つしか作成さ
+れません。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、CreateObject 関数を使用して Microsoft Excel への参照 (xlApp) を設
+定します。 この参照を使用して、Microsoft Excel の Visible プロパティにアクセス
+し、Microsoft Excel の Quit メソッドを使用して終了します。 最後に、参照自体が
+解放されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> xlApp As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Declare variable to hold the reference.</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> xlApp <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"excel.application"</span><span style="color: #990000">)</span>
+    <span style="font-style: italic"><span style="color: #9A1900">' You may have to set Visible property to True</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">' if you want to see the application.</span></span>
+xlApp<span style="color: #990000">.</span>Visible <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">' Use xlApp to access Microsoft Excel's</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">' other objects.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_curdir_関数_a_id_curdir_a">CurDir 関数<a id="CurDir"></a></h4>
+<div class="paragraph"><p>現在のパスを表す Variant (String) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>CurDir <span style="color: #990000">[</span> <span style="color: #990000">(</span>drive<span style="color: #990000">)</span> <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="paragraph"><p>省略可能な drive 引数は、既存のドライブを指定する文字列式です。 drive を指定し
+ない場合、または drive に長さ 0 の文字列 ("") を指定した場合、CurDirは、現在の
+ドライブのパスを返します。 Macintosh では、CurDir は指定された drive を無視し、
+単に現在のドライブのパスを返します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例は、CurDir 関数を使用して現在のパスを返します。 Macintosh では、CurDirに
+指定された drive は無視されます。 既定のドライブ名は、HD で、パス名の各部分は、
+バックスラッシュではなくコロンで区切られます。 また、\Windows ではなく
+Macintosh のフォルダーを指定します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Assume current path on C drive is "C:\WINDOWS\SYSTEM" (on Microsoft Windows).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Assume current path on D drive is "D:\EXCEL".</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Assume C is the current drive.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyPath
+MyPath <span style="color: #990000">=</span> CurDir    <span style="font-style: italic"><span style="color: #9A1900">' Returns "C:\WINDOWS\SYSTEM".</span></span>
+MyPath <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CurDir</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"C"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "C:\WINDOWS\SYSTEM".</span></span>
+MyPath <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CurDir</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"D"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "D:\EXCEL".</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_date_関数_a_id_date_a">Date 関数<a id="Date"></a></h4>
+<div class="paragraph"><p>現在のシステム日付を含む Variant (Date) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Date</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">解説</div><p>システム日付を設定するには、Date ステートメントを使用します。</p></div>
+<div class="paragraph"><p>グレゴリオ暦の場合、Date と Date$ の動作は、Calendar プロパティの設定によって
+変更されることはありません。 イスラム暦の場合、Date$ は mm-dd-yyyy という形式
+の 10 文字の文字列を返します。ここで、mm (01 – 12)、dd (01 – 30)、および
+yyyy (1400 – 1523) は、イスラム暦の月、日、および年を表します。 これに相当す
+るグレゴリオ暦の範囲は 1980 年 1 月 1 日から 2099 年 12 月 31 日です。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、Date 関数を使用して現在のシステム日付を返します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDate
+MyDate <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">Date</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' MyDate contains the current system date.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_dateadd_関数_a_id_dateadd_a">DateAdd 関数<a id="DateAdd"></a></h4>
+<div class="paragraph"><p>指定した時間間隔を日付に加算してその日付を含む Variant (Date) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">DateAdd</span></span><span style="color: #990000">(</span>interval<span style="color: #990000">,</span> number<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">date</span></span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>DateAdd 関数の構文に構文に使用される名前付き引数は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">指定項目 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">interval</p></td>
+<td align="left" valign="top"><p class="table">必須。 加算する時間間隔を表す文字列式。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">number</p></td>
+<td align="left" valign="top"><p class="table">必須。 追加するサイクル間隔の数値を表す数値式です。 将来の日時を取得するには正の値を、過去の日時を取得するには負の値を指定します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">date</p></td>
+<td align="left" valign="top"><p class="table">必須。 時間間隔を加算する日付を表す Variant (Date)、またはリテラル。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>interval 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">設定 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">yyyy</p></td>
+<td align="left" valign="top"><p class="table">年</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">q</p></td>
+<td align="left" valign="top"><p class="table">四半期</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">m</p></td>
+<td align="left" valign="top"><p class="table">月</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">y</p></td>
+<td align="left" valign="top"><p class="table">通年での日数</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">d</p></td>
+<td align="left" valign="top"><p class="table">日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">w</p></td>
+<td align="left" valign="top"><p class="table">平日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ww</p></td>
+<td align="left" valign="top"><p class="table">週</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">h</p></td>
+<td align="left" valign="top"><p class="table">時</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">n</p></td>
+<td align="left" valign="top"><p class="table">分</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">s</p></td>
+<td align="left" valign="top"><p class="table">秒</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>DateAdd 関数を使用すると、指定した時間間隔を日付に加算したり、日付から減算した
+りできます。 たとえば、DateAdd を使用して、今日から 30 日後の日付、または今か
+ら 45 分後の時刻を計算することができます。</p></div>
+<div class="paragraph"><p>date に日数を加算する場合、年間通算日 ("y")、日 ("d")、または平日 ("w") を使用
+できます。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">ある日付に日数を足す目的で、(日曜日から土曜日まですべての曜日
+を含む) "w" サイクル間隔を使用するとき、DateAdd 関数は、その日までの、指定した
+合計日数を追加します。その日までの、(月曜日から金曜日までの) 仕事日の数のみを
+追加するのではないことに注意してください。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>DateAdd 関数が無効な日付を返すことはありません。 次の例では、1 月 31 日に 1 か
+月を追加します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">DateAdd</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"m"</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #FF0000">"31-Jan-95"</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>この場合、DateAdd は、1995 年 2 月 31 日ではなく、1995 年 2 月 28 日を返します。
+date が 1996 年 1 月 31 日の場合は、1996 年は閏年であるため、1996 年 2 月 29
+日を返します。</p></div>
+<div class="paragraph"><p>計算された日付が西暦 100 年よりも前になる場合 (つまり、date の年より多くの年を
+引いた場合)、エラーが発生します。</p></div>
+<div class="paragraph"><p>number が Long 値ではない場合、最も近い整数に丸めてから評価されます。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">DateAdd の戻り値の形式は、date 引数で渡された形式ではなく、コ
+ントロール パネルでの設定によって決まります。</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">Calendar プロパティの設定がグレゴリオ暦の場合、date にはグレ
+ゴリオ暦の日付を指定する必要があります。 カレンダーがイスラム暦である場合、指
+定する日付もイスラム暦である必要があります。 月の値が名前である場合、名前は現
+在の Calendar プロパティの設定と一致している必要があります。 月名が現在の
+Calendar プロパティ設定と競合する可能性を最小にするには、数字で示す月の値 (短
+い日付形式) を入力します。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、日付を受け取り、DateAdd 関数を使用して、指定された月数を加算した将
+来の日付を表示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> FirstDate As <span style="font-weight: bold"><span style="color: #0000FF">Date</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Declare variables.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> IntervalType As String
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Number As Integer
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Msg As String
+IntervalType <span style="color: #990000">=</span> <span style="color: #FF0000">"m"</span>    <span style="font-style: italic"><span style="color: #9A1900">' "m" specifies months as interval.</span></span>
+FirstDate <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Enter a date"</span><span style="color: #990000">)</span>
+Number <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Enter number of months to add"</span><span style="color: #990000">)</span>
+Msg <span style="color: #990000">=</span> <span style="color: #FF0000">"New date: "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">DateAdd</span></span><span style="color: #990000">(</span>IntervalType<span style="color: #990000">,</span> Number<span style="color: #990000">,</span> FirstDate<span style="color: #990000">)</span>
+MsgBox Msg</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_datediff_関数_a_id_datediff_a">DateDiff 関数<a id="DateDiff"></a></h4>
+<div class="paragraph"><p>2 つの指定した日付の時間間隔を指定する Variant (Long) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">DateDiff</span></span><span style="color: #990000">(</span>interval<span style="color: #990000">,</span> date1<span style="color: #990000">,</span> date2<span style="color: #990000">,</span> <span style="color: #990000">[</span> firstdayofweek<span style="color: #990000">,</span> <span style="color: #990000">[</span> firstweekofyear <span style="color: #990000">]]</span> <span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>DateDiff 関数の構文には、次の名前付き引数があります。</p></div>
+<div class="paragraph"><p>|指定項目 |説明
+|interval |必須。 date1 と date2 の時間間隔の計算に使用する時間単位を表す文字列式です。
+|date1、date2 |必須。Variant (Date)。 計算に使用する 2 つの日付です。
+|firstdayofweek |省略可能。 週の始まりの曜日を表す定数です。 省略すると、日曜日を指定したものと見なされます。
+|firstweekofyear |省略可能。 年の第 1 週を指定する定数です。 省略すると、1 月 1 日を含む週が第 1 週と見なされます。</p></div>
+<div class="paragraph"><div class="title">設定</div><p>interval 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">設定 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">yyyy</p></td>
+<td align="left" valign="top"><p class="table">年</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">q</p></td>
+<td align="left" valign="top"><p class="table">四半期</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">m</p></td>
+<td align="left" valign="top"><p class="table">月</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">y</p></td>
+<td align="left" valign="top"><p class="table">通年での日数</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">d</p></td>
+<td align="left" valign="top"><p class="table">日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">w</p></td>
+<td align="left" valign="top"><p class="table">平日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ww</p></td>
+<td align="left" valign="top"><p class="table">週</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">h</p></td>
+<td align="left" valign="top"><p class="table">時</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">n</p></td>
+<td align="left" valign="top"><p class="table">分</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">s</p></td>
+<td align="left" valign="top"><p class="table">秒</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>firstdayofweek 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="16%" />
+<col width="16%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseSystem</p></td>
+<td align="left" valign="top"><p class="table">0</p></td>
+<td align="left" valign="top"><p class="table">NLS API 設定を使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbSunday</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">日曜日 (既定)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbMonday</p></td>
+<td align="left" valign="top"><p class="table">2</p></td>
+<td align="left" valign="top"><p class="table">月曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbTuesday</p></td>
+<td align="left" valign="top"><p class="table">3</p></td>
+<td align="left" valign="top"><p class="table">火曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbWednesday</p></td>
+<td align="left" valign="top"><p class="table">4</p></td>
+<td align="left" valign="top"><p class="table">水曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbThursday</p></td>
+<td align="left" valign="top"><p class="table">5</p></td>
+<td align="left" valign="top"><p class="table">木曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFriday</p></td>
+<td align="left" valign="top"><p class="table">6</p></td>
+<td align="left" valign="top"><p class="table">金曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbSaturday</p></td>
+<td align="left" valign="top"><p class="table">7</p></td>
+<td align="left" valign="top"><p class="table">土曜日</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="16%" />
+<col width="16%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseSystem</p></td>
+<td align="left" valign="top"><p class="table">0</p></td>
+<td align="left" valign="top"><p class="table">NLS API 設定を使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFirstJan1</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">1 月 1 日が含まれる週から開始します (既定)。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFirstFourDays</p></td>
+<td align="left" valign="top"><p class="table">2</p></td>
+<td align="left" valign="top"><p class="table">新年で少なくとも 4 日ある最初の週から開始します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFirstFullWeek</p></td>
+<td align="left" valign="top"><p class="table">3</p></td>
+<td align="left" valign="top"><p class="table">年の最初の完全な週から開始します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>DateDiff 関数を使用して、2 つの日付の間に指定した時間間隔がどのくらい存在する
+かを確認します。 たとえば、DateDiff を使用して、2 つの日付間の日数や、今日から
+年末までの週数を計算することができます。</p></div>
+<div class="paragraph"><p>date1 と date2 の間の日数を計算するには、年 ("y") または日 ("d") の日付を使用
+できます。 interval が曜日 ("w") の場合、DateDiff は 2 つの日付間の週数を返し
+ます。 date1 が月曜日の場合、DateDiff では date2 までの月曜日の数がカウントさ
+れます。 date1 ではなく date2 がカウントされます。</p></div>
+<div class="paragraph"><p>一方、interval が週 ("ww") の場合、DateDiff 関数は 2 つの日付間のカレンダーの
+週数を返します。 date1 と date2 間の日曜日の数がカウントされます。 DateDiff で
+は、date2 が日曜日の場合は、date2 がカウントされます。date1 が日曜日の場合でも
+date1 はカウントされません。</p></div>
+<div class="paragraph"><p>date1 が date2 よりも後の時点を示す場合、DateDiff 関数は負の数を返します。
+firstdayofweek 引数は、"w" および "ww" の間隔記号を使用する計算に影響します。</p></div>
+<div class="paragraph"><p>date1 または date2 が日付リテラルの場合、指定した年はその日付の一部として恒久
+的に保存されます。 ただし、date1 または date2 が二重引用符 (" ") で囲まれてい
+て、年を省略した場合、date1 または date2 の式が評価されるたびに、現在の年がコ
+ードに挿入されます。 これにより、別の年でも使用できるコードを記述することがで
+きます。</p></div>
+<div class="paragraph"><p>連続する年の 12 月 31 日と 1 月 1 日を比較すると、1 日が経過しただけの場合でも、
+年 ("yyyy") の DateDiff は 1 を返します。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">Calendar プロパティの設定がグレゴリオ暦の場合、date1 と date2
+ではグレゴリオ暦の日付を指定する必要があります。 カレンダーがイスラム暦の場合
+は、イスラム暦で日付を指定する必要があります。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、DateDiff 関数を使用して、指定された日付から今日までの日数を表示し
+ます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> TheDate As <span style="font-weight: bold"><span style="color: #0000FF">Date</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Declare variables.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Msg
+TheDate <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Enter a date"</span><span style="color: #990000">)</span>
+Msg <span style="color: #990000">=</span> <span style="color: #FF0000">"Days from today: "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">DateDiff</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"d"</span><span style="color: #990000">,</span> Now<span style="color: #990000">,</span> TheDate<span style="color: #990000">)</span>
+MsgBox Msg</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_datepart_関数_a_id_datepart_a">DatePart 関数<a id="DatePart"></a></h4>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">この関数の使用には問題があります。 一部のカレンダー年の最後の
+月曜日は、週1である必要がある場合は、53週として返されます。 詳細および回避策に
+ついては、「Format または DatePart 関数は、先週の最後の月曜日に間違った週番号
+を返す」を参照してください。 日付の指定した部分を含む Variant (Integer) を返し
+ます。</td>
+</tr></table>
+</div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">DatePart</span></span><span style="color: #990000">(</span>interval<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">date</span></span><span style="color: #990000">,</span> <span style="color: #990000">[</span> firstdayofweek<span style="color: #990000">,</span> <span style="color: #990000">[</span> firstweekofyear <span style="color: #990000">]])</span></tt></pre></div></div>
+<div class="paragraph"><p>DatePart 関数の構文には、次の名前付き引数があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">指定項目 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">interval</p></td>
+<td align="left" valign="top"><p class="table">必須。 戻す時間のサイクル間隔の 文字列式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">date</p></td>
+<td align="left" valign="top"><p class="table">必須。 評価する Variant (Date) の値です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">firstdayofweek</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 週の始まりの曜日を表す定数です。 省略すると、日曜日を指定したものと見なされます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">firstweekofyear</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 年の第 1 週を指定する定数です。 省略すると、1 月 1 日を含む週が第 1 週と見なされます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>interval 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">設定 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">yyyy</p></td>
+<td align="left" valign="top"><p class="table">年</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">q</p></td>
+<td align="left" valign="top"><p class="table">四半期</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">m</p></td>
+<td align="left" valign="top"><p class="table">月</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">y</p></td>
+<td align="left" valign="top"><p class="table">通年での日数</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">d</p></td>
+<td align="left" valign="top"><p class="table">日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">w</p></td>
+<td align="left" valign="top"><p class="table">平日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">ww</p></td>
+<td align="left" valign="top"><p class="table">週</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">h</p></td>
+<td align="left" valign="top"><p class="table">時</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">n</p></td>
+<td align="left" valign="top"><p class="table">分</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">s</p></td>
+<td align="left" valign="top"><p class="table">秒</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>firstdayofweek 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">説明</p></td>
+<td align="left" valign="top"><p class="table">vbUseSystem</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">NLS API 設定を使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbSunday</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">日曜日 (既定)</p></td>
+<td align="left" valign="top"><p class="table">vbMonday</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">月曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbTuesday</p></td>
+<td align="left" valign="top"><p class="table">1/3</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">火曜日</p></td>
+<td align="left" valign="top"><p class="table">vbWednesday</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">4</p></td>
+<td align="left" valign="top"><p class="table">水曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbThursday</p></td>
+<td align="left" valign="top"><p class="table">5</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">木曜日</p></td>
+<td align="left" valign="top"><p class="table">vbFriday</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">6</p></td>
+<td align="left" valign="top"><p class="table">金曜日</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbSaturday</p></td>
+<td align="left" valign="top"><p class="table">7</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p><em>firstweekofyear</em> 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">説明</p></td>
+<td align="left" valign="top"><p class="table">vbUseSystem</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">NLS API 設定を使用します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFirstJan1</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">1 月 1 日が含まれる週から開始します (既定)。</p></td>
+<td align="left" valign="top"><p class="table">vbFirstFourDays</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">新年で少なくとも 4 日ある最初の週から開始します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFirstFullWeek</p></td>
+<td align="left" valign="top"><p class="table">1/3</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>DatePart 関数を使用して、日付を評価し、特定の時間間隔を返すことができます。 た
+とえば、曜日または現在の時間を計算するために、DatePart を使用する場合がありま
+す。</p></div>
+<div class="paragraph"><p>firstdayofweek 引数は、"w" および "ww" の間隔記号を使用する計算に影響します。</p></div>
+<div class="paragraph"><p>date が日付リテラルの場合、指定した年はその日付の一部として恒久的に保存されま
+す。 ただし、date が二重引用符 (" ") で囲まれていて、年を省略した場合、date の
+式が評価されるたびに、現在の年がコードに挿入されます。 これにより、別の年でも
+使用できるコードを記述することができます。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content"><a href="#Calendar">Calendar</a> プロパティの設定がグレゴリオ暦の場合、
+date にはグレゴリオ暦の日付を指定する必要があります。 カレンダーがイスラム暦で
+ある場合、指定する日付もイスラム暦である必要があります。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>戻された日付の部分は、現在のアラビア歴の期間の単位になります。 たとえば、現在
+のカレンダーがイスラム暦で、戻された日付の部分が年の場合、年の値はイスラム暦年
+になります。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、DatePart 関数を使用して日付を取得し、その日付が含まれる四半期が表
+示されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> TheDate As <span style="font-weight: bold"><span style="color: #0000FF">Date</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Declare variables.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Msg
+TheDate <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Enter a date:"</span><span style="color: #990000">)</span>
+Msg <span style="color: #990000">=</span> <span style="color: #FF0000">"Quarter: "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">DatePart</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"q"</span><span style="color: #990000">,</span> TheDate<span style="color: #990000">)</span>
+MsgBox Msg</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_dateserial_関数_a_id_dateserial_a">DateSerial 関数<a id="DateSerial"></a></h4>
+<div class="paragraph"><p>指定した年、月、日の Variant (Date) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">DateSerial</span></span><span style="color: #990000">(</span>year<span style="color: #990000">,</span> month<span style="color: #990000">,</span> day<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>DateSerial 関数の構文には、次の名前付き引数があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">year</p></td>
+<td align="left" valign="top"><p class="table">必須。Integer。 100 以上 9999 以下の数値、または数式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">month</p></td>
+<td align="left" valign="top"><p class="table">必須。Integer。 任意の数式。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">day</p></td>
+<td align="left" valign="top"><p class="table">必須。Integer。 任意の数式。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>1991 年 12 月 31 日などの日付を指定するには、DateSerial の各引数の数値範囲がそ
+     の単位の許容範囲内である必要があります。つまり、日の場合は 1 以上 31 以下、
+月の場合は 1 以上 12 以下です。 ただし、特定の日付の前後の日数、月数、年数を表
+す任意の数式を使用して、各引数の相対日付を指定することもできます。</p></div>
+<div class="paragraph"><p>次の例では、絶対日付数値の代わりに、数式を使用しています。 DateSerial 関数は、
+月初めの前日 (1 - 1)、8 月から 2 か月前 (8 - 2)、1990 年から 10 年前 (1990 -
+10)、つまり、1980 年 5 月 31 日を返します。</p></div>
+<div class="paragraph"><p>Windows 98 または Windows 2000 では、year 引数の 2 桁の年は、ユーザーが定義し
+たマシン設定により解釈されます。 既定の設定では、0 以上 29 以下の値が 2000 年
+から 2029 年として解釈されます。 30 以上 99 以下の既定値は、1930 年から 1999
+年として解釈されます。 その他のすべての year 引数では、4 桁の年を使用します
+(1800 など)。</p></div>
+<div class="paragraph"><p>以前の Windows バージョンでは、上記で説明した既定値に応じて、2 桁の年で解釈さ
+れます。 関数が適切な値を確実に返すようにするには、4 桁の年を使用します。</p></div>
+<div class="paragraph"><p>いずれかの引数の値が引数の許容範囲を超えた場合は、必要に応じて次の上位の単位に
+繰り越されます。 たとえば、35 日を指定した場合は、1 か月と数日と評価されます
+(日数は月によって変わります)。 引数のいずれか 1 つでも -32,768 から 32,767 の
+範囲を超えると、エラーが発生します。 3 つの引数で指定された日付が許容日付範囲
+外の日付になると、エラーが発生します。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">year、month、および day は、カレンダー プロパティ設定がグレゴ
+リオ暦の場合、指定した値はグレゴリオ暦と見なされます。 カレンダー プロパティの
+設定がイスラム暦の場合、指定した値はイスラム暦と見なされます。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>返される日付部分は、現在の Visual Basic のカレンダーの暦になります。 たとえば、
+現在のカレンダーがイスラム暦で、返される日付部分が年の場合、年の値はイスラム暦
+の年になります。 引数 year の場合、0 以上 99 以下の値は 1400 年から 1499 年と
+して解釈されます。 その他のすべての year 値では、完全な 4 桁の年を使用します
+(1520 など)。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、DateSerial 関数を使用して、指定した年、月、日の日付を返しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDate
+<span style="font-style: italic"><span style="color: #9A1900">' MyDate contains the date for February 12, 1969.</span></span>
+MyDate <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">DateSerial</span></span><span style="color: #990000">(</span><span style="color: #993399">1969</span><span style="color: #990000">,</span> <span style="color: #993399">2</span><span style="color: #990000">,</span> <span style="color: #993399">12</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Return a date.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_datevalue_関数_a_id_datevalue_a">DateValue 関数<a id="DateValue"></a></h4>
+<div class="paragraph"><p>Variant (Date) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">DateValue</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">date</span></span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の date 引数は、通常、100 年 1 月 1 日から 9999 年 12 月 31 日までの日付を
+表す文字列式です。 また、date には、この範囲内の日付や時刻、または日付と時刻の
+両方を表す任意の式を指定することもできます。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>date が有効な日付の区切り記号で区切られた数字のみを含む文字列である場合、
+DateValue は、ユーザーがシステムに対して指定した短い日付形式に従って月、日、年
+の順序を認識します。 また、DateValue は、月の名前 (長い形式または省略形) を含
+んだ明確な日付も認識します。 たとえば、DateValue は、"12/30/1991" と
+"12/30/91" だけでなく "December 30, 1991" と "Dec 30, 1991" も認識します。</p></div>
+<div class="paragraph"><p>date の年の部分を省略した場合、DateValue はコンピューターのシステム日付の現在
+の年を使用します。</p></div>
+<div class="paragraph"><p>date 引数に時刻の情報が含まれている場合、DateValue はその時刻を返しません。 た
+だし、date に無効な時刻の情報 ("89:98" など) が含まれているとエラーが発生しま
+す。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content"><a href="#Calendar">Calendar</a> プロパティの設定がグレゴリオ暦の場合、
+date にはグレゴリオ暦の日付を指定する必要があります。 カレンダーがイスラム暦で
+ある場合、指定する日付もイスラム暦である必要があります。 イスラム暦の日付を指
+定する場合、引数 date は、"1/1/100" (グレゴリオ暦の 718 年 8 月 2 日) から
+"4/3/9666" (グレゴリオ暦の 9999 年 12 月 31 日) の範囲内の日付を表す String で
+す。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、DateValue 関数を使用して文字列を日付に変換します。 "MyDate =
+2/12/69" のように、日付リテラルを使用して Variant 変数または Date 変数に日付
+を直接割り当てることもできます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDate
+MyDate <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">DateValue</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"February 12, 1969"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Return a date.</span></span></tt></pre></div></div>
+<div class="paragraph"><p>★</p></div>
 </div>
 </div>
 <div class="sect2">
@@ -13212,7 +15797,7 @@ cellspacing="0" cellpadding="4">
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-10-22 22:20:27 JST
+Last updated 2020-10-30 06:31:14 JST
 </div>
 </div>
 </body>

@@ -164,8 +164,7 @@ Visual Basic 言語 (すべてのメソッド、プロパティ、ステート�
 |===
 
 
-=== https:
-//docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary[データ型の概要 | Microsoft Docs][[データ型の概要]]
+=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/data-type-summary[データ型の概要 | Microsoft Docs][[データ型の概要]]
 
 データ型は、保持できるデータの種類を決定する変数の特性です。 データ型には、次
 の表で示されているもの、ユーザー定義型、およびオブジェクトに固有の型が含まれま
@@ -269,8 +268,51 @@ Null
 
 
 
+====  Type Conversion 関数[[Type Conversion]]
+
+各関数では、式が特定のデータ型に強制的に変換されます。
+
+.構文
+
+* CBool(expression)
+* CByte(expression)
+* CCur(expression)
+* CDate(expression)
+* CDbl(expression)
+* CDec(expression)
+* CInt(expression)
+* CLng(expression)
+* CLngLng(expression) (64 ビットのプラットフォームでのみ有効)
+* CLngPtr(expression)
+* CSng(expression)
+* CStr(expression)
+* CVar(expression)
+
+必須の expression 引数は、任意の文字列式または数値式です。
+
+戻り値の型
+
+次に示すように、戻り値の型は関数名によって異なります。
 
 
+[cols="1,1,4",options="header"]
+|===
+|Function |戻り値の種類 |expression 引数の範囲
+|CBool |Boolean |任意の有効な文字列式または数式を指定します。
+|CByte |Byte |0 から 255。
+|CCur |Currency |-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807。
+|CDate |Date |任意の有効な日付式。
+|CDbl |Double |負の値の場合は -1.79769313486231E308 ～ -4.94065645841247E-324、正の値の場合は 4.94065645841247E-324 ～ 1.79769313486232E308。
+|CDec |Decimal |ゼロスケールの値 (小数部分がない値) の場合は 79,228,162,514,264,337,593,543,950,335 です。 小数点以下が 28 桁の値の場合は 7.9228162514264337593543950335 です。 0 以外で可能な最小値は 0.0000000000000000000000000001 です。
+|CInt |Integer |-32,768 から 32,767。小数点以下は丸められます。
+|CLng |Long |-2,147,483,648 から 2,147,483,647。小数点以下は丸められます。
+|CLngLng |LongLong |-9,223,372,036,854,775,808 から 9,223,372,036,854,775,807。小数点以下は丸められます (64 ビット プラットフォームのみで有効)。
+|CLngPtr |LongPtr |32 ビットのシステムでは -2,147,483,648 ～ 2,147,483,647、64 ビットのシステムでは -9,223,372,036,854,775,808 ～ 9,223,372,036,854,775,807。32 ビットと 64 ビットのどちらのシステムでも、小数部分は丸められます。
+|CSng |Single |負の値の場合は -3.402823E38 ～ -1.401298E-45、正の値の場合は 1.401298E-45 ～ 3.402823E38。
+|CStr |String |CStr の戻り値は、expression 引数に依存します。
+|CVar |Variant |数値の場合は Double と同じ範囲です。 数値以外の場合は String と同じ範囲です。
+|===
+★
 === ディレクティブ
 
 [cols="3,4",options="header"]
@@ -747,7 +789,7 @@ End Sub
 * <<Array,Array>>
 * <<CallByName,CallByName>>
 * <<Choose,Choose>>
-* コマンド
+* <<Command, Command>>
 * <<CreateObject,CreateObject>>
 * <<CurDir,CurDir>>
 * <<Date,Date>>
@@ -850,6 +892,1680 @@ End Sub
 * <<Year,Year>>
 
 ==== Array 関数[[Array]]
+
+.構文
+
+[source,vbscript]
+----
+Array(arglist)
+----
+
+必須の arglist 引数は、Variant に含まれている配列の要素に割り当てられる値のコ
+ンマ区切りのリストです。 引数を指定しない場合は長さ 0 の配列が作成されます。
+
+.解説
+
+配列の要素を参照するために使用される表記は、変数 名とそれに続く括弧で構成され、
+括弧の中には目的の要素を示すインデックス番号が入ります。
+
+次の例では、最初のステートメントにより、Variant として「A」という名前の変数が
+作成されます。 2 つ目のステートメントにより、変数 A に配列が割り当てられます。
+最後のステートメントにより、2 つ目の配列要素に含まれる値が別の変数に割り当てら
+れます。
+
+
+[source,vbscript]
+----
+Dim A As Variant, B As Long, i As Long
+A = Array(10, 20, 30)  ' A is a three element list by default indexed 0 to 2
+B = A(2)               ' B is now 30
+ReDim Preserve A(4)    ' Extend A's length to five elements
+A(4) = 40              ' Set the fifth element's value
+For i = LBound(A) To UBound(A)
+    Debug.Print "A(" & i & ") = " & A(i)
+Next i
+----
+
+Array 関数を使用して作成した配列の下限は、Array がタイプ ライブラリの名前で修
+飾 (VBA.Array など) されていない限り、Option Base ステートメントで指定した下限
+によって決まります。 タイプ ライブラリの名前で修飾されている場合は、Array は
+Option Base の影響を受けません。
+
+
+CAUTION:	配列として宣言されていない Variant には、配列を含めることがで
+きます。 Variant 変数には、固定長の文字列とユーザー定義の型を除き、あらゆる型
+の配列を含めることができます。 配列が含まれている Variant は要素の型が Variant
+の配列とは概念的に異なりますが、配列要素には同じ方法でアクセスされます。
+
+
+.例
+
+この例では、 Array 関数を使用して、配列を含む Variant を返します。
+
+
+[source,vbscript]
+----
+Dim MyWeek, MyDay
+MyWeek = Array("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+' Return values assume lower bound set to 1 (using Option Base
+' statement).
+MyDay = MyWeek(2)    ' MyDay contains "Tue".
+MyDay = MyWeek(4)    ' MyDay contains "Thu".
+----
+
+
+==== CallByName 関数[[CallByName]]
+
+オブジェクトのメソッドを実行するか、オブジェクトのプロパティを設定するか返しま
+す。
+
+.構文
+
+[source,vbscript]
+----
+CallByName (object, procname, calltype, [args()]))
+----
+
+CallByName関数の構文に使用される名前付き引数は次のとおりです。
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須。Variant (Object)。 関数を実行するオブジェクトの名前。
+|procname |必須。Variant (String)。 オブジェクトのプロパティまたはメソッドの名前を含む文字列式。
+|calltype |必須。定数。 呼び出されるプロシージャの型を表す vbCallType 型の定数。
+|args() |省略可能。Variant (Array)。
+|===
+
+
+.解説
+
+CallByName 関数は、実行時に文字列名を使用してプロパティを取得または設定するか、
+メソッドを呼び出すために使用されます。
+
+次の例では、1 行目で CallByName を使用してテキスト ボックスの MousePointer プ
+ロパティを設定し、2 行目で MousePointer プロパティの値を取得し、3 行目で Move
+メソッドを呼び出してテキスト ボックスを移動します。
+
+
+[source,vbscript]
+----
+CallByName Text1, "MousePointer", vbLet, vbCrosshair
+Result = CallByName (Text1, "MousePointer", vbGet)
+CallByName Text1, "Move", vbMethod, 100, 100
+----
+
+.例
+
+この例では、CallByName 関数を使用して、コマンド ボタンの Move メソッドを呼び出
+します。
+
+例ではまた、ボタン (Command1) とラベル (Label1) を含むフォーム (Form1) を使用
+します。 フォームが読み込まれると、ラベルの Caption プロパティが、呼び出すメソ
+ッドの名前に設定されます (この例では "Move")。 ボタンをクリックすると、
+CallByName 関数によって、ボタンの位置を変更するメソッドが呼び出されます。
+
+
+[source,vbscript]
+----
+Option Explicit
+
+Private Sub Form_Load()
+    Label1.Caption = "Move"        ' Name of Move method.
+End Sub
+
+Private Sub Command1_Click()
+    If Command1.Left <> 0 Then
+        CallByName Command1, Label1.Caption, vbMethod, 0, 0
+    Else
+        CallByName Command1, Label1.Caption, vbMethod, 500, 500
+    End If
+
+----
+
+
+==== Choose 関数[[Choose]]
+
+引数の一覧から値を選択し、返します。
+
+.構文
+
+[source,vbscript]
+----
+Choose(index, choice-1, [ choice-2, ..., [ choice-n ]] )
+----
+
+Choose 関数の構文には、次の指定項目があります。
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|index |必ず指定します。 1 から選択肢の数までの値になる 数式またはフィールドです。
+|choice |必須です。 可能性のある選択肢のいずれか 1 つが含まれる バリアント型の式 です。
+|===
+
+
+.解説
+
+Choose は、index の値に基づいて選択肢の一覧から値を返します。 index が 1 の場
+合、Choose は一覧の 1 つ目の選択肢を返します。index が 2 の場合は 2 つ目という
+ようになります。
+
+Choose を使って、可能性の一覧に含まれる値を検索することができます。 たとえば、
+index が 3 で、choice-1 = "1"、choice-2 = "2"、choice-3 = "3" と評価した場合、
+Choose は "3" を返します。 この機能は、index がオプション グループの値を示す場
+合に特に便利です。
+
+Choose は、一覧の選択肢すべてを評価しますが、その 1 つだけが返されます。 その
+ため、望ましくない副作用が生じないように注意する必要があります。 すべての選択
+肢において、式 の一部として MsgBox 関数を使用する場合、メッセージ ボックスは評
+価される各選択肢に対して表示されますが、Choose はそのうちの 1 つだけを返します。
+
+もし index が 1 以下または一覧にある選択肢の数を超える場合、Choose 関数は Null
+を返します。
+
+index が整数ではない場合、最も近い整数に丸めてから評価されます。
+
+.例
+
+この例では、Choose 関数を使って、Ind パラメーターのプロシージャに渡される
+index に応じた名前を表示します。
+
+[source,vbscript]
+----
+Function GetChoice(Ind As Integer)
+    GetChoice = Choose(Ind, "Speedy", "United", "Federal")
+End Function
+----
+
+==== Command[[Command]]
+
+Microsoft Visual Basic または Visual Basic で開発された実行可能なプログラムの
+起動に使用されるコマンド ラインの引数部分を返します。 Visual Basic の関数機能
+は、Microsoft Office のアプリケーションでは使用できません。
+
+.構文
+
+[source,vbscript]
+----
+Command
+----
+
+.解説
+
+コマンドラインから Visual Basic が起動された場合、/cmd に続くすべてのコマンド
+ライン部分がコマンドライン引数として、プログラムに渡されます。 次のコマンドラ
+インの例で、cmdlineargs は、コマンド関数によって返される引数情報を表しています。
+
+VB /cmd cmdlineargs
+
+Visual Basic で開発され、.exe ファイルにコンパイルされたアプリケーションでは、
+Command によって、コマンド ラインのアプリケーション名の後に表示されるすべての
+引数が返されます。 次に例を示します。
+
+MyApp cmdlineargs
+
+使用しているアプリケーションのユーザー インターフェイスでのコマンド ライン引数
+の変更方法の詳細については、ヘルプの「コマンド ライン引数」を参照してください。
+
+
+
+.例
+
+この例では、配列を含む Variant でコマンド ライン引数を返す関数内で、Command 関
+数を使用してコマンド ライン引数を取得しています。 Microsoft Office では使用で
+きません。
+
+
+[source,vbscript]
+----
+Function GetCommandLine(Optional MaxArgs)
+    'Declare variables.
+    Dim C, CmdLine, CmdLnLen, InArg, I, NumArgs
+    'See if MaxArgs was provided.
+    If IsMissing(MaxArgs) Then MaxArgs = 10
+    'Make array of the correct size.
+    ReDim ArgArray(MaxArgs)
+    NumArgs = 0: InArg = False
+    'Get command line arguments.
+    CmdLine = Command()
+    CmdLnLen = Len(CmdLine)
+    'Go thru command line one character
+    'at a time.
+    For I = 1 To CmdLnLen
+        C = Mid(CmdLine, I, 1)
+        'Test for space or tab.
+        If (C <> " " And C <> vbTab) Then
+            'Neither space nor tab.
+            'Test if already in argument.
+            If Not InArg Then
+            'New argument begins.
+            'Test for too many arguments.
+                If NumArgs = MaxArgs Then Exit For
+                NumArgs = NumArgs + 1
+                InArg = True
+            End If
+            'Concatenate character to current argument.
+            ArgArray(NumArgs) = ArgArray(NumArgs) & C
+        Else
+            'Found a space or tab.
+            'Set InArg flag to False.
+            InArg = False
+        End If
+    Next I
+    'Resize array just enough to hold arguments.
+    ReDim Preserve ArgArray(NumArgs)
+    'Return Array in Function name.
+    GetCommandLine = ArgArray()
+End Function
+----
+
+==== 変換関数
+
+===== 変換関数
+
+* <<Asc,Asc 関数>>
+* <<Chr,Chr 関数>>
+* <<CVErr,CVErr 関数>>
+* <<Format,Format 関数>>
+* <<Hex,Hex 関数>>
+* <<Oct,Oct 関数>>
+* <<Str,Str 関数>>
+* <<Val,Val 関数>>
+
+.Type Conversion 関数
+
+式を特定のデータ型に変換する関数については、<<Type Conversion,Type Conversion
+関数>>ページを参照してください。
+
+* CBool 関数
+* CByte 関数
+* CCur 関数
+* CDate 関数
+* CDec 関数
+* CDbl 関数
+* CInt 関数
+* CLng 関数
+* CLngLng 関数
+* CLngPtr 関数
+* CSng 関数
+* CStr 関数
+* CVar 関数
+
+
+
+
+
+
+===== Asc 関数[[Asc]]
+
+文字列の最初の文字に対応した文字コードを示す整数を返します。
+
+.構文
+
+[source,vbscript]
+----
+Asc(string)
+----
+
+必須の string 引数は、任意の有効な文字列式です。 string に文字が含まれていない
+場合、実行時エラーが発生します。
+
+.解説
+
+戻り値の範囲は、非 DBCS システムでは 0–255 ですが、DBCS システムでは -32768–
+32767 です。
+
+
+CAUTION:	AscB 関数は、文字列に含まれるバイト データの場合に使用します。 先頭の文字の文
+字コードを返す代わりに、AscB は最初のバイトを返します。 AscW 関数は、Unicode
+文字コードを返します。ただし、Unicode がサポートされていないプラットフォームで
+は、Asc 関数と同じ動作になります。
+
+CAUTION:	Visual Basic for the Macintosh では、Unicode 文字列をサポート
+していません。 このため、Windows 環境とは異なり、AscW (n) は 128 – 65,535 の
+範囲の n の値に対するすべての Unicode 文字を返すことができません。 代わりに、
+AscW (n) は、127 より大きい Unicode 値 n について "最適なものを推測" します。
+したがって、Macintosh 環境では、AscW を使用してはいけません。。
+
+
+関数<<Chr,Chr ()、ChrB ()、および ChrW ()>> は、 Asc ()、ascb ()、ascb () の逆
+です。Chr () 関数は、整数を文字列に変換します。
+
+.例
+
+この例では、Asc 関数を使って、文字列の先頭の文字に対応する文字コードを返します。
+
+[source,vbscript]
+----
+Dim MyNumber
+MyNumber = Asc("A")    ' Returns 65.
+MyNumber = Asc("a")    ' Returns 97.
+MyNumber = Asc("Apple")    ' Returns 65.
+----
+
+
+===== Chr 関数[[Chr]]
+
+指定した文字コードと関連付けられている文字を含む String を返します。
+
+.構文
+
+[source,vbscript]
+----
+Chr(charcode)
+ChrB(charcode)
+ChrW(charcode)
+----
+
+必須の charcode 引数は、文字を識別する Long です。
+
+.解説
+
+0 から 31 の数値は、標準の印刷できない ASCII コードと同じです。 たとえば、
+  Chr(10) は改行文字を返します。 charcode の通常の範囲は 0 から 255 です。 た
+だし、DBCS システムでは、charcode の実際の範囲は -32768 から 65535 です。
+
+CAUTION:	ChrB関数は、String に含まれるバイト データの場合に使用します。
+ChrBは、1 バイトまたは 2 バイトの文字ではなく、常に 1 バイトを返します。
+ChrW 関数は、Unicode 文字を含む String を返します。ただし、Unicode がサポート
+されていないプラットフォームでは、Chr 関数と同じ動作になります。
+
+CAUTION:	Visual Basic for the Macintosh では、Unicode 文字列をサポート
+していません。 このため、Windows 環境とは異なり、ChrW(n) は 128 から 65,535 の
+範囲の n の値に対するすべての Unicode 文字を返すことができません。 代わりに、
+ChrW(n) は、127 より大きい Unicode 値 n について "最適なものを推測" します。
+したがって、Macintosh 環境では、ChrW を使用する必要はありません。
+
+関数 <<Asc,Asc()、AscB()、および AscW()>> は Chr()、ChrB()、および ChrW() の反対です。
+Asc() 関数は、文字列を整数に変換します。
+
+
+.例
+
+次の例では、Chr 関数を使用して、指定した文字コードと関連付けられている文字を返
+します。
+
+
+[source,vbscript]
+----
+Dim MyChar
+MyChar = Chr(65)    ' Returns A.
+MyChar = Chr(97)    ' Returns a.
+MyChar = Chr(62)    ' Returns >.
+MyChar = Chr(37)    ' Returns %.
+----
+
+===== CVErr 関数[[CVErr]]
+
+
+ユーザーによって指定されたエラー番号を含むサブタイプ Error の Variant を返しま
+す。
+
+.構文
+
+
+[source,vbscript]
+----
+CVErr(errornumber)
+----
+
+必須の errornumber 引数は、任意の有効なエラー番号です。
+
+.解説
+
+CVErr 関数は、ユーザーが作成するプロシージャでユーザー定義のエラーを作成するた
+めに使用されます。 たとえば、複数の引数を受け取って普通に文字列を返す関数を作
+成する場合は、関数で入力引数を評価し、受け付けられる範囲内の値であることを確認
+できます。 そうでない場合、関数は期待する結果を返しません。 このような場合、
+CVErr を使用することで、実行する処理の内容を通知するエラー番号を返すことができ
+ます。
+
+Error の暗黙的な変換はできないことに注意してください。 たとえば、CVErr の戻り
+値を、Variant ではない変数に直接割り当てることはできません。 ただし、CVErr に
+よって返される値の明示的な変換を実行し (CInt、CDbl などを使用)、それを適切なデ
+ータ型の変数に割り当てることはできます。
+
+.例
+
+次の例では、CVErr 関数を使用して、VarType が vbError (10) である Variant を返
+します。 ユーザー定義関数 CalculateDouble は、渡された引数が数値でない場合にエ
+ラーを返します。 CVErr を使用して、ユーザー定義プロシージャからユーザー定義エ
+ラーを返すことも、実行時エラーの処理を遅らせることもできます。 値がエラーを表
+しているかどうかを調べるには、IsError 関数を使用します。
+
+
+[source,vbscript]
+----
+' Call CalculateDouble with an error-producing argument.
+Sub Test()
+    Debug.Print CalculateDouble("345.45robert")
+End Sub
+' Define CalculateDouble Function procedure.
+Function CalculateDouble(Number)
+    If IsNumeric(Number) Then
+        CalculateDouble = Number * 2    ' Return result.
+    Else
+        CalculateDouble = CVErr(2001)    ' Return a user-defined error 
+    End If    ' number.
+End Function
+----
+
+===== Format 関数[[Format]]
+
+書式指定式の指示に従って書式設定される式を含む Variant (String) を戻します。
+
+
+CAUTION:	複数のプラットフォーム間で Office エクスペリエンスを拡張するソ
+リューションを開発することに関心がありますか? 新しい Office アドイン モデルを
+参照してください。 Office アドインには、VSTO アドインおよびソリューションと比
+較して、小さな設置面積があります。 HTML5、JavaScript、CSS3、XML など、ほぼすべ
+ての web プログラミングテクノロジを使用して構築できます。
+
+.構文
+
+[source,vbscript]
+----
+Format(Expression, [Format], [FirstDayOfWeek], [FirstWeekOfYear])
+----
+
+Format 関数の構文には、次の指定項目があります。
+
+[cols="1,4",options="header"]
+|===
+|指定項目 |説明
+|Expression |必須。 必ず指定します。任意の有効な式。
+|Format |省略可能。 有効な名前を持つ、またはユーザー定義の書式指定式。
+|FirstDayOfWeek |省略可能。 週の最初の曜日を指定する定数です。
+|FirstWeekOfYear |省略可能。 年内で、最初の週を指定する定数です。
+|===
+
+.設定
+
+firstdayofweek 引数の設定は次のとおりです。
+
+
+[cols="1,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbUseSystem |0 |NLS API 設定を使用します。
+|vbSunday |1 |日曜日 (既定)
+|vbMonday |2 |月曜日
+|vbTuesday |3 |火曜日
+|vbWednesday |4 |水曜日
+|vbThursday |5 |木曜日
+|vbFriday |6 |金曜日
+|vbSaturday |7 |土曜日
+|===
+
+firstweekofyear 引数の設定は次のとおりです。
+
+[cols="1,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbUseSystem |0 |NLS API 設定を使用します。
+|vbFirstJan1 |1 |1 月 1 日が含まれる週から開始します (既定)。
+|vbFirstFourDays |2 |4 日以上が含まれる最初の週が年の第 1 週目になります。
+|vbFirstFullWeek |3 |1 週間全体が含まれる最初の週がその年の第 1 週目になります。
+|===
+
+.解説
+
+
+[cols="1,4",options="header"]
+|===
+|書式設定の対象 |説明
+|数値 |定義済みの名前付き数値書式を使用するか、ユーザー定義の数値書式を作成します。
+|日付と時刻 |定義済みの名前付き日付/時刻書式を使用するか、ユーザー定義の日付/時刻書式を作成します。
+|日付と時刻の連続番号 |日付および時間書式または数値書式を使用します。
+|文字列 |自分のユーザー定義文字列書式を作成します。
+|===
+
+Format は、format を 257 文字に切り捨てます。
+
+format を指定せずに数値を書式設定する場合、Format は Str 関数と同様の、ただし
+国際対応がされた機能を提供します。 しかし、Format を使用して文字列として書式設
+定された正の数値には、値の記号用に予約済みの先頭のスペースは含まれません。Str
+を使用して変換された数値では、先頭のスペースは保持されます。
+
+ローカライズされていない数値文字列を書式設定する場合、目的の書式を実現するには、
+ユーザー定義数値書式を使用する必要があります。
+
+CAUTION:	Calendar プロパティの設定が Gregorian で、format が日付書式を
+指定する場合、指定する expression は Gregorian である必要があります。 Visual
+Basic Calendar プロパティ設定が Hijri である場合、指定する expression は Hijri
+である必要があります。
+
+
+カレンダーがグレゴリオ暦である場合、format 式記号の意味は変わりません。 カレンダーがイスラム暦の場合、すべての日付書式記号 (たとえば、dddd、mmmm、yyyy) は同じ意味を持ちますが、イスラム暦に適用されます。 書式記号は英語のままです。テキスト表示 (たとえば、AM や PM) になる記号では、その記号に対応する文字列 (英語またはアラビア語) が表示されます。 カレンダーがイスラム暦の場合、特定の記号の範囲は変わります。
+
+.日付記号
+
+[cols="1,4",options="header"]
+|===
+|記号 |範囲
+|d |1 〜 31 (前に 0 を付けない、月の日付)
+|dd |01 〜 31 (前に 0 を付ける、月の日付)
+|w |1 〜 7 (週の曜日。土曜日 = 1 から開始)
+|ww |1 〜 53 (1 年のうちで何週目かを表す数値。前に 0 を付けず、1 月 1 日から開始。)
+|m |1 〜 12 (月。前に 0 を付けず、1 月 = 1 から開始。)
+|mm |01 〜 12 (月。前に 0 を付け、1 月 = 01 から開始。)
+|mmm |月の省略名を表示 (イスラム暦の月の名前には省略形はありません)
+|mmmm |完全な月名を表示
+|y |1 〜 366 (1 年のうちで何日目かを表す数値)
+|yy |00 〜 99 (西暦年の下 2 桁)
+|yyyy |100 〜 9999 (3 桁または 4 桁の西暦年)
+|===
+
+.時間記号
+
+[cols="1,4",options="header"]
+|===
+|記号 |範囲
+|h |0 〜 23 (「AM」または「PM」を追加した 1 〜 12 の数値) (前に 0 を付けない、1 日の中の時間)
+|hh |00 〜 23 (「AM」または「PM」を追加した 01 〜 12 の数値) (前に 0 を付ける、1 日の中の時間)
+|n |0 〜 59 (前に 0 を付けない、1 時間の中の分)
+|nn |00 〜 59 (前に 0 を付ける、1 時間の中の分)
+|m |0 〜 59 (前に 0 を付けない、1 時間の中の分) h または hh が先行する場合のみ
+|mm |00 〜 59 (前に 0 を付ける、1 時間の中の分) h または hh が先行する場合のみ
+|s |0 〜 59 (前に 0 を付けない、1分の中の秒)
+|ss |00 〜 59 (前に 0 を付ける、1分の中の秒)
+|===
+
+.使用例
+
+この例では、名前付き書式とユーザー定義書式の両方を使用して値の書式設定を行う、
+Format 関数のさまざまな使用例を示します。 日付の区切り記号 ( / )、時間の区切り
+記号 (** :** )、リテラルの AM/PM、およびシステムで表示される実際の書式設定され
+る出力は、コードが実行中のロケール設定に基づきます。 時間と日付が開発環境で表
+示されるとき、コード ロケールでの短い時間形式と短い日付形式が使用されます。 コ
+ードの実行により表示される場合は、システム ロケールの短い時間形式と短い日付形
+式が使用されます。これはコード ロケールとは異なることがあります。 この例では、
+English/U.S. を使用します。 MyTime と MyDate が、現在のシステムでの短い時間設
+定と短い日付設定を使用して、開発環境で表示されます。
+
+[source,vbscript]
+----
+Dim MyTime, MyDate, MyStr
+MyTime = #17:04:23#
+MyDate = #January 27, 1993#
+
+' Returns current system time in the system-defined long time format.
+MyStr = Format(Time, "Long Time")
+
+' Returns current system date in the system-defined long date format.
+MyStr = Format(Date, "Long Date")
+
+MyStr = Format(MyTime, "h:m:s")    ' Returns "17:4:23".
+MyStr = Format(MyTime, "hh:mm:ss am/pm")    ' Returns "05:04:23 pm".
+MyStr = Format(MyTime, "hh:mm:ss AM/PM")    ' Returns "05:04:23 PM".
+MyStr = Format(MyDate, "dddd, mmm d yyyy")    ' Returns "Wednesday, Jan 27 1993".
+' If format is not supplied, a string is returned.
+MyStr = Format(23)    ' Returns "23".
+
+' User-defined formats.
+MyStr = Format(5459.4, "##,##0.00")    ' Returns "5,459.40".
+MyStr = Format(334.9, "###0.00")    ' Returns "334.90".
+MyStr = Format(5, "0.00%")    ' Returns "500.00%".
+MyStr = Format("HELLO", "<")    ' Returns "hello".
+MyStr = Format("This is it", ">")    ' Returns "THIS IS IT".
+----
+
+.さまざまな数値のさまざまな書式
+
+ユーザー定義の数値書式指定 式は、セミコロンで区切られた 1 から 4 のセクションを持つことができます。 書式引数に名前付き数値書式が含まれる場合は、1 つのセクションのみが許可されます。
+
+[source,vbscript]
+----
+|使用するセクション数 |結果
+|1 セクションのみ |書式指定式はすべての値に適用されます。
+|2 セクション |最初のセクションは正の値と 0 に適用され、第 2 のセクションは負の値に適用されます。
+|3 セクション |最初のセクションは正の値、第 2 のセクションは負の値、第 3 のセクションは 0 に適用されます。
+|4 セクション |最初のセクションは正の値、第 2 のセクションは負の値、第 3 のセクションは 0、第 4 のセクションは Null 値に適用されます。
+----
+
+
+"$#,##0;($#,##0)"
+
+間に何も入れずに複数のセミコロンを含めた場合、欠けているセクションは、正の値の
+書式を使用して出力されます。 たとえば、以下の書式は、最初のセクションで書式を
+使用して正と負の値を表示し、値が 0 の場合は、"Zero" を表示します。
+
+
+[source,vbscript]
+----
+"$#,##0;;\Z\e\r\o"
+----
+
+さまざまな文字列値のさまざまな書式
+
+文字列の書式指定式は、セミコロン (;) で区切られた 1 つまたは 2 つのセクション
+を持つことができます。
+
+[source,vbscript]
+----
+|使用するセクション数 |結果
+|1 セクションのみ |書式はすべての文字列データに適用されます。
+|2 セクション |最初のセクションは文字列データに適用され、第 2 のセクションは Null 値と長さ 0 の文字列 ("") に適用されます。
+----
+
+.名前付き日付/時刻書式
+
+以下の表は、定義済みの日付および時間の書式名を示します。
+
+[source,vbscript]
+----
+|書式名 |説明
+|General Date |日付と時刻のどちらか、または両方を表示します (例: 4/3/93 05:34 PM)。 小数の部分がない場合、日付だけを表示します (例: 4/3/93)。 整数の部分がない場合、時間のみを表示します(例: 05:34 PM)。 日付表示はシステム設定に依存します。
+|Long Date |システムの長い日付形式の書式に従って日付を表示します。
+|Medium Date |ホスト アプリケーションの言語バージョンで適切な、中間の長さの日付書式を使用して日付を表示します。
+|Short Date |システムの短い日付書式を使用して日付を表示します。
+|Long Time |システムの長い時間形式を使用して時間を表示します。時間、分、秒が含まれます。
+|Medium Time |時間と分を、12 時間の書式と AM/PM を使用して表示します。
+|Short Time |24 時間の形式を使用して時間を表示します (例: 17: 45)。
+----
+
+.名前付き数値書式
+
+以下の表は、定義済みの数値の書式名を示します。
+
+[source,vbscript]
+----
+|書式名 |説明
+|General Number |桁区切り記号を付けずに数を表示します。
+|Currency |適切な場合は、桁区切り記号を付けて数を表示します。小数点記号の右 2 桁を表示します。 出力はシステム ロケール設定に基づきます。
+|Fixed |少なくとも整数部 1 桁、小数部 2 桁を表示します。
+|Standard |区切り記号を付けて、少なくとも整数部 1 桁、小数部 2 桁を表示します。
+|Percent |数値を 100 倍して、右側にパーセント記号 (%) を付けて表示します。小数部は常に 2 桁です。
+|Scientific |標準の指数表記を使用します。
+|Yes/No |数値が 0 の場合は No を表示します。それ以外の場合は Yes を表示します。
+|True/False |数値が 0 の場合は False を表示します。それ以外の場合は True を表示します。
+|On/Off |数値が 0 の場合は Off を表示します。それ以外の場合は On を表示します。
+----
+
+.ユーザー定義文字列書式
+
+以下の文字を使用して、文字列の書式指定式を作成できます。
+
+[source,vbscript]
+----
+|文字 |説明
+|@ |文字プレースホルダー。 文字またはスペースを表示します。 書式文字列でアット マーク (@ ) の表示位置に文字がある文字列の場合は、その文字が表示されます。それ以外の場合は、その位置にスペースが表示されます。 書式文字列に感嘆符 (** !** ) がある場合を除き、プレースホルダーは右側から左側に向かって埋められます。
+|& |文字プレースホルダー。 文字が表示されるか、または何も表示されません。 アンパサンド (&) の表示位置に文字がある文字列の場合は、その文字が表示されます。それ以外の場合は、何も表示されません。 書式文字列に感嘆符 (** !** ) がある場合を除き、プレースホルダーは右側から左側に向かって埋められます。
+|< |強制的に小文字にします。 すべての文字を小文字で表示します。
+|> |強制的に大文字にします。 すべての文字を大文字で表示します。
+|! |プレースホルダーを左から右に向かって埋めるように強制的に設定します。 既定では、プレースホルダーは右から左に向かって埋めように設定されています。
+----
+
+.ユーザー定義日付/時刻書式
+
+以下の表は、ユーザー定義日付/時刻書式の作成に使用できる文字を示します。
+
+[source,vbscript]
+----
+|文字 |説明
+|(:) |時刻の区切り記号。 一部のロケールでは、時刻区切り文字を表す目的で他の文字が使用されることがあります。 時刻の値が書式設定されるときに、時刻区切り文字によって時、分、および秒が区切られます。 書式設定された出力で時刻区切り文字として使用される実際の文字は、システム設定によって決まります。
+|(/) |日付の区切り記号。 一部のロケールでは、日付区切り文字を表す目的で他の文字が使用されることがあります。 日付値の書式が設定されている場合、日付、月、および年は、日付の区切り記号によって区切られます。 書式設定された出力で、日付の区切り文字として実際に使用される文字は、システム設定によって決まります。
+|c |日付を ddddd、時刻を ttttt 形式で、日付、時刻の順序で表示します。 日付の連続数値に小数部がない場合は、日付情報だけを表示します。時刻に整数部がない場合は、時刻情報のみを表示します。
+|d |日を先頭に 0 のない数値 (1 〜 31) で表示します。
+|dd |日を先頭に 0 のある数値 (01 〜 31) で表示します。
+|ddd |日を曜日の省略形 (日〜 土) で表示します。 ローカライズされています。
+|dddd |日を曜日の完全な名前 (日曜日〜 土曜日) で表示します。 ローカライズされています。
+|ddddd |日付を完全な日付 (日、月、および年を含む) で表示します。表示形式は各システムの短い日付形式の設定に従っています。 既定の短縮日付フォーマットは、m/d/yy です。
+|dddddd |日付の連続数値を完全な日付 (日、月、および年を含む) で表示します。表示形式は各システムが認識する長い日付形式の設定に従っています。 既定の長い日付形式は、mmmm dd, yyyy です。
+|w |曜日を数値 (日曜日が 1 で土曜日が 7) で表示します。
+|ww |1 年のうちの何週目であるかを数値 (1 〜 54) で表示します。
+|m |月を先頭に 0 のない数値 (1 〜 12) で表示します。 h または hh の直後に m が続く場合は、月ではなく分が表示されます。
+|mm |月を先頭に 0 のある数値 (01 〜 12) で表示します。 h または hh の直後に m が続く場合は、月ではなく分が表示されます。
+|mmm |月を月名の省略形 (1 月〜 12 月) で表示します。 ローカライズされています。
+|mmmm |月を完全な月名 (1 月〜 12 月) で表示します。 ローカライズされています。
+|q |1 年の四半期を数値 (1 〜 4) で表示します。
+|y |1 年の何日目かを数値 (1 〜 366) で表示します。
+|yy |西暦の年を下 2 桁の数値 (00 〜 99) で表示します。
+|yyyy |西暦の年を 4 桁の数値 (100 〜 9999) で表示します。
+|h |時を先頭に 0 のない数値 (0 〜 23) で表示します。
+|Hh |時を先頭に 0 のある数値 (00 〜 23) で表示します。
+|n |分を先頭に 0 のない数値 (0 〜 59) で表示します。
+|nn |分を先頭に 0 のある数値 (00 〜 59) で表示します。
+|s |秒を先頭に 0 のない数値 (0 〜 59) で表示します。
+|ss |秒を先頭に 0 のある数値 (00 〜 59) で表示します。
+|ttttt |時刻を完全な時刻 (時間、分、および秒を含む) で表示します。表示形式は、各システムが認識する時刻書式で定義された時刻区切り文字を使用します。 先頭に 0 を付ける形式が選択されていて、時刻が午前 10:00 または 午後 10:00 より前の場合は、時刻の前に 0 を表示します。 既定の時刻書式は、h:mm:ss です。
+|AM/PM |12 時間形式を使用します。正午までの時間に大文字の AM を、正午から午後 11:59 時までの時間に大文字の PM を付けて表示します。
+|am/pm |12 時間形式を使用します。正午までの時間に小文字の AM を、正午から午後 11:59 時までの時間に小文字の PM を付けて表示します。
+|A/P |12 時間形式を使用します。正午までの時間に大文字の A を、正午から午後 11:59 時までの時間に大文字の P を付けて表示します。
+|a/p |12 時間形式を使用します。正午までの時間に小文字の a を、正午から午後 11:59 時までの時間に小文字の p を付けて表示します。
+|AMPM |12 時間形式を使用します。正午までの時間にはシステムで定義された AM 文字列リテラルを、正午から午後 11:59 時までの時間にはシステムで定義された PM 文字列リテラルを付けて表示します。 AMPM は大文字、小文字のどちらでもかまいません。ただし、表示される文字列の大文字、小文字の区別は、システムの設定で定義した文字列に一致します。 既定の形式は AM/PM です。 システムで 24 時間時計に設定されている場合は、文字列は通常、長さ 0 の文字列に設定されます。
+----
+
+.ユーザー定義数値書式
+
+以下の表は、ユーザー定義数値書式の作成に使用できる文字を示します。
+
+[source,vbscript]
+----
+|文字 |説明
+|なし |書式指定なしで数値を表示します。
+|(0) |桁のプレースホルダーです。 1 桁の数または 0 を表示します。 式で、書式指定文字列で 0 が指定されている場所に 1 桁の数字がある場合は、その数字が表示されます。それ以外の場合は、その場所に 0 を表示します。数値の整数部または小数部の桁数が、書式指定式内の 0 の桁数より少ない場合は、先行ゼロまたは後置ゼロを表示します。 数値の小数部の桁数が、書式指定式の小数部で指定されている 0 の数より多い場合は、0 の数と同じ桁数に数値が丸められます。 数値の整数部の桁数が、書式指定式の整数部の 0 の数より多い場合は、桁をそのまま表示します。
+|(#) |桁のプレースホルダーです。 1 桁の数字または 0 を表示します。 式で、書式指定文字列で # が指定されている場所に該当する桁がある場合は、その数字が表示されます。それ以外の場合は、その場所には何も表示されません。 この記号は 0 桁プレースホルダーと同様の機能を持ちます。ただし、数値の桁数が、書式指定式の整数部および小数部にある # 記号よりも同じか少ない場合でも、先頭および末尾に 0 が表示されません。
+|(.) |小数点のプレースホルダーです。 ロケールによっては、小数点の区切り記号としてコンマが使用されます。 小数点のプレースホルダーは、整数部および小数部に表示する桁数を決定します。 書式指定式でこの記号の左に # 記号だけがある場合、1 未満の数値の先頭は小数点区切り記号になります。 小数値の先頭に 0 を表示するには、整数部の最初の桁のプレースホルダーとして 0 を使用します。 書式指定結果で小数点のプレースホルダーとして実際に使用される記号は、システムで認識される数値書式によって異なります。
+|(%) |パーセントのプレースホルダーです。 式を 100 倍します。 書式指定文字列の表示位置にパーセント記号 ( % ) が挿入されます。
+|(,) |1,000 単位の区切り記号。 ロケールによっては、桁区切り記号としてピリオドが使用されます。 桁区切り記号は、整数部に 4 桁以上ある数値の百の位と千の位を区切ります。 書式にある桁区切り記号が桁のプレースホルダー (0 または #) で囲まれている場合は、桁区切り記号の標準使用が指定されます。 小数部の指定の有無にかかわらず、小数点のすぐ左に、桁区切り記号が 2 つ隣接する場合や、桁区切り記号がある場合は、"数値を 1000 で割って、必要に応じて丸める" ことを意味します。 たとえば、書式指定文字列 "##0,," を使用して、1 億を 100 として表せます。 百万より小さい数字は 0 として表示されます。 小数点のすぐ左以外の位置に 2 つの隣接する区切り記号がある場合は、通常の桁区切り記号を指定したものとして処理されます。 書式指定された出力で、実際に桁区切り記号として使用される記号は、システムで認識される数値書式によって異なります。
+|(:) |時刻の区切り記号。 一部のロケールでは、時刻区切り文字を表す目的で他の文字が使用されることがあります。 時刻の値が書式設定されるときに、時刻区切り文字によって時、分、および秒が区切られます。 書式設定された出力で時刻区切り文字として使用される実際の文字は、システム設定によって決まります。
+|(/) |日付の区切り記号。 一部のロケールでは、日付区切り文字を表す目的で他の文字が使用されることがあります。 日付値の書式が設定されている場合、日付、月、および年は、日付の区切り記号によって区切られます。 書式設定された出力で、日付の区切り文字として実際に使用される文字は、システム設定によって決まります。
+|(E- E+ e- e+) |指数形式。 書式指定式で、E-、E+、e-、または e+ の左に少なくとも 1 つの桁プレースホルダー ( 0 または # ) がある場合、数値は、数値と指数部の間に E または e を挿入して指数形式で表示されます。 右にある桁プレースホルダーの数で、指数の桁数が決まります。 負の指数にマイナス記号を挿入するには、E- または e- を使用します。 負の指数にマイナス記号を入れて、正の指数にプラス記号を入れるには、E+ または e+ を使用します。
+|- + $ ( ) |リテラル文字を表示します。 これ以外の文字をリテラルとして表示するには、その文字の前に円記号 (\) を付けるか、または二重引用符記号 (" ") で囲みます。
+|(\) |書式指定文字列内の次の文字を表示します。 特殊な意味を持つ文字をリテラル文字として表示するには、その文字の前に円記号 (\) を付けます。 円記号自体は表示されません。 円記号を使用するのは、その文字を二重引用符記号で囲むことと同じです。 円記号自体を表示するには、円記号を 2 つ (\\) 使用します。 リテラル文字として表示できない文字には次のような文字があります。日付書式文字および時刻書式文字 (a、c、d、h、m、n、p、q、s、t、w、y、/、および :)、数値書式文字 (#、0、%、E、e、コンマ、およびピリオド)、および文字列書式文字 (@、&、<、>、および !)。
+|("ABC") |二重引用符 (" ") で囲まれた文字列を表示します。 コードから**書式** に文字列を含めるには、Chr(34) を使ってテキストを囲みます (34 は引用符 (") を表す文字コードです)。
+----
+
+
+===== Hex 関数[[Hex]]
+
+数値を 16 進数で表す String を返します。
+
+.構文
+
+[source,vbscript]
+----
+Hex(number)
+----
+
+必須の number 引数は、任意の有効な数値式または文字列式です。
+
+
+[cols="1,4",options="header"]
+|===
+|number の値 |Hex の戻り値
+|-2,147, 483,648 〜 2,147, 483,647 |最大 8 桁の 16 進文字
+|Null |Null
+|空 |ゼロ (0)
+|===
+
+
+.解説
+
+number が整数ではない場合、最も近い整数に丸めてから評価されます。
+
+16進数の逆にする場合は、16進数の値の前に &Hを付けます。 たとえば、Hex(255) は
+文字列 FF を返し、&HFF は数値 255 を返します。
+
+.例
+
+次の例は、Hex 関数を使用して、数値の 16 進数値を返します。
+
+
+[source,vbscript]
+----
+Dim MyHex
+MyHex = Hex(5)    ' Returns 5.
+MyHex = Hex(10)    ' Returns A.
+MyHex = Hex(459)    ' Returns 1CB.
+----
+
+===== Oct 関数[[Oct]]
+
+
+
+数値を 8 進数で表す Variant (String) を返します。
+
+.構文
+
+[source,vbscript]
+----
+Oct(number)
+----
+
+必須の number 引数は、任意の有効な数式または文字列式です。
+
+.解説
+
+number が整数ではない場合、最も近い整数に丸めてから評価されます。
+
+
+[cols="1,4",options="header"]
+|===
+|number の値 |Oct の戻り値
+|Null |Null
+|空 |ゼロ (0)
+|それ以外の値 |最大 11 桁の 8 進数
+|===
+
+適切な範囲の数値の前に &O を付けて記述すると、値を直接 8 進数で表すことができ
+ます。 たとえば、10 進数の 8 の場合は、&O10 のように 8 進数で表記することがで
+きます。
+
+.例
+
+次の例は、Oct 関数を使用して、数値の 8 進数値を返します。
+
+
+[source,vbscript]
+----
+Dim MyOct
+MyOct = Oct(4)     ' Returns 4.
+MyOct = Oct(8)    ' Returns 10.
+MyOct = Oct(459)    ' Returns 713.
+----
+
+===== Str 関数[[Str]]
+
+
+数を示す Variant (String) を返します。
+
+.構文
+
+[source,vbscript]
+----
+Str(number)
+----
+
+必須の number 引数は、任意の有効な数式を含む Long です。
+
+.解説
+
+数値が文字列に変換されるとき、先頭のスペースは number の符号用に常に予約されま
+す。 number が正の場合、返される文字列には先頭のスペースが含まれ、プラス記号は
+省略されています。
+
+日付、時刻、通貨、または他のユーザー定義書式として書式設定する数値を変換するに
+は、Format 関数を使用します。 Str とは異なり、Format 関数は number の符号用に
+先頭のスペースを含みません。
+
+CAUTION:	Str 関数は、有効な桁区切り記号としてピリオド (.) のみを 認識し
+ます。 他の桁区切り記号を使う場合は (国際アプリケーションの場合など)、CStr を
+使って数値を文字列に変換します。
+
+.例
+
+この例では、Str 関数を使って、数値の文字列表現を返しています。 数値が文字列に
+変換されるとき、先頭のスペースは常に符号用に予約されます。
+
+
+[source,vbscript]
+----
+Dim MyString
+MyString = Str(459)    ' Returns " 459".
+MyString = Str(-459.65)    ' Returns "-459.65".
+MyString = Str(459.001)    ' Returns " 459.001".
+----
+
+
+===== Val 関数[[Val]]
+
+
+文字列に含まれる数値を、適切な型の数値として返します。
+
+.構文
+
+[source,vbscript]
+----
+Val(string)
+----
+
+必須の string 引数は、任意の有効な文字列式です。
+
+.解説
+
+Val 関数は、数値の一部として認識できない最初の文字で、文字列の読み取りを中止し
+ます。 数値の一部と見なされることが多い記号や文字 (ドル記号、コンマなど) は、
+認識されません。
+
+ただし、この関数は、基数プレフィックス &O (8 進数) と &H (16 進数) を認識しま
+す。 空白、タブ、およびライン フィード文字は、引数から削除されます。
+
+次の例では、値 1615198 が返されます。
+
+
+[source,vbscript]
+----
+Val("    1615 198th Street N.E.")
+----
+
+次のコード例の Val は、示されている 16 進数値の 10 進数値である -1 を返します。
+
+
+[source,vbscript]
+----
+Val("&HFFFF")
+----
+
+
+CAUTION:	Val 関数は、ピリオド (.) のみを 有効な小数点の記号として認識し
+ます。 別の小数点の記号を使用する場合は (国際的なアプリケーションの場合など)、
+代わりに CDbl を使用して文字列を数値に変換します。
+
+.例
+
+次の例では、Val 関数を使用して、文字列に含まれる数値を返します。
+
+
+[source,vbscript]
+----
+Dim MyValue
+MyValue = Val("2457")    ' Returns 2457.
+MyValue = Val(" 2 45 7")    ' Returns 2457.
+MyValue = Val("24 and 57")    ' Returns 24.
+----
+
+==== CreateObject 関数[[CreateObject]]
+
+ActiveX オブジェクトへの参照を作成して返します。
+
+.構文
+
+[source,vbscript]
+----
+CreateObject(class, [ servername ])
+----
+
+CreateObject 関数の構文は、次の指定項目があります。
+
+
+[cols="1,4",options="header"]
+|===
+|指定項目 |説明
+|class |必須。Variant (String)。 作成するオブジェクトのアプリケーション名とクラス。
+|servername |省略可能。Variant (String)。 オブジェクトを作成するネットワーク サーバーの名前。 servername は、空の文字列 ("") である場合、ローカル コンピューターが使用されます。
+|===
+
+class 引数の構文は appname.objecttype で、指定項目は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|指定項目 |説明
+|appname |必須。Variant (String)。 オブジェクトを提供するアプリケーションの名前。
+|objecttype |必須。Variant (String)。 作成するオブジェクトの型またはクラス。
+|===
+
+.解説
+
+オートメーションをサポートするアプリケーションはすべて、1 つ以上の型のオブジェ
+クトを提供します。 たとえば、ワード プロセッシング アプリケーションでは、アプ
+リケーション オブジェクト、文書オブジェクト、ツール バー オブジェクトが提供さ
+れます。
+
+ActiveX オブジェクトを作成するには、CreateObject によって返されたオブジェクト
+をオブジェクト変数に割り当てます。
+
+
+[source,vbscript]
+----
+' Declare an object variable to hold the object 
+' reference. Dim as Object causes late binding. 
+Dim ExcelSheet As Object
+Set ExcelSheet = CreateObject("Excel.Sheet")
+----
+
+
+このコードでは、オブジェクトを作成するアプリケーション (この場合は Microsoft
+Excel のスプレッドシート) を起動します。 作成されたオブジェクトをコードで参照
+するには、定義したオブジェクト変数を使用します。 次の例では、オブジェクト変数
+ExcelSheet とその他の Excel オブジェクト (Application オブジェクト、Cells コレ
+クションなど) を使用して、新しいオブジェクトのプロパティおよびメソッドにアクセ
+スします。
+
+
+[source,vbscript]
+----
+' Make Excel visible through the Application object.
+ExcelSheet.Application.Visible = True
+' Place some text in the first cell of the sheet.
+ExcelSheet.Application.Cells(1, 1).Value = "This is column A, row 1"
+' Save the sheet to C:\test.xls directory.
+ExcelSheet.SaveAs "C:\TEST.XLS"
+' Close Excel with the Quit method on the Application object.
+ExcelSheet.Application.Quit
+' Release the object variable.
+Set ExcelSheet = Nothing
+----
+
+
+As Object 句を使用してオブジェクト変数を宣言すると、任意の型のオブジェクトへの
+参照を含めることができる変数が作成されます。 ただし、遅延バインディングの変数
+を使用してオブジェクトにアクセスします。つまり、プログラムの実行時にバインドが
+行われます。 事前バインドを発生させるオブジェクト変数を作成する、つまり、プロ
+グラムがコンパイルされたときにバインドするには、特定のクラス ID を使用してオブ
+ジェクト変数を宣言します。 たとえば、次のような Microsoft Excel の参照を宣言し
+て作成することができます。
+
+
+[source,vbscript]
+----
+Dim xlApp As Excel.Application 
+Dim xlBook As Excel.Workbook
+Dim xlSheet As Excel.WorkSheet
+Set xlApp = CreateObject("Excel.Application")
+Set xlBook = xlApp.Workbooks.Add
+Set xlSheet = xlBook.Worksheets(1)
+----
+
+事前バインド変数を使用して参照すると、パフォーマンスは向上する可能性があります
+が、宣言で指定したクラスへの参照しか含めることができません。
+
+CreateObject 関数によって返されるオブジェクトを、オブジェクトを必要とする関数
+に引数として渡すことができます。 たとえば、次のコードでは、Excel.Application
+オブジェクトへの参照を作成して渡します。
+
+
+[source,vbscript]
+----
+Call MySub (CreateObject("Excel.Application"))
+----
+
+コンピューターの名前を CreateObject の servername 引数に渡して、ネットワーク接
+続されたリモート コンピューターにオブジェクトを作成することができます。 この名
+前は、共有名のコンピューター名の部分と同じです。共有名が "\MyServer\Public" の
+場合、servername は "MyServer" です。
+
+次のコードは、MyServer という名前のリモート コンピューターで実行されている
+Excel のインスタンスのバージョン番号を返します。
+
+
+[source,vbscript]
+----
+Dim xlApp As Object
+Set xlApp = CreateObject("Excel.Application", "MyServer")
+Debug.Print xlApp.Version
+----
+
+このリモート サーバーが存在しない場合または使用できない場合は、実行時エラーが
+発生します。
+
+
+CAUTION:	CreateObject は、オブジェクトの現在のインスタンスがない場合に
+使用します。 オブジェクトのインスタンスが既に実行されている場合は、新しいイン
+スタンスが開始され、指定した型のオブジェクトが作成されます。 現在のインスタン
+スを使用する、またはアプリケーションを起動してファイルを読み込ませるには、
+GetObject 関数を使用します。
+
+オブジェクトが単一インスタンスのオブジェクトとして登録されている場合は、
+CreateObject を何回実行しても、そのオブジェクトのインスタンスは 1 つしか作成さ
+れません。
+
+.例
+
+この例では、CreateObject 関数を使用して Microsoft Excel への参照 (xlApp) を設
+定します。 この参照を使用して、Microsoft Excel の Visible プロパティにアクセス
+し、Microsoft Excel の Quit メソッドを使用して終了します。 最後に、参照自体が
+解放されます。
+
+
+[source,vbscript]
+----
+Dim xlApp As Object    ' Declare variable to hold the reference.
+    
+Set xlApp = CreateObject("excel.application")
+    ' You may have to set Visible property to True
+    ' if you want to see the application.
+xlApp.Visible = True
+    ' Use xlApp to access Microsoft Excel's 
+    ' other objects.
+----
+
+==== CurDir 関数[[CurDir]]
+
+
+
+
+現在のパスを表す Variant (String) を返します。
+
+.構文
+
+[source,vbscript]
+----
+CurDir [ (drive) ]
+----
+
+省略可能な drive 引数は、既存のドライブを指定する文字列式です。 drive を指定し
+ない場合、または drive に長さ 0 の文字列 ("") を指定した場合、CurDirは、現在の
+ドライブのパスを返します。 Macintosh では、CurDir は指定された drive を無視し、
+単に現在のドライブのパスを返します。
+
+.例
+
+次の例は、CurDir 関数を使用して現在のパスを返します。 Macintosh では、CurDirに
+指定された drive は無視されます。 既定のドライブ名は、HD で、パス名の各部分は、
+バックスラッシュではなくコロンで区切られます。 また、\Windows ではなく
+Macintosh のフォルダーを指定します。
+
+
+[source,vbscript]
+----
+' Assume current path on C drive is "C:\WINDOWS\SYSTEM" (on Microsoft Windows).
+' Assume current path on D drive is "D:\EXCEL".
+' Assume C is the current drive.
+Dim MyPath
+MyPath = CurDir    ' Returns "C:\WINDOWS\SYSTEM".
+MyPath = CurDir("C")    ' Returns "C:\WINDOWS\SYSTEM".
+MyPath = CurDir("D")    ' Returns "D:\EXCEL".
+----
+
+==== Date 関数[[Date]]
+
+
+現在のシステム日付を含む Variant (Date) を返します。
+
+.構文
+
+[source,vbscript]
+----
+Date
+----
+
+.解説
+
+システム日付を設定するには、Date ステートメントを使用します。
+
+グレゴリオ暦の場合、Date と Date$ の動作は、Calendar プロパティの設定によって
+変更されることはありません。 イスラム暦の場合、Date$ は mm-dd-yyyy という形式
+の 10 文字の文字列を返します。ここで、mm (01 – 12)、dd (01 – 30)、および
+yyyy (1400 – 1523) は、イスラム暦の月、日、および年を表します。 これに相当す
+るグレゴリオ暦の範囲は 1980 年 1 月 1 日から 2099 年 12 月 31 日です。
+
+.例
+
+次の例では、Date 関数を使用して現在のシステム日付を返します。
+
+
+[source,vbscript]
+----
+Dim MyDate
+MyDate = Date    ' MyDate contains the current system date.
+----
+
+==== DateAdd 関数[[DateAdd]]
+
+指定した時間間隔を日付に加算してその日付を含む Variant (Date) を返します。
+
+.構文
+
+[source,vbscript]
+----
+DateAdd(interval, number, date)
+----
+
+DateAdd 関数の構文に構文に使用される名前付き引数は次のとおりです。
+
+
+[cols="1,4",options="header"]
+|===
+|指定項目 |説明
+|interval |必須。 加算する時間間隔を表す文字列式。
+|number |必須。 追加するサイクル間隔の数値を表す数値式です。 将来の日時を取得するには正の値を、過去の日時を取得するには負の値を指定します。
+|date |必須。 時間間隔を加算する日付を表す Variant (Date)、またはリテラル。
+|===
+
+.設定
+
+interval 引数の設定は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|設定 |説明
+|yyyy |年
+|q |四半期
+|m |月
+|y |通年での日数
+|d |日
+|w |平日
+|ww |週
+|h |時
+|n |分
+|s |秒
+|===
+
+.解説
+
+DateAdd 関数を使用すると、指定した時間間隔を日付に加算したり、日付から減算した
+りできます。 たとえば、DateAdd を使用して、今日から 30 日後の日付、または今か
+ら 45 分後の時刻を計算することができます。
+
+date に日数を加算する場合、年間通算日 ("y")、日 ("d")、または平日 ("w") を使用
+できます。
+
+CAUTION:	ある日付に日数を足す目的で、(日曜日から土曜日まですべての曜日
+を含む) "w" サイクル間隔を使用するとき、DateAdd 関数は、その日までの、指定した
+合計日数を追加します。その日までの、(月曜日から金曜日までの) 仕事日の数のみを
+追加するのではないことに注意してください。
+
+DateAdd 関数が無効な日付を返すことはありません。 次の例では、1 月 31 日に 1 か
+月を追加します。
+
+
+[source,vbscript]
+----
+DateAdd("m", 1, "31-Jan-95")
+----
+
+この場合、DateAdd は、1995 年 2 月 31 日ではなく、1995 年 2 月 28 日を返します。
+date が 1996 年 1 月 31 日の場合は、1996 年は閏年であるため、1996 年 2 月 29
+日を返します。
+
+計算された日付が西暦 100 年よりも前になる場合 (つまり、date の年より多くの年を
+引いた場合)、エラーが発生します。
+
+number が Long 値ではない場合、最も近い整数に丸めてから評価されます。
+
+CAUTION:	DateAdd の戻り値の形式は、date 引数で渡された形式ではなく、コ
+ントロール パネルでの設定によって決まります。
+
+
+
+CAUTION:	 Calendar プロパティの設定がグレゴリオ暦の場合、date にはグレ
+ゴリオ暦の日付を指定する必要があります。 カレンダーがイスラム暦である場合、指
+定する日付もイスラム暦である必要があります。 月の値が名前である場合、名前は現
+在の Calendar プロパティの設定と一致している必要があります。 月名が現在の
+Calendar プロパティ設定と競合する可能性を最小にするには、数字で示す月の値 (短
+い日付形式) を入力します。
+
+.例
+
+次の例では、日付を受け取り、DateAdd 関数を使用して、指定された月数を加算した将
+来の日付を表示します。
+
+
+[source,vbscript]
+----
+Dim FirstDate As Date    ' Declare variables.
+Dim IntervalType As String
+Dim Number As Integer
+Dim Msg As String
+IntervalType = "m"    ' "m" specifies months as interval.
+FirstDate = InputBox("Enter a date")
+Number = InputBox("Enter number of months to add")
+Msg = "New date: " & DateAdd(IntervalType, Number, FirstDate)
+MsgBox Msg
+----
+
+==== DateDiff 関数[[DateDiff]]
+
+2 つの指定した日付の時間間隔を指定する Variant (Long) を返します。
+
+.構文
+
+[source,vbscript]
+----
+DateDiff(interval, date1, date2, [ firstdayofweek, [ firstweekofyear ]] )
+----
+
+DateDiff 関数の構文には、次の名前付き引数があります。
+
+|指定項目 |説明
+|interval |必須。 date1 と date2 の時間間隔の計算に使用する時間単位を表す文字列式です。
+|date1、date2 |必須。Variant (Date)。 計算に使用する 2 つの日付です。
+|firstdayofweek |省略可能。 週の始まりの曜日を表す定数です。 省略すると、日曜日を指定したものと見なされます。
+|firstweekofyear |省略可能。 年の第 1 週を指定する定数です。 省略すると、1 月 1 日を含む週が第 1 週と見なされます。
+
+.設定
+
+interval 引数の設定は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|設定 |説明
+|yyyy |年
+|q |四半期
+|m |月
+|y |通年での日数
+|d |日
+|w |平日
+|ww |週
+|h |時
+|n |分
+|s |秒
+|===
+
+firstdayofweek 引数の設定は次のとおりです。
+
+
+[cols="1,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbUseSystem |0 |NLS API 設定を使用します。
+|vbSunday |1 |日曜日 (既定)
+|vbMonday |2 |月曜日
+|vbTuesday |3 |火曜日
+|vbWednesday |4 |水曜日
+|vbThursday |5 |木曜日
+|vbFriday |6 |金曜日
+|vbSaturday |7 |土曜日
+|===
+
+
+[cols="1,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbUseSystem |0 |NLS API 設定を使用します。
+|vbFirstJan1 |1 |1 月 1 日が含まれる週から開始します (既定)。
+|vbFirstFourDays |2 |新年で少なくとも 4 日ある最初の週から開始します。
+|vbFirstFullWeek |3 |年の最初の完全な週から開始します。
+|===
+
+.解説
+
+DateDiff 関数を使用して、2 つの日付の間に指定した時間間隔がどのくらい存在する
+かを確認します。 たとえば、DateDiff を使用して、2 つの日付間の日数や、今日から
+年末までの週数を計算することができます。
+
+date1 と date2 の間の日数を計算するには、年 ("y") または日 ("d") の日付を使用
+できます。 interval が曜日 ("w") の場合、DateDiff は 2 つの日付間の週数を返し
+ます。 date1 が月曜日の場合、DateDiff では date2 までの月曜日の数がカウントさ
+れます。 date1 ではなく date2 がカウントされます。
+
+一方、interval が週 ("ww") の場合、DateDiff 関数は 2 つの日付間のカレンダーの
+週数を返します。 date1 と date2 間の日曜日の数がカウントされます。 DateDiff で
+は、date2 が日曜日の場合は、date2 がカウントされます。date1 が日曜日の場合でも
+date1 はカウントされません。
+
+date1 が date2 よりも後の時点を示す場合、DateDiff 関数は負の数を返します。
+firstdayofweek 引数は、"w" および "ww" の間隔記号を使用する計算に影響します。
+
+date1 または date2 が日付リテラルの場合、指定した年はその日付の一部として恒久
+的に保存されます。 ただし、date1 または date2 が二重引用符 (" ") で囲まれてい
+て、年を省略した場合、date1 または date2 の式が評価されるたびに、現在の年がコ
+ードに挿入されます。 これにより、別の年でも使用できるコードを記述することがで
+きます。
+
+連続する年の 12 月 31 日と 1 月 1 日を比較すると、1 日が経過しただけの場合でも、
+年 ("yyyy") の DateDiff は 1 を返します。
+
+CAUTION:	Calendar プロパティの設定がグレゴリオ暦の場合、date1 と date2
+ではグレゴリオ暦の日付を指定する必要があります。 カレンダーがイスラム暦の場合
+は、イスラム暦で日付を指定する必要があります。
+
+.例
+
+この例では、DateDiff 関数を使用して、指定された日付から今日までの日数を表示し
+ます。
+
+
+[source,vbscript]
+----
+Dim TheDate As Date    ' Declare variables.
+Dim Msg
+TheDate = InputBox("Enter a date")
+Msg = "Days from today: " & DateDiff("d", Now, TheDate)
+MsgBox Msg
+----
+
+==== DatePart 関数[[DatePart]]
+
+WARNING:	 この関数の使用には問題があります。 一部のカレンダー年の最後の
+月曜日は、週1である必要がある場合は、53週として返されます。 詳細および回避策に
+ついては、「Format または DatePart 関数は、先週の最後の月曜日に間違った週番号
+を返す」を参照してください。 日付の指定した部分を含む Variant (Integer) を返し
+ます。
+
+.構文
+
+[source,vbscript]
+----
+DatePart(interval, date, [ firstdayofweek, [ firstweekofyear ]])
+----
+
+DatePart 関数の構文には、次の名前付き引数があります。
+
+[cols="1,4",options="header"]
+|===
+|指定項目 |説明
+|interval |必須。 戻す時間のサイクル間隔の 文字列式です。
+|date |必須。 評価する Variant (Date) の値です。
+|firstdayofweek |省略可能。 週の始まりの曜日を表す定数です。 省略すると、日曜日を指定したものと見なされます。
+|firstweekofyear |省略可能。 年の第 1 週を指定する定数です。 省略すると、1 月 1 日を含む週が第 1 週と見なされます。
+|===
+
+.設定
+
+interval 引数の設定は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|設定 |説明
+|yyyy |年
+|q |四半期
+|m |月
+|y |通年での日数
+|d |日
+|w |平日
+|ww |週
+|h |時
+|n |分
+|s |秒
+|===
+
+firstdayofweek 引数の設定は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbUseSystem |.0 |NLS API 設定を使用します。
+|vbSunday |1-d |日曜日 (既定)
+|vbMonday |pbm-2 |月曜日
+|vbTuesday |1/3 |火曜日
+|vbWednesday |4 |水曜日
+|vbThursday |5 |木曜日
+|vbFriday |6 |金曜日
+|vbSaturday |7 |土曜日
+|===
+
+_firstweekofyear_ 引数の設定は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbUseSystem |.0 |NLS API 設定を使用します。
+|vbFirstJan1 |1-d |1 月 1 日が含まれる週から開始します (既定)。
+|vbFirstFourDays |pbm-2 |新年で少なくとも 4 日ある最初の週から開始します。
+|vbFirstFullWeek |1/3 |年の最初の完全な週から開始します。
+|===
+
+.解説
+
+DatePart 関数を使用して、日付を評価し、特定の時間間隔を返すことができます。 た
+とえば、曜日または現在の時間を計算するために、DatePart を使用する場合がありま
+す。
+
+firstdayofweek 引数は、"w" および "ww" の間隔記号を使用する計算に影響します。
+
+date が日付リテラルの場合、指定した年はその日付の一部として恒久的に保存されま
+す。 ただし、date が二重引用符 (" ") で囲まれていて、年を省略した場合、date の
+式が評価されるたびに、現在の年がコードに挿入されます。 これにより、別の年でも
+使用できるコードを記述することができます。
+
+WARNING:	<<Calendar,Calendar>> プロパティの設定がグレゴリオ暦の場合、
+date にはグレゴリオ暦の日付を指定する必要があります。 カレンダーがイスラム暦で
+ある場合、指定する日付もイスラム暦である必要があります。
+
+戻された日付の部分は、現在のアラビア歴の期間の単位になります。 たとえば、現在
+のカレンダーがイスラム暦で、戻された日付の部分が年の場合、年の値はイスラム暦年
+になります。
+
+.例
+
+この例では、DatePart 関数を使用して日付を取得し、その日付が含まれる四半期が表
+示されます。
+
+
+[source,vbscript]
+----
+Dim TheDate As Date    ' Declare variables.
+Dim Msg    
+TheDate = InputBox("Enter a date:")
+Msg = "Quarter: " & DatePart("q", TheDate)
+MsgBox Msg
+----
+
+
+==== DateSerial 関数[[DateSerial]]
+
+指定した年、月、日の Variant (Date) を返します。
+
+.構文
+
+[source,vbscript]
+----
+DateSerial(year, month, day)
+----
+
+DateSerial 関数の構文には、次の名前付き引数があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|year |必須。Integer。 100 以上 9999 以下の数値、または数式です。
+|month |必須。Integer。 任意の数式。
+|day |必須。Integer。 任意の数式。
+|===
+
+.解説
+
+1991 年 12 月 31 日などの日付を指定するには、DateSerial の各引数の数値範囲がそ
+     の単位の許容範囲内である必要があります。つまり、日の場合は 1 以上 31 以下、
+月の場合は 1 以上 12 以下です。 ただし、特定の日付の前後の日数、月数、年数を表
+す任意の数式を使用して、各引数の相対日付を指定することもできます。
+
+次の例では、絶対日付数値の代わりに、数式を使用しています。 DateSerial 関数は、
+月初めの前日 (1 - 1)、8 月から 2 か月前 (8 - 2)、1990 年から 10 年前 (1990 -
+10)、つまり、1980 年 5 月 31 日を返します。
+
+Windows 98 または Windows 2000 では、year 引数の 2 桁の年は、ユーザーが定義し
+たマシン設定により解釈されます。 既定の設定では、0 以上 29 以下の値が 2000 年
+から 2029 年として解釈されます。 30 以上 99 以下の既定値は、1930 年から 1999
+年として解釈されます。 その他のすべての year 引数では、4 桁の年を使用します
+(1800 など)。
+
+以前の Windows バージョンでは、上記で説明した既定値に応じて、2 桁の年で解釈さ
+れます。 関数が適切な値を確実に返すようにするには、4 桁の年を使用します。
+
+いずれかの引数の値が引数の許容範囲を超えた場合は、必要に応じて次の上位の単位に
+繰り越されます。 たとえば、35 日を指定した場合は、1 か月と数日と評価されます
+(日数は月によって変わります)。 引数のいずれか 1 つでも -32,768 から 32,767 の
+範囲を超えると、エラーが発生します。 3 つの引数で指定された日付が許容日付範囲
+外の日付になると、エラーが発生します。
+
+
+CAUTION:	year、month、および day は、カレンダー プロパティ設定がグレゴ
+リオ暦の場合、指定した値はグレゴリオ暦と見なされます。 カレンダー プロパティの
+設定がイスラム暦の場合、指定した値はイスラム暦と見なされます。
+
+返される日付部分は、現在の Visual Basic のカレンダーの暦になります。 たとえば、
+現在のカレンダーがイスラム暦で、返される日付部分が年の場合、年の値はイスラム暦
+の年になります。 引数 year の場合、0 以上 99 以下の値は 1400 年から 1499 年と
+して解釈されます。 その他のすべての year 値では、完全な 4 桁の年を使用します
+(1520 など)。
+
+.例
+
+この例では、DateSerial 関数を使用して、指定した年、月、日の日付を返しています。
+
+
+[source,vbscript]
+----
+Dim MyDate
+' MyDate contains the date for February 12, 1969.
+MyDate = DateSerial(1969, 2, 12)    ' Return a date.
+----
+
+==== DateValue 関数[[DateValue]]
+
+Variant (Date) を返します。
+
+.構文
+
+[source,vbscript]
+----
+DateValue(date)
+----
+
+必須の date 引数は、通常、100 年 1 月 1 日から 9999 年 12 月 31 日までの日付を
+表す文字列式です。 また、date には、この範囲内の日付や時刻、または日付と時刻の
+両方を表す任意の式を指定することもできます。
+
+.解説
+
+date が有効な日付の区切り記号で区切られた数字のみを含む文字列である場合、
+DateValue は、ユーザーがシステムに対して指定した短い日付形式に従って月、日、年
+の順序を認識します。 また、DateValue は、月の名前 (長い形式または省略形) を含
+んだ明確な日付も認識します。 たとえば、DateValue は、"12/30/1991" と
+"12/30/91" だけでなく "December 30, 1991" と "Dec 30, 1991" も認識します。
+
+date の年の部分を省略した場合、DateValue はコンピューターのシステム日付の現在
+の年を使用します。
+
+date 引数に時刻の情報が含まれている場合、DateValue はその時刻を返しません。 た
+だし、date に無効な時刻の情報 ("89:98" など) が含まれているとエラーが発生しま
+す。
+
+CAUTION:	<<Calendar,Calendar>> プロパティの設定がグレゴリオ暦の場合、
+date にはグレゴリオ暦の日付を指定する必要があります。 カレンダーがイスラム暦で
+ある場合、指定する日付もイスラム暦である必要があります。 イスラム暦の日付を指
+定する場合、引数 date は、"1/1/100" (グレゴリオ暦の 718 年 8 月 2 日) から
+"4/3/9666" (グレゴリオ暦の 9999 年 12 月 31 日) の範囲内の日付を表す String で
+す。
+
+
+.例
+
+次の例では、DateValue 関数を使用して文字列を日付に変換します。 "MyDate =
+#2/12/69#" のように、日付リテラルを使用して Variant 変数または Date 変数に日付
+を直接割り当てることもできます。
+
+
+[source,vbscript]
+----
+Dim MyDate
+MyDate = DateValue("February 12, 1969")    ' Return a date.
+----
+
+★
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

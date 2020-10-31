@@ -88,10 +88,26 @@ Controls ::
 Variant::
 	Var
 
+=== 文章
+
+sentence
+
+==== 一行
+
+One Line
 
 === FilesystemObject
 
 fso
+
+=== TextStream
+
+ts
+
+ots
+
+its
+
 
 === その他
 

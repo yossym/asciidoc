@@ -103,15 +103,54 @@ NOTE: 脚注段落は補足情報を示すものです。
 NOTE以外にも下記のような脚注があります。
 
 TIP: チップスを記述します。
-
 IMPORTANT: 重要事項を記述します。
-
 WARNING: 警告を記述します。
-
 CAUTION: 注意を記述します。
 
-
 /////
+
+
+== Unix形式日付を普通の日付にする
+
+
+[source,vbscript]
+----
+Dim Mon as New Scripting.Dictionary
+
+Mon.Add "Jan",1
+Mon.Add "Feb",2
+Mon.Add "Mar",3
+Mon.Add "Apr",4
+Mon.Add "May",5
+Mon.Add "Jun",6
+Mon.Add "Jul",7
+Mon.Add "Aug",8
+Mon.Add "Sep",9
+Mon.Add "Oct",10
+Mon.Add "Nav",11
+Mon.Add "Dec",12
+
+dim items As Variant
+items = split(line," ")
+dim datetime 
+datetime = item(5) & "/" & mon(items(2)) & "/" 
+	& items(3) & " " & items(4)
+----
+
+== VBE
+
+レジストリ編集を編集してエディタの色を変更する
+
+[source,vbscript]
+----
+HKEY_CURRENT_USER\Software\Microsoft\VBA\7.1\Common
+----
+
+.CodeBackColors
+4 0 7 7 6 4 4 4 0 0 0 0 0 0 0 0
+
+.CodeForeColors
+7 0 5 4 1 9 11 1 0 0 0 0 0 0 0 0
 
 include::VBAvariable.adoc[]
 
@@ -255,6 +294,7 @@ End Sub
 .[標準モジュール]
 [source,vbscript]
 ----
+
 Const READ_MENU01 As String = "MENU01"
 Public Const MENUBARNAME = "Worksheet Menu Bar"
 
@@ -263,9 +303,8 @@ Sub auto_open()
 End Sub
 
 Sub auto_close()
-
+    Call MenuBtnDelete(READ_MENU01)
 End Sub
-
 
 Private Function MenuSearch(MenuTitle As String) As Boolean
     Dim i As Long
@@ -302,6 +341,25 @@ Private Sub MenuBtnRegist(MenuTitle As String, tipText As String, _
     End If
 
 End Sub
+
+Private Sub MenuBtnDelete(MenuTitle As String)
+    Dim fMenu As CommandBarControl
+    Dim Menu As CommandBar
+    
+    Set Menu = Application.CommandBars(MENUBARNAME)
+    
+    For Each fMenu In menui.Controls
+        If fMenu.Caption = "" Then
+            fMenu.Delete
+        End If
+        If fMenu.Caption = MenuTitle Then
+            fMenu.Delete
+            Exit Sub
+        End If
+    Next
+End Sub
+
+
 
 Sub MENU01()
     MsgBox "aaa"
@@ -660,6 +718,102 @@ Call Range("A1:C5").Sort(key1:=Range("A1"), _
     key2:=Range("B1"), _
     order2:=xlAscending)
 ----
+
+=== 値のない場合の表現
+
+
+[cols="1,1,4",options="header"]
+|===
+|種類|型|判定
+|Empty|Variant|IsEmpty if(IsEmpty(s)=0)
+|Nothing|Object|IsNothing if (Object is Nothing)
+|Null|Variant|IsNull　If (isNull(s) = True)
+|""|String|単純比較　IF(s = "")
+|VbNullString|String|StrPtr if(strPtr(s) = 0)
+|===
+
+
+==== Empty
+
+空白のセルの値
+
+Variant変数の初期値
+
+IsEmpty
+
+==== Nothing
+
+Object 型の初期値
+
+
+[source,vbscript]
+----
+IF Object is Nothing Then
+    ...
+ElseIF (Not (Object is Nothing))
+----
+
+==== Null
+
+Variant型で指定
+
+Emptyは[未設定]
+
+Null値は[値が無い]
+
+IsNull
+
+==== ""
+
+空文字
+
+String型
+
+==== VbNullString
+
+String型の初期値
+
+
+== VBAで関数名を変数で使う
+
+
+[source,vbscript]
+----
+
+    Dim i As Long
+
+    For i = 1 To 2
+       Application.Run "Call_" & i
+    Next
+
+Sub Call_1()
+    MsgBox "Call_1"
+End Sub
+
+Sub Call_2()
+    MsgBox "Call_2"
+End Sub
+----
+
+== HTTPリクエスト
+
+参照設定	Microsoft XML v6.0
+
+
+[source,vbscript]
+----
+Sub HTTPRequest()
+    Dim httpReq As New XMLHTTP60
+    httpReq.Open "get", "http://natori-yuko.main.jp/"
+    httpReq.send
+'    Do While httpReq.readyState < READYSTATE_COMPLETE
+    Do While httpReq.readyState < 4
+        DoEvents
+    Loop
+    Debug.Print httpReq.responseText
+End Sub
+----
+
 
 == https://docs.microsoft.com/ja-jp/office/vba/api/excel.range(object)[Range オブジェクト (Excel) | Microsoft Docs]
 
