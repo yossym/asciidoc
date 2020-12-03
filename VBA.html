@@ -804,6 +804,46 @@ items <span style="color: #990000">=</span> <span style="font-weight: bold"><spa
 <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> datetime
 datetime <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">item</span></span><span style="color: #990000">(</span><span style="color: #993399">5</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"/"</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">mon</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">items</span></span><span style="color: #990000">(</span><span style="color: #993399">2</span><span style="color: #990000">))</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"/"</span>
         <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">items</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">items</span></span><span style="color: #990000">(</span><span style="color: #993399">4</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+日時（日本標準時）　→　UnixTimestamp
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><code>=(($a$1 - 25569) * (60 * 60 * 24)) - (60 * 60 * 9)</code></p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+日時（協定世界時）　→　UnixTimestamp
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><code>=(($a$1 - 25569) * (60 * 60 * 24))</code></p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">UNIXエポックは1970年1月1日00:00:00で、全てのタイムスタンプの基準点（25569）。</td>
+</tr></table>
+</div>
+<div class="ulist"><ul>
+<li>
+<p>
+UnixTimestamp　→　日時（日本標準時）
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><code>=25569 + (($a$1 + (60 * 60 * 9)) / (60 * 60 * 24))</code></p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+UnixTimestamp　→　日時（協定世界時）
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p><code>=25569 + (($a$1                ) / (60 * 60 * 24))</code></p></div>
 </div>
 </div>
 <div class="sect1">
@@ -816,6 +856,7 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt>HKEY_CURRENT_USER<span style="color: #990000">\</span>Software<span style="color: #990000">\</span>Microsoft<span style="color: #990000">\</span>VBA<span style="color: #990000">\</span><span style="color: #993399">7.1</span><span style="color: #990000">\</span>Common</tt></pre></div></div>
+<div class="paragraph"><p>文字列の編集</p></div>
 <div class="paragraph"><div class="title">CodeBackColors</div><p>4 0 7 7 6 4 4 4 0 0 0 0 0 0 0 0</p></div>
 <div class="paragraph"><div class="title">CodeForeColors</div><p>7 0 5 4 1 9 11 1 0 0 0 0 0 0 0 0</p></div>
 </div>
@@ -1288,6 +1329,30 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt>Workbooks<span style="color: #990000">.</span>Delete</tt></pre></div></div>
 </div>
+<div class="sect2">
+<h3 id="_issheet_シートの存在確認">IsSheet シートの存在確認</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>
+Debug<span style="color: #990000">.</span>Print <span style="font-weight: bold"><span style="color: #000000">isSheet</span></span><span style="color: #990000">(</span>ActiveWorkbook<span style="color: #990000">,</span> <span style="color: #FF0000">"まとめ"</span><span style="color: #990000">)</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">isSheet</span></span><span style="color: #990000">(</span>Wb As Workbook<span style="color: #990000">,</span> Name As String<span style="color: #990000">)</span> As Boolean
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> v As Variant
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Result As Boolean
+
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Each</span></span> v In Wb<span style="color: #990000">.</span>Sheets
+        <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> v<span style="color: #990000">.</span>Name <span style="color: #990000">=</span> Name <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+            isSheet <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+    isSheet <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">False</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+</tt></pre></div></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1351,6 +1416,13 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> LastRow As Long
 LastRow <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span>Rows<span style="color: #990000">.</span>Count<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">End</span></span><span style="color: #990000">(</span>xlUp<span style="color: #990000">).</span>Row</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> LastRow As Long
+LastRow <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">End</span></span><span style="color: #990000">(</span>xlDown<span style="color: #990000">).</span>Row</tt></pre></div></div>
 </div>
 <div class="sect2">
 <h3 id="_最終列取得">最終列取得</h3>
@@ -1361,6 +1433,13 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> LastColumn As Long
 LastColumn <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> Columns<span style="color: #990000">.</span>Count<span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">End</span></span><span style="color: #990000">(</span>xlToLeft<span style="color: #990000">).</span>Column</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> LastColumn As Long
+LastColumn <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #0000FF">End</span></span><span style="color: #990000">(</span>xlToRight<span style="color: #990000">).</span>Column</tt></pre></div></div>
 </div>
 <div class="sect2">
 <h3 id="_selection">Selection</h3>
@@ -1641,6 +1720,16 @@ http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sheet1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:A10"</span><span style="color: #990000">).</span>FillUp</tt></pre></div></div>
 </div>
 <div class="sect2">
+<h3 id="_セル_配列">セル　↔　配列</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> v as Variant
+v <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:C3"</span><span style="color: #990000">)</span></tt></pre></div></div>
+</div>
+<div class="sect2">
 <h3 id="_コピペ">コピペ</h3>
 <div class="listingblock">
 <div class="title">普通にコピペ</div>
@@ -1701,9 +1790,68 @@ http://www.gnu.org/software/src-highlite -->
     order1<span style="color: #990000">:=</span>xlAscending<span style="color: #990000">,</span> _
     key2<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"B1"</span><span style="color: #990000">),</span> _
     order2<span style="color: #990000">:=</span>xlAscending<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="sect3">
+<h4 id="_セル_変数">セル　→　変数</h4>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">a</th>
+<th align="left" valign="top">u</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">b</p></td>
+<td align="left" valign="top"><p class="table">v</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">c</p></td>
+<td align="left" valign="top"><p class="table">w</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">d</p></td>
+<td align="left" valign="top"><p class="table">x</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">e</p></td>
+<td align="left" valign="top"><p class="table">y</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">f</p></td>
+<td align="left" valign="top"><p class="table">z</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> 一次元配列 As Variant
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> 二次元配列 As Variant
+
+    二次元配列 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:B6"</span><span style="color: #990000">)</span>
+    一次元配列 <span style="color: #990000">=</span> WorksheetFunction<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Index</span></span><span style="color: #990000">(</span>二次元配列<span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">)</span>
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"3行目 "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Join</span></span><span style="color: #990000">(</span>a<span style="color: #990000">,</span> <span style="color: #FF0000">","</span><span style="color: #990000">)</span>
+<span style="font-style: italic"><span style="color: #9A1900">''3行目  c,w</span></span>
+
+    一次元配列 <span style="color: #990000">=</span> WorksheetFunction<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Index</span></span><span style="color: #990000">(</span>WorksheetFunction<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Transpose</span></span><span style="color: #990000">(</span>二次元配列<span style="color: #990000">),</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"1列目 "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Join</span></span><span style="color: #990000">(</span>一次元配列<span style="color: #990000">,</span> <span style="color: #FF0000">","</span><span style="color: #990000">)</span>
+<span style="font-style: italic"><span style="color: #9A1900">''1列目  a,b,c,d,e,f</span></span>
+</tt></pre></div></div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_値のない場合の表現">値のない場合の表現</h3>
+<h3 id="_変数_2">変数</h3>
+<div class="sect3">
+<h4 id="_値のない場合の表現">値のない場合の表現</h4>
 <div class="tableblock">
 <table rules="all"
 width="100%"
@@ -1747,6 +1895,7 @@ cellspacing="0" cellpadding="4">
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_empty">Empty</h4>
@@ -10308,8 +10457,7 @@ CVar(expression)
 </li>
 </ul></div>
 <div class="paragraph"><p>必須の expression 引数は、任意の文字列式または数値式です。</p></div>
-<div class="paragraph"><p>戻り値の型</p></div>
-<div class="paragraph"><p>次に示すように、戻り値の型は関数名によって異なります。</p></div>
+<div class="paragraph"><div class="title">戻り値の型</div><p>次に示すように、戻り値の型は関数名によって異なります。</p></div>
 <div class="tableblock">
 <table rules="all"
 width="100%"
@@ -10394,8 +10542,171 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-<div class="paragraph"><p>★
-=== ディレクティブ</p></div>
+<div class="paragraph"><div class="title">解説</div><p>関数に渡した expression 引数の値が変換されるデータ型の範囲を超える場合はエラー
+が発生します。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">LongLong (64 ビットのプラットフォームの LongPtr を含む) をそれ
+よりも小さい整数型に明示的に代入するには、変換関数を使用する必要があります。
+LongLong をそれよりも小さい整数に暗黙的に変換することはできません。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>一般に、データ型の変換関数を使用してコードを文書化し、一部の演算の結果が既定の
+データ型ではなく、特定のデータ型として表示されるように指定できます。 たとえば、
+通常、単精度、倍精度、整数演算が発生する場合、CCur を使用して、通貨換算を強制
+的に実行します。</p></div>
+<div class="paragraph"><p>国際的に通用する 1 つのデータ型から別のデータ型に変換するには、Val ではなく、
+データ型の変換関数を使用する必要があります。 たとえば、CCur を使用すると、使用
+しているコンピューターのロケールに応じて、異なる少数点の区切り文字や桁区切り記
+号、さまざまな通貨オプションが適切に認識されます。</p></div>
+<div class="paragraph"><p>小数点以下が 0.5 の場合、CInt および CLng は、常に一番近い偶数に数値を丸めます。
+たとえば、0.5 は 0 に、1.5 は 2 に丸められます。 <a href="#Fix Int">Fix関数とInt関数</a>
+は、小数部分を丸めるのではなく切り捨てるので、CInt およびCLngとは異なります。
+また、Fix および Int は、常に渡されたのと同じ型の値を返します。</p></div>
+<div class="paragraph"><p>date を日付または時刻に変換できるかどうかを確認するには、IsDate 関数を使用しま
+す。 CDate では、日付リテラルと時刻リテラルだけでなく、許容範囲内の日付に当て
+はまる数字も認識されます。 数字を日付に変換すると、整数全体が日付に変換されま
+す。 数字の分数の部分は、午前 12 時を起点にした時刻に変換されます。</p></div>
+<div class="paragraph"><p>CDate は、システムのロケール設定に基づいて日付の形式を認識します。 認識されて
+いる日付設定以外の書式設定が提供されている場合、日、月、年の順番を正しく決定で
+きないことがあります。 さらに、1 週間の文字列が含まれる場合、長い日付の書式設
+定は認識されません。</p></div>
+<div class="paragraph"><p>Visual Basic の旧バージョンとの互換性のために、CVDate 関数も提供されています。
+CVDate 関数の構文は CDate 関数と同じですが、CVDate では、実際の Date 型ではな
+く、サブタイプが Date 型である Variant 型が返されます。 組み込みの Date 型が利
+用できるようになったため、CVDate を使用する必要がなくなりました。 式を Date に
+変換してから Variant に代入することで、同じ処理を行うことができます。 これは、
+他のすべての組み込みタイプを同等のバリアント型サブタイプに変換する方法と同じで
+す。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">CDec 関数は独立したデータ型を返しません。値が 10 進型サブタイ
+プに変換されたバリアント型を常に返します。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">CBool 関数の例</div><p>この例では、CBool 関数を使用して、式を Boolean に変換します。 式が 0 以外の値
+に評価される場合は CBool から True が返され、それ以外の場合は False が返されま
+す。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> A<span style="color: #990000">,</span> B<span style="color: #990000">,</span> Check
+A <span style="color: #990000">=</span> <span style="color: #993399">5</span><span style="color: #990000">:</span> B <span style="color: #990000">=</span> <span style="color: #993399">5</span> <span style="font-style: italic"><span style="color: #9A1900">' Initialize variables.</span></span>
+Check <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CBool</span></span><span style="color: #990000">(</span>A <span style="color: #990000">=</span> B<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' Check contains True.</span></span>
+
+A <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="font-style: italic"><span style="color: #9A1900">' Define variable.</span></span>
+Check <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CBool</span></span><span style="color: #990000">(</span>A<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' Check contains False.</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CByte 関数の例</div><p>この例では、CByte 関数を使用して、式を Byte に変換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDouble<span style="color: #990000">,</span> MyByte
+MyDouble <span style="color: #990000">=</span> <span style="color: #993399">125.5678</span> <span style="font-style: italic"><span style="color: #9A1900">' MyDouble is a Double.</span></span>
+MyByte <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CByte</span></span><span style="color: #990000">(</span>MyDouble<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MyByte contains 126.</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CCur 関数の例</div><p>この例では、CCur 関数を使用して、式を Currency に変換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDouble<span style="color: #990000">,</span> MyCurr
+MyDouble <span style="color: #990000">=</span> <span style="color: #993399">543.214588</span> <span style="font-style: italic"><span style="color: #9A1900">' MyDouble is a Double.</span></span>
+MyCurr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CCur</span></span><span style="color: #990000">(</span>MyDouble <span style="color: #990000">*</span> <span style="color: #993399">2</span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' Convert result of MyDouble * 2</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' (1086.429176) to a</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' Currency (1086.4292).</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CDate 関数の例</div><p>この例では CDate 関数を使用し、文字列を日付型に変換します。 一般に、この例で示すように、文字列として日付と時刻をハードコードするのはお勧めしません。 文字列の代わりに、2/12/1969 や 4:45:23 PM のような日付リテラルと時刻リテラルを使用してください。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDate<span style="color: #990000">,</span> MyShortDate<span style="color: #990000">,</span> MyTime<span style="color: #990000">,</span> MyShortTime
+MyDate <span style="color: #990000">=</span> <span style="color: #FF0000">"February 12, 1969"</span> <span style="font-style: italic"><span style="color: #9A1900">' Define date.</span></span>
+MyShortDate <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CDate</span></span><span style="color: #990000">(</span>MyDate<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' Convert to Date data type.</span></span>
+
+MyTime <span style="color: #990000">=</span> <span style="color: #FF0000">"4:35:47 PM"</span> <span style="font-style: italic"><span style="color: #9A1900">' Define time.</span></span>
+MyShortTime <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CDate</span></span><span style="color: #990000">(</span>MyTime<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' Convert to Date data type.</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CDbl 関数の例</div><p>この例では、CDbl 関数を使用して、式を Double に変換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyCurr<span style="color: #990000">,</span> MyDouble
+MyCurr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CCur</span></span><span style="color: #990000">(</span><span style="color: #993399">234.456784</span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MyCurr is a Currency.</span></span>
+MyDouble <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CDbl</span></span><span style="color: #990000">(</span>MyCurr <span style="color: #990000">*</span> <span style="color: #993399">8.2</span> <span style="color: #990000">*</span> <span style="color: #993399">0.01</span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' Convert result to a Double.</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CDec 関数の例</div><p>この例では、CDec 関数を使用して、値を Decimal に変換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDecimal<span style="color: #990000">,</span> MyCurr
+MyCurr <span style="color: #990000">=</span> <span style="color: #993399">10000000.0587</span> <span style="font-style: italic"><span style="color: #9A1900">' MyCurr is a Currency.</span></span>
+MyDecimal <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CDec</span></span><span style="color: #990000">(</span>MyCurr<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MyDecimal is a Decimal.</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CInt 関数の例</div><p>この例では、CInt 関数を使用して、値を Integer に変換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDouble<span style="color: #990000">,</span> MyInt
+MyDouble <span style="color: #990000">=</span> <span style="color: #993399">2345.5678</span> <span style="font-style: italic"><span style="color: #9A1900">' MyDouble is a Double.</span></span>
+MyInt <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CInt</span></span><span style="color: #990000">(</span>MyDouble<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MyInt contains 2346.</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CLng 関数の例</div><p>この例では、CLng 関数を使用して、値を Long に変換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyVal1<span style="color: #990000">,</span> MyVal2<span style="color: #990000">,</span> MyLong1<span style="color: #990000">,</span> MyLong2
+MyVal1 <span style="color: #990000">=</span> <span style="color: #993399">25427.45</span><span style="color: #990000">:</span> MyVal2 <span style="color: #990000">=</span> <span style="color: #993399">25427.55</span> <span style="font-style: italic"><span style="color: #9A1900">' MyVal1, MyVal2 are Doubles.</span></span>
+MyLong1 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CLng</span></span><span style="color: #990000">(</span>MyVal1<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MyLong1 contains 25427.</span></span>
+MyLong2 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CLng</span></span><span style="color: #990000">(</span>MyVal2<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MyLong2 contains 25428.</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CSng 関数の例</div><p>この例では、CSng 関数を使用して、値を Single に変換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDouble1<span style="color: #990000">,</span> MyDouble2<span style="color: #990000">,</span> MySingle1<span style="color: #990000">,</span> MySingle2
+<span style="font-style: italic"><span style="color: #9A1900">' MyDouble1, MyDouble2 are Doubles.</span></span>
+MyDouble1 <span style="color: #990000">=</span> <span style="color: #993399">75.3421115</span><span style="color: #990000">:</span> MyDouble2 <span style="color: #990000">=</span> <span style="color: #993399">75.3421555</span>
+MySingle1 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CSng</span></span><span style="color: #990000">(</span>MyDouble1<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MySingle1 contains 75.34211.</span></span>
+MySingle2 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CSng</span></span><span style="color: #990000">(</span>MyDouble2<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MySingle2 contains 75.34216.</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CStr 関数の例</div><p>この例では、CStr 関数を使用して、数値を String に変換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDouble<span style="color: #990000">,</span> MyString
+MyDouble <span style="color: #990000">=</span> <span style="color: #993399">437.324</span> <span style="font-style: italic"><span style="color: #9A1900">' MyDouble is a Double.</span></span>
+MyString <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">CStr</span></span><span style="color: #990000">(</span>MyDouble<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MyString contains "437.324".</span></span></tt></pre></div></div>
+<div class="paragraph"><div class="title">CVar 関数の例</div><p>この例では、CVar 関数を使用して、式を Variant に変換します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyInt<span style="color: #990000">,</span> MyVar
+MyInt <span style="color: #990000">=</span> <span style="color: #993399">4534</span> <span style="font-style: italic"><span style="color: #9A1900">' MyInt is an Integer.</span></span>
+MyVar <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CVar</span></span><span style="color: #990000">(</span>MyInt <span style="color: #990000">&amp;</span> <span style="color: #993399">000</span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' MyVar contains the string</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' 4534000.</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ディレクティブ">ディレクティブ</h3>
 <div class="tableblock">
 <table rules="all"
 width="100%"
@@ -10420,7 +10731,6 @@ cellspacing="0" cellpadding="4">
 </tr>
 </tbody>
 </table>
-</div>
 </div>
 <div class="sect3">
 <h4 id="_const_ディレクティブ">#Const ディレクティブ</h4>
@@ -13758,6 +14068,1666 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDate
 MyDate <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">DateValue</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"February 12, 1969"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Return a date.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_day_関数_a_id_day_a">Day 関数<a id="Day"></a></h4>
+<div class="paragraph"><p>月の特定の 1 日を表す 1 から 31 の範囲の整数を指定する Variant (Integer) を返
+します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Day</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">date</span></span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の date 引数は、日を表す任意の Variant、数式、文字列式、または任意の組み合
+わせです。 date に Null が含まれている場合は Null が返されます。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content"><a href="#Calendar">Calendar</a> プロパティの設定がグレゴリオ暦の場合、返
+される整数は、date 引数のグレゴリオ暦の日を示します。 Calendar がイスラム暦の
+場合、返される整数は、date 引数のイスラム暦の日を示します。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、Day 関数を使用して、指定した日付から日を取得します。 開発環境では、
+日付リテラルは、コードのロケール設定を使用して短い形式で表示されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyDate<span style="color: #990000">,</span> MyDay
+MyDate <span style="color: #990000">=</span> #February <span style="color: #993399">12</span><span style="color: #990000">,</span> <span style="color: #993399">1969</span>#    <span style="font-style: italic"><span style="color: #9A1900">' Assign a date.</span></span>
+MyDay <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Day</span></span><span style="color: #990000">(</span>MyDate<span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' MyDay contains 12.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_ddb_関数_a_id_ddb_a">DDB 関数<a id="DDB"></a></h4>
+<div class="paragraph"><p>倍額定率法や、ユーザーが指定した他の方法を使用して、特定の期における資産の減価
+償却費を指定する Double を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">DDB</span></span><span style="color: #990000">(</span>cost<span style="color: #990000">,</span> salvage<span style="color: #990000">,</span> life<span style="color: #990000">,</span> period<span style="color: #990000">,</span> <span style="color: #990000">[</span> factor <span style="color: #990000">])</span></tt></pre></div></div>
+<div class="paragraph"><p>DDB 関数には、次の名前付き引数があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">cost</p></td>
+<td align="left" valign="top"><p class="table">必須です。 資産の初期コストを指定する Double です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">salvage</p></td>
+<td align="left" valign="top"><p class="table">必須です。 耐用期間が終了した時点での資産の価格を指定する Double です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">life</p></td>
+<td align="left" valign="top"><p class="table">必須です。 資産の耐用期間を指定する Double です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">period</p></td>
+<td align="left" valign="top"><p class="table">必須。 資産の減価償却費を計算する期を指定する Double です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">factor</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 減価償却率を指定する Variant です。 省略すると、2 (倍額定率法) を指定したと見なされます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>倍額定率法では、減価償却費が加速的に計算されます。 減価償却費は、最初の期が最
+も多く、その後の期では減少します。</p></div>
+<div class="paragraph"><p>引数の life と period は、同じ単位で指定する必要があります。 たとえば、life に
+月数を指定した場合は、period にも月数を指定する必要があります。 すべての引数は、
+必ず正の数で指定してください。</p></div>
+<div class="paragraph"><p>DDB 関数では、次の数式を使用して、指定した期の減価償却費を計算します。</p></div>
+<div class="paragraph"><p>価償却費/period = ((cost - salvage) * factor) / life</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、DDB 関数を使用して、指定した期における資産の減価償却費を返します。
+指定する項目は、初期コスト (InitCost)、資産の耐用期間が終了した時点での残存価
+額 (SalvageVal)、資産の耐用年数 (LifeTime)、および減価償却費を計算する年単位の
+期 (Depr) です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Fmt<span style="color: #990000">,</span> InitCost<span style="color: #990000">,</span> SalvageVal<span style="color: #990000">,</span> MonthLife<span style="color: #990000">,</span> LifeTime<span style="color: #990000">,</span> DepYear<span style="color: #990000">,</span> Depr
+Const YRMOS <span style="color: #990000">=</span> <span style="color: #993399">12</span>    <span style="font-style: italic"><span style="color: #9A1900">' Number of months in a year.</span></span>
+Fmt <span style="color: #990000">=</span> <span style="color: #FF0000">"###,##0.00"</span>
+InitCost <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"What's the initial cost of the asset?"</span><span style="color: #990000">)</span>
+SalvageVal <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Enter the asset's value at end of its life."</span><span style="color: #990000">)</span>
+MonthLife <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"What's the asset's useful life in months?"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> <span style="font-weight: bold"><span style="color: #0000FF">While</span></span> MonthLife <span style="color: #990000">&lt;</span> YRMOS    <span style="font-style: italic"><span style="color: #9A1900">' Ensure period is &gt;= 1 year.</span></span>
+    MsgBox <span style="color: #FF0000">"Asset life must be a year or more."</span>
+    MonthLife <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"What's the asset's useful life in months?"</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+LifeTime <span style="color: #990000">=</span> MonthLife <span style="color: #990000">/</span> YRMOS    <span style="font-style: italic"><span style="color: #9A1900">' Convert months to years.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> LifeTime <span style="color: #990000">&lt;&gt;</span> <span style="font-weight: bold"><span style="color: #000000">Int</span></span><span style="color: #990000">(</span>MonthLife <span style="color: #990000">/</span> YRMOS<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+    LifeTime <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Int</span></span><span style="color: #990000">(</span>LifeTime <span style="color: #990000">+</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Round up to nearest year.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+DepYear <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">CInt</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Enter year for depreciation calculation."</span><span style="color: #990000">))</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> <span style="font-weight: bold"><span style="color: #0000FF">While</span></span> DepYear <span style="color: #990000">&lt;</span> <span style="color: #993399">1</span> Or DepYear <span style="color: #990000">&gt;</span> LifeTime
+    MsgBox <span style="color: #FF0000">"You must enter at least 1 but not more than "</span> <span style="color: #990000">&amp;</span> LifeTime
+    DepYear <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Enter year for depreciation calculation."</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+Depr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">DDB</span></span><span style="color: #990000">(</span>InitCost<span style="color: #990000">,</span> SalvageVal<span style="color: #990000">,</span> LifeTime<span style="color: #990000">,</span> DepYear<span style="color: #990000">)</span>
+MsgBox <span style="color: #FF0000">"The depreciation for year "</span> <span style="color: #990000">&amp;</span> DepYear <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" is "</span> <span style="color: #990000">&amp;</span> _
+<span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span>Depr<span style="color: #990000">,</span> Fmt<span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"."</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_dir_関数_a_id_dir_a">Dir 関数<a id="Dir"></a></h4>
+<div class="paragraph"><p>指定したパターンまたはファイル属性に一致するファイル、ディレクトリ、フォルダー
+の名前、またはドライブのボリューム ラベルを表す String を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Dir <span style="color: #990000">[</span> <span style="color: #990000">(</span>pathname<span style="color: #990000">,</span> <span style="color: #990000">[</span> attributes <span style="color: #990000">]</span> <span style="color: #990000">)</span> <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="paragraph"><p>Dir 関数の構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">pathname</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 ファイル名を指定する文字列式です。ディレクトリまたはフォルダー、およびドライブを含めることができます。 pathname が見つからない場合は、長さ 0 の文字列 ("") が返されます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">attributes</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 ファイル属性を指定する定数または数式 (合計によって指定) です。 省略した場合は、pathname に一致する、属性のないファイルが返されます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>attributes 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="28%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbNormal</p></td>
+<td align="left" valign="top"><p class="table">0</p></td>
+<td align="left" valign="top"><p class="table">(既定値) 属性のないファイル。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbReadOnly</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">属性のないファイルと読み取り専用のファイル。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbHidden</p></td>
+<td align="left" valign="top"><p class="table">2</p></td>
+<td align="left" valign="top"><p class="table">属性のないファイルと隠しファイル。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbSystem</p></td>
+<td align="left" valign="top"><p class="table">4</p></td>
+<td align="left" valign="top"><p class="table">属性のないファイルとシステム ファイル。 Macintosh では使用できません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbVolume</p></td>
+<td align="left" valign="top"><p class="table">8</p></td>
+<td align="left" valign="top"><p class="table">ボリューム ラベル。他の属性を指定した場合は、vbVolume は無視されます。 Macintosh では使用できません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbDirectory</p></td>
+<td align="left" valign="top"><p class="table">16</p></td>
+<td align="left" valign="top"><p class="table">属性のないファイルとディレクトリまたはフォルダー。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbAlias</p></td>
+<td align="left" valign="top"><p class="table">64</p></td>
+<td align="left" valign="top"><p class="table">指定されたファイル名はエイリアスです。 Macintosh でのみ使用できます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">これらの定数は、Visual Basic for Applications によって指定され、
+コードの任意の場所で実際の値の代わりに使用できます。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>Microsoft Windows では、Dir で複数の文字 (*) と 1 文字 (?) のワイルドカードを
+使用して、複数のファイルを指定できます。 Macintosh では、これらの文字は有効な
+ファイル名の文字と見なされ、複数のファイルを指定するためのワイルドカードとして
+は使用できません。</p></div>
+<div class="paragraph"><p>Macintosh ではワイルドカードがサポートされないため、ファイルの種類を使用してフ
+ァイルのグループを識別します。 MacID 関数を使用すると、ファイル名を使わずにフ
+ァイルの種類を指定できます。 たとえば、次のステートメントでは、現在のフォルダ
+ー内の最初のテキスト ファイルの名前が返されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Dir</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"SomePath"</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">MacID</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"TEXT"</span><span style="color: #990000">))</span></tt></pre></div></div>
+<div class="paragraph"><p>フォルダー内のすべてのファイルに対して反復処理を行うには、空の文字列を指定しま
+す。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Dir</span></span><span style="color: #990000">(</span><span style="color: #FF0000">""</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>Microsoft Windows では、Dir で MacID 関数を使用するとエラーが発生します。</p></div>
+<div class="paragraph"><p>attribute の値が 256 を超える場合は MacID の値と見なされます。</p></div>
+<div class="paragraph"><p>Dir 関数の最初の呼び出しの際に pathname を指定しないとエラーが発生します。 フ
+ァイル属性も指定する場合は、pathname を指定する必要があります。</p></div>
+<div class="paragraph"><p>Dir は、pathname に一致する最初のファイル名を返します。 pathname に一致する追
+加のファイル名を取得するには、引数なしで Dir を再度呼び出します。 一致するファ
+イル名がなくなると、Dir は長さ 0 の文字列 ("") を返します。 長さ 0 の文字列が
+返された後の呼び出しで、pathname を指定しないとエラーが発生します。</p></div>
+<div class="paragraph"><p>現在の pathname に一致するすべてのファイル名を取得せずに、新しい pathname に変
+更することもできます。 ただし、Dir 関数を再帰的に呼び出すことはできません。
+vbDirectory 属性を付けて Dir を呼び出しても、継続してサブディレクトリが返され
+ることはありません。</p></div>
+<div class="paragraph"><p>Excel for Mac 2016 では、最初の Dir 関数呼び出しは成功します。 ただし、指定さ
+れたディレクトリで繰り返して呼び出すと、エラーが発生します。 残念ですが、これ
+は既知のバグです。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">ファイル名は特定の順序で取得されるわけではないため、必要に応じて、返さ
+れたファイル名を配列に格納し、その配列を並べ替えます。</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_doevents_関数_a_id_doevents_a">DoEvents 関数<a id="DoEvents"></a></h4>
+<div class="paragraph"><p>オペレーティング システムが他のイベントを処理できるように、実行を渡します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">DoEvents</span></span><span style="color: #990000">(</span> <span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><div class="title">解説</div><p>DoEvents 関数は、単体バージョンの Visual Basic (Visual Basic Professional
+Edition など) で開かれているフォームの数を表す Integer を返します。 他のすべて
+のアプリケーションでは、DoEvents はゼロを返します。</p></div>
+<div class="paragraph"><p>DoEvents はオペレーティング システムに制御を渡します。 オペレーティング システ
+ムがキュー内のイベントの処理を終了し、SendKeys キューのすべてのキーが送信され
+た後、制御が戻されます。</p></div>
+<div class="paragraph"><p>DoEvents は、たとえばユーザーが一旦開始した処理 (ファイルの検索など) を取り消
+せるようにする、といった単純な処理を行う場合に最も役に立ちます。 長時間実行し
+ているプロセスの場合にプロセッサを空けるには、タイマーを使用するか、またはタス
+クを ActiveX EXE コンポーネントに委任する方が適しています。 後者の場合、アプリ
+ケーションとは完全に独立してタスクを続行でき、オペレーティング システムがマル
+チタスクとタイム スライスの処理を行います。</p></div>
+<div class="paragraph"><p>イベント プロシージャ内でプロセッサに一時的に制御を渡すときは、プロシージャが、
+最初の呼び出しが戻る前とは異なるコード部分から再開されないようにする必要があり
+ます。異なる場所から再開すると、予期しない結果になる可能性があります。 さらに、
+制御を渡している間に、他のアプリケーションが予期しない方法でプロシージャとやり
+取りする可能性がある場合は、DoEvents を使用しないでください。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、DoEvents 関数を使用して、1,000 回ループするごとに 1 回、オペレーテ
+ィング システムに制御を渡します。 DoEvents は、開いている Visual Basic フォー
+ムの数を返しますが、これが行われるのは、ホスト アプリケーションが Visual Basic
+の場合のみです。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Create a variable to hold number of Visual Basic forms loaded</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' and visible.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> I<span style="color: #990000">,</span> OpenForms
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> I <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">150000</span>    <span style="font-style: italic"><span style="color: #9A1900">' Start loop.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> I Mod <span style="color: #993399">1000</span> <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>     <span style="font-style: italic"><span style="color: #9A1900">' If loop has repeated 1000 times.</span></span>
+        OpenForms <span style="color: #990000">=</span> DoEvents    <span style="font-style: italic"><span style="color: #9A1900">' Yield to operating system.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> I    <span style="font-style: italic"><span style="color: #9A1900">' Increment loop counter.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_environ_関数_a_id_environ_a">Environ 関数<a id="Environ"></a></h4>
+<div class="paragraph"><p>オペレーティング システムの環境変数に関連付けられた String を返します。
+Macintosh では使用できません。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Environ</span></span><span style="color: #990000">(</span> <span style="color: #FF0000">{</span> envstring <span style="color: #990000">|</span> number <span style="color: #FF0000">}</span> <span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>Environ 関数の構文には、次の名前付き引数があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">envstring</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 環境変数の名前を含む文字列式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">number</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 環境文字列テーブル内の環境文字列の数値順序に対応する数式です。 number 引数には任意の数式を使用できますが、評価される前に整数に丸められます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>envstring が環境文字列テーブル内にない場合は、長さ 0 の文字列 ("") が返されま
+す。 それ以外の場合、Environ は指定された envstring に割り当てられているテキス
+トを返します。つまり、環境文字列テーブルでその環境変数の等号 (=) の後にあるテ
+キストを返します。</p></div>
+<div class="paragraph"><p>number を指定した場合は、環境文字列テーブルでその数値位置にある文字列が返され
+ます。 この場合、Environ は envstring を含むすべてのテキストを返します。 指定
+された位置に環境文字列がない場合、Environ は長さ 0 の文字列を返します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Environ 関数を使用して、PATH ステートメントのエントリ番号と長さを
+環境文字列テーブルから提供しています。 Macintosh では使用できません。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> EnvString<span style="color: #990000">,</span> Indx<span style="color: #990000">,</span> Msg<span style="color: #990000">,</span> PathLen    <span style="font-style: italic"><span style="color: #9A1900">' Declare variables.</span></span>
+Indx <span style="color: #990000">=</span> <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Initialize index to 1.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Do</span></span>
+    EnvString <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Environ</span></span><span style="color: #990000">(</span>Indx<span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Get environment</span></span>
+                <span style="font-style: italic"><span style="color: #9A1900">' variable.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #000000">Left</span></span><span style="color: #990000">(</span>EnvString<span style="color: #990000">,</span> <span style="color: #993399">5</span><span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #FF0000">"PATH="</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Check PATH entry.</span></span>
+        PathLen <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">Len</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">Environ</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"PATH"</span><span style="color: #990000">))</span>    <span style="font-style: italic"><span style="color: #9A1900">' Get length.</span></span>
+        Msg <span style="color: #990000">=</span> <span style="color: #FF0000">"PATH entry = "</span> <span style="color: #990000">&amp;</span> Indx <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" and length = "</span> <span style="color: #990000">&amp;</span> PathLen
+        <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Do</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+        Indx <span style="color: #990000">=</span> Indx <span style="color: #990000">+</span> <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Not PATH entry,</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' so increment.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span> Until EnvString <span style="color: #990000">=</span> <span style="color: #FF0000">""</span>
+<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> PathLen <span style="color: #990000">&gt;</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+    MsgBox Msg    <span style="font-style: italic"><span style="color: #9A1900">' Display message.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+    MsgBox <span style="color: #FF0000">"No PATH environment variable exists."</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_eof_関数_a_id_eof_a">EOF 関数<a id="EOF"></a></h4>
+<div class="paragraph"><p>Random またはシーケンシャル Input で開かれたファイルの末尾に達した場合、
+Boolean 値 True を含む整数を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">EOF</span></span><span style="color: #990000">(</span>filenumber<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>filenumber 引数は必須の引数です。有効なファイル番号を含む整数です。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>EOF を使用して、ファイルの末尾を越える入力によるエラーが発生しないようにします。</p></div>
+<div class="paragraph"><p>ファイルの末尾に達するまで、EOF 関数は False を返します。 Random または Binary
+アクセスで開かれたファイルの場合、最後に実行した Get ステートメントでレコード
+全体を読み取れなくなるまで、EOF は False を返します。</p></div>
+<div class="paragraph"><p>Binary アクセス用に開かれたファイルでは、Input 関数を使って、EOF が True を返
+すまでファイルを読み取ろうとすると、エラーが発生します。 Input でバイナリ ファ
+イルを読み取るときは、EOF の代わりに LOF 関数と Loc 関数を使用します。または、
+EOF 関数を使用しているときは Get を使用します。 Output で開かれたファイルの場
+合、EOF は常に True を返します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、EOF 関数を使用してファイルの末尾を検出します。 この例では、MYFILE
+は数行のテキストを含むテキスト ファイルであると仮定しています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> InputData
+Open <span style="color: #FF0000">"MYFILE"</span> <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Input As #<span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Open file for input.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> <span style="font-weight: bold"><span style="color: #0000FF">While</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Not</span></span> <span style="font-weight: bold"><span style="color: #0000FF">EOF</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Check for end of file.</span></span>
+    Line Input #<span style="color: #993399">1</span><span style="color: #990000">,</span> InputData    <span style="font-style: italic"><span style="color: #9A1900">' Read line of data.</span></span>
+    Debug<span style="color: #990000">.</span>Print InputData    <span style="font-style: italic"><span style="color: #9A1900">' Print to the Immediate window.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+Close #<span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Close file.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_error_関数_a_id_error_a">Error 関数<a id="Error"></a></h4>
+<div class="paragraph"><p>指定したエラー番号に対応するエラー メッセージを返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Error <span style="color: #990000">[</span> <span style="color: #990000">(</span>errornumber<span style="color: #990000">)</span> <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="paragraph"><p>errornumber 引数は省略可能です。任意の有効なエラー番号を指定できます。
+errornumber が有効なエラー番号でも、定義されていなければ、Error から "アプリケ
+ーション定義またはオブジェクト定義のエラーです。" という文字列が返されます。</p></div>
+<div class="paragraph"><p>errornumber が有効でない場合はエラーが発生します。 errornumber を省略した場合
+は、最後に発生した実行時エラーに対応するメッセージが返されます。 実行時エラー
+が発生していない場合、または errornumber が 0 の場合は、Error から長さ 0 の文
+字列 ("") が返されます。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>最後に発生した実行時エラーを特定するには、Err オブジェクトのプロパティ設定を調
+べます。 Error 関数の戻り値は、Err オブジェクトの Description プロパティに対応
+しています。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Error 関数を使用して、指定したエラー番号に対応するエラー メッセー
+ジを出力します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Private <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">PrintError</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> ErrorNumber As Long<span style="color: #990000">,</span> count As Long
+    count <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">:</span> ErrorNumber <span style="color: #990000">=</span> <span style="color: #993399">1</span>
+    On Error GoTo EOSb
+    <span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> <span style="font-weight: bold"><span style="color: #0000FF">While</span></span> count <span style="color: #990000">&lt;</span> <span style="color: #993399">100</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> <span style="font-weight: bold"><span style="color: #0000FF">While</span></span> <span style="font-weight: bold"><span style="color: #000000">Error</span></span><span style="color: #990000">(</span>ErrorNumber<span style="color: #990000">)</span> <span style="color: #990000">=</span> <span style="color: #FF0000">"Application-defined or object-defined error"</span><span style="color: #990000">:</span> ErrorNumber <span style="color: #990000">=</span> ErrorNumber <span style="color: #990000">+</span> <span style="color: #993399">1</span><span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+        Debug<span style="color: #990000">.</span>Print count <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"-Error("</span> <span style="color: #990000">&amp;</span> ErrorNumber <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"): "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Error</span></span><span style="color: #990000">(</span>ErrorNumber<span style="color: #990000">)</span>
+        ErrorNumber <span style="color: #990000">=</span> ErrorNumber <span style="color: #990000">+</span> <span style="color: #993399">1</span>
+        count <span style="color: #990000">=</span> count <span style="color: #990000">+</span> <span style="color: #993399">1</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+EOSb<span style="color: #990000">:</span> Debug<span style="color: #990000">.</span>Print ErrorNumber
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_fileattr_関数_a_id_fileattr_a">FileAttr 関数<a id="FileAttr"></a></h4>
+<div class="paragraph"><p><a href="#Open">Open</a> ステートメントを使用して開かれたファイルのファイル モードを表す
+Long を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">FileAttr</span></span><span style="color: #990000">(</span>filenumber<span style="color: #990000">,</span> returntype<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>FileAttr 関数の構文に使用される名前付き引数は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">filenumber</p></td>
+<td align="left" valign="top"><p class="table">必須。Integer。 任意の有効なファイル番号です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">returntype</p></td>
+<td align="left" valign="top"><p class="table">必須。Integer。 返す情報の種類を示す数値。 ファイル モードを示す値を返す場合は 1 を指定します。 16 ビット システムの場合のみ、オペレーティング システムのファイル ハンドルを取得する場合に 2 を指定します。 Returntype 2 は 32 ビット システムではサポートされていないため、エラーが発生します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">戻り値</div><p>returntype 引数が 1 の場合、ファイル アクセス モードを示す次の値が返されます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">モード </th>
+<th align="left" valign="top">値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Input</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">出力</p></td>
+<td align="left" valign="top"><p class="table">2</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Random</p></td>
+<td align="left" valign="top"><p class="table">4</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Append</p></td>
+<td align="left" valign="top"><p class="table">8</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">Binary</p></td>
+<td align="left" valign="top"><p class="table">32</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、FileAttr 関数を使用して、開かれているファイルのファイル モードおよ
+びファイル ハンドルを返しています。 ファイル ハンドルは 16 ビット システムでの
+み返されます。32 ビット システムで 2 つ目の引数に 2 を渡すと、エラーが発生しま
+す。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> FileNum<span style="color: #990000">,</span> Mode<span style="color: #990000">,</span> Handle
+FileNum <span style="color: #990000">=</span> <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' Assign file number.</span></span>
+Open <span style="color: #FF0000">"TESTFILE"</span> <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Append As FileNum    <span style="font-style: italic"><span style="color: #9A1900">' Open file.</span></span>
+Mode <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">FileAttr</span></span><span style="color: #990000">(</span>FileNum<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 8 (Append file mode).</span></span>
+Handle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">FileAttr</span></span><span style="color: #990000">(</span>FileNum<span style="color: #990000">,</span> <span style="color: #993399">2</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns file handle.</span></span>
+Close FileNum    <span style="font-style: italic"><span style="color: #9A1900">' Close file.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_filedatetime_関数_a_id_filedatetime_a">FileDateTime 関数<a id="FileDateTime"></a></h4>
+<div class="paragraph"><p>ファイルの作成日時または最終更新日時を示す Variant (Date) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">FileDateTime</span></span><span style="color: #990000">(</span>pathname<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の pathname 引数は、ファイル名を指定する文字列式です。 pathname には、ディ
+レクトリまたはフォルダー、およびドライブを含めることができます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、FileDateTime 関数を使用して、ファイルの作成日時または最終更新日時
+を特定します。 表示される日時の形式は、システムのロケール設定に基づいています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyStamp
+<span style="font-style: italic"><span style="color: #9A1900">' Assume TESTFILE was last modified on February 12, 1993 at 4:35:47 PM.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Assume English/U.S. locale settings.</span></span>
+MyStamp <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">FileDateTime</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"TESTFILE"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns "2/12/93 4:35:47 PM".</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_filelen_関数_a_id_filelen_a">FileLen 関数<a id="FileLen"></a></h4>
+<div class="paragraph"><p>バイト単位でファイルの長さを指定する Long を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">FileLen</span></span> <span style="color: #990000">(</span>pathname<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の pathname 引数は、ファイルを指定する文字列式です。 pathname には、ディレ
+クトリまたはフォルダー、およびドライブを含めることができます。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>FileLen 関数が呼び出されたときに指定したファイルが開いている場合、返された値は、
+そのファイルを開く直前のファイル サイズを表します。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">開いているファイルの長さを取得するには、LOF 関数を使用します。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、FileLen 関数を使用して、ファイルの長さをバイト単位で返します。 こ
+の例の目的のため、TESTFILE はデータを含んでいるファイルとします。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MySize
+MySize <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">FileLen</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"TESTFILE"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns file length (bytes).</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_filter_関数_a_id_filter_a">Filter 関数<a id="Filter"></a></h4>
+<div class="paragraph"><p>指定されたフィルター条件に基づいて、文字列配列のサブセットが含まれるゼロベース
+配列を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Filter</span></span><span style="color: #990000">(</span>sourcearray<span style="color: #990000">,</span> match<span style="color: #990000">,</span> <span style="color: #990000">[</span> <span style="font-weight: bold"><span style="color: #0000FF">include</span></span><span style="color: #990000">,</span> <span style="color: #990000">[</span> compare <span style="color: #990000">]])</span></tt></pre></div></div>
+<div class="paragraph"><p>Filter 関数の構文に使用される名前付き引数は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">sourcearray</p></td>
+<td align="left" valign="top"><p class="table">必須です。 検索する文字列の 1 次元配列。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">match</p></td>
+<td align="left" valign="top"><p class="table">必須。 検索する文字列。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">include</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 返すサブ文字列に match を含めるか、除外するかを示す Boolean 値。 include が True の場合、Filter は、match が含まれる配列のサブセットをサブ文字列として返します。 include が False の場合、Filter は、match が含まれない配列のサブセットをサブ文字列として返します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">compare</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 使用する文字列比較の種類を示す数値。 値については、「設定」セクションを参照してください。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>compare 引数には、次の値を指定できます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="28%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseCompareOption</p></td>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">Option Compare ステートメントの設定を使用して比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbBinaryCompare</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">バイナリ比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbTextCompare</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+<td align="left" valign="top"><p class="table">テキスト比較を実行します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbDatabaseCompare</p></td>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">Microsoft Access のみ。 データベース内の情報に基づいて比較を実行します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>Filter 関数によって返される配列には、一致したアイテムを格納するのに十分な数の
+要素のみが含まれます。</p></div>
+</div>
+<div class="sect3">
+<h4 id="_formatcurrency_関数_a_id_formatcurrency_a">FormatCurrency 関数<a id="FormatCurrency"></a></h4>
+<div class="paragraph"><p>システムのコントロール パネルで定義された通貨記号を使用して、通貨値として書式
+設定された式を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">FormatCurrency</span></span><span style="color: #990000">(</span>Expression<span style="color: #990000">,</span> <span style="color: #990000">[</span> NumDigitsAfterDecimal<span style="color: #990000">,</span> <span style="color: #990000">[</span> IncludeLeadingDigit<span style="color: #990000">,</span> <span style="color: #990000">[</span> UseParensForNegativeNumbers<span style="color: #990000">,</span> <span style="color: #990000">[</span> GroupDigits <span style="color: #990000">]]]])</span></tt></pre></div></div>
+<div class="paragraph"><p>FormatCurrency 関数の構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Expression</p></td>
+<td align="left" valign="top"><p class="table">必須。 書式設定する式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">NumDigitsAfterDecimal</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 表示する小数点以下の桁数を示す数値です。 既定値は -1 です。これは、コンピューターの地域の設定が使用されることを示します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">IncludeLeadingDigit</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 小数値に先頭のゼロを表示するかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UseParensForNegativeNumbers</p></td>
+<td align="left" valign="top"><p class="table">オプション。 負の値をかっこで囲むかどうかを示す Tristate 定数です。 値については「設定値」を参照してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GroupDigits</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 コンピューターの地域の設定で指定されている桁区切り記号を使用して数値を区切るかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>IncludeLeadingDigit、UseParensForNegativeNumbers、および GroupDigits 引数の設
+定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="28%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbTrue</p></td>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">True</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFalse</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">False</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseDefault</p></td>
+<td align="left" valign="top"><p class="table">-2</p></td>
+<td align="left" valign="top"><p class="table">コンピューターの地域の設定を使用します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>省略可能な引数を省略した場合は、コンピューターの地域の設定の値が使用されます。
+通貨値に対する通貨記号の位置は、システムの地域の設定によって決まります。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">先頭のゼロを除き、設定情報はすべて、[地域の設定] の [通貨] タ
+ブの情報に基づいています。先頭のゼロは、[数値] タブの情報に基づきます。</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_formatdatetime_関数_a_id_formatdatetime_a">FormatDateTime 関数<a id="FormatDateTime"></a></h4>
+<div class="paragraph"><p>日付または時刻として書式設定された式を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">FormatDateTime</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">Date</span></span><span style="color: #990000">,</span> <span style="color: #990000">[</span> NamedFormat <span style="color: #990000">])</span></tt></pre></div></div>
+<div class="paragraph"><p>FormatDateTime 関数の構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Date</p></td>
+<td align="left" valign="top"><p class="table">必須。 書式設定する日付式。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">NamedFormat</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 使用する日付/時刻の形式を示す数値。 省略すると、vbGeneralDate が使用されます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>NamedFormat 引数の設定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">説明</p></td>
+<td align="left" valign="top"><p class="table">vbGeneralDate</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">日付と時刻のどちらか、または両方を表示します。 日付部分がある場合は、短い日付として表示します。 時刻部分がある場合は、長い時刻として表示します。 両方ある場合は両方の部分を表示します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbLongDate</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">コンピューターの地域の設定で指定されている長い日付形式を使用して日付を表示します。</p></td>
+<td align="left" valign="top"><p class="table">vbShortDate</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">コンピューターの地域の設定で指定されている短い日付形式を使用して日付を表示します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbLongTime</p></td>
+<td align="left" valign="top"><p class="table">1/3</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">コンピューターの地域の設定で指定されている時刻形式を使用して時刻を表示します。</p></td>
+<td align="left" valign="top"><p class="table">vbShortTime</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">2/4</p></td>
+<td align="left" valign="top"><p class="table">24 時間形式 (hh:mm) を使用して時刻を表示します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_formatnumber_関数_a_id_formatnumber_a">FormatNumber 関数<a id="FormatNumber"></a></h4>
+<div class="paragraph"><p>数値として書式設定された式を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">FormatNumber</span></span><span style="color: #990000">(</span>Expression<span style="color: #990000">,</span> <span style="color: #990000">[</span> NumDigitsAfterDecimal<span style="color: #990000">,</span> <span style="color: #990000">[</span> IncludeLeadingDigit<span style="color: #990000">,</span> <span style="color: #990000">[</span> UseParensForNegativeNumbers<span style="color: #990000">,</span> <span style="color: #990000">[</span> GroupDigits <span style="color: #990000">]]]])</span></tt></pre></div></div>
+<div class="paragraph"><p>FormatNumber 関数の構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Expression</p></td>
+<td align="left" valign="top"><p class="table">必須。 書式設定する式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">NumDigitsAfterDecimal</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 表示する小数点以下の桁数を示す数値です。 既定値は -1 です。これは、コンピューターの地域の設定が使用されることを示します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">IncludeLeadingDigit</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 小数値に先頭のゼロを表示するかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UseParensForNegativeNumbers</p></td>
+<td align="left" valign="top"><p class="table">オプション。 負の値をかっこで囲むかどうかを示す Tristate 定数です。 値については「設定値」を参照してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GroupDigits</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 コンピューターの地域の設定で指定されている桁区切り記号を使用して数値を区切るかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>IncludeLeadingDigit、UseParensForNegativeNumbers、および GroupDigits 引数の設
+定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">説明</p></td>
+<td align="left" valign="top"><p class="table">vbTrue</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">True</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFalse</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">False</p></td>
+<td align="left" valign="top"><p class="table">vbUseDefault</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">-2</p></td>
+<td align="left" valign="top"><p class="table">コンピューターの地域の設定を使用します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>省略可能な引数を省略した場合は、コンピューターの地域の設定の値が使用されます。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">すべての設定情報について、[地域] の設定の [数値] タブの情報が
+使用されます。</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_formatpercent_関数_a_id_formatpercent_a">FormatPercent 関数<a id="FormatPercent"></a></h4>
+<div class="paragraph"><p>パーセンテージとして (100 倍して) 書式設定された式を、末尾に % 記号を追加して
+返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">FormatPercent</span></span><span style="color: #990000">(</span>Expression<span style="color: #990000">,</span> <span style="color: #990000">[</span> NumDigitsAfterDecimal<span style="color: #990000">,</span> <span style="color: #990000">[</span> IncludeLeadingDigit<span style="color: #990000">,</span> <span style="color: #990000">[</span> UseParensForNegativeNumbers<span style="color: #990000">,</span> <span style="color: #990000">[</span> GroupDigits <span style="color: #990000">]]]])</span></tt></pre></div></div>
+<div class="paragraph"><p>FormatPercent 関数の構文には、次の指定項目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">Expression</p></td>
+<td align="left" valign="top"><p class="table">必須。 書式設定する式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">NumDigitsAfterDecimal</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 表示する小数点以下の桁数を示す数値です。 既定値は -1 です。これは、コンピューターの地域の設定が使用されることを示します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">IncludeLeadingDigit</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 小数値に先頭のゼロを表示するかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UseParensForNegativeNumbers</p></td>
+<td align="left" valign="top"><p class="table">オプション。 負の値をかっこで囲むかどうかを示す Tristate 定数です。 値については「設定値」を参照してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GroupDigits</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 コンピューターの地域の設定で指定されている桁区切り記号を使用して数値を区切るかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">設定</div><p>IncludeLeadingDigit、UseParensForNegativeNumbers、および GroupDigits 引数の設
+定は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="28%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbTrue</p></td>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">True</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbFalse</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">False</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbUseDefault</p></td>
+<td align="left" valign="top"><p class="table">-2</p></td>
+<td align="left" valign="top"><p class="table">コンピューターの地域の設定を使用します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>省略可能な引数を省略した場合は、コンピューターの地域の設定の値が使用されます。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">すべての設定情報について、[地域] の設定の [数値] タブの情報が
+使用されます。</td>
+</tr></table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_freefile_関数_a_id_freefile_a">FreeFile 関数<a id="FreeFile"></a></h4>
+<div class="paragraph"><p><a href="#Open">Open</a> ステートメントで使用できる次のファイル番号を表す Integer を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>FreeFile <span style="color: #990000">[</span> <span style="color: #990000">(</span>rangenumber<span style="color: #990000">)</span> <span style="color: #990000">]</span></tt></pre></div></div>
+<div class="paragraph"><p>オプションの rangenumber 引数は、どの範囲から次の空きファイル番号を返すかを指
+定する Variant です。 0 (既定値) を指定すると 1 以上 255 以下の範囲のファイル
+番号を返します。 1 を指定すると 256 以上 511 以下の範囲のファイル番号を返しま
+す。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>まだ使用されていないファイル番号を提供するには、FreeFile を使用します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、FreeFile 関数を使用して、次に使用可能なファイル番号を返します。 ル
+ープ内では 5 個のファイルが出力用に開かれ、サンプル データが各ファイルに書き込
+まれています。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyIndex<span style="color: #990000">,</span> FileNumber
+<span style="font-weight: bold"><span style="color: #0000FF">For</span></span> MyIndex <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">5</span>    <span style="font-style: italic"><span style="color: #9A1900">' Loop 5 times.</span></span>
+    FileNumber <span style="color: #990000">=</span> FreeFile    <span style="font-style: italic"><span style="color: #9A1900">' Get unused file</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">' number.</span></span>
+    Open <span style="color: #FF0000">"TEST"</span> <span style="color: #990000">&amp;</span> MyIndex <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Output As #FileNumber    <span style="font-style: italic"><span style="color: #9A1900">' Create file name.</span></span>
+    Write #FileNumber<span style="color: #990000">,</span> <span style="color: #FF0000">"This is a sample."</span>    <span style="font-style: italic"><span style="color: #9A1900">' Output text.</span></span>
+    Close #FileNumber    <span style="font-style: italic"><span style="color: #9A1900">' Close file.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> MyIndex</tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_fv_関数_a_id_fv_a">FV 関数<a id="FV"></a></h4>
+<div class="paragraph"><p>定額の支払いを定期的に行い、利率が一定であると仮定して投資の将来価値を指定する
+Double を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">FV</span></span><span style="color: #990000">(</span>rate<span style="color: #990000">,</span> nper<span style="color: #990000">,</span> pmt<span style="color: #990000">,</span> <span style="color: #990000">[</span> pv<span style="color: #990000">,</span> <span style="color: #990000">[</span> type <span style="color: #990000">]])</span></tt></pre></div></div>
+<div class="paragraph"><p>FV 関数には、次の名前付き引数があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">rate</p></td>
+<td align="left" valign="top"><p class="table">必須です。 投資の利率を示す倍精度浮動小数点型 ( Double ) の値を指定します。 たとえば、年利 (APR) 10% の自動車ローンを利用して月払いで返済を行う場合、利率は 0.1/12 = 0.0083 になります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">nper</p></td>
+<td align="left" valign="top"><p class="table">必須。 投資期間全体での支払回数の合計を示す整数型 ( Integer) の値を指定します。 たとえば、4 年間の自動車ローンを利用して月払いで返済を行う場合、このローンの支払回数の合計は 4 * 12 = 48 となります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">pmt</p></td>
+<td align="left" valign="top"><p class="table">必須。 毎回の支払額を指定する Double。 通常、支払額には元金と利息が含まれます。投資期間内に支払額が変更されることはありません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">pv</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 現在価値、つまり将来行われる一連の支払を現時点で一括払いした場合の合計金額を示すバリアント型 ( Variant) の値を指定します。 たとえば、車を購入するために資金を借りる場合、ローンの総額が、貸方に対する現在価値となります。 省略すると、0 を指定したものと見なされます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">type</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 支払期日を示すバリアント型 ( Variant ) の値を指定します。 各期の期末に支払う場合は 0、各期の期首に支払う場合は 1 を指定します。 省略すると、0 と見なされます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>投資とは、一連の定額の支払いを一定期間にわたって行うことです。 投資には、住宅
+ローンなどのローンや、毎月の貯蓄プランなどの出資があります。</p></div>
+<div class="paragraph"><p>引数rate と nper は、同じ単位で表した支払期間を使用して計算する必要があります。
+たとえば、rate を月単位で計算する場合は、nper も月単位で計算する必要があります。</p></div>
+<div class="paragraph"><p>すべての引数に関して、定額預金の支払いのような出金は負の数で表し、配当金のよう
+な入金は正の数で表します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、FV 関数を使用して投資の将来価値を返します。利率 (APR / 12)、支払回
+数の合計 (TotPmts)、支払額 (Payment)、投資の現在価値 (PVal)、および支払が期首
+に行われるか期末に行われるかを示す数値 (PayType) を指定します。 Paymentは出金
+を表すので、負の値です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Fmt<span style="color: #990000">,</span> Payment<span style="color: #990000">,</span> APR<span style="color: #990000">,</span> TotPmts<span style="color: #990000">,</span> PayType<span style="color: #990000">,</span> PVal<span style="color: #990000">,</span> FVal
+Const ENDPERIOD <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> BEGINPERIOD <span style="color: #990000">=</span> <span style="color: #993399">1</span>    <span style="font-style: italic"><span style="color: #9A1900">' When payments are made.</span></span>
+Fmt <span style="color: #990000">=</span> <span style="color: #FF0000">"###,###,##0.00"</span>    <span style="font-style: italic"><span style="color: #9A1900">' Define money format.</span></span>
+Payment <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"How much do you plan to save each month?"</span><span style="color: #990000">)</span>
+APR <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Enter the expected interest annual percentage rate."</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> APR <span style="color: #990000">&gt;</span> <span style="color: #993399">1</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span> APR <span style="color: #990000">=</span> APR <span style="color: #990000">/</span> <span style="color: #993399">100</span>    <span style="font-style: italic"><span style="color: #9A1900">' Ensure proper form.</span></span>
+TotPmts <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"For how many months do you expect to save?"</span><span style="color: #990000">)</span>
+PayType <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">MsgBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Do you make payments at the end of month?"</span><span style="color: #990000">,</span> vbYesNo<span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> PayType <span style="color: #990000">=</span> vbNo <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span> PayType <span style="color: #990000">=</span> BEGINPERIOD <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span> PayType <span style="color: #990000">=</span> ENDPERIOD
+PVal <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">InputBox</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"How much is in this savings account now?"</span><span style="color: #990000">)</span>
+FVal <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">FV</span></span><span style="color: #990000">(</span>APR <span style="color: #990000">/</span> <span style="color: #993399">12</span><span style="color: #990000">,</span> TotPmts<span style="color: #990000">,</span> <span style="color: #990000">-</span>Payment<span style="color: #990000">,</span> <span style="color: #990000">-</span>PVal<span style="color: #990000">,</span> PayType<span style="color: #990000">)</span>
+MsgBox <span style="color: #FF0000">"Your savings will be worth "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Format</span></span><span style="color: #990000">(</span>FVal<span style="color: #990000">,</span> Fmt<span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">"."</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_getallsettings_関数_a_id_getallsettings_a">GetAllSettings 関数<a id="GetAllSettings"></a></h4>
+<div class="paragraph"><p>Windows レジストリのアプリケーションのエントリまたはアプリケーションの初期化フ
+ァイルの情報 (Macintosh の場合) から、キー設定のリストと各キー設定の値
+(SaveSetting を使用して作成されたもの) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">GetAllSettings</span></span><span style="color: #990000">(</span>appname<span style="color: #990000">,</span> section<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>GetAllSettings 関数の構文には、次の名前付き引数があります。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>パーツ       説明
+appname         必須です。 キー設定が要求されているアプリケーションまたはプロジェクトの名前を含む文字列式です。 これは、Macintosh では System フォルダー内の Preferences フォルダーにある初期化ファイルのファイル名です。
+section         必須。 キー設定が要求されているセクションの名前を含む文字列式です。 GetAllSettings からは、指定したセクションのすべてのキー設定とそれに対応する値を含む文字列の <span style="color: #993399">2</span> 次元配列のコンテンツを持つ Variant が返されます。</tt></pre></div></div>
+<div class="paragraph"><div class="title">解説</div><p>GetAllSettings では、appname または section のいずれかが存在しない場合、初期化
+されていない Variant を返します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、最初に SaveSetting ステートメントを使用して、appname として指定さ
+れたアプリケーションの Windows レジストリにエントリを作成し、GetAllSettings 関
+数を使用して、設定を表示します。 アプリケーション名と section の名前は、
+GetAllSettings で取得することはできないので、ご注意ください。 最後に、
+DeleteSetting ステートメントは、アプリケーションのエントリを削除します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Variant to hold 2-dimensional array returned by GetAllSettings</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Integer to hold counter.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MySettings As Variant<span style="color: #990000">,</span> intSettings As Integer
+<span style="font-style: italic"><span style="color: #9A1900">' Place some settings in the registry.</span></span>
+SaveSetting appname <span style="color: #990000">:=</span> <span style="color: #FF0000">"MyApp"</span><span style="color: #990000">,</span> section <span style="color: #990000">:=</span> <span style="color: #FF0000">"Startup"</span><span style="color: #990000">,</span> _
+key <span style="color: #990000">:=</span> <span style="color: #FF0000">"Top"</span><span style="color: #990000">,</span> setting <span style="color: #990000">:=</span> <span style="color: #993399">75</span>
+SaveSetting <span style="color: #FF0000">"MyApp"</span><span style="color: #990000">,</span><span style="color: #FF0000">"Startup"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Left"</span><span style="color: #990000">,</span> <span style="color: #993399">50</span>
+<span style="font-style: italic"><span style="color: #9A1900">' Retrieve the settings.</span></span>
+MySettings <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetAllSettings</span></span><span style="color: #990000">(</span>appname <span style="color: #990000">:=</span> <span style="color: #FF0000">"MyApp"</span><span style="color: #990000">,</span> section <span style="color: #990000">:=</span> <span style="color: #FF0000">"Startup"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> intSettings <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">LBound</span></span><span style="color: #990000">(</span>MySettings<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span> To <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>MySettings<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+        Debug<span style="color: #990000">.</span>Print <span style="font-weight: bold"><span style="color: #000000">MySettings</span></span><span style="color: #990000">(</span>intSettings<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">),</span> <span style="font-weight: bold"><span style="color: #000000">MySettings</span></span><span style="color: #990000">(</span>intSettings<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> intSettings
+DeleteSetting <span style="color: #FF0000">"MyApp"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Startup"</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_getattr_関数_a_id_getattr_a">GetAttr 関数<a id="GetAttr"></a></h4>
+<div class="paragraph"><p>ファイル、ディレクトリ、またはフォルダーの属性を表す Integer を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">GetAttr</span></span><span style="color: #990000">(</span>pathname<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の pathname 引数は、ファイル名を指定する文字列式です。 pathname には、ディ
+レクトリまたはフォルダー、およびドライブを含めることができます。</p></div>
+<div class="paragraph"><div class="title">戻り値</div><p>GetAttr では、次の属性の値の合計が返されます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="28%" />
+<col width="14%" />
+<col width="57%" />
+<thead>
+<tr>
+<th align="left" valign="top">定数 </th>
+<th align="left" valign="top">値 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">vbNormal</p></td>
+<td align="left" valign="top"><p class="table">.0</p></td>
+<td align="left" valign="top"><p class="table">標準</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbReadOnly</p></td>
+<td align="left" valign="top"><p class="table">1-d</p></td>
+<td align="left" valign="top"><p class="table">読み取り専用。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbHidden</p></td>
+<td align="left" valign="top"><p class="table">pbm-2</p></td>
+<td align="left" valign="top"><p class="table">非表示。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbSystem</p></td>
+<td align="left" valign="top"><p class="table">2/4</p></td>
+<td align="left" valign="top"><p class="table">システム ファイル。 Macintosh では使用できません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbDirectory</p></td>
+<td align="left" valign="top"><p class="table">16</p></td>
+<td align="left" valign="top"><p class="table">ディレクトリまたはフォルダー</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbArchive</p></td>
+<td align="left" valign="top"><p class="table">32</p></td>
+<td align="left" valign="top"><p class="table">前回のバックアップ以降にファイルが変更されています。 Macintosh では使用できません。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">vbAlias</p></td>
+<td align="left" valign="top"><p class="table">64</p></td>
+<td align="left" valign="top"><p class="table">指定されたファイル名はエイリアスです。 Macintosh でのみ使用できます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">これらの定数は Visual Basic for Applications により指定されま
+す。 これらの名前は、実際の値の代わりにコードのどの部分でも使用できます。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>設定されている属性を確認するには、And 演算子を使用して ビット単位の比較を行い、
+GetAttr 関数から返される値と目的の個々のファイル属性の値を比較します。 結果が
+0 以外の場合は、指定したファイルに対してその属性が設定されています。 たとえば、
+Archive 属性が設定されていない場合、次の And 式の戻り値は 0 です。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Result <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetAttr</span></span><span style="color: #990000">(</span>FName<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">And</span></span> vbArchive</tt></pre></div></div>
+<div class="paragraph"><p>Archive 属性が設定されている場合は、0 以外の値が返されます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、GetAttr 関数を使用して、ファイルとディレクトリまたはフォルダーの属
+性を確認します。 Macintosh では、定数 vbNormal、vbReadOnly、vbHidden、および
+vbAlias のみが使用できます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyAttr
+<span style="font-style: italic"><span style="color: #9A1900">' Assume file TESTFILE has hidden attribute set.</span></span>
+MyAttr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetAttr</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"TESTFILE"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 2.</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Returns nonzero if hidden attribute is set on TESTFILE.</span></span>
+Debug<span style="color: #990000">.</span>Print MyAttr <span style="font-weight: bold"><span style="color: #0000FF">And</span></span> vbHidden
+
+<span style="font-style: italic"><span style="color: #9A1900">' Assume file TESTFILE has hidden and read-only attributes set.</span></span>
+MyAttr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetAttr</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"TESTFILE"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 3.</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Returns nonzero if hidden attribute is set on TESTFILE.</span></span>
+Debug<span style="color: #990000">.</span>Print MyAttr <span style="font-weight: bold"><span style="color: #0000FF">And</span></span> <span style="color: #990000">(</span>vbHidden <span style="color: #990000">+</span> vbReadOnly<span style="color: #990000">)</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Assume MYDIR is a directory or folder.</span></span>
+MyAttr <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetAttr</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"MYDIR"</span><span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' Returns 16.</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_getobject_関数_a_id_getobject_a">GetObject 関数<a id="GetObject"></a></h4>
+<div class="paragraph"><p>ActiveX コンポーネントから提供されたオブジェクトの参照を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">GetObject</span></span><span style="color: #990000">([</span> pathname <span style="color: #990000">],</span> <span style="color: #990000">[</span> class <span style="color: #990000">])</span></tt></pre></div></div>
+<div class="paragraph"><p>GetObject 関数の構文に使用される名前付き引数は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">pathname</p></td>
+<td align="left" valign="top"><p class="table">省略可能。Variant (String)。 取得するオブジェクトを含むファイルの完全パスと名前。 pathname を省略する場合は、class を指定する必要があります。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">class</p></td>
+<td align="left" valign="top"><p class="table">省略可能。Variant (String)。 オブジェクトの クラスを表す文字列。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>class 引数の構文は appname.objecttype で、指定項目は次のとおりです。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">指定項目 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">appname</p></td>
+<td align="left" valign="top"><p class="table">必須。Variant (String)。 オブジェクトを提供するアプリケーションの名前。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">objecttype</p></td>
+<td align="left" valign="top"><p class="table">必須。Variant (String)。 作成するオブジェクトの型またはクラス。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>GetObject 関数は、ファイルから ActiveX オブジェクトにアクセスして、そのオブジ
+ェクトをオブジェクト変数に割り当てるために使用されます。 GetObject で返された
+オブジェクトをオブジェクト変数に割り当てるには、<a href="#Set">Set</a> ステートメントを使
+用します。</p></div>
+<div class="listingblock">
+<div class="title">例:</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> CADObject As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> CADObject <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"C:</span><span style="color: #CC33CC">\C</span><span style="color: #FF0000">AD</span><span style="color: #CC33CC">\S</span><span style="color: #FF0000">CHEMA.CAD"</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>このコードを実行すると、指定した pathname に関連付けられたアプリケーションが起
+動され、指定したファイル内のオブジェクトがアクティブ化されます。</p></div>
+<div class="paragraph"><p>pathname が長さ 0 の文字列 ("") である場合、GetObject は、指定した型の新しいオ
+ブジェクト インスタンスを戻します。 pathname 引数を省略した場合、GetObject は、
+指定した型の現在アクティブなオブジェクトを返します。 指定した型のオブジェクト
+が存在しない場合は、エラーが発生します。</p></div>
+<div class="paragraph"><p>一部のアプリケーションでは、ファイルの一部をアクティブ化することができます。
+ファイル名の末尾に感嘆符 (!) を付け、アクティブ化するファイルの部分を識別する
+文字列を続けます。 この文字列の作成方法については、オブジェクトを作成したアプ
+リケーションのドキュメントを参照してください。</p></div>
+<div class="paragraph"><p>たとえば、描画アプリケーションでは、図面の複数のレイヤーがファイルに保存されて
+いる場合があります。 次のコードを使用して、SCHEMA.CAD という図面内のレイヤーを
+アクティブ化することができます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> LayerObject <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"C:</span><span style="color: #CC33CC">\C</span><span style="color: #FF0000">AD</span><span style="color: #CC33CC">\S</span><span style="color: #FF0000">CHEMA.CAD!Layer3"</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>オブジェクトの class を指定しない場合、起動するアプリケーションとアクティブ化
+するオブジェクトは、指定したファイル名に基づいて自動的に決定されます。 ただし、
+一部のファイルは複数のクラスのオブジェクトをサポートしている場合があります。
+たとえば、1 つの図面が 3 つの異なる型のオブジェクト (Application オブジェクト、
+Drawing オブジェクト、Toolbar オブジェクト) をサポートし、すべてが同じファイル
+に含まれている場合があります。 ファイル内のアクティブ化するオブジェクトを指定
+するには、省略可能な class 引数を使用します。 次に例を示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyObject As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> MyObject <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"C:</span><span style="color: #CC33CC">\D</span><span style="color: #FF0000">RAWINGS</span><span style="color: #CC33CC">\S</span><span style="color: #FF0000">AMPLE.DRW"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"FIGMENT.DRAWING"</span><span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>この例で、FIGMENT は描画アプリケーションの名前で、DRAWING は、サポートされるオ
+ブジェクトの型のいずれかです。 オブジェクトがアクティブ化されたら、定義したオ
+ブジェクト変数を使用して、コード内でオブジェクトを参照します。 前の例では、オ
+ブジェクト変数_MyObject_を使用して、新しいオブジェクトのプロパティとメソッドに
+アクセスします。 次に例を示します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>MyObject<span style="color: #990000">.</span>Line <span style="color: #993399">9</span><span style="color: #990000">,</span> <span style="color: #993399">90</span>
+MyObject<span style="color: #990000">.</span>InsertText <span style="color: #993399">9</span><span style="color: #990000">,</span> <span style="color: #993399">100</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Hello, world."</span>
+MyObject<span style="color: #990000">.</span>SaveAs <span style="color: #FF0000">"C:</span><span style="color: #CC33CC">\D</span><span style="color: #FF0000">RAWINGS</span><span style="color: #CC33CC">\S</span><span style="color: #FF0000">AMPLE.DRW"</span></tt></pre></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">GetObject 関数は、オブジェクトの現在のインスタンスがある場合、
+または既にファイルが読み込まれた状態でオブジェクトを作成する場合に使用します。
+現在のインスタンスがなく、ファイルが読み込まれた状態でオブジェクトを起動しない
+場合は、<a href="#CreateObject">CreateObject</a> 関数を使用します。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>オブジェクトが単一インスタンスのオブジェクトとして登録されている場合は、
+CreateObject を何回実行しても、そのオブジェクトのインスタンスは 1 つしか作成さ
+れません。 単一インスタンスのオブジェクトの場合、長さ 0 の文字列 ("") 構文で呼
+び出されると、GetObject は常に同じインスタンスを返します。また、pathname 引数
+が省略された場合、エラーが発生します。 GetObject を使用して、Visual Basic で作
+成されたクラスに対する参照を取得することはできません。</p></div>
+<div class="paragraph"><div class="title">例</div><p>次の例では、GetObject 関数を使用して特定の Microsoft Excel ワークシート (MyXL)
+に対する参照を取得します。 ワークシートの Application プロパティを使用して、
+Excel の表示や終了などの操作を行います。</p></div>
+<div class="paragraph"><p>DetectExcel Sub プロシージャは 2 つの API 呼び出しを使用して Microsoft Excel
+を検索し、実行中の場合は、Running Object テーブルに入力します。</p></div>
+<div class="paragraph"><p>Microsoft Excel がまだ実行されていない場合、GetObject の 1 回目の呼び出しによ
+ってエラーが発生します。 この例では、このエラーによって ExcelWasNotRunning フ
+ラグが True に設定されます。</p></div>
+<div class="paragraph"><p>GetObject の 2 回目の呼び出しでは、開くファイルを指定します。 Microsoft Excel
+がまだ実行されていない場合は、2 回目の呼び出しで起動され、指定したファイル
+(mytest.xls) が示すワークシートに対する参照を返します。 ファイルは指定した場所
+に存在する必要があります。存在しない場合、Visual Basic エラーの Automation
+error が生成されます。</p></div>
+<div class="paragraph"><p>このコード例では、次に、指定したワークシートを含む Microsoft Excel とウィンド
+ウの両方が表示されるようになります。 最後に、以前のバージョンの Microsoft
+Excel が実行中ではない場合、このコードでは Application オブジェクトの Quit メ
+ソッドを使用して Microsoft Excel を終了します。 アプリケーションが既に実行中の
+場合、アプリケーションを閉じる処理は試行されません。 参照自体は、Nothing に設
+定することで解放されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Declare necessary API routines:</span></span>
+Declare <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> FindWindow Lib <span style="color: #FF0000">"user32"</span> Alias _
+<span style="color: #FF0000">"FindWindowA"</span> <span style="color: #990000">(</span>ByVal lpClassName as String<span style="color: #990000">,</span> _
+                    ByVal lpWindowName As Long<span style="color: #990000">)</span> As Long
+
+Declare <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> SendMessage Lib <span style="color: #FF0000">"user32"</span> Alias _
+<span style="color: #FF0000">"SendMessageA"</span> <span style="color: #990000">(</span>ByVal hWnd as Long<span style="color: #990000">,</span>ByVal wMsg as Long<span style="color: #990000">,</span> _
+                    ByVal wParam as Long<span style="color: #990000">,</span> _
+                    ByVal lParam As Long<span style="color: #990000">)</span> As Long
+
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">GetExcel</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyXL As <span style="font-weight: bold"><span style="color: #0000FF">Object</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Variable to hold reference</span></span>
+                                <span style="font-style: italic"><span style="color: #9A1900">' to Microsoft Excel.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> ExcelWasNotRunning As Boolean    <span style="font-style: italic"><span style="color: #9A1900">' Flag for final release.</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Test to see if there is a copy of Microsoft Excel already running.</span></span>
+    On Error Resume <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Defer error trapping.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Getobject function called without the first argument returns a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' reference to an instance of the application. If the application isn't</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' running, an error occurs.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> MyXL <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Getobject</span></span><span style="color: #990000">(,</span> <span style="color: #FF0000">"Excel.Application"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> Err<span style="color: #990000">.</span>Number <span style="color: #990000">&lt;&gt;</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span> ExcelWasNotRunning <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+    Err<span style="color: #990000">.</span>Clear    <span style="font-style: italic"><span style="color: #9A1900">' Clear Err object in case error occurred.</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Check for Microsoft Excel. If Microsoft Excel is running,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' enter it into the Running Object table.</span></span>
+    DetectExcel
+
+<span style="font-style: italic"><span style="color: #9A1900">' Set the object variable to reference the file you want to see.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> MyXL <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Getobject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\v</span><span style="color: #FF0000">b4</span><span style="color: #CC33CC">\M</span><span style="color: #FF0000">YTEST.XLS"</span><span style="color: #990000">)</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">' Show Microsoft Excel through its Application property. Then</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' show the actual window containing the file using the Windows</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' collection of the MyXL object reference.</span></span>
+    MyXL<span style="color: #990000">.</span>Application<span style="color: #990000">.</span>Visible <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+    MyXL<span style="color: #990000">.</span>Parent<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Windows</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span>Visible <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span>
+     <span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> manipulations of your  file here<span style="color: #990000">.</span>
+    <span style="font-style: italic"><span style="color: #9A1900">' ...</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' If this copy of Microsoft Excel was not running when you</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' started, close it using the Application property's Quit method.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Note that when you try to quit Microsoft Excel, the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' title bar blinks and a message is displayed asking if you</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' want to save any loaded files.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> ExcelWasNotRunning <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        MyXL<span style="color: #990000">.</span>Application<span style="color: #990000">.</span>Quit
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">IF</span></span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> MyXL <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">Nothing</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Release reference to the</span></span>
+                                <span style="font-style: italic"><span style="color: #9A1900">' application and spreadsheet.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">DetectExcel</span></span><span style="color: #990000">()</span>
+<span style="font-style: italic"><span style="color: #9A1900">' Procedure dectects a running Excel and registers it.</span></span>
+    Const WM_USER <span style="color: #990000">=</span> <span style="color: #993399">1024</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> hWnd As Long
+<span style="font-style: italic"><span style="color: #9A1900">' If Excel is running this API call returns its handle.</span></span>
+    hWnd <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">FindWindow</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"XLMAIN"</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> hWnd <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' 0 means Excel not running.</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">' Excel is running so use the SendMessage API</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">' function to enter it in the Running Object Table.</span></span>
+        SendMessage hWnd<span style="color: #990000">,</span> WM_USER <span style="color: #990000">+</span> <span style="color: #993399">18</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">0</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_getsetting_関数_a_id_getsetting_a">GetSetting 関数<a id="GetSetting"></a></h4>
+<div class="paragraph"><p>Windows レジストリ内のアプリケーションのエントリ、または (Macintosh 上の) アプ
+リケーションの初期化ファイル内の情報から、キー設定値を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">GetSetting</span></span><span style="color: #990000">(</span>appname<span style="color: #990000">,</span> section<span style="color: #990000">,</span> key<span style="color: #990000">,</span> <span style="color: #990000">[</span> <span style="font-weight: bold"><span style="color: #0000FF">default</span></span> <span style="color: #990000">])</span></tt></pre></div></div>
+<div class="paragraph"><p>GetSetting 関数の構文には、次の名前付き引数があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">appname</p></td>
+<td align="left" valign="top"><p class="table">必須です。 キー設定が要求されているアプリケーションまたはプロジェクトの名前を含む文字列式です。 これは、Macintosh では System フォルダー内の Preferences フォルダーにある初期化ファイルのファイル名です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">section</p></td>
+<td align="left" valign="top"><p class="table">必須です。 キー設定を検索するセクションの名前を含む文字列式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">key</p></td>
+<td align="left" valign="top"><p class="table">必須。 返すキー設定の名前を含む文字列式です。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">default</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 キー設定に値が設定されていない場合、返す値を含む式です。 省略すると、default で、長さ 0 の文字列 ("") があると見なされます。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>GetSetting 引数で名付けられたアイテムが存在しない場合、GetSetting は、default
+の値を返します。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、最初に <a href="#SaveSetting">SaveSetting</a> ステートメントを使用して、
+appname として指定されたアプリケーションの Windows レジストリ (または 16 ビッ
+ト版 Windows プラットフォームの .ini ファイル) にエントリを作成し、GetSetting
+関数を使用して、設定のうちの 1 つを表示します。 default 引数が指定されているた
+め、何らかの値が返されることが保証されています。 section 名は、GetSetting で取
+得することはできないので、ご注意ください。 最後に、<a href="#DeleteSetting">DeleteSetting</a> ステートメントは、アプリケーションのエントリをすべて削除します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">' Variant to hold 2-dimensional array returned by GetSetting.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MySettings As Variant
+<span style="font-style: italic"><span style="color: #9A1900">' Place some settings in the registry.</span></span>
+SaveSetting <span style="color: #FF0000">"MyApp"</span><span style="color: #990000">,</span><span style="color: #FF0000">"Startup"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Top"</span><span style="color: #990000">,</span> <span style="color: #993399">75</span>
+SaveSetting <span style="color: #FF0000">"MyApp"</span><span style="color: #990000">,</span><span style="color: #FF0000">"Startup"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Left"</span><span style="color: #990000">,</span> <span style="color: #993399">50</span>
+
+Debug<span style="color: #990000">.</span>Print <span style="font-weight: bold"><span style="color: #000000">GetSetting</span></span><span style="color: #990000">(</span>appname <span style="color: #990000">:=</span> <span style="color: #FF0000">"MyApp"</span><span style="color: #990000">,</span> section <span style="color: #990000">:=</span> <span style="color: #FF0000">"Startup"</span><span style="color: #990000">,</span> _
+                       key <span style="color: #990000">:=</span> <span style="color: #FF0000">"Left"</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">default</span></span> <span style="color: #990000">:=</span> <span style="color: #FF0000">"25"</span><span style="color: #990000">)</span>
+
+DeleteSetting <span style="color: #FF0000">"MyApp"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"Startup"</span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_hour_関数_a_id_hour_a">Hour 関数<a id="Hour"></a></h4>
+<div class="paragraph"><p>1 日の時間を表す 0 以上 23 以下の整数を指定する Variant (Integer) を返します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #000000">Hour</span></span><span style="color: #990000">(</span>time<span style="color: #990000">)</span></tt></pre></div></div>
+<div class="paragraph"><p>必須の time 引数は、時間を表すことができる、任意の Variant、数式、文字列式、ま
+たは任意の組み合わせです。 time に Null が含まれている場合は Null が返されます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Hour 関数を使用して、指定した時刻の時間を取得します。 開発環境では、
+コードのロケール設定を使用して短い時刻形式で時刻リテラルが表示されます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> MyTime<span style="color: #990000">,</span> MyHour
+MyTime <span style="color: #990000">=</span> #<span style="color: #993399">4</span><span style="color: #990000">:</span><span style="color: #993399">35</span><span style="color: #990000">:</span><span style="color: #993399">17</span> PM#    <span style="font-style: italic"><span style="color: #9A1900">' Assign a time.</span></span>
+MyHour <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Hour</span></span><span style="color: #990000">(</span>MyTime<span style="color: #990000">)</span>    <span style="font-style: italic"><span style="color: #9A1900">' MyHour contains 16.</span></span></tt></pre></div></div>
 <div class="paragraph"><p>★</p></div>
 </div>
 </div>
@@ -14938,6 +16908,641 @@ cellspacing="0" cellpadding="4">
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_microsoft_forms_リファレンス">Microsoft Forms リファレンス</h3>
+</div>
+<div class="sect2">
+<h3 id="_オブジェクト_visual_basic_for_applications">オブジェクト (Visual Basic for Applications)</h3>
+<div class="sect3">
+<h4 id="_err_オブジェクト">Err オブジェクト</h4>
+<div class="paragraph"><p>実行時エラーに関する情報が含まれます。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>Err オブジェクトのプロパティは、エラーの生成元 (Visual Basic、オブジェクト、ま
+たはプログラマー) によって設定されます。</p></div>
+<div class="paragraph"><p>Err オブジェクトの既定のプロパティは、Number です。 既定のプロパティはオブジェ
+クト名 Err で表すことができるので、Err 関数または Err ステートメントを使用して
+作成された以前のコードを変更する必要はありません。</p></div>
+<div class="paragraph"><p>実行時エラーが発生すると、Err オブジェクトのプロパティには、エラーを一意に示す
+情報およびエラーの処理に使用できる情報が設定されます。 コードで実行時エラーを
+生成するには、Raise メソッドを使用します。</p></div>
+<div class="paragraph"><p>Err オブジェクトのプロパティは、エラー処理ルーチン内の Exit Sub、Exit Function、
+Exit Property、または Resume Next ステートメントの後で 0 または長さ 0 の文字列
+("") にリセットされます。 エラー処理ルーチン外で Resume ステートメントのいずれ
+かの形式を使用した場合、Err オブジェクトのプロパティはリセットされません。 Err
+を明示的にリセットするには、Clear メソッドを使用できます。</p></div>
+<div class="paragraph"><p>システム エラーおよびクラス モジュールに実行時エラーを生成するには、Error ステ
+ートメントではなく Raise メソッドを使用します。 他のコードでの Raise メソッド
+の使用は、返す必要のある情報量によって異なります。</p></div>
+<div class="paragraph"><p>Err オブジェクトは、グローバルなスコープの組み込みオブジェクトです。 コード内
+にそのインスタンスを作成する必要はありません。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Err オブジェクトのプロパティ (Number、Description、 HelpContext、
+HelpFile、 Source) を使用して、エラー メッセージ ダイアログ ボックスを作成しま
+す。</p></div>
+<div class="paragraph"><p>Clear メソッドを最初に使用すると、Visual Basic エラーを Raise メソッドで生成す
+るときに、Visual Basic の既定値が Err オブジェクトのプロパティになることに注意
+してください。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Msg
+<span style="font-style: italic"><span style="color: #9A1900">' If an error occurs, construct an error message</span></span>
+On Error Resume <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Defer error handling.</span></span>
+Err<span style="color: #990000">.</span>Clear
+Err<span style="color: #990000">.</span>Raise <span style="color: #993399">6</span>    <span style="font-style: italic"><span style="color: #9A1900">' Generate an "Overflow" error.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">' Check for error, then show message.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">If</span></span> Err<span style="color: #990000">.</span>Number <span style="color: #990000">&lt;&gt;</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+    Msg <span style="color: #990000">=</span> <span style="color: #FF0000">"Error # "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Str</span></span><span style="color: #990000">(</span>Err<span style="color: #990000">.</span>Number<span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" was generated by "</span> _
+            <span style="color: #990000">&amp;</span> Err<span style="color: #990000">.</span>Source <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Chr</span></span><span style="color: #990000">(</span><span style="color: #993399">13</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> Err<span style="color: #990000">.</span>Description
+    MsgBox Msg<span style="color: #990000">,</span> <span style="color: #990000">,</span> <span style="color: #FF0000">"Error"</span><span style="color: #990000">,</span> Err<span style="color: #990000">.</span>Helpfile<span style="color: #990000">,</span> Err<span style="color: #990000">.</span>HelpContext
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_メソッド_4">メソッド</h4>
+<div class="sect4">
+<h5 id="_clear_メソッド">Clear メソッド</h5>
+<div class="paragraph"><p>Err オブジェクトのプロパティ設定をすべて解除します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Clear</tt></pre></div></div>
+<div class="paragraph"><p>object は、常に Err オブジェクトです。</p></div>
+<div class="paragraph"><div class="title">解説</div><p>たとえば On Error Resume Next を使用してエラー処理の延期を使用する場合など、エ
+ラーが処理された後に Err オブジェクトを明示的に解除するには Clear を使用します。
+次のいずれかのステートメントが実行される場合は必ず、Clear メソッドが自動的に呼
+び出されます。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+すべての種類の Resume ステートメント
+</p>
+</li>
+<li>
+<p>
+Exit Sub、Exit Function、Exit Property
+</p>
+</li>
+<li>
+<p>
+あらゆる On Error ステートメント
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">他のオブジェクトへのアクセス時に発生したエラーを処理する場合、
+On Error Goto より On Error Resume Next ステートメントの使用をお勧めします。
+オブジェクトの操作後に Err を確認すると、エラーの発生時にコードがアクセスして
+いたオブジェクトを明確にできます。 Err.Number にエラー コードを設定したオブジ
+ェクトと、最初にエラーを生成したオブジェクト (Err.Source で指定されるオブジェ
+クト) についても確認できます。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Err オブジェクトの Clear メソッドを使用して Err オブジェクトの数値
+プロパティーを 0 に、文字列プロパティーを長さ 0 の文字列にリセットします。 次
+のコードから Clear を省略した場合は、(エラーの発生後に) ループが繰り返されるた
+びに、2 回目以降の計算でエラーが生成されたかどうかには関係なく、エラー メッセ
+ージのダイアログ ボックスが表示されます。 コードをシングル ステップで実行する
+と効果を表示できます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">Result</span></span><span style="color: #990000">(</span><span style="color: #993399">10</span><span style="color: #990000">)</span> As Integer    <span style="font-style: italic"><span style="color: #9A1900">' Declare array whose elements</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">' will overflow easily.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> indx
+On Error Resume <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Defer error trapping.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> Until indx <span style="color: #990000">=</span> <span style="color: #993399">10</span>
+    <span style="font-style: italic"><span style="color: #9A1900">' Generate an occasional error or store result if no error.</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Result</span></span><span style="color: #990000">(</span>indx<span style="color: #990000">)</span> <span style="color: #990000">=</span> Rnd <span style="color: #990000">*</span> indx <span style="color: #990000">*</span> <span style="color: #993399">20000</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> Err<span style="color: #990000">.</span>Number <span style="color: #990000">&lt;&gt;</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        MsgBox Err<span style="color: #990000">,</span> <span style="color: #990000">,</span> <span style="color: #FF0000">"Error Generated: "</span><span style="color: #990000">,</span> Err<span style="color: #990000">.</span>HelpFile<span style="color: #990000">,</span> Err<span style="color: #990000">.</span>HelpContext
+        Err<span style="color: #990000">.</span>Clear    <span style="font-style: italic"><span style="color: #9A1900">' Clear Err object properties.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+    indx <span style="color: #990000">=</span> indx <span style="color: #990000">+</span> <span style="color: #993399">1</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span></tt></pre></div></div>
+</div>
+<div class="sect4">
+<h5 id="_raise_メソッド">Raise メソッド</h5>
+<div class="paragraph"><p>実行時エラーを生成します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">object</span></span><span style="color: #990000">.</span>Raise number<span style="color: #990000">,</span> source<span style="color: #990000">,</span> description<span style="color: #990000">,</span> helpfile<span style="color: #990000">,</span> helpcontext</tt></pre></div></div>
+<div class="paragraph"><p>Raise メソッドには、以下のオブジェクト修飾子および名前付き引数があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">引数 </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">object</p></td>
+<td align="left" valign="top"><p class="table">必須です。 常に、Err オブジェクトです。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">number</p></td>
+<td align="left" valign="top"><p class="table">必須。 エラーの性質を識別する長整数型 (Long) です。 Visual Basic のエラー (Visual Basic で定義されたエラーおよびユーザーで定義されたエラー) は 0–65535 の値を使用します。 0–512 の値はシステム エラー用に予約されています。513–65535 の値は、ユーザー定義エラー用に使用できます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"></p></td>
+<td align="left" valign="top"><p class="table">Number プロパティをクラス モジュール内で独自のエラー コードに設定する場合、エラー コード番号を vbObjectError 定数に加えます。 たとえば、 エラー番号 513 を生成するには、vbObjectError + 513 を <strong>Number </strong>プロパティに割り当てます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">source</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 エラーを生成したオブジェクトまたはアプリケーションの名前を示す文字列式です。 Source プロパティをオブジェクトに対して設定する場合、project.class の形式を使用します。 source を指定しない場合、現在の Visual Basic プロジェクトのプログラム ID が使用されます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">description</p></td>
+<td align="left" valign="top"><p class="table">Optional. エラーを説明する文字列式です。 指定しない場合、Number の値が調べられます。 Visual Basic の実行時エラー コードにマップできる場合、Error 関数によって返される文字列が Description として使用されます。 Number に対応する Visual Basic エラーがない場合、"アプリケーション定義またはオブジェクト定義のエラーです。" というメッセージが使用されます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">helpfile</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 このエラーに関するヘルプを確認できるヘルプ ファイルへの完全修飾パスです。 指定しない場合、Visual Basic では、完全修飾された、Visual Basic ヘルプ ファイルのドライブ、パス、およびファイル名が使用されます。 HelpFile を参照してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">helpcontext</p></td>
+<td align="left" valign="top"><p class="table">省略可能。 エラーに関するヘルプを提供する helpfile 内のトピックを識別するコンテキスト ID です。 省略した場合、Number プロパティに対応するエラーに応じた、Visual Basic ヘルプ ファイルのコンテキスト ID が使用されます (存在する場合)。 HelpContext を参照してください。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>number 以外のすべての引数はオプションです。 一部の引数を指定しないで Raise を
+使用し、Err オブジェクトのプロパティ設定にクリアされていない値が含まれる場合、
+その値はエラーの値としての役割を果たします。</p></div>
+<div class="paragraph"><p>実行時エラーを生成するのに Raise を使用しますが、これを Error ステートメントの
+代わりに使用することもできます。</p></div>
+<div class="paragraph"><p>クラス モジュールを記述する場合、エラーを生成するのに Raise が役立ちます。Err
+オブジェクトでは、Error ステートメントでエラーを生成する場合に提供できる情報よ
+りも豊富な情報が提供されるためです。 たとえば、Raise メソッドを使用すると、エ
+ラーの生成元を Source プロパティに指定したり、エラーに関するオンライン ヘルプ
+を参照したりできます。</p></div>
+<div class="paragraph"><div class="title">例</div><p>この例では、Err オブジェクトの Raise メソッドを使用し、Visual Basic で記述され
+たオートメーション オブジェクト内でエラーを生成します。 このエラーには、
+MyProj.MyObject というプログラム ID があります。 MacIntosh では、既定のドライ
+ブ名は "HD" であり、パス名の部分はバックスラッシュではなくコロンで区切られます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Const MyContextID <span style="color: #990000">=</span> <span style="color: #993399">1010407</span>    <span style="font-style: italic"><span style="color: #9A1900">' Define a constant for contextID.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">TestName</span></span><span style="color: #990000">(</span>CurrentName<span style="color: #990000">,</span> NewName<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="font-weight: bold"><span style="color: #000000">Instr</span></span><span style="color: #990000">(</span>NewName<span style="color: #990000">,</span> <span style="color: #FF0000">"bob"</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>    <span style="font-style: italic"><span style="color: #9A1900">' Test the validity of NewName.</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">' Raise the exception</span></span>
+        Err<span style="color: #990000">.</span>Raise vbObjectError <span style="color: #990000">+</span> <span style="color: #993399">513</span><span style="color: #990000">,</span> <span style="color: #FF0000">"MyProj.MyObject"</span><span style="color: #990000">,</span> _
+        <span style="color: #FF0000">"No ""bob"" allowed in your name"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"c:</span><span style="color: #CC33CC">\M</span><span style="color: #FF0000">yProj</span><span style="color: #CC33CC">\M</span><span style="color: #FF0000">yHelp.Hlp"</span><span style="color: #990000">,</span> _
+        MyContextID
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_演算子の概要">演算子の概要</h3>
+</div>
+<div class="sect2">
+<h3 id="_statements">Statements</h3>
+<div class="paragraph"><p><a href="#AppActivate">AppActivate</a></p></div>
+<div class="paragraph"><p><a href="#Beep">Beep</a>
+<a href="#Call">Call</a>
+<a href="#ChDir">ChDir</a>
+<a href="#ChDrive">ChDrive</a>
+<a href="#Close">Close</a>
+<a href="#Const">Const</a>
+<a href="#Date">Date</a>
+<a href="#Declare">Declare</a>
+<a href="#Deftype">Deftype</a>
+<a href="#DeleteSetting">DeleteSetting</a>
+<a href="#Dim">Dim</a>
+<a href="#Do&#8230;Loop">Do&#8230;Loop</a>
+<a href="#End">End</a>
+<a href="#Enum">Enum</a>
+<a href="#Erase">Erase</a>
+<a href="#Error">Error</a>
+<a href="#Event">Event</a>
+<a href="#Exit">Exit</a>
+<a href="#FileCopy">FileCopy</a>
+<a href="#For Each&#8230;Next">For Each&#8230;Next</a>
+<a href="#For&#8230;Next">For&#8230;Next</a>
+<a href="#Function">Function</a>
+<a href="#Get">Get</a>
+<a href="#GoSub&#8230;Return">GoSub&#8230;Return</a>
+<a href="#GoTo">GoTo</a>
+<a href="#If&#8230;Then&#8230;Else">If&#8230;Then&#8230;Else</a>
+<a href="#Implements">Implements</a>
+<a href="#Input #">Input #</a>
+<a href="#Kill">Kill</a>
+<a href="#Let">Let</a>
+<a href="#Line Input #">Line Input #</a>
+<a href="#Load">Load</a>
+<a href="#Lock、Unlock">Lock、Unlock</a>
+<a href="#LSet">LSet</a>
+<a href="#Mid">Mid</a>
+<a href="#MkDir">MkDir</a>
+<a href="#Name">Name</a>
+<a href="#On Error">On Error</a>
+<a href="#On&#8230;GoSub、On&#8230;GoTo">On&#8230;GoSub、On&#8230;GoTo</a>
+<a href="#Open">Open</a>
+<a href="#Option Base">Option Base</a>
+<a href="#Option Compare">Option Compare</a>
+<a href="#Option Explicit">Option Explicit</a>
+<a href="#Option Private">Option Private</a>
+<a href="#Print #">Print #</a>
+<a href="#Private">Private</a>
+<a href="#Property Get">Property Get</a>
+<a href="#Property Let">Property Let</a>
+<a href="#Property Set">Property Set</a>
+<a href="#Public">Public</a>
+<a href="#Put">Put</a>
+<a href="#RaiseEvent">RaiseEvent</a>
+<a href="#Randomize">Randomize</a>
+<a href="#ReDim">ReDim</a>
+<a href="#Rem">Rem</a>
+<a href="#Reset">Reset</a>
+<a href="#Resume">Resume</a>
+<a href="#RmDir">RmDir</a>
+<a href="#RSet">RSet</a>
+<a href="#SaveSetting">SaveSetting</a>
+<a href="#Seek">Seek</a>
+<a href="#Select Case">Select Case</a>
+<a href="#SendKeys">SendKeys</a>
+<a href="#Set">Set</a>
+<a href="#SetAttr">SetAttr</a>
+<a href="#Static">Static</a>
+<a href="#Stop">Stop</a>
+<a href="#Sub">Sub</a>
+<a href="#Time">Time</a>
+<a href="#Type">Type</a>
+<a href="#Unload">Unload</a>
+<a href="#While&#8230;Wend">While&#8230;Wend</a>
+<a href="#Width #">Width #</a>
+<a href="#With">With</a>
+<a href="#Write #">Write #</a></p></div>
+<div class="sect3">
+<h4 id="_on_error_ステートメント_a_id_on_error_a">On Error ステートメント<a id="On Error"></a></h4>
+<div class="paragraph"><p>エラー処理ルーチンを有効にして、プロシージャ内のルーチンの場所を指定します。エ
+ラー処理ルーチンを無効にする目的でも使用できます。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>On Error GoTo line
+On Error Resume <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="color: #990000">**</span>On Error GoTo <span style="color: #993399">0</span><span style="color: #990000">**</span></tt></pre></div></div>
+<div class="paragraph"><p>On Error ステートメントの構文では、次の形式を使用できます。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">Statement </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">On Error GoTo line</p></td>
+<td align="left" valign="top"><p class="table">必須の<em>line</em> 引数で指定された_行_から始まるエラー処理ルー
+チンを有効にします。<br />
+_Line_引数には、任意の行ラベルまたは行番号を指定します。<br />
+実行時エラーが発生した場合は、を_line_に分岐し、エラー処理ルーチンをアクティブ
+にします。<br />
+指定した_行_は、 On Errorステートメントと同じプロシージャ内にある必要がありま
+す。それ以外の場合は、コンパイル時エラーが発生します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">On Error Resume Next</p></td>
+<td align="left" valign="top"><p class="table">実行時エラーが発生したときに、エラーが発生して実行が続行されるステートメントの直後のステートメントに制御が移動することを指定します。 オブジェクトにアクセスするときは、 On Error GoTo の代わりにこの形式を使用してください。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">On Error GoTo 0</p></td>
+<td align="left" valign="top"><p class="table">現在のプロシージャですべての有効なエラー ハンドラーを無効にします。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">注釈</div><p>On Error ステートメントを使用しない場合は、発生するすべての実行時エラーが致命
+的となります。つまり、エラー メッセージが表示され、実行が停止します。</p></div>
+<div class="paragraph"><p>"Enabled" エラーハンドラーは、 On errorステートメントによって有効にされたもの
+です。"アクティブな" エラーハンドラーは、エラー処理のプロセスに含まれる有効な
+ハンドラーです。 エラー処理ルーチンがアクティブな間 (error の発生とResume、
+<a href="#exit">exit Sub、 Exit Function、またはexit Property</a>ステートメントの間) にエラーが
+発生すると、現在のプロシージャのエラーハンドラーはエラーを処理できません。 制
+御は、呼び出し元のプロシージャに戻ります。</p></div>
+<div class="paragraph"><p>呼び出し元のプロシージャに有効なエラー処理ルーチンがある場合は、エラーを処理す
+るためにアクティブ化されます。 呼び出し元のプロシージャのエラーハンドラーがア
+クティブである場合は、有効になっているが非アクティブなエラーハンドラが見つかる
+まで、制御は前の呼び出しプロシージャを戻します。 非アクティブなエラー処理ルー
+チンが存在しない場合、エラーは実際に発生した時点で致命的です。</p></div>
+<div class="paragraph"><p>エラーハンドラーが呼び出し元のプロシージャに制御を戻すたびに、そのプロシージャ
+が現在のプロシージャになります。 任意のプロシージャでエラーハンドラーによって
+エラーが処理された後、 Resumeステートメントで指定された位置にある現在のプロシ
+ージャから実行が再開されます。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">エラー処理ルーチンは、 Sub プロシージャまたは<strong>Function</strong> プロ
+シージャではありません。 行ラベルまたは行番号でマークが付けられた、コードのセ
+クションのことです。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>エラー処理ルーチンは、 <a href="#Err">Err</a> オブジェクトの<strong>Number</strong> プロパティの値に依
+存して、エラーの原因を特定します。 エラー処理ルーチンは、その他のエラーが発生
+する前、またはエラーを発生させる可能性があるプロシージャを呼び出す前に、 Err
+オブジェクト内の関連するプロパティ値をテストあるいは保存する必要があります。
+Err オブジェクト内のプロパティ値は、最新のエラーのみを反映します。 Err.Number
+に対応するエラー メッセージは Err.Description に含まれます。</p></div>
+<div class="paragraph"><p>On Error Resume Nextを実行すると、実行時エラーの原因となったステートメントの直
+後のステートメント、または on エラーを含むプロシージャからの直前のステートメン
+トに従って、ステートメントが続行されます。 次のステートメントを再開します。 こ
+のステートメントを使用すると、実行時エラーが発生しても実行を続行できます。 エ
+ラー処理ルーチンは、コントロールをプロシージャ内の別の場所に転送するのではなく、
+エラーが発生する場所に配置できます。 On Error Resume nextステートメントは、別
+のプロシージャが呼び出されたときに非アクティブになります。そのため、そのルーチ
+ン内でインラインエラー処理が必要な場合は、呼び出された各ルーチンでOn error
+resume nextステートメントを実行する必要があります。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">他のオブジェクトへのアクセス中に生成されたエラーを処理するとき
+に、On Error GoTo よりも On Error Resume Next 構成要素が適している場合がありま
+す。 オブジェクトの操作後に Err を確認すると、エラーの発生時にコードがアクセス
+していたオブジェクトを明確にできます。 Err.Number にエラー コードを設定したオ
+ブジェクトと、最初にエラーを生成したオブジェクト (Err.Source で指定されるオブ
+ジェクト) についても確認できます。</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>On Error GoTo 0 は、現在のプロシージャでエラー処理を無効にします。 このステー
+トメントは、プロシージャに 0 という番号の行が含まれている場合でも、エラー処理
+コードの開始行として行 0 を指定しません。 On Error GoTo 0 ステートメントがない
+場合、プロシージャが終了するときに、エラー ハンドラーは自動的に無効にされます。</p></div>
+<div class="paragraph"><p>エラーが発生しなかったときに、エラー処理コードが実行されないようにするには、以
+下のように、エラー処理ルーチンの直前に、Exit Sub、Exit Function、または Exit
+Property ステートメントを挿入します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">InitializeMatrix</span></span><span style="color: #990000">(</span>Var1<span style="color: #990000">,</span> Var2<span style="color: #990000">,</span> Var3<span style="color: #990000">,</span> Var4<span style="color: #990000">)</span>
+ On Error GoTo ErrorHandler
+ <span style="color: #990000">.</span> <span style="color: #990000">.</span> <span style="color: #990000">.</span>
+ <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+ErrorHandler<span style="color: #990000">:</span>
+ <span style="color: #990000">.</span> <span style="color: #990000">.</span> <span style="color: #990000">.</span>
+ Resume <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+<div class="paragraph"><p>ここでは、エラー処理コードがExit subステートメントの後に続き、 End sub ステー
+トメントの前に、プロシージャフローから分離しています。 エラー処理コードは、プ
+ロシージャ内の任意の場所に配置できます。</p></div>
+<div class="paragraph"><p>オブジェクトが実行可能ファイルとして実行中の場合、オブジェクト内の未トラップの
+エラーは、制御アプリケーションに戻されます。 開発環境では、適切なオプションが
+設定されている場合のみ、未トラップのエラーは制御アプリケーションに戻されます。
+デバッグ中に、どのオプションを設定する必要があるか、設定の方法、そしてホストが
+クラスを作成できるかどうかの詳細については、ホスト アプリケーションの文書を参
+照してください。</p></div>
+<div class="paragraph"><p>その他のオブジェクトにアクセスするオブジェクトを作成する場合、そこから未処理で
+戻されたエラーの処理を試行する必要があります。 このようなエラーを処理できない
+場合は、Err.Number 内でエラー コードを自分のエラーの 1 つにマップして、それを
+オブジェクトの呼び出し元に戻します。 vbObjectError 定数にエラー コードを追加す
+ることにより、エラーを指定する必要があります。 たとえば、エラー コードが 1052
+の場合、以下のように割り当てます。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>Err<span style="color: #990000">.</span>Number <span style="color: #990000">=</span> vbObjectError <span style="color: #990000">+</span> <span style="color: #993399">1052</span></tt></pre></div></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Caution</div>
+</td>
+<td class="content">Windowsダイナミックリンクライブラリ(DLL) または Macintosh コー
+ドリソースへの通話中のシステムエラーは、例外を発生させずに、Visual Basic のエ
+ラートラップを使用してトラップすることはできません。 DLL 関数を呼び出すときは、
+各戻り値の成功または失敗を確認する必要があります (API 仕様による)。エラーが発
+生した場合は、 Errオブジェクトの<strong>LastDLLError</strong> プロパティの値を確認してくだ
+さい。 LastDLLErrorは常に Macintosh で0を返します。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、最初に On Error GoTo ステートメントを使用して、プロシージャ内のエ
+ラー処理ルーチンの場所を指定します。 この例では、開かれたファイルを削除しよう
+としたときに、エラー番号 55 が生成されます。 エラーはエラー処理ルーチンで処理
+され、次に、制御がエラーを起こしたステートメントに戻されます。 On Error GoTo 0
+ステートメントは、エラー トラッピングをオフにします。</p></div>
+<div class="paragraph"><p>次に、On Error Resume nextステートメントを使用してエラートラップを延期し、次の
+ステートメントによって生成されたエラーのコンテキストが特定のものとして認識され
+るようにします。 エラーが処理された後で、 Err.Clear が使用され、 Err オブジェ
+クトのプロパティを消去していることに注意してください。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">OnErrorStatementDemo</span></span><span style="color: #990000">()</span>
+ On Error GoTo ErrorHandler <span style="font-style: italic"><span style="color: #9A1900">' Enable error-handling routine.</span></span>
+ Open <span style="color: #FF0000">"TESTFILE"</span> <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Output As #<span style="color: #993399">1</span> <span style="font-style: italic"><span style="color: #9A1900">' Open file for output.</span></span>
+ Kill <span style="color: #FF0000">"TESTFILE"</span> <span style="font-style: italic"><span style="color: #9A1900">' Attempt to delete open</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' file.</span></span>
+ On Error Goto <span style="color: #993399">0</span> <span style="font-style: italic"><span style="color: #9A1900">' Turn off error trapping.</span></span>
+ On Error Resume <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> <span style="font-style: italic"><span style="color: #9A1900">' Defer error trapping.</span></span>
+ ObjectRef <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">GetObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"MyWord.Basic"</span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' Try to start nonexistent</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' object, then test for</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">'Check for likely Automation errors.</span></span>
+ <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> Err<span style="color: #990000">.</span>Number <span style="color: #990000">=</span> <span style="color: #993399">440</span> Or Err<span style="color: #990000">.</span>Number <span style="color: #990000">=</span> <span style="color: #993399">432</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' Tell user what happened. Then clear the Err object.</span></span>
+ Msg <span style="color: #990000">=</span> <span style="color: #FF0000">"There was an error attempting to open the Automation object!"</span>
+ MsgBox Msg<span style="color: #990000">,</span> <span style="color: #990000">,</span> <span style="color: #FF0000">"Deferred Error Test"</span>
+ Err<span style="color: #990000">.</span>Clear <span style="font-style: italic"><span style="color: #9A1900">' Clear Err object fields</span></span>
+ <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-style: italic"><span style="color: #9A1900">' Exit to avoid handler.</span></span>
+ErrorHandler<span style="color: #990000">:</span> <span style="font-style: italic"><span style="color: #9A1900">' Error-handling routine.</span></span>
+ <span style="font-weight: bold"><span style="color: #0000FF">Select</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Case</span></span> Err<span style="color: #990000">.</span>Number <span style="font-style: italic"><span style="color: #9A1900">' Evaluate error number.</span></span>
+ <span style="font-weight: bold"><span style="color: #0000FF">Case</span></span> <span style="color: #993399">55</span> <span style="font-style: italic"><span style="color: #9A1900">' "File already open" error.</span></span>
+ Close #<span style="color: #993399">1</span> <span style="font-style: italic"><span style="color: #9A1900">' Close open file.</span></span>
+ <span style="font-weight: bold"><span style="color: #0000FF">Case</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' Handle other situations here...</span></span>
+ <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Select</span></span>
+ Resume <span style="font-style: italic"><span style="color: #9A1900">' Resume execution at same line</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' that caused the error.</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+<div class="sect3">
+<h4 id="_on_8230_gosub_on_8230_goto_ステートメント_a_id_on_8230_gosub_a_a_id_on_8230_goto_a_a_id_on_8230_gosub_on_8230_goto_a">On&#8230;GoSub、On&#8230;GoTo ステートメント<a id="On&#8230;GoSub"></a><a id="On&#8230;GoTo"></a><a id="On&#8230;GoSub、On&#8230;GoTo"></a></h4>
+<div class="paragraph"><p>式の値に応じて、複数の指定した行のいずれかに分岐します。</p></div>
+<div class="listingblock">
+<div class="title">構文</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>On expression GoSub destinationlist
+On expression GoTo destinationlist</tt></pre></div></div>
+<div class="paragraph"><p>On&#8230;GoSub ステートメントおよび On&#8230;GoTo ステートメントの構文には、次の指定項
+目があります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">パーツ </th>
+<th align="left" valign="top">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">expression</p></td>
+<td align="left" valign="top"><p class="table">必ず指定します。 0 以上 255 以下の整数に評価される任意の数値式です。 expression が整数以外の数値の場合は、評価の前に四捨五入されます。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">destinationlist</p></td>
+<td align="left" valign="top"><p class="table">必須。 コンマで区切られた行番号または行ラベルのリスト。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><div class="title">解説</div><p>expression の値により、destinationlist 内のどの行に分岐するかが決まります。
+expression の値が 1 より小さい場合やリスト内の項目数よりも大きい場合、結果は次
+のいずれかになります。</p></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="80%" />
+<thead>
+<tr>
+<th align="left" valign="top">expression の値 </th>
+<th align="left" valign="top">その結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">0 に等しい</p></td>
+<td align="left" valign="top"><p class="table">On&#8230;GoSub または On&#8230;GoTo の次のステートメントに制御が移動します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">リスト内の項目数より大きい</p></td>
+<td align="left" valign="top"><p class="table">On&#8230;GoSub または On&#8230;GoTo の次のステートメントに制御が移動します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">負の値</p></td>
+<td align="left" valign="top"><p class="table">エラーが発生します。</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">255 より大きい</p></td>
+<td align="left" valign="top"><p class="table">エラーが発生します。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>同じリスト内に行番号と行ラベルが混在していてもかまいません。 On&#8230;GoSub および
+On&#8230;GoTo には、任意の数の行番ラベルと行番号を使用できます。 ただし、1 行に収
+まらない数のラベルや番号を使用する場合は、行連結文字を使用して、論理行が次の物
+理行につながるようにする必要があります。</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">Select Case を使用すると、より構造化された柔軟な方法で複数の分岐を実行
+できます。</td>
+</tr></table>
+</div>
+<div class="paragraph"><div class="title">例</div><p>この例では、On&#8230;GoSub ステートメントと On&#8230;GoTo ステートメントを使用して、そ
+れぞれサブルーチンと行番号に分岐します。</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">OnGosubGotoDemo</span></span><span style="color: #990000">()</span>
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Number<span style="color: #990000">,</span> MyString
+ Number <span style="color: #990000">=</span> <span style="color: #993399">2</span> <span style="font-style: italic"><span style="color: #9A1900">' Initialize variable.</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' Branch to Sub2.</span></span>
+ On Number GoSub Sub1<span style="color: #990000">,</span> Sub2 <span style="font-style: italic"><span style="color: #9A1900">' Execution resumes here after</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' On...GoSub.</span></span>
+ On Number GoTo Line1<span style="color: #990000">,</span> Line2 <span style="font-style: italic"><span style="color: #9A1900">' Branch to Line2.</span></span>
+ <span style="font-style: italic"><span style="color: #9A1900">' Execution does not resume here after On...GoTo.</span></span>
+ <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+Sub1<span style="color: #990000">:</span>
+ MyString <span style="color: #990000">=</span> <span style="color: #FF0000">"In Sub1"</span> <span style="color: #990000">:</span> Return
+Sub2<span style="color: #990000">:</span>
+ MyString <span style="color: #990000">=</span> <span style="color: #FF0000">"In Sub2"</span> <span style="color: #990000">:</span> Return
+Line1<span style="color: #990000">:</span>
+ MyString <span style="color: #990000">=</span> <span style="color: #FF0000">"In Line1"</span>
+Line2<span style="color: #990000">:</span>
+ MyString <span style="color: #990000">=</span> <span style="color: #FF0000">"In Line2"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_visual_basic_add_in_model_reference">Visual Basic Add-in Model reference</h3>
+<div class="paragraph"><p>Visual Basic エディターのカスタマイズ方法と、環境を拡張するために使用できるオ
+ブジェクト モデルについて説明します。</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+コレクション
+</p>
+</li>
+<li>
+<p>
+イベント
+</p>
+</li>
+<li>
+<p>
+メソッド
+</p>
+</li>
+<li>
+<p>
+オブジェクト
+</p>
+</li>
+<li>
+<p>
+プロパティ
+</p>
+</li>
+</ul></div>
+</div>
 </div>
 </div>
 <h1 id="_a_href_https_docs_microsoft_com_ja_jp_previous_versions_windows_scripting_cc392489_v_msdn_10_vbscript_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/previous-versions/windows/scripting/cc392489(v=msdn.10)">VBScript | Microsoft Docs</a></h1>
@@ -15651,7 +18256,7 @@ d.Add "c", "カイロ"
 </div>
 </div>
 <div class="sect3">
-<h4 id="_メソッド_4">メソッド</h4>
+<h4 id="_メソッド_5">メソッド</h4>
 <div class="sect4">
 <h5 id="_add_メソッド_2">Add メソッド</h5>
 </div>
@@ -15797,7 +18402,7 @@ cellspacing="0" cellpadding="4">
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-10-30 06:31:14 JST
+Last updated 2020-12-03 21:51:49 JST
 </div>
 </div>
 </body>

@@ -1073,44 +1073,174 @@ arg1 や arg2 には、正または負の整数を使用できます。</p></td>
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt>#<span style="color: #990000">!/</span>usr<span style="color: #990000">/</span>bin<span style="color: #990000">/</span>bash
-# <span style="font-weight: bold"><span style="color: #0000FF">set</span></span> <span style="color: #990000">-</span>x
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">#!/usr/bin/bash</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"># set -x</span></span>
 
-declare ls_result<span style="color: #990000">=</span>$<span style="color: #990000">(</span>ls <span style="color: #990000">*.</span>adoc<span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">declare</span></span> <span style="color: #009900">ls_result</span><span style="color: #990000">=</span><span style="color: #009900">$(</span>ls <span style="color: #990000">*.</span>adoc<span style="color: #990000">)</span>
 
-echo $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span><span style="color: #FF0000">}</span>
-echo $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[*]</span><span style="color: #FF0000">}</span>
+echo <span style="color: #009900">${#ls_result[0]}</span>
+echo <span style="color: #009900">${#ls_result[*]}</span>
 
-declare i<span style="color: #990000">=</span><span style="color: #993399">0</span>
-<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span><span style="color: #FF0000">}</span> <span style="color: #990000">-</span>gt <span style="color: #993399">0</span> <span style="color: #990000">]</span> <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
-    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> line in $<span style="color: #FF0000">{</span>ls_result<span style="color: #FF0000">}</span>
+<span style="font-weight: bold"><span style="color: #0000FF">declare</span></span> <span style="color: #009900">i</span><span style="color: #990000">=</span><span style="color: #993399">0</span>
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> <span style="color: #009900">${#ls_result[0]}</span> -gt <span style="color: #993399">0</span> <span style="color: #990000">]</span> <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> line <span style="font-weight: bold"><span style="color: #0000FF">in</span></span> <span style="color: #009900">${ls_result}</span>
     <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
-        echo  $<span style="color: #FF0000">{</span>line<span style="color: #FF0000">}</span> $<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span>
-        let i<span style="color: #990000">++</span>
-        # i<span style="color: #990000">=</span>$<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span><span style="color: #990000">+</span><span style="color: #993399">1</span>
-    done
-fi
+        echo  <span style="color: #009900">${line}</span> <span style="color: #009900">${i}</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">let</span></span> i<span style="color: #990000">++</span>
+        <span style="font-style: italic"><span style="color: #9A1900"># i=${i}+1</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">done</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">fi</span></span>
 
-# <span style="color: #990000">*.</span>txtが存在したら実行
-# 判定しないとエラーとなる。
-<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> <span style="color: #990000">-</span>a <span style="color: #990000">*.</span>txt <span style="color: #990000">];</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"># *.txtが存在したら実行</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"># 判定しないとエラーとなる。</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> -a <span style="color: #990000">*.</span>txt <span style="color: #990000">];</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
 
-    ls_result<span style="color: #990000">=</span>$<span style="color: #990000">(</span>ls <span style="color: #990000">*.</span>txt<span style="color: #990000">)</span>
+    <span style="color: #009900">ls_result</span><span style="color: #990000">=</span><span style="color: #009900">$(</span>ls <span style="color: #990000">*.</span>txt<span style="color: #990000">)</span>
 
-    echo $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span><span style="color: #FF0000">}</span>
-    echo $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[*]</span><span style="color: #FF0000">}</span>
+    echo <span style="color: #009900">${#ls_result[0]}</span>
+    echo <span style="color: #009900">${#ls_result[*]}</span>
 
-    declare i<span style="color: #990000">=</span><span style="color: #993399">0</span>
-    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> $<span style="color: #FF0000">{</span>#ls_result<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span><span style="color: #FF0000">}</span> <span style="color: #990000">-</span>gt <span style="color: #993399">0</span> <span style="color: #990000">]</span> <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
-        <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> line in $<span style="color: #FF0000">{</span>ls_result<span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">declare</span></span> <span style="color: #009900">i</span><span style="color: #990000">=</span><span style="color: #993399">0</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">[</span> <span style="color: #009900">${#ls_result[0]}</span> -gt <span style="color: #993399">0</span> <span style="color: #990000">]</span> <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> line <span style="font-weight: bold"><span style="color: #0000FF">in</span></span> <span style="color: #009900">${ls_result}</span>
         <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
-            echo  $<span style="color: #FF0000">{</span>line<span style="color: #FF0000">}</span> $<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span>
-            let i<span style="color: #990000">++</span>
-            # i<span style="color: #990000">=</span>$<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span><span style="color: #990000">+</span><span style="color: #993399">1</span>
-        done
-    fi
+            echo  <span style="color: #009900">${line}</span> <span style="color: #009900">${i}</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">let</span></span> i<span style="color: #990000">++</span>
+            <span style="font-style: italic"><span style="color: #9A1900"># i=${i}+1</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">done</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">fi</span></span>
 
-fi</tt></pre></div></div>
+<span style="font-weight: bold"><span style="color: #0000FF">fi</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_拡張子を変更">拡張子を変更</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>txtからlogに変更</p></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">for</span></span> f <span style="font-weight: bold"><span style="color: #0000FF">in</span></span> <span style="color: #990000">*.</span>txt
+<span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+    mv <span style="color: #009900">${f%.txt}</span><span style="color: #990000">.</span>log
+<span style="font-weight: bold"><span style="color: #0000FF">done</span></span></tt></pre></div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_いろんなループ">いろんなループ</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_変数_2">変数</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>items<span style="color: #990000">=(</span>
+    <span style="color: #FF0000">"altair"</span>
+    <span style="color: #FF0000">"betelgeuse"</span>
+    <span style="color: #FF0000">"canopus"</span>
+<span style="color: #990000">)</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">for</span></span> item in <span style="color: #FF0000">"${items[@]}"</span> <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+    echo <span style="color: #FF0000">"[ ${item} ]"</span>
+done
+</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_変数2">変数2</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>items<span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]=</span><span style="color: #FF0000">"altair"</span>
+items<span style="color: #990000">[</span><span style="color: #993399">1</span><span style="color: #990000">]=</span><span style="color: #FF0000">"betelgeuse"</span>
+items<span style="color: #990000">[</span><span style="color: #993399">2</span><span style="color: #990000">]=</span><span style="color: #FF0000">"canopus"</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">for</span></span> item in <span style="color: #FF0000">"${items[@]}"</span> <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+    echo <span style="color: #FF0000">"[ ${item} ]"</span>
+done
+</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_連番">連番</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">for</span></span> i in <span style="color: #FF0000">{</span><span style="color: #993399">1</span><span style="color: #990000">..</span><span style="color: #993399">10</span><span style="color: #FF0000">}</span> <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+    echo $<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span>
+done</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">for</span></span> i in `seq <span style="color: #993399">1</span> <span style="color: #993399">10</span>`<span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+    echo $<span style="color: #FF0000">{</span>i<span style="color: #FF0000">}</span>
+done</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_ファイル一覧">ファイル一覧</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">for</span></span> file_name in <span style="color: #990000">*</span> <span style="color: #990000">;</span><span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+    echo $<span style="color: #FF0000">{</span>file_name<span style="color: #FF0000">}</span>
+done</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>files<span style="color: #990000">=(</span>`ls <span style="color: #990000">-</span><span style="color: #993399">1</span> somedir<span style="color: #990000">/</span>`<span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">for</span></span> file_name in <span style="color: #FF0000">"${files[@]}"</span><span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+    echo $<span style="color: #FF0000">{</span>file_name<span style="color: #FF0000">}</span>
+done</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_引数">引数</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">for</span></span> arg<span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+  echo $<span style="color: #FF0000">{</span>arg<span style="color: #FF0000">}</span>
+done</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">for</span></span> arg in <span style="color: #FF0000">"$@"</span><span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+  echo $<span style="color: #FF0000">{</span>arg<span style="color: #FF0000">}</span>
+done</tt></pre></div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>$ <span style="color: #990000">./</span>hoge<span style="color: #990000">.</span>sh altair betelgeuse canopus</tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_ファイル読み込み">ファイル読み込み</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">while</span></span> read line <span style="color: #990000">;</span> <span style="font-weight: bold"><span style="color: #0000FF">do</span></span>
+    echo $<span style="color: #FF0000">{</span>line<span style="color: #FF0000">}</span>
+
+done <span style="color: #990000">&lt;</span> $<span style="color: #FF0000">{</span>DATAFILE<span style="color: #FF0000">}</span></tt></pre></div></div>
+</div>
 </div>
 </div>
 </div>
@@ -1118,7 +1248,7 @@ fi</tt></pre></div></div>
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-10-27 06:32:58 JST
+Last updated 2020-12-03 21:59:28 JST
 </div>
 </div>
 </body>

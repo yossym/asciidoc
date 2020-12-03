@@ -137,6 +137,26 @@ datetime = item(5) & "/" & mon(items(2)) & "/"
 	& items(3) & " " & items(4)
 ----
 
+* 日時（日本標準時）　→　UnixTimestamp
+
+`=(($a$1 - 25569) * (60 * 60 * 24)) - (60 * 60 * 9)`
+
+* 日時（協定世界時）　→　UnixTimestamp
+
+`=(($a$1 - 25569) * (60 * 60 * 24))`
+
+NOTE:	UNIXエポックは1970年1月1日00:00:00で、全てのタイムスタンプの基準点（25569）。
+
+* UnixTimestamp　→　日時（日本標準時）
+
+`=25569 + (($a$1 + (60 * 60 * 9)) / (60 * 60 * 24))`
+
+* UnixTimestamp　→　日時（協定世界時）
+
+`=25569 + (($a$1                ) / (60 * 60 * 24))`
+
+
+
 == VBE
 
 レジストリ編集を編集してエディタの色を変更する
@@ -145,6 +165,8 @@ datetime = item(5) & "/" & mon(items(2)) & "/"
 ----
 HKEY_CURRENT_USER\Software\Microsoft\VBA\7.1\Common
 ----
+
+文字列の編集
 
 .CodeBackColors
 4 0 7 7 6 4 4 4 0 0 0 0 0 0 0 0
@@ -404,6 +426,28 @@ Worksheets.Add After:=Worksheets(Worksheets.Count)
 Workbooks.Delete
 ----
 
+=== IsSheet シートの存在確認
+
+[source,vbscript]
+----
+
+Debug.Print isSheet(ActiveWorkbook, "まとめ")
+
+Function isSheet(Wb As Workbook, Name As String) As Boolean
+    Dim v As Variant
+    Dim Result As Boolean
+
+    For Each v In Wb.Sheets
+        If v.Name = Name Then
+            isSheet = True
+            Exit Function
+        End If
+    Next
+    isSheet = False
+End Function
+
+----
+
 == セル
 === 行の追加
 
@@ -451,6 +495,12 @@ Dim LastRow As Long
 LastRow = Cells(Rows.Count, 1).End(xlUp).Row
 ----
 
+[source,vbscript]
+----
+Dim LastRow As Long
+LastRow = Range("A1").End(xlDown).Row
+----
+
 === 最終列取得
 
 [source,vbscript]
@@ -458,6 +508,14 @@ LastRow = Cells(Rows.Count, 1).End(xlUp).Row
 Dim LastColumn As Long
 LastColumn = Cells(1, Columns.Count).End(xlToLeft).Column
 ----
+
+[source,vbscript]
+----
+Dim LastColumn As Long
+LastColumn = Range("A1").End(xlToRight).Column
+----
+
+
 
 === Selection
 
@@ -670,6 +728,16 @@ Worksheets("Sheet1").Range("A1:M1").FillRight
 Worksheets("Sheet1").Range("A1:A10").FillUp
 ----
 
+=== セル　↔　配列
+
+
+[source,vbscript]
+----
+Dim v as Variant
+v = Range("A1:C3")
+----
+
+
 === コピペ
 
 .普通にコピペ
@@ -719,7 +787,36 @@ Call Range("A1:C5").Sort(key1:=Range("A1"), _
     order2:=xlAscending)
 ----
 
-=== 値のない場合の表現
+==== セル　→　変数
+
+[cols="1,4",options="header"]
+|===
+|a|u
+|b|v
+|c|w
+|d|x
+|e|y
+|f|z
+|===
+
+[source,VBSCRIPT]
+----
+    Dim 一次元配列 As Variant
+    Dim 二次元配列 As Variant
+
+    二次元配列 = Range("A1:B6")
+    一次元配列 = WorksheetFunction.Index(二次元配列, 3)
+    Debug.Print "3行目 " & Join(a, ",")
+''3行目  c,w
+
+    一次元配列 = WorksheetFunction.Index(WorksheetFunction.Transpose(二次元配列), 1)
+    Debug.Print "1列目 " & Join(一次元配列, ",")
+''1列目  a,b,c,d,e,f
+
+----
+
+=== 変数
+==== 値のない場合の表現
 
 
 [cols="1,1,4",options="header"]

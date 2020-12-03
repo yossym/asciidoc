@@ -141,7 +141,7 @@ arg1 や arg2 には、正または負の整数を使用できます。
 == lsを配列に入れる
 
 
-[source,vbscript]
+[source,bash]
 ----
 #!/usr/bin/bash
 # set -x
@@ -182,4 +182,121 @@ if [ -a *.txt ]; then
 
 fi
 ----
+
+== 拡張子を変更
+
+txtからlogに変更
+
+[source,bash]
+----
+for f in *.txt
+do
+    mv ${f%.txt}.log
+done
+----
+
+== いろんなループ
+
+=== 変数
+
+[source,VBSCRIPT]
+----
+items=(
+    "altair"
+    "betelgeuse"
+    "canopus"
+)
+
+for item in "${items[@]}" ; do
+    echo "[ ${item} ]"
+done
+
+----
+=== 変数2
+
+[source,VBSCRIPT]
+----
+items[0]="altair"
+items[1]="betelgeuse"
+items[2]="canopus"
+
+for item in "${items[@]}" ; do
+    echo "[ ${item} ]"
+done
+
+----
+
+
+=== 連番
+
+
+[source,VBSCRIPT]
+----
+for i in {1..10} ; do
+    echo ${i}
+done
+----
+
+[source,VBSCRIPT]
+----
+for i in `seq 1 10`; do
+    echo ${i}
+done
+----
+
+
+=== ファイル一覧
+
+
+[source,VBSCRIPT]
+----
+for file_name in * ;do
+    echo ${file_name}
+done
+----
+
+[source,VBSCRIPT]
+----
+files=(`ls -1 somedir/`)
+for file_name in "${files[@]}"; do
+    echo ${file_name}
+done
+----
+
+
+
+=== 引数
+
+
+[source,VBSCRIPT]
+----
+for arg; do
+  echo ${arg}
+done
+----
+
+[source,VBSCRIPT]
+----
+for arg in "$@"; do
+  echo ${arg}
+done
+----
+
+[source,VBSCRIPT]
+----
+$ ./hoge.sh altair betelgeuse canopus
+----
+
+=== ファイル読み込み
+
+
+[source,VBSCRIPT]
+----
+while read line ; do
+    echo ${line}
+
+done < ${DATAFILE}
+----
+
+
 

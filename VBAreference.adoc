@@ -290,7 +290,7 @@ Null
 
 必須の expression 引数は、任意の文字列式または数値式です。
 
-戻り値の型
+.戻り値の型
 
 次に示すように、戻り値の型は関数名によって異なります。
 
@@ -312,7 +312,293 @@ Null
 |CStr |String |CStr の戻り値は、expression 引数に依存します。
 |CVar |Variant |数値の場合は Double と同じ範囲です。 数値以外の場合は String と同じ範囲です。
 |===
-★
+
+.解説
+
+関数に渡した expression 引数の値が変換されるデータ型の範囲を超える場合はエラー
+が発生します。
+
+WARNING:	LongLong (64 ビットのプラットフォームの LongPtr を含む) をそれ
+よりも小さい整数型に明示的に代入するには、変換関数を使用する必要があります。
+LongLong をそれよりも小さい整数に暗黙的に変換することはできません。
+
+一般に、データ型の変換関数を使用してコードを文書化し、一部の演算の結果が既定の
+データ型ではなく、特定のデータ型として表示されるように指定できます。 たとえば、
+通常、単精度、倍精度、整数演算が発生する場合、CCur を使用して、通貨換算を強制
+的に実行します。
+
+国際的に通用する 1 つのデータ型から別のデータ型に変換するには、Val ではなく、
+データ型の変換関数を使用する必要があります。 たとえば、CCur を使用すると、使用
+しているコンピューターのロケールに応じて、異なる少数点の区切り文字や桁区切り記
+号、さまざまな通貨オプションが適切に認識されます。
+
+小数点以下が 0.5 の場合、CInt および CLng は、常に一番近い偶数に数値を丸めます。
+たとえば、0.5 は 0 に、1.5 は 2 に丸められます。 <<Fix Int,Fix関数とInt関数>>
+は、小数部分を丸めるのではなく切り捨てるので、CInt およびCLngとは異なります。
+また、Fix および Int は、常に渡されたのと同じ型の値を返します。
+
+date を日付または時刻に変換できるかどうかを確認するには、IsDate 関数を使用しま
+す。 CDate では、日付リテラルと時刻リテラルだけでなく、許容範囲内の日付に当て
+はまる数字も認識されます。 数字を日付に変換すると、整数全体が日付に変換されま
+す。 数字の分数の部分は、午前 12 時を起点にした時刻に変換されます。
+
+CDate は、システムのロケール設定に基づいて日付の形式を認識します。 認識されて
+いる日付設定以外の書式設定が提供されている場合、日、月、年の順番を正しく決定で
+きないことがあります。 さらに、1 週間の文字列が含まれる場合、長い日付の書式設
+定は認識されません。
+
+Visual Basic の旧バージョンとの互換性のために、CVDate 関数も提供されています。
+CVDate 関数の構文は CDate 関数と同じですが、CVDate では、実際の Date 型ではな
+く、サブタイプが Date 型である Variant 型が返されます。 組み込みの Date 型が利
+用できるようになったため、CVDate を使用する必要がなくなりました。 式を Date に
+変換してから Variant に代入することで、同じ処理を行うことができます。 これは、
+他のすべての組み込みタイプを同等のバリアント型サブタイプに変換する方法と同じで
+す。
+
+WARNING:	CDec 関数は独立したデータ型を返しません。値が 10 進型サブタイ
+プに変換されたバリアント型を常に返します。
+
+
+
+.CBool 関数の例
+
+この例では、CBool 関数を使用して、式を Boolean に変換します。 式が 0 以外の値
+に評価される場合は CBool から True が返され、それ以外の場合は False が返されま
+す。
+
+
+[source,vbscript]
+----
+Dim A, B, Check 
+A = 5: B = 5 ' Initialize variables. 
+Check = CBool(A = B) ' Check contains True. 
+ 
+A = 0 ' Define variable. 
+Check = CBool(A) ' Check contains False. 
+----
+
+.CByte 関数の例
+
+この例では、CByte 関数を使用して、式を Byte に変換します。
+
+
+[source,vbscript]
+----
+Dim MyDouble, MyByte 
+MyDouble = 125.5678 ' MyDouble is a Double. 
+MyByte = CByte(MyDouble) ' MyByte contains 126. 
+----
+
+.CCur 関数の例
+
+この例では、CCur 関数を使用して、式を Currency に変換します。
+
+[source,vbscript]
+----
+Dim MyDouble, MyCurr 
+MyDouble = 543.214588 ' MyDouble is a Double. 
+MyCurr = CCur(MyDouble * 2) ' Convert result of MyDouble * 2 
+ ' (1086.429176) to a 
+ ' Currency (1086.4292). 
+----
+
+.CDate 関数の例
+
+この例では CDate 関数を使用し、文字列を日付型に変換します。 一般に、この例で示すように、文字列として日付と時刻をハードコードするのはお勧めしません。 文字列の代わりに、#2/12/1969# や #4:45:23 PM# のような日付リテラルと時刻リテラルを使用してください。
+
+
+[source,vbscript]
+----
+Dim MyDate, MyShortDate, MyTime, MyShortTime 
+MyDate = "February 12, 1969" ' Define date. 
+MyShortDate = CDate(MyDate) ' Convert to Date data type. 
+ 
+MyTime = "4:35:47 PM" ' Define time. 
+MyShortTime = CDate(MyTime) ' Convert to Date data type. 
+----
+
+.CDbl 関数の例
+
+この例では、CDbl 関数を使用して、式を Double に変換します。
+
+[source,vbscript]
+----
+Dim MyCurr, MyDouble 
+MyCurr = CCur(234.456784) ' MyCurr is a Currency. 
+MyDouble = CDbl(MyCurr * 8.2 * 0.01) ' Convert result to a Double. 
+----
+
+.CDec 関数の例
+
+この例では、CDec 関数を使用して、値を Decimal に変換します。
+
+
+[source,vbscript]
+----
+Dim MyDecimal, MyCurr 
+MyCurr = 10000000.0587 ' MyCurr is a Currency. 
+MyDecimal = CDec(MyCurr) ' MyDecimal is a Decimal. 
+----
+
+.CInt 関数の例
+
+この例では、CInt 関数を使用して、値を Integer に変換します。
+
+
+[source,vbscript]
+----
+Dim MyDouble, MyInt 
+MyDouble = 2345.5678 ' MyDouble is a Double. 
+MyInt = CInt(MyDouble) ' MyInt contains 2346. 
+----
+
+.CLng 関数の例
+
+この例では、CLng 関数を使用して、値を Long に変換します。
+
+[source,vbscript]
+----
+Dim MyVal1, MyVal2, MyLong1, MyLong2 
+MyVal1 = 25427.45: MyVal2 = 25427.55 ' MyVal1, MyVal2 are Doubles. 
+MyLong1 = CLng(MyVal1) ' MyLong1 contains 25427. 
+MyLong2 = CLng(MyVal2) ' MyLong2 contains 25428. 
+----
+
+.CSng 関数の例
+
+この例では、CSng 関数を使用して、値を Single に変換します。
+
+[source,vbscript]
+----
+Dim MyDouble1, MyDouble2, MySingle1, MySingle2 
+' MyDouble1, MyDouble2 are Doubles. 
+MyDouble1 = 75.3421115: MyDouble2 = 75.3421555 
+MySingle1 = CSng(MyDouble1) ' MySingle1 contains 75.34211. 
+MySingle2 = CSng(MyDouble2) ' MySingle2 contains 75.34216. 
+----
+
+.CStr 関数の例
+
+この例では、CStr 関数を使用して、数値を String に変換します。
+
+
+[source,vbscript]
+----
+Dim MyDouble, MyString 
+MyDouble = 437.324 ' MyDouble is a Double. 
+MyString = CStr(MyDouble) ' MyString contains "437.324". 
+----
+
+
+.CVar 関数の例
+
+この例では、CVar 関数を使用して、式を Variant に変換します。
+
+
+[source,vbscript]
+----
+Dim MyInt, MyVar 
+MyInt = 4534 ' MyInt is an Integer. 
+MyVar = CVar(MyInt & 000) ' MyVar contains the string 
+ ' 4534000. 
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 === ディレクティブ
 
 [cols="3,4",options="header"]
@@ -2519,6 +2805,1285 @@ Dim MyDate
 MyDate = DateValue("February 12, 1969")    ' Return a date.
 ----
 
+
+==== Day 関数[[Day]]
+
+月の特定の 1 日を表す 1 から 31 の範囲の整数を指定する Variant (Integer) を返
+します。
+
+.構文
+
+[source,vbscript]
+----
+Day(date)
+----
+
+必須の date 引数は、日を表す任意の Variant、数式、文字列式、または任意の組み合
+わせです。 date に Null が含まれている場合は Null が返されます。
+
+CAUTION:	<<Calendar,Calendar>> プロパティの設定がグレゴリオ暦の場合、返
+される整数は、date 引数のグレゴリオ暦の日を示します。 Calendar がイスラム暦の
+場合、返される整数は、date 引数のイスラム暦の日を示します。
+
+
+.例
+
+次の例では、Day 関数を使用して、指定した日付から日を取得します。 開発環境では、
+日付リテラルは、コードのロケール設定を使用して短い形式で表示されます。
+
+
+[source,vbscript]
+----
+Dim MyDate, MyDay
+MyDate = #February 12, 1969#    ' Assign a date.
+MyDay = Day(MyDate)    ' MyDay contains 12.
+----
+
+==== DDB 関数[[DDB]]
+
+
+倍額定率法や、ユーザーが指定した他の方法を使用して、特定の期における資産の減価
+償却費を指定する Double を返します。
+
+.構文
+
+[source,vbscript]
+----
+DDB(cost, salvage, life, period, [ factor ])
+----
+
+DDB 関数には、次の名前付き引数があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|cost |必須です。 資産の初期コストを指定する Double です。
+|salvage |必須です。 耐用期間が終了した時点での資産の価格を指定する Double です。
+|life |必須です。 資産の耐用期間を指定する Double です。
+|period |必須。 資産の減価償却費を計算する期を指定する Double です。
+|factor |省略可能。 減価償却率を指定する Variant です。 省略すると、2 (倍額定率法) を指定したと見なされます。
+|===
+
+.解説
+
+倍額定率法では、減価償却費が加速的に計算されます。 減価償却費は、最初の期が最
+も多く、その後の期では減少します。
+
+引数の life と period は、同じ単位で指定する必要があります。 たとえば、life に
+月数を指定した場合は、period にも月数を指定する必要があります。 すべての引数は、
+必ず正の数で指定してください。
+
+DDB 関数では、次の数式を使用して、指定した期の減価償却費を計算します。
+
+価償却費/period = ((cost - salvage) * factor) / life
+
+.例
+
+この例では、DDB 関数を使用して、指定した期における資産の減価償却費を返します。
+指定する項目は、初期コスト (InitCost)、資産の耐用期間が終了した時点での残存価
+額 (SalvageVal)、資産の耐用年数 (LifeTime)、および減価償却費を計算する年単位の
+期 (Depr) です。
+
+
+[source,vbscript]
+----
+Dim Fmt, InitCost, SalvageVal, MonthLife, LifeTime, DepYear, Depr
+Const YRMOS = 12    ' Number of months in a year.
+Fmt = "###,##0.00"
+InitCost = InputBox("What's the initial cost of the asset?")
+SalvageVal = InputBox("Enter the asset's value at end of its life.")
+MonthLife = InputBox("What's the asset's useful life in months?")
+Do While MonthLife < YRMOS    ' Ensure period is >= 1 year.
+    MsgBox "Asset life must be a year or more."
+    MonthLife = InputBox("What's the asset's useful life in months?")
+Loop
+LifeTime = MonthLife / YRMOS    ' Convert months to years.
+If LifeTime <> Int(MonthLife / YRMOS) Then
+    LifeTime = Int(LifeTime + 1)    ' Round up to nearest year.
+End If 
+DepYear = CInt(InputBox("Enter year for depreciation calculation."))
+Do While DepYear < 1 Or DepYear > LifeTime
+    MsgBox "You must enter at least 1 but not more than " & LifeTime
+    DepYear = InputBox("Enter year for depreciation calculation.")
+Loop
+Depr = DDB(InitCost, SalvageVal, LifeTime, DepYear)
+MsgBox "The depreciation for year " & DepYear & " is " & _
+Format(Depr, Fmt) & "."
+----
+
+
+
+
+==== Dir 関数[[Dir]]
+
+指定したパターンまたはファイル属性に一致するファイル、ディレクトリ、フォルダー
+の名前、またはドライブのボリューム ラベルを表す String を返します。
+
+.構文
+
+[source,vbscript]
+----
+Dir [ (pathname, [ attributes ] ) ]
+----
+
+Dir 関数の構文には、次の指定項目があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|pathname |省略可能。 ファイル名を指定する文字列式です。ディレクトリまたはフォルダー、およびドライブを含めることができます。 pathname が見つからない場合は、長さ 0 の文字列 ("") が返されます。
+|attributes |省略可能。 ファイル属性を指定する定数または数式 (合計によって指定) です。 省略した場合は、pathname に一致する、属性のないファイルが返されます。
+|===
+
+.設定
+
+attributes 引数の設定は次のとおりです。
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbNormal |0 |(既定値) 属性のないファイル。
+|vbReadOnly |1 |属性のないファイルと読み取り専用のファイル。
+|vbHidden |2 |属性のないファイルと隠しファイル。
+|vbSystem |4 |属性のないファイルとシステム ファイル。 Macintosh では使用できません。
+|vbVolume |8 |ボリューム ラベル。他の属性を指定した場合は、vbVolume は無視されます。 Macintosh では使用できません。
+|vbDirectory |16 |属性のないファイルとディレクトリまたはフォルダー。
+|vbAlias |64 |指定されたファイル名はエイリアスです。 Macintosh でのみ使用できます。
+|===
+
+
+CAUTION:	これらの定数は、Visual Basic for Applications によって指定され、
+コードの任意の場所で実際の値の代わりに使用できます。
+
+
+.解説
+
+Microsoft Windows では、Dir で複数の文字 (*) と 1 文字 (?) のワイルドカードを
+使用して、複数のファイルを指定できます。 Macintosh では、これらの文字は有効な
+ファイル名の文字と見なされ、複数のファイルを指定するためのワイルドカードとして
+は使用できません。
+
+Macintosh ではワイルドカードがサポートされないため、ファイルの種類を使用してフ
+ァイルのグループを識別します。 MacID 関数を使用すると、ファイル名を使わずにフ
+ァイルの種類を指定できます。 たとえば、次のステートメントでは、現在のフォルダ
+ー内の最初のテキスト ファイルの名前が返されます。
+
+
+[source,vbscript]
+----
+Dir("SomePath", MacID("TEXT"))
+----
+
+フォルダー内のすべてのファイルに対して反復処理を行うには、空の文字列を指定しま
+す。
+
+
+[source,vbscript]
+----
+Dir("")
+----
+
+Microsoft Windows では、Dir で MacID 関数を使用するとエラーが発生します。
+
+attribute の値が 256 を超える場合は MacID の値と見なされます。
+
+Dir 関数の最初の呼び出しの際に pathname を指定しないとエラーが発生します。 フ
+ァイル属性も指定する場合は、pathname を指定する必要があります。
+
+Dir は、pathname に一致する最初のファイル名を返します。 pathname に一致する追
+加のファイル名を取得するには、引数なしで Dir を再度呼び出します。 一致するファ
+イル名がなくなると、Dir は長さ 0 の文字列 ("") を返します。 長さ 0 の文字列が
+返された後の呼び出しで、pathname を指定しないとエラーが発生します。
+
+現在の pathname に一致するすべてのファイル名を取得せずに、新しい pathname に変
+更することもできます。 ただし、Dir 関数を再帰的に呼び出すことはできません。
+vbDirectory 属性を付けて Dir を呼び出しても、継続してサブディレクトリが返され
+ることはありません。
+
+Excel for Mac 2016 では、最初の Dir 関数呼び出しは成功します。 ただし、指定さ
+れたディレクトリで繰り返して呼び出すと、エラーが発生します。 残念ですが、これ
+は既知のバグです。
+
+
+TIP:	ファイル名は特定の順序で取得されるわけではないため、必要に応じて、返さ
+れたファイル名を配列に格納し、その配列を並べ替えます。
+
+==== DoEvents 関数[[DoEvents]]
+
+
+オペレーティング システムが他のイベントを処理できるように、実行を渡します。
+
+.構文
+
+[source,vbscript]
+----
+DoEvents( )
+----
+
+.解説
+
+DoEvents 関数は、単体バージョンの Visual Basic (Visual Basic Professional
+Edition など) で開かれているフォームの数を表す Integer を返します。 他のすべて
+のアプリケーションでは、DoEvents はゼロを返します。
+
+DoEvents はオペレーティング システムに制御を渡します。 オペレーティング システ
+ムがキュー内のイベントの処理を終了し、SendKeys キューのすべてのキーが送信され
+た後、制御が戻されます。
+
+DoEvents は、たとえばユーザーが一旦開始した処理 (ファイルの検索など) を取り消
+せるようにする、といった単純な処理を行う場合に最も役に立ちます。 長時間実行し
+ているプロセスの場合にプロセッサを空けるには、タイマーを使用するか、またはタス
+クを ActiveX EXE コンポーネントに委任する方が適しています。 後者の場合、アプリ
+ケーションとは完全に独立してタスクを続行でき、オペレーティング システムがマル
+チタスクとタイム スライスの処理を行います。
+
+イベント プロシージャ内でプロセッサに一時的に制御を渡すときは、プロシージャが、
+最初の呼び出しが戻る前とは異なるコード部分から再開されないようにする必要があり
+ます。異なる場所から再開すると、予期しない結果になる可能性があります。 さらに、
+制御を渡している間に、他のアプリケーションが予期しない方法でプロシージャとやり
+取りする可能性がある場合は、DoEvents を使用しないでください。
+
+.例
+
+次の例では、DoEvents 関数を使用して、1,000 回ループするごとに 1 回、オペレーテ
+ィング システムに制御を渡します。 DoEvents は、開いている Visual Basic フォー
+ムの数を返しますが、これが行われるのは、ホスト アプリケーションが Visual Basic
+の場合のみです。
+
+
+[source,vbscript]
+----
+' Create a variable to hold number of Visual Basic forms loaded 
+' and visible.
+Dim I, OpenForms
+For I = 1 To 150000    ' Start loop.
+    If I Mod 1000 = 0 Then     ' If loop has repeated 1000 times.
+        OpenForms = DoEvents    ' Yield to operating system.
+    End If
+Next I    ' Increment loop counter.
+----
+
+==== Environ 関数[[Environ]]
+
+
+
+オペレーティング システムの環境変数に関連付けられた String を返します。
+Macintosh では使用できません。
+
+.構文
+
+[source,vbscript]
+----
+Environ( { envstring | number } )
+----
+
+Environ 関数の構文には、次の名前付き引数があります。
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|envstring |省略可能。 環境変数の名前を含む文字列式です。
+|number |省略可能。 環境文字列テーブル内の環境文字列の数値順序に対応する数式です。 number 引数には任意の数式を使用できますが、評価される前に整数に丸められます。
+|===
+
+.解説
+
+envstring が環境文字列テーブル内にない場合は、長さ 0 の文字列 ("") が返されま
+す。 それ以外の場合、Environ は指定された envstring に割り当てられているテキス
+トを返します。つまり、環境文字列テーブルでその環境変数の等号 (=) の後にあるテ
+キストを返します。
+
+number を指定した場合は、環境文字列テーブルでその数値位置にある文字列が返され
+ます。 この場合、Environ は envstring を含むすべてのテキストを返します。 指定
+された位置に環境文字列がない場合、Environ は長さ 0 の文字列を返します。
+
+.例
+
+この例では、Environ 関数を使用して、PATH ステートメントのエントリ番号と長さを
+環境文字列テーブルから提供しています。 Macintosh では使用できません。
+
+
+[source,vbscript]
+----
+Dim EnvString, Indx, Msg, PathLen    ' Declare variables.
+Indx = 1    ' Initialize index to 1.
+Do
+    EnvString = Environ(Indx)    ' Get environment 
+                ' variable.
+    If Left(EnvString, 5) = "PATH=" Then    ' Check PATH entry.
+        PathLen = Len(Environ("PATH"))    ' Get length.
+        Msg = "PATH entry = " & Indx & " and length = " & PathLen
+        Exit Do
+    Else
+        Indx = Indx + 1    ' Not PATH entry,
+    End If    ' so increment.
+Loop Until EnvString = ""
+If PathLen > 0 Then
+    MsgBox Msg    ' Display message.
+Else
+    MsgBox "No PATH environment variable exists."
+End If
+----
+
+==== EOF 関数[[EOF]]
+
+Random またはシーケンシャル Input で開かれたファイルの末尾に達した場合、
+Boolean 値 True を含む整数を返します。
+
+.構文
+
+[source,vbscript]
+----
+EOF(filenumber)
+----
+
+filenumber 引数は必須の引数です。有効なファイル番号を含む整数です。
+
+.解説
+
+EOF を使用して、ファイルの末尾を越える入力によるエラーが発生しないようにします。
+
+ファイルの末尾に達するまで、EOF 関数は False を返します。 Random または Binary
+アクセスで開かれたファイルの場合、最後に実行した Get ステートメントでレコード
+全体を読み取れなくなるまで、EOF は False を返します。
+
+Binary アクセス用に開かれたファイルでは、Input 関数を使って、EOF が True を返
+すまでファイルを読み取ろうとすると、エラーが発生します。 Input でバイナリ ファ
+イルを読み取るときは、EOF の代わりに LOF 関数と Loc 関数を使用します。または、
+EOF 関数を使用しているときは Get を使用します。 Output で開かれたファイルの場
+合、EOF は常に True を返します。
+
+.例
+
+この例では、EOF 関数を使用してファイルの末尾を検出します。 この例では、MYFILE
+は数行のテキストを含むテキスト ファイルであると仮定しています。
+
+
+[source,vbscript]
+----
+Dim InputData
+Open "MYFILE" For Input As #1    ' Open file for input.
+Do While Not EOF(1)    ' Check for end of file.
+    Line Input #1, InputData    ' Read line of data.
+    Debug.Print InputData    ' Print to the Immediate window.
+Loop
+Close #1    ' Close file.
+----
+
+
+==== Error 関数[[Error]]
+
+
+指定したエラー番号に対応するエラー メッセージを返します。
+
+.構文
+
+[source,vbscript]
+----
+Error [ (errornumber) ]
+----
+
+errornumber 引数は省略可能です。任意の有効なエラー番号を指定できます。
+errornumber が有効なエラー番号でも、定義されていなければ、Error から "アプリケ
+ーション定義またはオブジェクト定義のエラーです。" という文字列が返されます。
+
+errornumber が有効でない場合はエラーが発生します。 errornumber を省略した場合
+は、最後に発生した実行時エラーに対応するメッセージが返されます。 実行時エラー
+が発生していない場合、または errornumber が 0 の場合は、Error から長さ 0 の文
+字列 ("") が返されます。
+
+.解説
+
+最後に発生した実行時エラーを特定するには、Err オブジェクトのプロパティ設定を調
+べます。 Error 関数の戻り値は、Err オブジェクトの Description プロパティに対応
+しています。
+
+.例
+
+この例では、Error 関数を使用して、指定したエラー番号に対応するエラー メッセー
+ジを出力します。
+
+
+[source,vbscript]
+----
+Private Sub PrintError()
+    Dim ErrorNumber As Long, count As Long
+    count = 1: ErrorNumber = 1
+    On Error GoTo EOSb
+    Do While count < 100
+        Do While Error(ErrorNumber) = "Application-defined or object-defined error": ErrorNumber = ErrorNumber + 1: Loop
+        Debug.Print count & "-Error(" & ErrorNumber & "): " & Error(ErrorNumber)
+        ErrorNumber = ErrorNumber + 1
+        count = count + 1
+    Loop
+EOSb: Debug.Print ErrorNumber
+End Sub
+----
+
+==== FileAttr 関数[[FileAttr]]
+
+
+<<Open,Open>> ステートメントを使用して開かれたファイルのファイル モードを表す
+Long を返します。
+
+.構文
+
+[source,vbscript]
+----
+FileAttr(filenumber, returntype)
+----
+
+FileAttr 関数の構文に使用される名前付き引数は次のとおりです。
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|filenumber |必須。Integer。 任意の有効なファイル番号です。
+|returntype |必須。Integer。 返す情報の種類を示す数値。 ファイル モードを示す値を返す場合は 1 を指定します。 16 ビット システムの場合のみ、オペレーティング システムのファイル ハンドルを取得する場合に 2 を指定します。 Returntype 2 は 32 ビット システムではサポートされていないため、エラーが発生します。
+|===
+
+.戻り値
+
+returntype 引数が 1 の場合、ファイル アクセス モードを示す次の値が返されます。
+
+
+[cols="1,4",options="header"]
+|===
+|モード |値
+|Input |1
+|出力 |2
+|Random |4
+|Append |8
+|Binary |32
+|===
+
+.例
+
+この例では、FileAttr 関数を使用して、開かれているファイルのファイル モードおよ
+びファイル ハンドルを返しています。 ファイル ハンドルは 16 ビット システムでの
+み返されます。32 ビット システムで 2 つ目の引数に 2 を渡すと、エラーが発生しま
+す。
+
+
+[source,vbscript]
+----
+Dim FileNum, Mode, Handle
+FileNum = 1    ' Assign file number.
+Open "TESTFILE" For Append As FileNum    ' Open file.
+Mode = FileAttr(FileNum, 1)    ' Returns 8 (Append file mode).
+Handle = FileAttr(FileNum, 2)    ' Returns file handle.
+Close FileNum    ' Close file.
+----
+
+==== FileDateTime 関数[[FileDateTime]]
+
+
+ファイルの作成日時または最終更新日時を示す Variant (Date) を返します。
+
+.構文
+
+[source,vbscript]
+----
+FileDateTime(pathname)
+----
+
+必須の pathname 引数は、ファイル名を指定する文字列式です。 pathname には、ディ
+レクトリまたはフォルダー、およびドライブを含めることができます。
+
+.例
+
+この例では、FileDateTime 関数を使用して、ファイルの作成日時または最終更新日時
+を特定します。 表示される日時の形式は、システムのロケール設定に基づいています。
+
+
+[source,vbscript]
+----
+Dim MyStamp
+' Assume TESTFILE was last modified on February 12, 1993 at 4:35:47 PM.
+' Assume English/U.S. locale settings.
+MyStamp = FileDateTime("TESTFILE")    ' Returns "2/12/93 4:35:47 PM".
+----
+
+==== FileLen 関数[[FileLen]]
+
+バイト単位でファイルの長さを指定する Long を返します。
+
+.構文
+
+[source,vbscript]
+----
+FileLen (pathname)
+----
+
+必須の pathname 引数は、ファイルを指定する文字列式です。 pathname には、ディレ
+クトリまたはフォルダー、およびドライブを含めることができます。
+
+.解説
+
+FileLen 関数が呼び出されたときに指定したファイルが開いている場合、返された値は、
+そのファイルを開く直前のファイル サイズを表します。
+
+CAUTION:	開いているファイルの長さを取得するには、LOF 関数を使用します。
+
+
+.例
+
+この例では、FileLen 関数を使用して、ファイルの長さをバイト単位で返します。 こ
+の例の目的のため、TESTFILE はデータを含んでいるファイルとします。
+
+
+[source,vbscript]
+----
+Dim MySize
+MySize = FileLen("TESTFILE")    ' Returns file length (bytes).
+----
+
+==== Filter 関数[[Filter]]
+
+指定されたフィルター条件に基づいて、文字列配列のサブセットが含まれるゼロベース
+配列を返します。
+
+.構文
+
+[source,vbscript]
+----
+Filter(sourcearray, match, [ include, [ compare ]])
+----
+
+Filter 関数の構文に使用される名前付き引数は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|sourcearray |必須です。 検索する文字列の 1 次元配列。
+|match |必須。 検索する文字列。
+|include |省略可能。 返すサブ文字列に match を含めるか、除外するかを示す Boolean 値。 include が True の場合、Filter は、match が含まれる配列のサブセットをサブ文字列として返します。 include が False の場合、Filter は、match が含まれない配列のサブセットをサブ文字列として返します。
+|compare |省略可能。 使用する文字列比較の種類を示す数値。 値については、「設定」セクションを参照してください。
+|===
+
+.設定
+
+compare 引数には、次の値を指定できます。
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbUseCompareOption |-1 |Option Compare ステートメントの設定を使用して比較を実行します。
+|vbBinaryCompare |.0 |バイナリ比較を実行します。
+|vbTextCompare |1-d |テキスト比較を実行します。
+|vbDatabaseCompare |pbm-2 |Microsoft Access のみ。 データベース内の情報に基づいて比較を実行します。
+|===
+
+Filter 関数によって返される配列には、一致したアイテムを格納するのに十分な数の
+要素のみが含まれます。
+
+==== FormatCurrency 関数[[FormatCurrency]]
+
+システムのコントロール パネルで定義された通貨記号を使用して、通貨値として書式
+設定された式を返します。
+
+.構文
+
+[source,vbscript]
+----
+FormatCurrency(Expression, [ NumDigitsAfterDecimal, [ IncludeLeadingDigit, [ UseParensForNegativeNumbers, [ GroupDigits ]]]])
+----
+
+FormatCurrency 関数の構文には、次の指定項目があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|Expression |必須。 書式設定する式です。
+|NumDigitsAfterDecimal |省略可能。 表示する小数点以下の桁数を示す数値です。 既定値は -1 です。これは、コンピューターの地域の設定が使用されることを示します。
+|IncludeLeadingDigit |省略可能。 小数値に先頭のゼロを表示するかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。
+|UseParensForNegativeNumbers |オプション。 負の値をかっこで囲むかどうかを示す Tristate 定数です。 値については「設定値」を参照してください。
+|GroupDigits |省略可能。 コンピューターの地域の設定で指定されている桁区切り記号を使用して数値を区切るかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。
+|===
+
+.設定
+
+IncludeLeadingDigit、UseParensForNegativeNumbers、および GroupDigits 引数の設
+定は次のとおりです。
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbTrue |-1 |True
+|vbFalse |.0 |False
+|vbUseDefault |-2 |コンピューターの地域の設定を使用します。
+|===
+
+.解説
+
+省略可能な引数を省略した場合は、コンピューターの地域の設定の値が使用されます。
+通貨値に対する通貨記号の位置は、システムの地域の設定によって決まります。
+
+CAUTION:	先頭のゼロを除き、設定情報はすべて、[地域の設定] の [通貨] タ
+ブの情報に基づいています。先頭のゼロは、[数値] タブの情報に基づきます。
+
+
+==== FormatDateTime 関数[[FormatDateTime]]
+
+日付または時刻として書式設定された式を返します。
+
+.構文
+
+[source,vbscript]
+----
+FormatDateTime(Date, [ NamedFormat ])
+----
+
+FormatDateTime 関数の構文には、次の指定項目があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|Date |必須。 書式設定する日付式。
+|NamedFormat |省略可能。 使用する日付/時刻の形式を示す数値。 省略すると、vbGeneralDate が使用されます。
+|===
+
+.設定
+
+NamedFormat 引数の設定は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbGeneralDate |.0 |日付と時刻のどちらか、または両方を表示します。 日付部分がある場合は、短い日付として表示します。 時刻部分がある場合は、長い時刻として表示します。 両方ある場合は両方の部分を表示します。
+|vbLongDate |1-d |コンピューターの地域の設定で指定されている長い日付形式を使用して日付を表示します。
+|vbShortDate |pbm-2 |コンピューターの地域の設定で指定されている短い日付形式を使用して日付を表示します。
+|vbLongTime |1/3 |コンピューターの地域の設定で指定されている時刻形式を使用して時刻を表示します。
+|vbShortTime |2/4 |24 時間形式 (hh:mm) を使用して時刻を表示します。
+|===
+
+==== FormatNumber 関数[[FormatNumber]]
+
+数値として書式設定された式を返します。
+
+.構文
+
+[source,vbscript]
+----
+FormatNumber(Expression, [ NumDigitsAfterDecimal, [ IncludeLeadingDigit, [ UseParensForNegativeNumbers, [ GroupDigits ]]]])
+----
+
+FormatNumber 関数の構文には、次の指定項目があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|Expression |必須。 書式設定する式です。
+|NumDigitsAfterDecimal |省略可能。 表示する小数点以下の桁数を示す数値です。 既定値は -1 です。これは、コンピューターの地域の設定が使用されることを示します。
+|IncludeLeadingDigit |省略可能。 小数値に先頭のゼロを表示するかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。
+|UseParensForNegativeNumbers |オプション。 負の値をかっこで囲むかどうかを示す Tristate 定数です。 値については「設定値」を参照してください。
+|GroupDigits |省略可能。 コンピューターの地域の設定で指定されている桁区切り記号を使用して数値を区切るかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。
+|===
+
+.設定
+
+IncludeLeadingDigit、UseParensForNegativeNumbers、および GroupDigits 引数の設
+定は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbTrue |-1 |True
+|vbFalse |.0 |False
+|vbUseDefault |-2 |コンピューターの地域の設定を使用します。
+|===
+
+.解説
+
+省略可能な引数を省略した場合は、コンピューターの地域の設定の値が使用されます。
+
+CAUTION:	すべての設定情報について、[地域] の設定の [数値] タブの情報が
+使用されます。
+
+==== FormatPercent 関数[[FormatPercent]]
+
+パーセンテージとして (100 倍して) 書式設定された式を、末尾に % 記号を追加して
+返します。
+
+.構文
+
+[source,vbscript]
+----
+FormatPercent(Expression, [ NumDigitsAfterDecimal, [ IncludeLeadingDigit, [ UseParensForNegativeNumbers, [ GroupDigits ]]]])
+----
+
+FormatPercent 関数の構文には、次の指定項目があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|Expression |必須。 書式設定する式です。
+|NumDigitsAfterDecimal |省略可能。 表示する小数点以下の桁数を示す数値です。 既定値は -1 です。これは、コンピューターの地域の設定が使用されることを示します。
+|IncludeLeadingDigit |省略可能。 小数値に先頭のゼロを表示するかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。
+|UseParensForNegativeNumbers |オプション。 負の値をかっこで囲むかどうかを示す Tristate 定数です。 値については「設定値」を参照してください。
+|GroupDigits |省略可能。 コンピューターの地域の設定で指定されている桁区切り記号を使用して数値を区切るかどうかを示す Tristate 定数です。 値については、「設定」セクションを参照してください。
+|===
+
+.設定
+
+IncludeLeadingDigit、UseParensForNegativeNumbers、および GroupDigits 引数の設
+定は次のとおりです。
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbTrue |-1 |True
+|vbFalse |.0 |False
+|vbUseDefault |-2 |コンピューターの地域の設定を使用します。
+|===
+
+.解説
+
+省略可能な引数を省略した場合は、コンピューターの地域の設定の値が使用されます。
+
+CAUTION:	すべての設定情報について、[地域] の設定の [数値] タブの情報が
+使用されます。
+
+
+==== FreeFile 関数[[FreeFile]]
+
+<<Open,Open>> ステートメントで使用できる次のファイル番号を表す Integer を返します。
+
+.構文
+
+[source,vbscript]
+----
+FreeFile [ (rangenumber) ]
+----
+
+オプションの rangenumber 引数は、どの範囲から次の空きファイル番号を返すかを指
+定する Variant です。 0 (既定値) を指定すると 1 以上 255 以下の範囲のファイル
+番号を返します。 1 を指定すると 256 以上 511 以下の範囲のファイル番号を返しま
+す。
+
+.解説
+
+まだ使用されていないファイル番号を提供するには、FreeFile を使用します。
+
+.例
+
+この例では、FreeFile 関数を使用して、次に使用可能なファイル番号を返します。 ル
+ープ内では 5 個のファイルが出力用に開かれ、サンプル データが各ファイルに書き込
+まれています。
+
+[source,vbscript]
+----
+Dim MyIndex, FileNumber
+For MyIndex = 1 To 5    ' Loop 5 times.
+    FileNumber = FreeFile    ' Get unused file
+        ' number.
+    Open "TEST" & MyIndex For Output As #FileNumber    ' Create file name.
+    Write #FileNumber, "This is a sample."    ' Output text.
+    Close #FileNumber    ' Close file.
+Next MyIndex
+----
+
+==== FV 関数[[FV]]
+
+定額の支払いを定期的に行い、利率が一定であると仮定して投資の将来価値を指定する
+Double を返します。
+
+.構文
+
+[source,vbscript]
+----
+FV(rate, nper, pmt, [ pv, [ type ]])
+----
+
+FV 関数には、次の名前付き引数があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|rate |必須です。 投資の利率を示す倍精度浮動小数点型 ( Double ) の値を指定します。 たとえば、年利 (APR) 10% の自動車ローンを利用して月払いで返済を行う場合、利率は 0.1/12 = 0.0083 になります。
+|nper |必須。 投資期間全体での支払回数の合計を示す整数型 ( Integer) の値を指定します。 たとえば、4 年間の自動車ローンを利用して月払いで返済を行う場合、このローンの支払回数の合計は 4 * 12 = 48 となります。
+|pmt |必須。 毎回の支払額を指定する Double。 通常、支払額には元金と利息が含まれます。投資期間内に支払額が変更されることはありません。
+|pv |省略可能。 現在価値、つまり将来行われる一連の支払を現時点で一括払いした場合の合計金額を示すバリアント型 ( Variant) の値を指定します。 たとえば、車を購入するために資金を借りる場合、ローンの総額が、貸方に対する現在価値となります。 省略すると、0 を指定したものと見なされます。
+|type |省略可能。 支払期日を示すバリアント型 ( Variant ) の値を指定します。 各期の期末に支払う場合は 0、各期の期首に支払う場合は 1 を指定します。 省略すると、0 と見なされます。
+|===
+
+.解説
+
+投資とは、一連の定額の支払いを一定期間にわたって行うことです。 投資には、住宅
+ローンなどのローンや、毎月の貯蓄プランなどの出資があります。
+
+引数rate と nper は、同じ単位で表した支払期間を使用して計算する必要があります。
+たとえば、rate を月単位で計算する場合は、nper も月単位で計算する必要があります。
+
+すべての引数に関して、定額預金の支払いのような出金は負の数で表し、配当金のよう
+な入金は正の数で表します。
+
+.例
+
+次の例では、FV 関数を使用して投資の将来価値を返します。利率 (APR / 12)、支払回
+数の合計 (TotPmts)、支払額 (Payment)、投資の現在価値 (PVal)、および支払が期首
+に行われるか期末に行われるかを示す数値 (PayType) を指定します。 Paymentは出金
+を表すので、負の値です。
+
+
+[source,vbscript]
+----
+Dim Fmt, Payment, APR, TotPmts, PayType, PVal, FVal
+Const ENDPERIOD = 0, BEGINPERIOD = 1    ' When payments are made.
+Fmt = "###,###,##0.00"    ' Define money format.
+Payment = InputBox("How much do you plan to save each month?")
+APR = InputBox("Enter the expected interest annual percentage rate.")
+If APR > 1 Then APR = APR / 100    ' Ensure proper form.
+TotPmts = InputBox("For how many months do you expect to save?")
+PayType = MsgBox("Do you make payments at the end of month?", vbYesNo)
+If PayType = vbNo Then PayType = BEGINPERIOD Else PayType = ENDPERIOD
+PVal = InputBox("How much is in this savings account now?")
+FVal = FV(APR / 12, TotPmts, -Payment, -PVal, PayType)
+MsgBox "Your savings will be worth " & Format(FVal, Fmt) & "."
+----
+
+==== GetAllSettings 関数[[GetAllSettings]]
+
+
+Windows レジストリのアプリケーションのエントリまたはアプリケーションの初期化フ
+ァイルの情報 (Macintosh の場合) から、キー設定のリストと各キー設定の値
+(SaveSetting を使用して作成されたもの) を返します。
+
+.構文
+
+[source,vbscript]
+----
+GetAllSettings(appname, section)
+----
+
+GetAllSettings 関数の構文には、次の名前付き引数があります。
+
+[source,vbscript]
+----
+パーツ 	説明
+appname 	必須です。 キー設定が要求されているアプリケーションまたはプロジェクトの名前を含む文字列式です。 これは、Macintosh では System フォルダー内の Preferences フォルダーにある初期化ファイルのファイル名です。
+section 	必須。 キー設定が要求されているセクションの名前を含む文字列式です。 GetAllSettings からは、指定したセクションのすべてのキー設定とそれに対応する値を含む文字列の 2 次元配列のコンテンツを持つ Variant が返されます。
+----
+
+.解説
+
+GetAllSettings では、appname または section のいずれかが存在しない場合、初期化
+されていない Variant を返します。
+
+.例
+
+この例では、最初に SaveSetting ステートメントを使用して、appname として指定さ
+れたアプリケーションの Windows レジストリにエントリを作成し、GetAllSettings 関
+数を使用して、設定を表示します。 アプリケーション名と section の名前は、
+GetAllSettings で取得することはできないので、ご注意ください。 最後に、
+DeleteSetting ステートメントは、アプリケーションのエントリを削除します。
+
+
+[source,vbscript]
+----
+' Variant to hold 2-dimensional array returned by GetAllSettings
+' Integer to hold counter.
+Dim MySettings As Variant, intSettings As Integer
+' Place some settings in the registry.
+SaveSetting appname := "MyApp", section := "Startup", _
+key := "Top", setting := 75
+SaveSetting "MyApp","Startup", "Left", 50
+' Retrieve the settings.
+MySettings = GetAllSettings(appname := "MyApp", section := "Startup")
+    For intSettings = LBound(MySettings, 1) To UBound(MySettings, 1)
+        Debug.Print MySettings(intSettings, 0), MySettings(intSettings, 1)
+    Next intSettings
+DeleteSetting "MyApp", "Startup"
+----
+
+==== GetAttr 関数[[GetAttr]]
+
+ファイル、ディレクトリ、またはフォルダーの属性を表す Integer を返します。
+
+.構文
+
+[source,vbscript]
+----
+GetAttr(pathname)
+----
+
+必須の pathname 引数は、ファイル名を指定する文字列式です。 pathname には、ディ
+レクトリまたはフォルダー、およびドライブを含めることができます。
+
+.戻り値
+
+GetAttr では、次の属性の値の合計が返されます。
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |説明
+|vbNormal |.0 |標準
+|vbReadOnly |1-d |読み取り専用。
+|vbHidden |pbm-2 |非表示。
+|vbSystem |2/4 |システム ファイル。 Macintosh では使用できません。
+|vbDirectory |16 |ディレクトリまたはフォルダー
+|vbArchive |32 |前回のバックアップ以降にファイルが変更されています。 Macintosh では使用できません。
+|vbAlias |64 |指定されたファイル名はエイリアスです。 Macintosh でのみ使用できます。
+|===
+
+CAUTION:	これらの定数は Visual Basic for Applications により指定されま
+す。 これらの名前は、実際の値の代わりにコードのどの部分でも使用できます。
+
+
+
+.解説
+
+設定されている属性を確認するには、And 演算子を使用して ビット単位の比較を行い、
+GetAttr 関数から返される値と目的の個々のファイル属性の値を比較します。 結果が
+0 以外の場合は、指定したファイルに対してその属性が設定されています。 たとえば、
+Archive 属性が設定されていない場合、次の And 式の戻り値は 0 です。
+
+
+[source,vbscript]
+----
+Result = GetAttr(FName) And vbArchive
+----
+
+Archive 属性が設定されている場合は、0 以外の値が返されます。
+
+.例
+
+この例では、GetAttr 関数を使用して、ファイルとディレクトリまたはフォルダーの属
+性を確認します。 Macintosh では、定数 vbNormal、vbReadOnly、vbHidden、および
+vbAlias のみが使用できます。
+
+
+[source,vbscript]
+----
+Dim MyAttr
+' Assume file TESTFILE has hidden attribute set.
+MyAttr = GetAttr("TESTFILE")    ' Returns 2.
+
+' Returns nonzero if hidden attribute is set on TESTFILE.
+Debug.Print MyAttr And vbHidden    
+
+' Assume file TESTFILE has hidden and read-only attributes set.
+MyAttr = GetAttr("TESTFILE")    ' Returns 3.
+
+' Returns nonzero if hidden attribute is set on TESTFILE.
+Debug.Print MyAttr And (vbHidden + vbReadOnly)    
+
+' Assume MYDIR is a directory or folder.
+MyAttr = GetAttr("MYDIR")    ' Returns 16.
+----
+
+==== GetObject 関数[[GetObject]]
+
+
+ActiveX コンポーネントから提供されたオブジェクトの参照を返します。
+
+.構文
+
+[source,vbscript]
+----
+GetObject([ pathname ], [ class ])
+----
+
+GetObject 関数の構文に使用される名前付き引数は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|pathname |省略可能。Variant (String)。 取得するオブジェクトを含むファイルの完全パスと名前。 pathname を省略する場合は、class を指定する必要があります。
+|class |省略可能。Variant (String)。 オブジェクトの クラスを表す文字列。
+|===
+
+class 引数の構文は appname.objecttype で、指定項目は次のとおりです。
+
+[cols="1,4",options="header"]
+|===
+|指定項目 |説明
+|appname |必須。Variant (String)。 オブジェクトを提供するアプリケーションの名前。
+|objecttype |必須。Variant (String)。 作成するオブジェクトの型またはクラス。
+|===
+
+.解説
+
+GetObject 関数は、ファイルから ActiveX オブジェクトにアクセスして、そのオブジ
+ェクトをオブジェクト変数に割り当てるために使用されます。 GetObject で返された
+オブジェクトをオブジェクト変数に割り当てるには、<<Set,Set>> ステートメントを使
+用します。
+
+.例:
+
+
+[source,vbscript]
+----
+Dim CADObject As Object
+Set CADObject = GetObject("C:\CAD\SCHEMA.CAD")
+----
+
+このコードを実行すると、指定した pathname に関連付けられたアプリケーションが起
+動され、指定したファイル内のオブジェクトがアクティブ化されます。
+
+pathname が長さ 0 の文字列 ("") である場合、GetObject は、指定した型の新しいオ
+ブジェクト インスタンスを戻します。 pathname 引数を省略した場合、GetObject は、
+指定した型の現在アクティブなオブジェクトを返します。 指定した型のオブジェクト
+が存在しない場合は、エラーが発生します。
+
+一部のアプリケーションでは、ファイルの一部をアクティブ化することができます。
+ファイル名の末尾に感嘆符 (!) を付け、アクティブ化するファイルの部分を識別する
+文字列を続けます。 この文字列の作成方法については、オブジェクトを作成したアプ
+リケーションのドキュメントを参照してください。
+
+たとえば、描画アプリケーションでは、図面の複数のレイヤーがファイルに保存されて
+いる場合があります。 次のコードを使用して、SCHEMA.CAD という図面内のレイヤーを
+アクティブ化することができます。
+
+
+[source,vbscript]
+----
+Set LayerObject = GetObject("C:\CAD\SCHEMA.CAD!Layer3")
+----
+
+オブジェクトの class を指定しない場合、起動するアプリケーションとアクティブ化
+するオブジェクトは、指定したファイル名に基づいて自動的に決定されます。 ただし、
+一部のファイルは複数のクラスのオブジェクトをサポートしている場合があります。
+たとえば、1 つの図面が 3 つの異なる型のオブジェクト (Application オブジェクト、
+Drawing オブジェクト、Toolbar オブジェクト) をサポートし、すべてが同じファイル
+に含まれている場合があります。 ファイル内のアクティブ化するオブジェクトを指定
+するには、省略可能な class 引数を使用します。 次に例を示します。
+
+
+[source,vbscript]
+----
+Dim MyObject As Object
+Set MyObject = GetObject("C:\DRAWINGS\SAMPLE.DRW", "FIGMENT.DRAWING")
+----
+
+この例で、FIGMENT は描画アプリケーションの名前で、DRAWING は、サポートされるオ
+ブジェクトの型のいずれかです。 オブジェクトがアクティブ化されたら、定義したオ
+ブジェクト変数を使用して、コード内でオブジェクトを参照します。 前の例では、オ
+ブジェクト変数_MyObject_を使用して、新しいオブジェクトのプロパティとメソッドに
+アクセスします。 次に例を示します。
+
+
+[source,vbscript]
+----
+MyObject.Line 9, 90
+MyObject.InsertText 9, 100, "Hello, world."
+MyObject.SaveAs "C:\DRAWINGS\SAMPLE.DRW"
+----
+
+CAUTION:	GetObject 関数は、オブジェクトの現在のインスタンスがある場合、
+または既にファイルが読み込まれた状態でオブジェクトを作成する場合に使用します。
+現在のインスタンスがなく、ファイルが読み込まれた状態でオブジェクトを起動しない
+場合は、<<CreateObject,CreateObject>> 関数を使用します。
+
+
+
+オブジェクトが単一インスタンスのオブジェクトとして登録されている場合は、
+CreateObject を何回実行しても、そのオブジェクトのインスタンスは 1 つしか作成さ
+れません。 単一インスタンスのオブジェクトの場合、長さ 0 の文字列 ("") 構文で呼
+び出されると、GetObject は常に同じインスタンスを返します。また、pathname 引数
+が省略された場合、エラーが発生します。 GetObject を使用して、Visual Basic で作
+成されたクラスに対する参照を取得することはできません。
+
+.例
+
+次の例では、GetObject 関数を使用して特定の Microsoft Excel ワークシート (MyXL)
+に対する参照を取得します。 ワークシートの Application プロパティを使用して、
+Excel の表示や終了などの操作を行います。
+
+DetectExcel Sub プロシージャは 2 つの API 呼び出しを使用して Microsoft Excel
+を検索し、実行中の場合は、Running Object テーブルに入力します。
+
+Microsoft Excel がまだ実行されていない場合、GetObject の 1 回目の呼び出しによ
+ってエラーが発生します。 この例では、このエラーによって ExcelWasNotRunning フ
+ラグが True に設定されます。
+
+GetObject の 2 回目の呼び出しでは、開くファイルを指定します。 Microsoft Excel
+がまだ実行されていない場合は、2 回目の呼び出しで起動され、指定したファイル
+(mytest.xls) が示すワークシートに対する参照を返します。 ファイルは指定した場所
+に存在する必要があります。存在しない場合、Visual Basic エラーの Automation
+error が生成されます。
+
+このコード例では、次に、指定したワークシートを含む Microsoft Excel とウィンド
+ウの両方が表示されるようになります。 最後に、以前のバージョンの Microsoft
+Excel が実行中ではない場合、このコードでは Application オブジェクトの Quit メ
+ソッドを使用して Microsoft Excel を終了します。 アプリケーションが既に実行中の
+場合、アプリケーションを閉じる処理は試行されません。 参照自体は、Nothing に設
+定することで解放されます。
+
+
+[source,vbscript]
+----
+' Declare necessary API routines:
+Declare Function FindWindow Lib "user32" Alias _
+"FindWindowA" (ByVal lpClassName as String, _
+                    ByVal lpWindowName As Long) As Long
+
+Declare Function SendMessage Lib "user32" Alias _
+"SendMessageA" (ByVal hWnd as Long,ByVal wMsg as Long, _
+                    ByVal wParam as Long, _
+                    ByVal lParam As Long) As Long
+
+Sub GetExcel()
+    Dim MyXL As Object    ' Variable to hold reference
+                                ' to Microsoft Excel.
+    Dim ExcelWasNotRunning As Boolean    ' Flag for final release.
+
+' Test to see if there is a copy of Microsoft Excel already running.
+    On Error Resume Next    ' Defer error trapping.
+' Getobject function called without the first argument returns a 
+' reference to an instance of the application. If the application isn't
+' running, an error occurs.
+    Set MyXL = Getobject(, "Excel.Application")
+    If Err.Number <> 0 Then ExcelWasNotRunning = True
+    Err.Clear    ' Clear Err object in case error occurred.
+
+' Check for Microsoft Excel. If Microsoft Excel is running,
+' enter it into the Running Object table.
+    DetectExcel
+
+' Set the object variable to reference the file you want to see.
+    Set MyXL = Getobject("c:\vb4\MYTEST.XLS")
+
+' Show Microsoft Excel through its Application property. Then
+' show the actual window containing the file using the Windows
+' collection of the MyXL object reference.
+    MyXL.Application.Visible = True
+    MyXL.Parent.Windows(1).Visible = True
+     Do manipulations of your  file here.
+    ' ...
+' If this copy of Microsoft Excel was not running when you
+' started, close it using the Application property's Quit method.
+' Note that when you try to quit Microsoft Excel, the
+' title bar blinks and a message is displayed asking if you
+' want to save any loaded files.
+    If ExcelWasNotRunning = True Then 
+        MyXL.Application.Quit
+    End IF
+
+    Set MyXL = Nothing    ' Release reference to the
+                                ' application and spreadsheet.
+End Sub
+
+Sub DetectExcel()
+' Procedure dectects a running Excel and registers it.
+    Const WM_USER = 1024
+    Dim hWnd As Long
+' If Excel is running this API call returns its handle.
+    hWnd = FindWindow("XLMAIN", 0)
+    If hWnd = 0 Then    ' 0 means Excel not running.
+        Exit Sub
+    Else                
+    ' Excel is running so use the SendMessage API 
+    ' function to enter it in the Running Object Table.
+        SendMessage hWnd, WM_USER + 18, 0, 0
+    End If
+End Sub
+----
+
+==== GetSetting 関数[[GetSetting]]
+
+
+Windows レジストリ内のアプリケーションのエントリ、または (Macintosh 上の) アプ
+リケーションの初期化ファイル内の情報から、キー設定値を返します。
+
+.構文
+
+[source,vbscript]
+----
+GetSetting(appname, section, key, [ default ])
+----
+
+GetSetting 関数の構文には、次の名前付き引数があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|appname |必須です。 キー設定が要求されているアプリケーションまたはプロジェクトの名前を含む文字列式です。 これは、Macintosh では System フォルダー内の Preferences フォルダーにある初期化ファイルのファイル名です。
+|section |必須です。 キー設定を検索するセクションの名前を含む文字列式です。
+|key |必須。 返すキー設定の名前を含む文字列式です。
+|default |省略可能。 キー設定に値が設定されていない場合、返す値を含む式です。 省略すると、default で、長さ 0 の文字列 ("") があると見なされます。
+|===
+
+.解説
+
+GetSetting 引数で名付けられたアイテムが存在しない場合、GetSetting は、default
+の値を返します。
+
+.例
+
+この例では、最初に <<SaveSetting,SaveSetting>> ステートメントを使用して、
+appname として指定されたアプリケーションの Windows レジストリ (または 16 ビッ
+ト版 Windows プラットフォームの .ini ファイル) にエントリを作成し、GetSetting
+関数を使用して、設定のうちの 1 つを表示します。 default 引数が指定されているた
+め、何らかの値が返されることが保証されています。 section 名は、GetSetting で取
+得することはできないので、ご注意ください。 最後に、<<DeleteSetting,
+DeleteSetting>> ステートメントは、アプリケーションのエントリをすべて削除します。
+
+
+[source,vbscript]
+----
+' Variant to hold 2-dimensional array returned by GetSetting.
+Dim MySettings As Variant
+' Place some settings in the registry.
+SaveSetting "MyApp","Startup", "Top", 75
+SaveSetting "MyApp","Startup", "Left", 50
+
+Debug.Print GetSetting(appname := "MyApp", section := "Startup", _
+                       key := "Left", default := "25")
+
+DeleteSetting "MyApp", "Startup"
+----
+
+==== Hour 関数[[Hour]]
+
+
+1 日の時間を表す 0 以上 23 以下の整数を指定する Variant (Integer) を返します。
+
+.構文
+
+[source,vbscript]
+----
+Hour(time)
+----
+
+必須の time 引数は、時間を表すことができる、任意の Variant、数式、文字列式、ま
+たは任意の組み合わせです。 time に Null が含まれている場合は Null が返されます。
+
+.例
+
+この例では、Hour 関数を使用して、指定した時刻の時間を取得します。 開発環境では、
+コードのロケール設定を使用して短い時刻形式で時刻リテラルが表示されます。
+
+
+[source,vbscript]
+----
+Dim MyTime, MyHour
+MyTime = #4:35:17 PM#    ' Assign a time.
+MyHour = Hour(MyTime)    ' MyHour contains 16.
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ★
 
 
@@ -3138,6 +4703,537 @@ IsEmpty>>、 <<IsError,IsError>>、 <<IsMissing,IsMissing>>、 <<IsNull,IsNull>>
 |既定のデータ型の設定 |<<Deftype,Deftype>>
 |===
 
+=== Microsoft Forms リファレンス
+
+=== オブジェクト (Visual Basic for Applications)
+
+==== Err オブジェクト
+
+実行時エラーに関する情報が含まれます。
+
+.解説
+
+Err オブジェクトのプロパティは、エラーの生成元 (Visual Basic、オブジェクト、ま
+たはプログラマー) によって設定されます。
+
+Err オブジェクトの既定のプロパティは、Number です。 既定のプロパティはオブジェ
+クト名 Err で表すことができるので、Err 関数または Err ステートメントを使用して
+作成された以前のコードを変更する必要はありません。
+
+実行時エラーが発生すると、Err オブジェクトのプロパティには、エラーを一意に示す
+情報およびエラーの処理に使用できる情報が設定されます。 コードで実行時エラーを
+生成するには、Raise メソッドを使用します。
+
+Err オブジェクトのプロパティは、エラー処理ルーチン内の Exit Sub、Exit Function、
+Exit Property、または Resume Next ステートメントの後で 0 または長さ 0 の文字列
+("") にリセットされます。 エラー処理ルーチン外で Resume ステートメントのいずれ
+かの形式を使用した場合、Err オブジェクトのプロパティはリセットされません。 Err
+を明示的にリセットするには、Clear メソッドを使用できます。
+
+システム エラーおよびクラス モジュールに実行時エラーを生成するには、Error ステ
+ートメントではなく Raise メソッドを使用します。 他のコードでの Raise メソッド
+の使用は、返す必要のある情報量によって異なります。
+
+Err オブジェクトは、グローバルなスコープの組み込みオブジェクトです。 コード内
+にそのインスタンスを作成する必要はありません。
+
+.例
+
+この例では、Err オブジェクトのプロパティ (Number、Description、 HelpContext、
+HelpFile、 Source) を使用して、エラー メッセージ ダイアログ ボックスを作成しま
+す。
+
+Clear メソッドを最初に使用すると、Visual Basic エラーを Raise メソッドで生成す
+るときに、Visual Basic の既定値が Err オブジェクトのプロパティになることに注意
+してください。
+
+
+[source,vbscript]
+----
+Dim Msg
+' If an error occurs, construct an error message
+On Error Resume Next    ' Defer error handling.
+Err.Clear
+Err.Raise 6    ' Generate an "Overflow" error.
+' Check for error, then show message.
+If Err.Number <> 0 Then
+    Msg = "Error # " & Str(Err.Number) & " was generated by " _
+            & Err.Source & Chr(13) & Err.Description
+    MsgBox Msg, , "Error", Err.Helpfile, Err.HelpContext
+End If
+----
+
+
+==== メソッド
+===== Clear メソッド
+
+Err オブジェクトのプロパティ設定をすべて解除します。
+
+.構文
+
+[source,vbscript]
+----
+object.Clear
+----
+
+object は、常に Err オブジェクトです。
+
+.解説
+
+たとえば On Error Resume Next を使用してエラー処理の延期を使用する場合など、エ
+ラーが処理された後に Err オブジェクトを明示的に解除するには Clear を使用します。
+次のいずれかのステートメントが実行される場合は必ず、Clear メソッドが自動的に呼
+び出されます。
+
+* すべての種類の Resume ステートメント
+* Exit Sub、Exit Function、Exit Property
+* あらゆる On Error ステートメント
+
+
+CAUTION:	他のオブジェクトへのアクセス時に発生したエラーを処理する場合、
+On Error Goto より On Error Resume Next ステートメントの使用をお勧めします。
+オブジェクトの操作後に Err を確認すると、エラーの発生時にコードがアクセスして
+いたオブジェクトを明確にできます。 Err.Number にエラー コードを設定したオブジ
+ェクトと、最初にエラーを生成したオブジェクト (Err.Source で指定されるオブジェ
+クト) についても確認できます。
+
+
+
+.例
+
+この例では、Err オブジェクトの Clear メソッドを使用して Err オブジェクトの数値
+プロパティーを 0 に、文字列プロパティーを長さ 0 の文字列にリセットします。 次
+のコードから Clear を省略した場合は、(エラーの発生後に) ループが繰り返されるた
+びに、2 回目以降の計算でエラーが生成されたかどうかには関係なく、エラー メッセ
+ージのダイアログ ボックスが表示されます。 コードをシングル ステップで実行する
+と効果を表示できます。
+
+
+[source,vbscript]
+----
+Dim Result(10) As Integer    ' Declare array whose elements 
+            ' will overflow easily.
+Dim indx
+On Error Resume Next    ' Defer error trapping.
+Do Until indx = 10
+    ' Generate an occasional error or store result if no error.
+    Result(indx) = Rnd * indx * 20000
+    If Err.Number <> 0 Then
+        MsgBox Err, , "Error Generated: ", Err.HelpFile, Err.HelpContext
+        Err.Clear    ' Clear Err object properties.
+    End If
+    indx = indx + 1
+Loop
+----
+
+===== Raise メソッド
+
+
+実行時エラーを生成します。
+
+.構文
+
+[source,vbscript]
+----
+object.Raise number, source, description, helpfile, helpcontext
+----
+
+Raise メソッドには、以下のオブジェクト修飾子および名前付き引数があります。
+
+[cols="1,4",options="header"]
+|===
+|引数 |説明
+|object |必須です。 常に、Err オブジェクトです。
+|number |必須。 エラーの性質を識別する長整数型 (Long) です。 Visual Basic のエラー (Visual Basic で定義されたエラーおよびユーザーで定義されたエラー) は 0–65535 の値を使用します。 0–512 の値はシステム エラー用に予約されています。513–65535 の値は、ユーザー定義エラー用に使用できます。
+|
+|Number プロパティをクラス モジュール内で独自のエラー コードに設定する場合、エラー コード番号を vbObjectError 定数に加えます。 たとえば、 エラー番号 513 を生成するには、vbObjectError + 513 を **Number **プロパティに割り当てます。
+|source |省略可能。 エラーを生成したオブジェクトまたはアプリケーションの名前を示す文字列式です。 Source プロパティをオブジェクトに対して設定する場合、project.class の形式を使用します。 source を指定しない場合、現在の Visual Basic プロジェクトのプログラム ID が使用されます。
+|description |Optional. エラーを説明する文字列式です。 指定しない場合、Number の値が調べられます。 Visual Basic の実行時エラー コードにマップできる場合、Error 関数によって返される文字列が Description として使用されます。 Number に対応する Visual Basic エラーがない場合、"アプリケーション定義またはオブジェクト定義のエラーです。" というメッセージが使用されます。
+|helpfile |省略可能。 このエラーに関するヘルプを確認できるヘルプ ファイルへの完全修飾パスです。 指定しない場合、Visual Basic では、完全修飾された、Visual Basic ヘルプ ファイルのドライブ、パス、およびファイル名が使用されます。 HelpFile を参照してください。
+|helpcontext |省略可能。 エラーに関するヘルプを提供する helpfile 内のトピックを識別するコンテキスト ID です。 省略した場合、Number プロパティに対応するエラーに応じた、Visual Basic ヘルプ ファイルのコンテキスト ID が使用されます (存在する場合)。 HelpContext を参照してください。
+|===
+
+.解説
+
+number 以外のすべての引数はオプションです。 一部の引数を指定しないで Raise を
+使用し、Err オブジェクトのプロパティ設定にクリアされていない値が含まれる場合、
+その値はエラーの値としての役割を果たします。
+
+実行時エラーを生成するのに Raise を使用しますが、これを Error ステートメントの
+代わりに使用することもできます。
+
+クラス モジュールを記述する場合、エラーを生成するのに Raise が役立ちます。Err
+オブジェクトでは、Error ステートメントでエラーを生成する場合に提供できる情報よ
+りも豊富な情報が提供されるためです。 たとえば、Raise メソッドを使用すると、エ
+ラーの生成元を Source プロパティに指定したり、エラーに関するオンライン ヘルプ
+を参照したりできます。
+
+.例
+
+この例では、Err オブジェクトの Raise メソッドを使用し、Visual Basic で記述され
+たオートメーション オブジェクト内でエラーを生成します。 このエラーには、
+MyProj.MyObject というプログラム ID があります。 MacIntosh では、既定のドライ
+ブ名は "HD" であり、パス名の部分はバックスラッシュではなくコロンで区切られます。
+
+
+[source,vbscript]
+----
+Const MyContextID = 1010407    ' Define a constant for contextID.
+Function TestName(CurrentName, NewName)
+    If Instr(NewName, "bob") Then    ' Test the validity of NewName.
+        ' Raise the exception
+        Err.Raise vbObjectError + 513, "MyProj.MyObject", _
+        "No ""bob"" allowed in your name", "c:\MyProj\MyHelp.Hlp", _
+        MyContextID
+    End If
+End Function
+----
+
+
+
+
+=== 演算子の概要
+
+=== Statements
+
+<<AppActivate,AppActivate>>
+
+<<Beep,Beep>>
+<<Call,Call>>
+<<ChDir,ChDir>>
+<<ChDrive,ChDrive>>
+<<Close,Close>>
+<<Const,Const>>
+<<Date,Date>>
+<<Declare,Declare>>
+<<Deftype,Deftype>>
+<<DeleteSetting,DeleteSetting>>
+<<Dim,Dim>>
+<<Do...Loop,Do...Loop>>
+<<End,End>>
+<<Enum,Enum>>
+<<Erase,Erase>>
+<<Error,Error>>
+<<Event,Event>>
+<<Exit,Exit>>
+<<FileCopy,FileCopy>>
+<<For Each...Next,For Each...Next>>
+<<For...Next,For...Next>>
+<<Function,Function>>
+<<Get,Get>>
+<<GoSub...Return,GoSub...Return>>
+<<GoTo,GoTo>>
+<<If...Then...Else,If...Then...Else>>
+<<Implements,Implements>>
+<<Input #,Input #>>
+<<Kill,Kill>>
+<<Let,Let>>
+<<Line Input #,Line Input #>>
+<<Load,Load>>
+<<Lock、Unlock,Lock、Unlock>>
+<<LSet,LSet>>
+<<Mid,Mid>>
+<<MkDir,MkDir>>
+<<Name,Name>>
+<<On Error,On Error>>
+<<On...GoSub、On...GoTo,On...GoSub、On...GoTo>>
+<<Open,Open>>
+<<Option Base,Option Base>>
+<<Option Compare,Option Compare>>
+<<Option Explicit,Option Explicit>>
+<<Option Private,Option Private>>
+<<Print #,Print #>>
+<<Private,Private>>
+<<Property Get,Property Get>>
+<<Property Let,Property Let>>
+<<Property Set,Property Set>>
+<<Public,Public>>
+<<Put,Put>>
+<<RaiseEvent,RaiseEvent>>
+<<Randomize,Randomize>>
+<<ReDim,ReDim>>
+<<Rem,Rem>>
+<<Reset,Reset>>
+<<Resume,Resume>>
+<<RmDir,RmDir>>
+<<RSet,RSet>>
+<<SaveSetting,SaveSetting>>
+<<Seek,Seek>>
+<<Select Case,Select Case>>
+<<SendKeys,SendKeys>>
+<<Set,Set>>
+<<SetAttr,SetAttr>>
+<<Static,Static>>
+<<Stop,Stop>>
+<<Sub,Sub>>
+<<Time,Time>>
+<<Type,Type>>
+<<Unload,Unload>>
+<<While...Wend,While...Wend>>
+<<Width #,Width #>>
+<<With,With>>
+<<Write #,Write #>>
+
+
+
+==== On Error ステートメント[[On Error]]
+
+エラー処理ルーチンを有効にして、プロシージャ内のルーチンの場所を指定します。エ
+ラー処理ルーチンを無効にする目的でも使用できます。
+
+.構文
+
+[source,vbscript]
+----
+On Error GoTo line
+On Error Resume Next
+**On Error GoTo 0**
+----
+
+On Error ステートメントの構文では、次の形式を使用できます。
+
+[cols="1,4",options="header"]
+|===
+|Statement |説明
+|On Error GoTo line |必須の_line_ 引数で指定された_行_から始まるエラー処理ルー
+チンを有効にします。 +
+_Line_引数には、任意の行ラベルまたは行番号を指定します。 +
+実行時エラーが発生した場合は、を_line_に分岐し、エラー処理ルーチンをアクティブ
+にします。 +
+指定した_行_は、 On Errorステートメントと同じプロシージャ内にある必要がありま
+す。それ以外の場合は、コンパイル時エラーが発生します。 
+|On Error Resume Next |実行時エラーが発生したときに、エラーが発生して実行が続行されるステートメントの直後のステートメントに制御が移動することを指定します。 オブジェクトにアクセスするときは、 On Error GoTo の代わりにこの形式を使用してください。
+|On Error GoTo 0 |現在のプロシージャですべての有効なエラー ハンドラーを無効にします。
+|===
+
+.注釈
+
+On Error ステートメントを使用しない場合は、発生するすべての実行時エラーが致命
+的となります。つまり、エラー メッセージが表示され、実行が停止します。
+
+"Enabled" エラーハンドラーは、 On errorステートメントによって有効にされたもの
+です。"アクティブな" エラーハンドラーは、エラー処理のプロセスに含まれる有効な
+ハンドラーです。 エラー処理ルーチンがアクティブな間 (error の発生とResume、
+<<exit,exit Sub、 Exit Function、またはexit Property>>ステートメントの間) にエラーが
+発生すると、現在のプロシージャのエラーハンドラーはエラーを処理できません。 制
+御は、呼び出し元のプロシージャに戻ります。
+
+呼び出し元のプロシージャに有効なエラー処理ルーチンがある場合は、エラーを処理す
+るためにアクティブ化されます。 呼び出し元のプロシージャのエラーハンドラーがア
+クティブである場合は、有効になっているが非アクティブなエラーハンドラが見つかる
+まで、制御は前の呼び出しプロシージャを戻します。 非アクティブなエラー処理ルー
+チンが存在しない場合、エラーは実際に発生した時点で致命的です。
+
+エラーハンドラーが呼び出し元のプロシージャに制御を戻すたびに、そのプロシージャ
+が現在のプロシージャになります。 任意のプロシージャでエラーハンドラーによって
+エラーが処理された後、 Resumeステートメントで指定された位置にある現在のプロシ
+ージャから実行が再開されます。
+
+
+CAUTION:	エラー処理ルーチンは、 Sub プロシージャまたは**Function** プロ
+シージャではありません。 行ラベルまたは行番号でマークが付けられた、コードのセ
+クションのことです。
+
+エラー処理ルーチンは、 <<Err,Err>> オブジェクトの**Number** プロパティの値に依
+存して、エラーの原因を特定します。 エラー処理ルーチンは、その他のエラーが発生
+する前、またはエラーを発生させる可能性があるプロシージャを呼び出す前に、 Err
+オブジェクト内の関連するプロパティ値をテストあるいは保存する必要があります。
+Err オブジェクト内のプロパティ値は、最新のエラーのみを反映します。 Err.Number
+に対応するエラー メッセージは Err.Description に含まれます。
+
+On Error Resume Nextを実行すると、実行時エラーの原因となったステートメントの直
+後のステートメント、または on エラーを含むプロシージャからの直前のステートメン
+トに従って、ステートメントが続行されます。 次のステートメントを再開します。 こ
+のステートメントを使用すると、実行時エラーが発生しても実行を続行できます。 エ
+ラー処理ルーチンは、コントロールをプロシージャ内の別の場所に転送するのではなく、
+エラーが発生する場所に配置できます。 On Error Resume nextステートメントは、別
+のプロシージャが呼び出されたときに非アクティブになります。そのため、そのルーチ
+ン内でインラインエラー処理が必要な場合は、呼び出された各ルーチンでOn error
+resume nextステートメントを実行する必要があります。
+
+CAUTION:	他のオブジェクトへのアクセス中に生成されたエラーを処理するとき
+に、On Error GoTo よりも On Error Resume Next 構成要素が適している場合がありま
+す。 オブジェクトの操作後に Err を確認すると、エラーの発生時にコードがアクセス
+していたオブジェクトを明確にできます。 Err.Number にエラー コードを設定したオ
+ブジェクトと、最初にエラーを生成したオブジェクト (Err.Source で指定されるオブ
+ジェクト) についても確認できます。
+
+
+On Error GoTo 0 は、現在のプロシージャでエラー処理を無効にします。 このステー
+トメントは、プロシージャに 0 という番号の行が含まれている場合でも、エラー処理
+コードの開始行として行 0 を指定しません。 On Error GoTo 0 ステートメントがない
+場合、プロシージャが終了するときに、エラー ハンドラーは自動的に無効にされます。
+
+エラーが発生しなかったときに、エラー処理コードが実行されないようにするには、以
+下のように、エラー処理ルーチンの直前に、Exit Sub、Exit Function、または Exit
+Property ステートメントを挿入します。
+
+
+[source,vbscript]
+----
+Sub InitializeMatrix(Var1, Var2, Var3, Var4) 
+ On Error GoTo ErrorHandler 
+ . . . 
+ Exit Sub 
+ErrorHandler: 
+ . . . 
+ Resume Next 
+End Sub
+----
+
+ここでは、エラー処理コードがExit subステートメントの後に続き、 End sub ステー
+トメントの前に、プロシージャフローから分離しています。 エラー処理コードは、プ
+ロシージャ内の任意の場所に配置できます。
+
+オブジェクトが実行可能ファイルとして実行中の場合、オブジェクト内の未トラップの
+エラーは、制御アプリケーションに戻されます。 開発環境では、適切なオプションが
+設定されている場合のみ、未トラップのエラーは制御アプリケーションに戻されます。
+デバッグ中に、どのオプションを設定する必要があるか、設定の方法、そしてホストが
+クラスを作成できるかどうかの詳細については、ホスト アプリケーションの文書を参
+照してください。
+
+その他のオブジェクトにアクセスするオブジェクトを作成する場合、そこから未処理で
+戻されたエラーの処理を試行する必要があります。 このようなエラーを処理できない
+場合は、Err.Number 内でエラー コードを自分のエラーの 1 つにマップして、それを
+オブジェクトの呼び出し元に戻します。 vbObjectError 定数にエラー コードを追加す
+ることにより、エラーを指定する必要があります。 たとえば、エラー コードが 1052
+の場合、以下のように割り当てます。
+
+
+[source,vbscript]
+----
+Err.Number = vbObjectError + 1052 
+----
+
+CAUTION:	Windowsダイナミックリンクライブラリ(DLL) または Macintosh コー
+ドリソースへの通話中のシステムエラーは、例外を発生させずに、Visual Basic のエ
+ラートラップを使用してトラップすることはできません。 DLL 関数を呼び出すときは、
+各戻り値の成功または失敗を確認する必要があります (API 仕様による)。エラーが発
+生した場合は、 Errオブジェクトの**LastDLLError** プロパティの値を確認してくだ
+さい。 LastDLLErrorは常に Macintosh で0を返します。
+
+
+
+.例
+
+この例では、最初に On Error GoTo ステートメントを使用して、プロシージャ内のエ
+ラー処理ルーチンの場所を指定します。 この例では、開かれたファイルを削除しよう
+としたときに、エラー番号 55 が生成されます。 エラーはエラー処理ルーチンで処理
+され、次に、制御がエラーを起こしたステートメントに戻されます。 On Error GoTo 0
+ステートメントは、エラー トラッピングをオフにします。
+
+次に、On Error Resume nextステートメントを使用してエラートラップを延期し、次の
+ステートメントによって生成されたエラーのコンテキストが特定のものとして認識され
+るようにします。 エラーが処理された後で、 Err.Clear が使用され、 Err オブジェ
+クトのプロパティを消去していることに注意してください。
+
+
+[source,vbscript]
+----
+Sub OnErrorStatementDemo() 
+ On Error GoTo ErrorHandler ' Enable error-handling routine. 
+ Open "TESTFILE" For Output As #1 ' Open file for output. 
+ Kill "TESTFILE" ' Attempt to delete open 
+ ' file. 
+ On Error Goto 0 ' Turn off error trapping. 
+ On Error Resume Next ' Defer error trapping. 
+ ObjectRef = GetObject("MyWord.Basic") ' Try to start nonexistent 
+ ' object, then test for 
+'Check for likely Automation errors. 
+ If Err.Number = 440 Or Err.Number = 432 Then 
+ ' Tell user what happened. Then clear the Err object. 
+ Msg = "There was an error attempting to open the Automation object!" 
+ MsgBox Msg, , "Deferred Error Test" 
+ Err.Clear ' Clear Err object fields 
+ End If 
+Exit Sub ' Exit to avoid handler. 
+ErrorHandler: ' Error-handling routine. 
+ Select Case Err.Number ' Evaluate error number. 
+ Case 55 ' "File already open" error. 
+ Close #1 ' Close open file. 
+ Case Else 
+ ' Handle other situations here... 
+ End Select 
+ Resume ' Resume execution at same line 
+ ' that caused the error. 
+End Sub
+----
+
+==== On...GoSub、On...GoTo ステートメント[[On...GoSub]][[On...GoTo]][[On...GoSub、On...GoTo]]
+
+式の値に応じて、複数の指定した行のいずれかに分岐します。
+
+.構文
+
+[source,vbscript]
+----
+On expression GoSub destinationlist
+On expression GoTo destinationlist
+----
+
+On...GoSub ステートメントおよび On...GoTo ステートメントの構文には、次の指定項
+目があります。
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|expression |必ず指定します。 0 以上 255 以下の整数に評価される任意の数値式です。 expression が整数以外の数値の場合は、評価の前に四捨五入されます。
+|destinationlist |必須。 コンマで区切られた行番号または行ラベルのリスト。
+|===
+
+.解説
+
+expression の値により、destinationlist 内のどの行に分岐するかが決まります。
+expression の値が 1 より小さい場合やリスト内の項目数よりも大きい場合、結果は次
+のいずれかになります。
+
+
+[cols="1,4",options="header"]
+|===
+|expression の値 |その結果
+|0 に等しい |On...GoSub または On...GoTo の次のステートメントに制御が移動します。
+|リスト内の項目数より大きい |On...GoSub または On...GoTo の次のステートメントに制御が移動します。
+|負の値 |エラーが発生します。
+|255 より大きい |エラーが発生します。
+|===
+
+
+同じリスト内に行番号と行ラベルが混在していてもかまいません。 On...GoSub および
+On...GoTo には、任意の数の行番ラベルと行番号を使用できます。 ただし、1 行に収
+まらない数のラベルや番号を使用する場合は、行連結文字を使用して、論理行が次の物
+理行につながるようにする必要があります。
+
+TIP:	Select Case を使用すると、より構造化された柔軟な方法で複数の分岐を実行
+できます。
+
+
+.例
+
+この例では、On...GoSub ステートメントと On...GoTo ステートメントを使用して、そ
+れぞれサブルーチンと行番号に分岐します。
+
+
+[source,vbscript]
+----
+Sub OnGosubGotoDemo() 
+Dim Number, MyString 
+ Number = 2 ' Initialize variable. 
+ ' Branch to Sub2. 
+ On Number GoSub Sub1, Sub2 ' Execution resumes here after 
+ ' On...GoSub. 
+ On Number GoTo Line1, Line2 ' Branch to Line2. 
+ ' Execution does not resume here after On...GoTo. 
+ Exit Sub 
+Sub1: 
+ MyString = "In Sub1" : Return 
+Sub2: 
+ MyString = "In Sub2" : Return 
+Line1: 
+ MyString = "In Line1" 
+Line2: 
+ MyString = "In Line2" 
+End Sub
+----
 
 
 
@@ -3149,6 +5245,98 @@ IsEmpty>>、 <<IsError,IsError>>、 <<IsMissing,IsMissing>>、 <<IsNull,IsNull>>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== Visual Basic Add-in Model reference
+
+Visual Basic エディターのカスタマイズ方法と、環境を拡張するために使用できるオ
+ブジェクト モデルについて説明します。
+
+* コレクション
+* イベント
+* メソッド
+* オブジェクト
+* プロパティ
 
 
 
