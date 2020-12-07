@@ -1353,10 +1353,19 @@ Debug<span style="color: #990000">.</span>Print <span style="font-weight: bold">
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
 </tt></pre></div></div>
 </div>
+<div class="sect2">
+<h3 id="_すべてのシート選択">すべてのシート選択</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>worksheets<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">select</span></span></tt></pre></div></div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_セル">セル</h2>
+<h2 id="_cells">cells</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_行の追加">行の追加</h3>
@@ -1455,6 +1464,38 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3"</span><span style="color: #990000">).</span>UsedRange<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">Select</span></span></tt></pre></div></div>
+<div class="literalblock">
+<div class="content">
+<pre><code>   A B C D E
+ ＋ーーーーーーーーーーーーーー
+1｜□□□□□
+2｜□■■■□
+3｜□■■■□
+4｜□■■■□
+5｜□■■■□
+6｜□□□□□</code></pre>
+</div></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"先頭行 "</span> <span style="color: #990000">&amp;</span> Selection<span style="color: #990000">.</span>Row
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"行数 "</span> <span style="color: #990000">&amp;</span> Selection<span style="color: #990000">.</span>Rows<span style="color: #990000">.</span>Count
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"最終行 "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Selection</span></span><span style="color: #990000">(</span>Selection<span style="color: #990000">.</span>Count<span style="color: #990000">).</span>Row
+
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"先頭列 "</span> <span style="color: #990000">&amp;</span> Selection<span style="color: #990000">.</span>Column
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"列数 "</span> <span style="color: #990000">&amp;</span> Selection<span style="color: #990000">.</span>Columns<span style="color: #990000">.</span>Count
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"最終列 "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Selection</span></span><span style="color: #990000">(</span>Selection<span style="color: #990000">.</span>Count<span style="color: #990000">).</span>Column
+
+先頭行 <span style="color: #993399">2</span>
+行数 <span style="color: #993399">4</span>
+最終行 <span style="color: #993399">5</span>
+先頭列 <span style="color: #993399">2</span>
+列数 <span style="color: #993399">3</span>
+最終列 <span style="color: #993399">4</span>
+
+</tt></pre></div></div>
 </div>
 <div class="sect2">
 <h3 id="_セルの指定">セルの指定</h3>
@@ -1792,66 +1833,45 @@ http://www.gnu.org/software/src-highlite -->
     order2<span style="color: #990000">:=</span>xlAscending<span style="color: #990000">)</span></tt></pre></div></div>
 <div class="sect3">
 <h4 id="_セル_変数">セル　→　変数</h4>
-<div class="tableblock">
-<table rules="all"
-width="100%"
-frame="border"
-cellspacing="0" cellpadding="4">
-<col width="20%" />
-<col width="80%" />
-<thead>
-<tr>
-<th align="left" valign="top">a</th>
-<th align="left" valign="top">u</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left" valign="top"><p class="table">b</p></td>
-<td align="left" valign="top"><p class="table">v</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">c</p></td>
-<td align="left" valign="top"><p class="table">w</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">d</p></td>
-<td align="left" valign="top"><p class="table">x</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">e</p></td>
-<td align="left" valign="top"><p class="table">y</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">f</p></td>
-<td align="left" valign="top"><p class="table">z</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+<div class="literalblock">
+<div class="content">
+<pre><code>   A B C D E
+ ＋ーーーーーーーーーーーーーー
+1｜□□□□□
+2｜□ＡＥＩ□
+3｜□ＢＦＪ□
+4｜□ＣＧＫ□
+5｜□ＤＨＬ□
+6｜□□□□□</code></pre>
+</div></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt>    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> 一次元配列 As Variant
+<pre><tt>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> 一次元配列 As Variant
     <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> 二次元配列 As Variant
 
-    二次元配列 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A1:B6"</span><span style="color: #990000">)</span>
+    二次元配列 <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"B2:D5"</span><span style="color: #990000">)</span>
     一次元配列 <span style="color: #990000">=</span> WorksheetFunction<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Index</span></span><span style="color: #990000">(</span>二次元配列<span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">)</span>
-    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"3行目 "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Join</span></span><span style="color: #990000">(</span>a<span style="color: #990000">,</span> <span style="color: #FF0000">","</span><span style="color: #990000">)</span>
-<span style="font-style: italic"><span style="color: #9A1900">''3行目  c,w</span></span>
+    Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"3行目 "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Join</span></span><span style="color: #990000">(</span>一次元配列<span style="color: #990000">,</span> <span style="color: #FF0000">","</span><span style="color: #990000">)</span>
+<span style="font-style: italic"><span style="color: #9A1900">'3行目 C,G,K</span></span>
 
     一次元配列 <span style="color: #990000">=</span> WorksheetFunction<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Index</span></span><span style="color: #990000">(</span>WorksheetFunction<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Transpose</span></span><span style="color: #990000">(</span>二次元配列<span style="color: #990000">),</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
     Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"1列目 "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">Join</span></span><span style="color: #990000">(</span>一次元配列<span style="color: #990000">,</span> <span style="color: #FF0000">","</span><span style="color: #990000">)</span>
-<span style="font-style: italic"><span style="color: #9A1900">''1列目  a,b,c,d,e,f</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">'1列目 A,B,C,D</span></span>
+
 </tt></pre></div></div>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_変数_2">変数</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_変数_2">変数</h3>
-<div class="sect3">
-<h4 id="_値のない場合の表現">値のない場合の表現</h4>
+<h3 id="_値のない場合の表現">値のない場合の表現</h3>
 <div class="tableblock">
 <table rules="all"
 width="100%"
@@ -1896,7 +1916,6 @@ cellspacing="0" cellpadding="4">
 </tbody>
 </table>
 </div>
-</div>
 <div class="sect3">
 <h4 id="_empty">Empty</h4>
 <div class="paragraph"><p>空白のセルの値</p></div>
@@ -1935,8 +1954,10 @@ http://www.gnu.org/software/src-highlite -->
 </div>
 </div>
 <div class="sect1">
-<h2 id="_vbaで関数名を変数で使う">VBAで関数名を変数で使う</h2>
+<h2 id="_関数">関数</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_vbaで関数名を変数で使う">VBAで関数名を変数で使う</h3>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
@@ -1957,10 +1978,8 @@ http://www.gnu.org/software/src-highlite -->
     MsgBox <span style="color: #FF0000">"Call_2"</span>
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_httpリクエスト">HTTPリクエスト</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_httpリクエスト">HTTPリクエスト</h3>
 <div class="paragraph"><p>参照設定    Microsoft XML v6.0</p></div>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
@@ -1978,91 +1997,41 @@ http://www.gnu.org/software/src-highlite -->
     Debug<span style="color: #990000">.</span>Print httpReq<span style="color: #990000">.</span>responseText
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_a_href_https_docs_microsoft_com_ja_jp_office_vba_api_excel_range_object_range_オブジェクト_excel_microsoft_docs_a"><a href="https://docs.microsoft.com/ja-jp/office/vba/api/excel.range(object)">Range オブジェクト (Excel) | Microsoft Docs</a></h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_range_address_プロパティ_excel">Range.Address プロパティ (Excel)</h3>
-<div class="paragraph"><p>コード記述時の言語で参照範囲を表す文字列型 (String) の値を返します。</p></div>
-<div class="listingblock">
-<div class="title">構文</div>
-<div class="content"><!-- Generator: GNU source-highlight 3.1.6
-by Lorenzo Bettini
-http://www.lorenzobettini.it
-http://www.gnu.org/software/src-highlite -->
-<pre><tt>expression<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span> <span style="color: #990000">(</span>RowAbsolute<span style="color: #990000">,</span> ColumnAbsolute<span style="color: #990000">,</span> ReferenceStyle<span style="color: #990000">,</span> External<span style="color: #990000">,</span> RelativeTo<span style="color: #990000">)</span></tt></pre></div></div>
-<div class="paragraph"><p>expression は Range オブジェクトを表す変数です。</p></div>
-<div class="tableblock">
-<table rules="all"
-width="100%"
-frame="border"
-cellspacing="0" cellpadding="4">
-<caption class="title">Table 2. パラメーター</caption>
-<col width="14%" />
-<col width="14%" />
-<col width="14%" />
-<col width="57%" />
-<thead>
-<tr>
-<th align="left" valign="top">名前 </th>
-<th align="left" valign="top">必須 / オプション </th>
-<th align="left" valign="top">データ型 </th>
-<th align="left" valign="top">説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left" valign="top"><p class="table">RowAbsolute</p></td>
-<td align="left" valign="top"><p class="table">Optional</p></td>
-<td align="left" valign="top"><p class="table">Variant</p></td>
-<td align="left" valign="top"><p class="table">行部分の参照を絶対参照として返すには、 True を指定します。 既定値は True です。</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">ColumnAbsolute</p></td>
-<td align="left" valign="top"><p class="table">Optional</p></td>
-<td align="left" valign="top"><p class="table">Variant</p></td>
-<td align="left" valign="top"><p class="table">列部分の参照を絶対参照として返すには、 True を指定します。 既定値は True です。</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">ReferenceStyle</p></td>
-<td align="left" valign="top"><p class="table">省略可能</p></td>
-<td align="left" valign="top"><p class="table">XlReferenceStyle</p></td>
-<td align="left" valign="top"><p class="table">参照形式を指定します。 既定値は xlA1 です。</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">外部</p></td>
-<td align="left" valign="top"><p class="table">Optional</p></td>
-<td align="left" valign="top"><p class="table">Variant</p></td>
-<td align="left" valign="top"><p class="table">外部参照を返すには、 True を指定します。 ローカル参照を返すには、 False を指定します。 既定値は False です。</p></td>
-</tr>
-<tr>
-<td align="left" valign="top"><p class="table">RelativeTo</p></td>
-<td align="left" valign="top"><p class="table">Optional</p></td>
-<td align="left" valign="top"><p class="table">Variant</p></td>
-<td align="left" valign="top"><p class="table">RowAbsolute および ColumnAbsolute が False であるときに、ReferenceStyle が xlR1C1 である場合は、相対参照の開始点を含める必要があります。 この引数は開始点を定義する Range オブジェクトです。<br />
-注: Excel VBA 7.1 を使用したテストでは、明示的な開始点が必須ではないことが示されます。 $A$1 の既定の参照があるようです。</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="paragraph"><div class="title">解説</div><p>参照に複数のセルが含まれている場合は、引数 RowAbsolute と引数 ColumnAbsolute
-はすべての行と列に適用されます。</p></div>
-<div class="paragraph"><div class="title">例</div><p>次の使用例は、シート 1 の同じセル アドレスを 4 つの異なる方法で表します。 コー
-ド中のコメントは、メッセージで表示されるアドレスを示しています。</p></div>
+<h3 id="_sprintf関数">sprintf関数</h3>
 <div class="listingblock">
 <div class="content"><!-- Generator: GNU source-highlight 3.1.6
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> mc <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sheet1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
-MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">()</span> <span style="font-style: italic"><span style="color: #9A1900">' $A$1 ★</span></span>
-MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' $A1</span></span>
-MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span>xlR1C1<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' R1C1 ★</span></span>
-MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span>xlR1C1<span style="color: #990000">,</span> _
- RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
- ColumnAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
- RelativeTo<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">))</span> <span style="font-style: italic"><span style="color: #9A1900">' R[-2]C[-2]</span></span></tt></pre></div></div>
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">sample</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> str As String
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> t As String
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Long
+    i <span style="color: #990000">=</span> <span style="color: #993399">100</span>
+    t <span style="color: #990000">=</span> <span style="color: #FF0000">"This is a pen."</span>
+    str <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">sprintf</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"%s%s"</span><span style="color: #990000">,</span> t<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">CLng</span></span><span style="color: #990000">(</span>i<span style="color: #990000">))</span>
+    Debug<span style="color: #990000">.</span>Print str
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span>
+
+Public <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span> <span style="font-weight: bold"><span style="color: #000000">sprintf</span></span><span style="color: #990000">(</span>ByVal st As String<span style="color: #990000">,</span> ParamArray <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">()</span> As Variant<span style="color: #990000">)</span> As String
+    st <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Replace</span></span><span style="color: #990000">(</span>st<span style="color: #990000">,</span> <span style="color: #FF0000">"</span><span style="color: #CC33CC">\n</span><span style="color: #FF0000">"</span><span style="color: #990000">,</span> vbNewLine<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> <span style="font-weight: bold"><span style="color: #000000">s</span></span><span style="color: #990000">()</span> As String<span style="color: #990000">:</span> s <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Split</span></span><span style="color: #990000">(</span>st<span style="color: #990000">,</span> <span style="color: #FF0000">"%s"</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>args<span style="color: #990000">)</span> <span style="color: #990000">+</span> <span style="color: #993399">1</span><span style="color: #990000">)</span> <span style="color: #990000">&lt;&gt;</span> <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>s<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        Err<span style="color: #990000">.</span>Raise <span style="color: #993399">1000</span><span style="color: #990000">,</span> <span style="color: #FF0000">"sprintf"</span><span style="color: #990000">,</span> <span style="color: #FF0000">"sprintf関数:"</span> <span style="color: #990000">&amp;</span> _
+            <span style="color: #FF0000">"%sの数と引数の数が一致していません。"</span>
+        sprintf <span style="color: #990000">=</span> st
+        <span style="font-weight: bold"><span style="color: #0000FF">Exit</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> buf As String<span style="color: #990000">:</span> buf <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">s</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i As Integer
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span> To <span style="font-weight: bold"><span style="color: #000000">UBound</span></span><span style="color: #990000">(</span>args<span style="color: #990000">)</span>
+        buf <span style="color: #990000">=</span> buf <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">s</span></span><span style="color: #990000">(</span>i <span style="color: #990000">+</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> i
+
+    sprintf <span style="color: #990000">=</span> buf
+<span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Function</span></span></tt></pre></div></div>
 </div>
 </div>
 </div>
@@ -2469,22 +2438,29 @@ http://www.gnu.org/software/src-highlite -->
         <span style="color: #990000">,</span> <span style="color: #FF0000">" bat arguments"</span>
 <span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">sub</span></span>
 
-<span style="font-weight: bold"><span style="color: #0000FF">if</span></span> w<span style="color: #990000">.</span>Arguments<span style="color: #990000">.</span>Count <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">sub</span></span> Main
+  <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> w<span style="color: #990000">.</span>Arguments<span style="color: #990000">.</span>Count <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
         usage
-<span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span>
+  <span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span>
 
-<span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> i
+  <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> i
 
-<span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> arg
-<span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="font-weight: bold"><span style="color: #0000FF">each</span></span> arg in args
+  <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> arg
+  <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="font-weight: bold"><span style="color: #0000FF">each</span></span> arg in args
         w<span style="color: #990000">.</span>echo w<span style="color: #990000">.</span>scriptFullName _
         <span style="color: #990000">,</span> vbnewline _
         <span style="color: #990000">,</span> w<span style="color: #990000">.</span>scriptname _
         <span style="color: #990000">,</span> vbnewline _
         <span style="color: #990000">,</span> arg
-<span style="font-weight: bold"><span style="color: #0000FF">next</span></span>
+  <span style="font-weight: bold"><span style="color: #0000FF">next</span></span>
 
-w<span style="color: #990000">.</span>echo <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span>  <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span></tt></pre></div></div>
+  w<span style="color: #990000">.</span>echo <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span>  <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">sub</span></span>
+
+Main
+
+<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fso
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fso <span style="color: #990000">=</span> WScript<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span></tt></pre></div></div>
 </div>
 </div>
 <div class="sect1">
@@ -2547,7 +2523,7 @@ Close メソッドは、バッファーをフラッシュし、ファイルを�
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 3. メソッド</caption>
+<caption class="title">Table 2. メソッド</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -2673,7 +2649,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 4. プロパティ</caption>
+<caption class="title">Table 3. プロパティ</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -4116,7 +4092,7 @@ a<span style="color: #990000">.</span>Close</tt></pre></div></div>
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 5. メソッド</caption>
+<caption class="title">Table 4. メソッド</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -4170,7 +4146,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 6. プロパティ</caption>
+<caption class="title">Table 5. プロパティ</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -5029,7 +5005,7 @@ d<span style="color: #990000">.</span>Add <span style="color: #FF0000">"c"</span
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 7. メソッド</caption>
+<caption class="title">Table 6. メソッド</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -5071,7 +5047,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 8. プロパティ</caption>
+<caption class="title">Table 7. プロパティ</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -5712,7 +5688,7 @@ With ActiveSheet<span style="color: #990000">.</span>Shapes<span style="color: #
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 9. Xlcharttype クラス列挙 (Excel)</caption>
+<caption class="title">Table 8. Xlcharttype クラス列挙 (Excel)</caption>
 <col width="44%" />
 <col width="11%" />
 <col width="44%" />
@@ -6501,7 +6477,7 @@ http://www.gnu.org/software/src-highlite -->
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 10. 構文</caption>
+<caption class="title">Table 9. 構文</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -7406,7 +7382,7 @@ Year
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 11. is関数</caption>
+<caption class="title">Table 10. is関数</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -8109,7 +8085,7 @@ Year
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 12. is関数</caption>
+<caption class="title">Table 11. is関数</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -8818,7 +8794,7 @@ Year
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 13. is関数</caption>
+<caption class="title">Table 12. is関数</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -9742,7 +9718,7 @@ http://www.gnu.org/software/src-highlite -->
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 14. 構文</caption>
+<caption class="title">Table 13. 構文</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -10809,7 +10785,7 @@ statements
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 15. 構文</caption>
+<caption class="title">Table 14. 構文</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -12539,7 +12515,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 16. 解説</caption>
+<caption class="title">Table 15. 解説</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -12592,7 +12568,7 @@ Basic Calendar プロパティ設定が Hijri である場合、指定する exp
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 17. 日付記号</caption>
+<caption class="title">Table 16. 日付記号</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -12654,7 +12630,7 @@ cellspacing="0" cellpadding="4">
 width="100%"
 frame="border"
 cellspacing="0" cellpadding="4">
-<caption class="title">Table 18. 時間記号</caption>
+<caption class="title">Table 17. 時間記号</caption>
 <col width="20%" />
 <col width="80%" />
 <thead>
@@ -18402,7 +18378,7 @@ cellspacing="0" cellpadding="4">
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-12-03 21:51:49 JST
+Last updated 2020-12-08 05:55:03 JST
 </div>
 </div>
 </body>

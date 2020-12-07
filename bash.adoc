@@ -83,7 +83,7 @@ echo $((x+y))
 
 == 条件式
 
-[cols="1,4",options="header"]
+[cols="2,4",options="header"]
 |===
 |options|説明
 |-a file| file が存在すれば真となります。
@@ -117,7 +117,7 @@ echo $((x+y))
 
 .string
 
-[cols="1,4",options="header"]
+[cols="2,4",options="header"]
 |===
 |options|説明
 |-n string| string の長さが 0 でなければ真となります。

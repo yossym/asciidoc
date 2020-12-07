@@ -448,7 +448,15 @@ End Function
 
 ----
 
-== セル
+=== すべてのシート選択
+
+
+[source,VBSCRIPT]
+----
+worksheets.select
+----
+
+== cells
 === 行の追加
 
 ==== 1行追加
@@ -530,6 +538,36 @@ Range("A3").CurrentRegion.Selct
 Range("A3").UsedRange.Select
 ----
 
+
+	   A B C D E
+	 ＋ーーーーーーーーーーーーーー
+	1｜□□□□□
+	2｜□■■■□
+	3｜□■■■□
+	4｜□■■■□
+	5｜□■■■□
+	6｜□□□□□
+
+
+[source,VBSCRIPT]
+----
+    Debug.Print "先頭行 " & Selection.Row
+    Debug.Print "行数 " & Selection.Rows.Count
+    Debug.Print "最終行 " & Selection(Selection.Count).Row
+
+    Debug.Print "先頭列 " & Selection.Column
+    Debug.Print "列数 " & Selection.Columns.Count
+    Debug.Print "最終列 " & Selection(Selection.Count).Column
+
+先頭行 2
+行数 4
+最終行 5
+先頭列 2
+列数 3
+最終列 4
+
+
+----
 
 
 === セルの指定
@@ -789,34 +827,38 @@ Call Range("A1:C5").Sort(key1:=Range("A1"), _
 
 ==== セル　→　変数
 
-[cols="1,4",options="header"]
-|===
-|a|u
-|b|v
-|c|w
-|d|x
-|e|y
-|f|z
-|===
+
+
+	   A B C D E
+	 ＋ーーーーーーーーーーーーーー
+	1｜□□□□□
+	2｜□ＡＥＩ□
+	3｜□ＢＦＪ□
+	4｜□ＣＧＫ□
+	5｜□ＤＨＬ□
+	6｜□□□□□
+
 
 [source,VBSCRIPT]
 ----
+
     Dim 一次元配列 As Variant
     Dim 二次元配列 As Variant
 
-    二次元配列 = Range("A1:B6")
+    二次元配列 = Range("B2:D5")
     一次元配列 = WorksheetFunction.Index(二次元配列, 3)
-    Debug.Print "3行目 " & Join(a, ",")
-''3行目  c,w
+    Debug.Print "3行目 " & Join(一次元配列, ",")
+'3行目 C,G,K
 
     一次元配列 = WorksheetFunction.Index(WorksheetFunction.Transpose(二次元配列), 1)
     Debug.Print "1列目 " & Join(一次元配列, ",")
-''1列目  a,b,c,d,e,f
+'1列目 A,B,C,D
+
 
 ----
 
-=== 変数
-==== 値のない場合の表現
+== 変数
+=== 値のない場合の表現
 
 
 [cols="1,1,4",options="header"]
@@ -870,8 +912,8 @@ String型
 
 String型の初期値
 
-
-== VBAで関数名を変数で使う
+== 関数
+=== VBAで関数名を変数で使う
 
 
 [source,vbscript]
@@ -892,7 +934,7 @@ Sub Call_2()
 End Sub
 ----
 
-== HTTPリクエスト
+=== HTTPリクエスト
 
 参照設定	Microsoft XML v6.0
 
@@ -911,62 +953,40 @@ Sub HTTPRequest()
 End Sub
 ----
 
+=== sprintf関数
 
-== https://docs.microsoft.com/ja-jp/office/vba/api/excel.range(object)[Range オブジェクト (Excel) | Microsoft Docs]
 
-=== Range.Address プロパティ (Excel)
-
-コード記述時の言語で参照範囲を表す文字列型 (String) の値を返します。
-
-.構文
-
-[source,vbscript]
+[source,VBSCRIPT]
 ----
-expression.Address (RowAbsolute, ColumnAbsolute, ReferenceStyle, External, RelativeTo)
+Sub sample()
+    Dim str As String
+    Dim t As String
+    Dim i As Long
+    i = 100
+    t = "This is a pen."
+    str = sprintf("%s%s", t, CLng(i))
+    Debug.Print str
+End Sub
+
+Public Function sprintf(ByVal st As String, ParamArray args() As Variant) As String
+    st = Replace(st, "\n", vbNewLine)
+    Dim s() As String: s = Split(st, "%s")
+    If (UBound(args) + 1) <> UBound(s) Then
+        Err.Raise 1000, "sprintf", "sprintf関数:" & _
+            "%sの数と引数の数が一致していません。"
+        sprintf = st
+        Exit Function
+    End If
+    
+    Dim buf As String: buf = s(0)
+    Dim i As Integer
+    For i = 0 To UBound(args)
+        buf = buf & args(i) & s(i + 1)
+    Next i
+    
+    sprintf = buf
+End Function
 ----
-
-expression は Range オブジェクトを表す変数です。
-
-.パラメーター
-
-[cols="1,1,1,4",options="header"]
-|===
-|名前 |必須 / オプション |データ型 |説明
-|RowAbsolute |Optional |Variant |行部分の参照を絶対参照として返すには、 True を指定します。 既定値は True です。
-|ColumnAbsolute |Optional |Variant |列部分の参照を絶対参照として返すには、 True を指定します。 既定値は True です。
-|ReferenceStyle |省略可能 |XlReferenceStyle |参照形式を指定します。 既定値は xlA1 です。
-|外部 |Optional |Variant |外部参照を返すには、 True を指定します。 ローカル参照を返すには、 False を指定します。 既定値は False です。|RelativeTo |Optional |Variant |RowAbsolute および ColumnAbsolute が False であるときに、ReferenceStyle が xlR1C1 である場合は、相対参照の開始点を含める必要があります。 この引数は開始点を定義する Range オブジェクトです。 +
-注: Excel VBA 7.1 を使用したテストでは、明示的な開始点が必須ではないことが示されます。 $A$1 の既定の参照があるようです。
-|===
-
-
-
-.解説
-
-参照に複数のセルが含まれている場合は、引数 RowAbsolute と引数 ColumnAbsolute
-はすべての行と列に適用されます。
-
-.例
-
-次の使用例は、シート 1 の同じセル アドレスを 4 つの異なる方法で表します。 コー
-ド中のコメントは、メッセージで表示されるアドレスを示しています。
-
-
-[source,vbscript]
-----
-Set mc = Worksheets("Sheet1").Cells(1, 1)
-MsgBox mc.Address() ' $A$1 ★
-MsgBox mc.Address(RowAbsolute:=False) ' $A1
-MsgBox mc.Address(ReferenceStyle:=xlR1C1) ' R1C1 ★
-MsgBox mc.Address(ReferenceStyle:=xlR1C1, _
- RowAbsolute:=False, _
- ColumnAbsolute:=False, _
- RelativeTo:=Worksheets(1).Cells(3, 3)) ' R[-2]C[-2]
-----
-
-
-
-
 
 
 
@@ -1382,22 +1402,29 @@ sub Usage
 	, " bat arguments"
 end sub
 
-if w.Arguments.Count = 0 then
-	usage
-end if
+sub Main
+  if w.Arguments.Count = 0 then
+  	usage
+  end if
 
-dim i
+  dim i
 
-dim arg
-for each arg in args
-	w.echo w.scriptFullName _
-	, vbnewline _
-	, w.scriptname _
-	, vbnewline _
-	, arg
-next
+  dim arg
+  for each arg in args
+  	w.echo w.scriptFullName _
+  	, vbnewline _
+  	, w.scriptname _
+  	, vbnewline _
+  	, arg
+  next
 
-w.echo args(0) &  args(1)
+  w.echo args(0) &  args(1)
+end sub
+
+Main
+
+Dim fso
+Set fso = WScript.CreateObject("Scripting.FileSystemObject")
 ----
 
 == FileSystemObject オブジェクト
