@@ -3,7 +3,7 @@ FLAGS	= -a toc2 -a toclevels=3
 FILES	= VBA.adoc Makefile VBA*.adoc
 
 
-all:	VBA.html AsciiCode.html bash.html
+all:	VBA.html AsciiCode.html bash.html perl.html
 
 # VBA.html:	VBA.adoc Makefile VBAFunction.adoc VBAKeyword.adoc VBSctipt.adoc VBAvariable.adoc
 VBA.html:	$(FILES)
@@ -14,6 +14,9 @@ AsciiCode.html:	AsciiCode.adoc Makefile
 
 bash.html:	bash.adoc
 	$(CC) $(FLAGS) bash.adoc
+
+perl.html:	perl.adoc
+	$(CC) $(FLAGS) perl.adoc
 
 # all:	VBA.html AsciiCode.html bash.html
 # # ALL: *.adoc

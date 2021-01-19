@@ -1045,15 +1045,17 @@ http://www.gnu.org/software/src-highlite -->
 <h2 id="_lorem_ipsum">lorem ipsum</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>lorem ipsum（ロレム・イプサム、略してリプサム lipsum ともいう）</p></div>
-<div class="paragraph"><p>ダミーテキスト</p></div>
+<div class="paragraph"><p>ダミーテキスト,サンプルテキスト</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><code> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-in culpa qui officia deserunt mollit anim id est laborum.</code></pre>
+<pre><code> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua.
+ Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+aliquip ex ea commodo consequat.
+ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+eu fugiat nulla pariatur.
+ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum.</code></pre>
 </div></div>
 </div>
 </div>
@@ -1864,6 +1866,42 @@ http://www.gnu.org/software/src-highlite -->
 
 </tt></pre></div></div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_アドレス指定">アドレス指定</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>ActiveCell<span style="color: #990000">.</span>Address
+$A$<span style="color: #993399">1</span>
+
+Activecell<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span>
+$A1
+
+Activecell<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ColumnAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span>
+A$<span style="color: #993399">1</span>
+
+Activecell<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
+                ColumnAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span>
+A1
+
+Activecell<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span> xlA1<span style="color: #990000">)</span>
+A1 形式<span style="color: #990000">(</span>デフォルト<span style="color: #990000">)</span>
+
+Activecell<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span> xlR1C1<span style="color: #990000">)</span>
+R1C1 形式
+
+
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> mc <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Sheet1"</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">()</span> <span style="font-style: italic"><span style="color: #9A1900">' $A$1</span></span>
+MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' $A1</span></span>
+MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span>xlR1C1<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' R1C1</span></span>
+MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span>xlR1C1<span style="color: #990000">,</span> _
+ RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
+ ColumnAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
+ RelativeTo<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">))</span> <span style="font-style: italic"><span style="color: #9A1900">' R[-2]C[-2]</span></span></tt></pre></div></div>
 </div>
 </div>
 </div>
@@ -18378,7 +18416,7 @@ cellspacing="0" cellpadding="4">
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-12-08 05:55:03 JST
+Last updated 2020-12-23 21:22:49 JST
 </div>
 </div>
 </body>

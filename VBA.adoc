@@ -857,6 +857,43 @@ Call Range("A1:C5").Sort(key1:=Range("A1"), _
 
 ----
 
+
+=== アドレス指定
+
+
+[source,VBSCRIPT]
+----
+ActiveCell.Address
+$A$1
+
+Activecell.Address(RowAbsolute:=False)
+$A1
+
+Activecell.Address(ColumnAbsolute:=False)
+A$1
+
+Activecell.Address(RowAbsolute:=False, _
+		ColumnAbsolute:=False)
+A1
+
+Activecell.Address(ReferenceStyle:= xlA1)
+A1 形式(デフォルト)
+
+Activecell.Address(ReferenceStyle:= xlR1C1)
+R1C1 形式
+
+
+Set mc = Worksheets("Sheet1").Cells(1, 1) 
+MsgBox mc.Address() ' $A$1 
+MsgBox mc.Address(RowAbsolute:=False) ' $A1 
+MsgBox mc.Address(ReferenceStyle:=xlR1C1) ' R1C1 
+MsgBox mc.Address(ReferenceStyle:=xlR1C1, _ 
+ RowAbsolute:=False, _ 
+ ColumnAbsolute:=False, _ 
+ RelativeTo:=Worksheets(1).Cells(3, 3)) ' R[-2]C[-2]
+----
+
+
 == 変数
 === 値のない場合の表現
 

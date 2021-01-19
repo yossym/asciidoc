@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>perldebtut - Perl でのデバッグのチュートリアル - perldoc.jp</title>
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="description" content="Perl でのデバッグのチュートリアル" />
+<meta name="keywords" content="Perl,翻訳,モジュール">
+<link href="/static/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+<link href="/static/css/print.css" media="print" rel="stylesheet" type="text/css" />
+<!--[if IE]>
+    <link href="/static/css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+<link rel="shortcut icon" href="/favicon.ico" />
+<script src="/static/prettify/prettify.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-59935-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+<body onload="prettyPrint();return true;">
+<div class="container">
+<div class="header span-24 last">
+<a class="SiteLogo" href="/">perldoc.jp</a>
+</div>
+<div class="nav span-24 last">
+<ul>
+<li><a href="/">トップ</a></li>
+<li><a href="/index/core">本体</a></li>
+<li><a href="/index/function">関数</a></li>
+<li><a href="/index/variable">変数</a></li>
+<li><a href="/index/module">モジュール</a></li>
+<li><a href="/category">カテゴリ別</a></li>
+<li><a href="/index/article">その他の翻訳</a></li>
+<li><a href="/translators">翻訳者</a></li>
+<li><a href="/manners">翻訳の作法</a></li>
+<li><a href="/about">このサイトについて</a></li>
+</ul>
+
+<form method=get action="https://www.google.co.jp/search" id="GoogleSearch">
+<input type=text name=q size=31 maxlength=255 value="">
+<input type=hidden name=ie value=UTF-8>
+<input type=hidden name=oe value=UTF-8>
+<input type=hidden name=hl value="ja">
+<input type=hidden name=domains value="perldoc.jp">
+<input type="hidden" name="sitesearch" value="perldoc.jp">
+<input type=submit name=btnG value="Google 検索">
+</form>
+
+</div>
+<div id="main" class="span-24 last">
+<div id="content">
+<div class="content">
+<div class="PodPage">
+<div class="PodInfo">
+<div class="PodVersion">5.26.1</div>
+<div class="CheckAtCPAN"><a href="http://search.cpan.org/perldoc?perldebtut">CPANで確認する</a></div>
+<div class="OtherVersions">
+Other versions:<br />
+<a href="/docs/perl/5.24.1/perldebtut.pod">5.24.1</a><br />
+<a href="/docs/perl/5.22.1/perldebtut.pod">5.22.1</a><br />
+<a href="/docs/perl/5.20.1/perldebtut.pod">5.20.1</a><br />
+<a href="/docs/perl/5.18.1/perldebtut.pod">5.18.1</a><br />
+<a href="/docs/perl/5.16.1/perldebtut.pod">5.16.1</a><br />
+<a href="/docs/perl/5.14.1/perldebtut.pod">5.14.1</a><br />
+<a href="/docs/perl/5.12.1/perldebtut.pod">5.12.1</a><br />
+<a href="/docs/perl/5.10.1/perldebtut.pod">5.10.1</a><br />
+<a href="/docs/perl/5.10.0/perldebtut.pod">5.10.0</a><br />
+</div><form action="/docs/perl/5.26.1/perldebtut.pod/diff">
+<select name="target"><option value="perl/5.24.1/perldebtut.pod">5.24.1</option><option value="perl/5.22.1/perldebtut.pod">5.22.1</option><option value="perl/5.20.1/perldebtut.pod">5.20.1</option><option value="perl/5.18.1/perldebtut.pod">5.18.1</option><option value="perl/5.16.1/perldebtut.pod">5.16.1</option><option value="perl/5.14.1/perldebtut.pod">5.14.1</option><option value="perl/5.12.1/perldebtut.pod">5.12.1</option><option value="perl/5.10.1/perldebtut.pod">5.10.1</option><option value="perl/5.10.0/perldebtut.pod">5.10.0</option></select>
+<input type="submit" value="diff" />
+</form>
+<div class="Source"><a href="https://perldoc.jp/docs/perl/5.26.1/perldebtut.pod.pod">Source</a></div>
+<div><a target="_blank" href="https://sourceforge.jp/cvs/view/perldocjp/docs/perl/5.26.1/perldebtut.pod?view=log">変更履歴(sf.jp)</a></div>
+<div><a target="_blank" href="https://sourceforge.jp/ticket/newticket.php?group_id=136">誤訳の報告</a></div>
+<script>
+              var display_original = false;
+            </script>
+<div>
+<a href="#" onclick="$('.original').css('display', display_original ? 'none' : 'block'); display_original = display_original ? false : true; return false;">原文を表示/隠す</a>
+</div>
+</div>
+<div class="PodBody">
+<ul class="pod_toc">
+<li><a href="#NAME">名前</a></li>
+<li><a href="#DESCRIPTION">説明</a></li>
+<li><a href="#use32strict">use strict</a></li>
+<li><a href="#Looking32at32data32and32-w32and32v">データの見方と -w と v</a></li>
+<li><a href="#help">ヘルプ</a></li>
+<li><a href="#Stepping32through32code">コードをステップ実行する</a></li>
+<li><a href="#Placeholder32for32a44-32w44-32t44-32T">a, w, t, T のためのプレースホルダ</a></li>
+<li><a href="#REGULAR32EXPRESSIONS">正規表現</a></li>
+<li><a href="#OUTPUT32TIPS">出力の小技</a></li>
+<li><a href="#CGI">CGI</a></li>
+<li><a href="#GUIs">GUI</a></li>
+<li><a href="#SUMMARY">まとめ</a></li>
+<li><a href="#SEE32ALSO">SEE ALSO</a></li>
+<li><a href="#AUTHOR">作者</a></li>
+<li><a href="#CONTRIBUTORS">貢献者</a></li>
+<li><a href="#POD32ERRORS">POD ERRORS</a></li>
+</ul>
+<div class="pod_content_body"><h1 id="NAME">名前<a href="#NAME" class="toc_link">&#182;</a></h1>
+<div class="original">
+<p>perldebtut - Perl debugging tutorial</p>
+</div>
+<p>perldebtut - Perl でのデバッグのチュートリアル</p>
+<h1 id="DESCRIPTION">説明<a href="#DESCRIPTION" class="toc_link">&#182;</a></h1>
+<div class="original">
+<p>A (very) lightweight introduction in the use of the perl debugger, and a pointer to existing, deeper sources of information on the subject of debugging perl programs.</p>
+</div>
+<p>perl デバッガの使い方の(とても) 軽量な紹介および、 perl プログラムの デバッグに関する、すでに存在するより深い情報源へのポインタです。</p>
+<div class="original">
+<p>There&#39;s an extraordinary number of people out there who don&#39;t appear to know anything about using the perl debugger, though they use the language every day. This is for them.</p>
+</div>
+<p>perl を毎日使っているのに、perl デバッガを使うことについて何も知らないように 思われる人が非常にたくさんいます。 これはそのような人たちのためのものです。</p>
+<h1 id="use32strict">use strict<a href="#use32strict" class="toc_link">&#182;</a></h1>
+<div class="original">
+<p>First of all, there&#39;s a few things you can do to make your life a lot more straightforward when it comes to debugging perl programs, without using the debugger at all. To demonstrate, here&#39;s a simple script, named &quot;hello&quot;, with a problem:</p>
+</div>
+<p>まず最初に、perl のプログラムをデバッグするときに、デバッガを全く 使うことなく、人生を遥かに素直なものにするためにできることがいくつか あります。 それを示すために、&quot;hello&quot; という名前の、単純ですが問題を抱えたスクリプトを 示します:</p>
+<pre class="prettyprint lang-perl"><code>        #!/usr/bin/perl
+
+        $var1 = &#39;Hello World&#39;; # always wanted to do that :-)
+        $var2 = &quot;$varl\n&quot;;
+
+        print $var2; 
+        exit;</code></pre>
+<div class="original">
+<p>While this compiles and runs happily, it probably won&#39;t do what&#39;s expected, namely it doesn&#39;t print &quot;Hello World\n&quot; at all; It will on the other hand do exactly what it was told to do, computers being a bit that way inclined. That is, it will print out a newline character, and you&#39;ll get what looks like a blank line. It looks like there&#39;s 2 variables when (because of the typo) there&#39;s really 3:</p>
+</div>
+<p>これはエラーなくコンパイルおよび実行されますが、おそらく想定したことは 起きないでしょう; すなわち、&quot;Hello World\n&quot; とは全く表示されません; 一方 (コンピュータに少しある傾向通りに) するように言われた通りに 動作しています。 これは、改行文字を表示していて、それが空行のように見えるのです。 2 つの変数があるように見えますが、実際には (タイプミスのために) 3 つの変数があるのです:</p>
+<pre class="prettyprint lang-perl"><code>        $var1 = &#39;Hello World&#39;;
+        $varl = undef;
+        $var2 = &quot;\n&quot;;</code></pre>
+<div class="original">
+<p>To catch this kind of problem, we can force each variable to be declared before use by pulling in the strict module, by putting &#39;use strict;&#39; after the first line of the script.</p>
+</div>
+<p>この種の問題を補足するには、スクリプトの最初の行の後に &#39;use strict;&#39; を 書いて strict モジュールを導入することで、変数を使う前には宣言することを 強制できます。</p>
+<div class="original">
+<p>Now when you run it, perl complains about the 3 undeclared variables and we get four error messages because one variable is referenced twice:</p>
+</div>
+<p>これで実行すると、perl は 3 つの未宣言変数に関して 4 つのエラーメッセージが でます; なぜなら 1 つの変数は 2 回参照されているからです:</p>
+<pre class="prettyprint lang-perl"><code> Global symbol &quot;$var1&quot; requires explicit package name at ./t1 line 4.
+ Global symbol &quot;$var2&quot; requires explicit package name at ./t1 line 5.
+ Global symbol &quot;$varl&quot; requires explicit package name at ./t1 line 5.
+ Global symbol &quot;$var2&quot; requires explicit package name at ./t1 line 7.
+ Execution of ./hello aborted due to compilation errors.     </code></pre>
+<div class="original">
+<p>Luvverly! and to fix this we declare all variables explicitly and now our script looks like this:</p>
+</div>
+<p>バッチリだ! そしてこれを修正するために、全ての変数を明示的に宣言することにすると、 スクリプトは以下のようになります:</p>
+<pre class="prettyprint lang-perl"><code>        #!/usr/bin/perl
+        use strict;
+
+        my $var1 = &#39;Hello World&#39;;
+        my $varl = undef;
+        my $var2 = &quot;$varl\n&quot;;
+
+        print $var2; 
+        exit;</code></pre>
+<div class="original">
+<p>We then do (always a good idea) a syntax check before we try to run it again:</p>
+</div>
+<p>それから、もう一度実行する前に文法チェックを行います(これは常に いい考えです):</p>
+<pre class="prettyprint lang-perl"><code>        &gt; perl -c hello
+        hello syntax OK </code></pre>
+<div class="original">
+<p>And now when we run it, we get &quot;\n&quot; still, but at least we know why. Just getting this script to compile has exposed the &#39;$varl&#39; (with the letter &#39;l&#39;) variable, and simply changing $varl to $var1 solves the problem.</p>
+</div>
+<p>そして実行すると、やはり &quot;\n&quot; が表示されますが、少なくともなぜかは 分かります。 コンパイルしたスクリプトに &#39;$varl&#39; (文字 &#39;l&#39; です) があることが明らかになり、 単に $varl を $var1 に変更すれば問題は解決します。</p>
+<h1 id="Looking32at32data32and32-w32and32v">データの見方と -w と v<a href="#Looking32at32data32and32-w32and32v" class="toc_link">&#182;</a></h1>
+<p></p>
+<div class="original">
+<p>Ok, but how about when you want to really see your data, what&#39;s in that dynamic variable, just before using it?</p>
+</div>
+<p>よし、でも本当に、動的変数に入っているデータを、それを使う直前に知るには?</p>
+<pre class="prettyprint lang-perl"><code>        #!/usr/bin/perl 
+        use strict;
+
+        my $key = &#39;welcome&#39;;
+        my %data = (
+                &#39;this&#39; =&gt; qw(that), 
+                &#39;tom&#39; =&gt; qw(and jerry),
+                &#39;welcome&#39; =&gt; q(Hello World),
+                &#39;zip&#39; =&gt; q(welcome),
+        );
+        my @data = keys %data;
+
+        print &quot;$data{$key}\n&quot;;
+        exit;                               </code></pre>
+<div class="original">
+<p>Looks OK, after it&#39;s been through the syntax check (perl -c scriptname), we run it and all we get is a blank line again! Hmmmm.</p>
+</div>
+<p>良さそうに見えます; 文法チェック (perl -c scriptname) の後、実行してみると、 またも空行しか出ません! ふーむ。</p>
+<div class="original">
+<p>One common debugging approach here, would be to liberally sprinkle a few print statements, to add a check just before we print out our data, and another just after:</p>
+</div>
+<p>ここで一般的なデバッグ手法の一つは、print 文を自由にいくつかばらまいて、 データをプリントする直前のチェックを追加することです:</p>
+<pre class="prettyprint lang-perl"><code>        print &quot;All OK\n&quot; if grep($key, keys %data);
+        print &quot;$data{$key}\n&quot;;
+        print &quot;done: &#39;$data{$key}&#39;\n&quot;;</code></pre>
+<div class="original">
+<p>And try again:</p>
+</div>
+<p>そして再挑戦します:</p>
+<pre class="prettyprint lang-perl"><code>        &gt; perl data
+        All OK     
+
+        done: &#39;&#39;</code></pre>
+<div class="original">
+<p>After much staring at the same piece of code and not seeing the wood for the trees for some time, we get a cup of coffee and try another approach. That is, we bring in the cavalry by giving perl the &#39;<b>-d</b>&#39; switch on the command line:</p>
+</div>
+<p>同じコード片を見つめすぎて、木を見て森を見ずになっていることがあります; 一服して違う手法を試しましょう。 それは、コマンドラインで perl に &#39;<b>-d</b>&#39; オプションを与えることで騎兵隊を 迎え入れることです:</p>
+<pre class="prettyprint lang-perl"><code>        &gt; perl -d data 
+        Default die handler restored.
+
+        Loading DB routines from perl5db.pl version 1.07
+        Editor support available.
+
+        Enter h or `h h&#39; for help, or `man perldebug&#39; for more help.
+
+        main::(./data:4):     my $key = &#39;welcome&#39;;   </code></pre>
+<div class="original">
+<p>Now, what we&#39;ve done here is to launch the built-in perl debugger on our script. It&#39;s stopped at the first line of executable code and is waiting for input.</p>
+</div>
+<p>ここでしたことは、スクリプトに対して組み込み perl デバッガを 起動したことです。 それは実行コードの最初の行で停止して、入力を待っています。</p>
+<div class="original">
+<p>Before we go any further, you&#39;ll want to know how to quit the debugger: use just the letter &#39;<b>q</b>&#39;, not the words &#39;quit&#39; or &#39;exit&#39;:</p>
+</div>
+<p>先に進む前に、どうやってデバッガを抜けるかを知りたいでしょう: 単語 &#39;quit&#39; や &#39;exit&#39; ではなく、単に文字 &#39;<b>q</b>&#39; をタイプしてください:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>1</b> q
+        &gt;</code></pre>
+<div class="original">
+<p>That&#39;s it, you&#39;re back on home turf again.</p>
+</div>
+<p>これで、再びホームグラウンドに戻ってきます。</p>
+<h1 id="help">ヘルプ<a href="#help" class="toc_link">&#182;</a></h1>
+<p></p>
+<div class="original">
+<p>Fire the debugger up again on your script and we&#39;ll look at the help menu. There&#39;s a couple of ways of calling help: a simple &#39;<b>h</b>&#39; will get the summary help list, &#39;<b>|h</b>&#39; (pipe-h) will pipe the help through your pager (which is (probably &#39;more&#39; or &#39;less&#39;), and finally, &#39;<b>h h</b>&#39; (h-space-h) will give you the entire help screen. Here is the summary page:</p>
+</div>
+<p>スクリプトに対してもう一度デバッガを起動して、ヘルプメニューを見てみます。 ヘルプを呼び出すには複数の方法があります: 単純な &#39;<b>h</b>&#39; はヘルプリストの 要約を出力し、&#39;<b>|h</b>&#39; (パイプ-h) はヘルプをページャ(多分 &#39;more&#39; か &#39;less&#39;) に送り、最後に &#39;<b>h h</b>&#39; (h-空白-h) はヘルプスクリーン全体を 表示します。 以下は要約ページです:</p>
+<p>D<b>1</b>h</p>
+<pre class="prettyprint lang-perl"><code> List/search source lines:               Control script execution:
+  l [ln|sub]  List source code            T           Stack trace
+  - or .      List previous/current line  s [expr]    Single step
+                                                               [in expr]
+  v [line]    View around line            n [expr]    Next, steps over
+                                                                    subs
+  f filename  View source in file         &lt;CR/Enter&gt;  Repeat last n or s
+  /pattern/ ?patt?   Search forw/backw    r           Return from
+                                                              subroutine
+  M           Show module versions        c [ln|sub]  Continue until
+                                                                position
+ Debugger controls:                       L           List break/watch/
+                                                                 actions
+  o [...]     Set debugger options        t [expr]    Toggle trace
+                                                            [trace expr]
+  &lt;[&lt;]|{[{]|&gt;[&gt;] [cmd] Do pre/post-prompt b [ln|event|sub] [cnd] Set
+                                                              breakpoint
+  ! [N|pat]   Redo a previous command     B ln|*      Delete a/all
+                                                             breakpoints
+  H [-num]    Display last num commands   a [ln] cmd  Do cmd before line
+  = [a val]   Define/list an alias        A ln|*      Delete a/all
+                                                                 actions
+  h [db_cmd]  Get help on command         w expr      Add a watch
+                                                              expression
+  h h         Complete help page          W expr|*    Delete a/all watch
+                                                                   exprs
+  |[|]db_cmd  Send output to pager        ![!] syscmd Run cmd in a
+                                                              subprocess
+  q or ^D     Quit                        R           Attempt a restart
+ Data Examination:     expr     Execute perl code, also see: s,n,t expr
+  x|m expr       Evals expr in list context, dumps the result or lists
+                                                                methods.
+  p expr         Print expression (uses script&#39;s current package).
+  S [[!]pat]     List subroutine names [not] matching pattern
+  V [Pk [Vars]]  List Variables in Package.  Vars can be ~pattern or
+                                                               !pattern.
+  X [Vars]       Same as &quot;V current_package [Vars]&quot;.
+  y [n [Vars]]   List lexicals in higher scope &lt;n&gt;.  Vars same as V.
+ For more help, type h cmd_letter, or run man perldebug for all docs. </code></pre>
+<div class="original">
+<p>More confusing options than you can shake a big stick at! It&#39;s not as bad as it looks and it&#39;s very useful to know more about all of it, and fun too!</p>
+</div>
+<p>とても多くの混乱させるオプションがあります! これは見た目ほど悪くはありませんし、これらすべてについてもっと知ることは とても有用ですし、楽しくもあります!</p>
+<div class="original">
+<p>There&#39;s a couple of useful ones to know about straight away. You wouldn&#39;t think we&#39;re using any libraries at all at the moment, but &#39;<b>M</b>&#39; will show which modules are currently loaded, and their version number, while &#39;<b>m</b>&#39; will show the methods, and &#39;<b>S</b>&#39; shows all subroutines (by pattern) as shown below. &#39;<b>V</b>&#39; and &#39;<b>X</b>&#39; show variables in the program by package scope and can be constrained by pattern.</p>
+</div>
+<p>まず知っておくべきいくつかのコマンドがあります。 この時点では何かのライブラリを使っているとは考えていないでしょうが、 &#39;<b>M</b>&#39; は現在読み込まれているモジュールとバージョン番号を表示し、 一方 &#39;<b>m</b>&#39; はメソッドを表示し、&#39;<b>S</b>&#39; は以下のように、(パターンによって) 全てのサブルーチンを表示します。 &#39;<b>V</b>&#39; と&#39;<b>X</b>&#39; は、パッケージスコープと、パターンによって制限できる、 変数を表示します。</p>
+<pre class="prettyprint lang-perl"><code>        D<b>2</b>S str 
+        dumpvar::stringify
+        strict::bits
+        strict::import
+        strict::unimport  </code></pre>
+<div class="original">
+<p>Using &#39;X&#39; and cousins requires you not to use the type identifiers ($@%), just the &#39;name&#39;:</p>
+</div>
+<p>X&#39; とその親類を使う時には、型指定子($@%)を使う必要はありません; 単に &#39;name&#39; を入力してください:</p>
+<pre class="prettyprint lang-perl"><code>        D3X ~err
+        FileHandle(stderr) =&gt; fileno(2)    </code></pre>
+<div class="original">
+<p>Remember we&#39;re in our tiny program with a problem, we should have a look at where we are, and what our data looks like. First of all let&#39;s view some code at our present position (the first line of code in this case), via &#39;<b>v</b>&#39;:</p>
+</div>
+<p>問題を抱えた小さなプログラムがあって、今どこにいるか、そしてデータが どのようにあっているのかを見ようとしていることを思い出してください。 まず最初に、現在位置 (この場合ではコードの最初の行) のコードを見てみましょう; &#39;<b>v</b>&#39; を使います:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>4</b> v
+        1       #!/usr/bin/perl
+        2:      use strict;
+        3
+        4==&gt;    my $key = &#39;welcome&#39;;
+        5:      my %data = (
+        6               &#39;this&#39; =&gt; qw(that),
+        7               &#39;tom&#39; =&gt; qw(and jerry),
+        8               &#39;welcome&#39; =&gt; q(Hello World),
+        9               &#39;zip&#39; =&gt; q(welcome),
+        10      );                                 </code></pre>
+<div class="original">
+<p>At line number 4 is a helpful pointer, that tells you where you are now. To see more code, type &#39;v&#39; again:</p>
+</div>
+<p>行番号 4 にあるのは助けになるポインタで、今どこにいるのかを示しています。 さらにコードを見るには、再び &#39;v&#39; をタイプします:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>4</b> v
+        8               &#39;welcome&#39; =&gt; q(Hello World),
+        9               &#39;zip&#39; =&gt; q(welcome),
+        10      );
+        11:     my @data = keys %data;
+        12:     print &quot;All OK\n&quot; if grep($key, keys %data);
+        13:     print &quot;$data{$key}\n&quot;;
+        14:     print &quot;done: &#39;$data{$key}&#39;\n&quot;;
+        15:     exit;      </code></pre>
+<div class="original">
+<p>And if you wanted to list line 5 again, type &#39;l 5&#39;, (note the space):</p>
+</div>
+<p>そしてもし行番号 5 を再び見たいなら、&#39;l 5&#39; をタイプします (空白に注意してください):</p>
+<pre class="prettyprint lang-perl"><code>        D<b>4</b> l 5
+        5:      my %data = (</code></pre>
+<div class="original">
+<p>In this case, there&#39;s not much to see, but of course normally there&#39;s pages of stuff to wade through, and &#39;l&#39; can be very useful. To reset your view to the line we&#39;re about to execute, type a lone period &#39;.&#39;:</p>
+</div>
+<p>この場合、見られるものはあまり多くはありませんが、もちろん普通は見渡すのに 何ページにもなる内容があるので、&#39;l&#39; はとても有用です。 見ている場所を実行しようとしているところにリセットするには、単一の &#39;.&#39; を タイプします:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>5</b> .
+        main::(./data_a:4):     my $key = &#39;welcome&#39;;  </code></pre>
+<div class="original">
+<p>The line shown is the one that is about to be executed <b>next</b>, it hasn&#39;t happened yet. So while we can print a variable with the letter &#39;<b>p</b>&#39;, at this point all we&#39;d get is an empty (undefined) value back. What we need to do is to step through the next executable statement with an &#39;<b>s</b>&#39;:</p>
+</div>
+<p>表示されている行は <b>次に</b> 実行されようとしているもので、まだ 実行されていません。 従って、ここで文字 &#39;<b>p</b>&#39; を使って変数を表示できますが、この時点では 表示されるのは空(未定義)値だけです。 するべきことは、&#39;<b>s</b>&#39; を使って次の実行可能文に進むことです:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>6</b> s
+        main::(./data_a:5):     my %data = (
+        main::(./data_a:6):             &#39;this&#39; =&gt; qw(that),
+        main::(./data_a:7):             &#39;tom&#39; =&gt; qw(and jerry),
+        main::(./data_a:8):             &#39;welcome&#39; =&gt; q(Hello World),
+        main::(./data_a:9):             &#39;zip&#39; =&gt; q(welcome),
+        main::(./data_a:10):    );   </code></pre>
+<div class="original">
+<p>Now we can have a look at that first ($key) variable:</p>
+</div>
+<p>ここで最初の ($key) 変数を見ることができます:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>7</b> p $key 
+        welcome </code></pre>
+<div class="original">
+<p>line 13 is where the action is, so let&#39;s continue down to there via the letter &#39;<b>c</b>&#39;, which by the way, inserts a &#39;one-time-only&#39; breakpoint at the given line or sub routine:</p>
+</div>
+<p>行 13 が処理の場所なので、文字 &#39;<b>c</b>&#39; を使って、今度は「一回だけ」の ブレークポイントを与えられた行かサブルーチンに挿入することでそこまで 進めていきましょう:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>8</b> c 13
+        All OK
+        main::(./data_a:13):    print &quot;$data{$key}\n&quot;;</code></pre>
+<div class="original">
+<p>We&#39;ve gone past our check (where &#39;All OK&#39; was printed) and have stopped just before the meat of our task. We could try to print out a couple of variables to see what is happening:</p>
+</div>
+<p>チェック(&#39;All OK&#39; が表示された場所)を通り過ぎて、作業の要点の直線で 停止しました。 何が起きているのかを見るために二つの変数を表示させようとすることが できます:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>9</b> p $data{$key}</code></pre>
+<div class="original">
+<p>Not much in there, lets have a look at our hash:</p>
+</div>
+<p>あまりありませんが、ハッシュを見てみましょう:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>10</b> p %data
+        Hello Worldziptomandwelcomejerrywelcomethisthat 
+
+        D<b>11</b> p keys %data
+        Hello Worldtomwelcomejerrythis  </code></pre>
+<div class="original">
+<p>Well, this isn&#39;t very easy to read, and using the helpful manual (<b>h h</b>), the &#39;<b>x</b>&#39; command looks promising:</p>
+</div>
+<p>うーん、これはとても読みやすいというものではありません; そして親切な マニュアル (<b>h h</b>) を使うと、&#39;<b>x</b>&#39; コマンドが見込みがありそうです:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>12</b> x %data
+        0  &#39;Hello World&#39;
+        1  &#39;zip&#39;
+        2  &#39;tom&#39;
+        3  &#39;and&#39;
+        4  &#39;welcome&#39;
+        5  undef
+        6  &#39;jerry&#39;
+        7  &#39;welcome&#39;
+        8  &#39;this&#39;
+        9  &#39;that&#39;     </code></pre>
+<div class="original">
+<p>That&#39;s not much help, a couple of welcomes in there, but no indication of which are keys, and which are values, it&#39;s just a listed array dump and, in this case, not particularly helpful. The trick here, is to use a <b>reference</b> to the data structure:</p>
+</div>
+<p>これはあまり助けにはなりません; ここには 2 つの &quot;welcome&quot; がありますが、 どれがキーでどれが値かを示すものがなく、単に配列ダンプの一覧で、 この場合、特に役に立つものではありません。 ここでの技は、データ構造への <b>リファレンス</b> を使うことです:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>13</b> x \%data
+        0  HASH(0x8194bc4)
+           &#39;Hello World&#39; =&gt; &#39;zip&#39;
+           &#39;jerry&#39; =&gt; &#39;welcome&#39;
+           &#39;this&#39; =&gt; &#39;that&#39;
+           &#39;tom&#39; =&gt; &#39;and&#39;
+           &#39;welcome&#39; =&gt; undef  </code></pre>
+<div class="original">
+<p>The reference is truly dumped and we can finally see what we&#39;re dealing with. Our quoting was perfectly valid but wrong for our purposes, with &#39;and jerry&#39; being treated as 2 separate words rather than a phrase, thus throwing the evenly paired hash structure out of alignment.</p>
+</div>
+<p>リファレンスが完全にダンプされて、ついに扱っているものが見えました。 クォートは完全に有効でしたが、今回の目的には間違ったものでした; &#39;and jerry&#39; が熟語ではなく、2 つの別々の単語として扱われています; 従って、2 つ組のハッシュ構造のアライメントがずれたのです。</p>
+<div class="original">
+<p>The &#39;<b>-w</b>&#39; switch would have told us about this, had we used it at the start, and saved us a lot of trouble:</p>
+</div>
+<p>&#39;<b>-w</b>&#39; オプションはこれについて教えてくれるので、最初に使っておけば、 多くの問題から救ってくれていました:</p>
+<pre class="prettyprint lang-perl"><code>        &gt; perl -w data
+        Odd number of elements in hash assignment at ./data line 5.    </code></pre>
+<div class="original">
+<p>We fix our quoting: &#39;tom&#39; =&gt; q(and jerry), and run it again, this time we get our expected output:</p>
+</div>
+<p>クォートを修正します: &#39;tom&#39; =&gt; q(and jerry)、そして再実行すると、今度は 予想通りの出力が得られます:</p>
+<pre class="prettyprint lang-perl"><code>        &gt; perl -w data
+        Hello World</code></pre>
+<div class="original">
+<p>While we&#39;re here, take a closer look at the &#39;<b>x</b>&#39; command, it&#39;s really useful and will merrily dump out nested references, complete objects, partial objects - just about whatever you throw at it:</p>
+</div>
+<p>ここにいる間に &#39;<b>x</b>&#39; コマンドをより近くで見てみると、これは本当に有用で、 ネストしたリファレンス、完全なオブジェクト、オブジェクトの一部 - コマンドに 与えたものは何でも - 楽しくダンプします:</p>
+<div class="original">
+<p>Let&#39;s make a quick object and x-plode it, first we&#39;ll start the debugger: it wants some form of input from STDIN, so we give it something non-committal, a zero:</p>
+</div>
+<p>簡単なオブジェクトを作って、見てみましょう; まずデバッガを起動します: これは STDIN から何らかの形の入力を要求するので、何か無害なもの - ゼロ - を 入力します:</p>
+<pre class="prettyprint lang-perl"><code> &gt; perl -de 0
+ Default die handler restored.
+
+ Loading DB routines from perl5db.pl version 1.07
+ Editor support available.
+
+ Enter h or `h h&#39; for help, or `man perldebug&#39; for more help.
+
+ main::(-e:1):   0</code></pre>
+<div class="original">
+<p>Now build an on-the-fly object over a couple of lines (note the backslash):</p>
+</div>
+<p>ここで、複数行を使ってその場でオブジェクトを構築します (バックスラッシュに注意してください):</p>
+<pre class="prettyprint lang-perl"><code> D<b>1</b> $obj = bless({&#39;unique_id&#39;=&gt;&#39;123&#39;, &#39;attr&#39;=&gt; \
+ cont:  {&#39;col&#39; =&gt; &#39;black&#39;, &#39;things&#39; =&gt; [qw(this that etc)]}}, &#39;MY_class&#39;)</code></pre>
+<div class="original">
+<p>And let&#39;s have a look at it:</p>
+</div>
+<p>そして見てみましょう:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>2</b> x $obj
+ 0  MY_class=HASH(0x828ad98)
+                &#39;attr&#39; =&gt; HASH(0x828ad68)
+        &#39;col&#39; =&gt; &#39;black&#39;
+        &#39;things&#39; =&gt; ARRAY(0x828abb8)
+                0  &#39;this&#39;
+                1  &#39;that&#39;
+                2  &#39;etc&#39;
+                &#39;unique_id&#39; =&gt; 123       
+        D<b>3</b></code></pre>
+<div class="original">
+<p>Useful, huh? You can eval nearly anything in there, and experiment with bits of code or regexes until the cows come home:</p>
+</div>
+<p>便利でしょう? ここでほとんどなんでも eval できて、ちょっとしたコードや正規表現を いつまでも実験できます。</p>
+<pre class="prettyprint lang-perl"><code> D<b>3</b> @data = qw(this that the other atheism leather theory scythe)
+
+ D<b>4</b> p &#39;saw -&gt; &#39;.($cnt += map { print &quot;\t:\t$_\n&quot; } grep(/the/, sort @data))
+ atheism
+ leather
+ other
+ scythe
+ the
+ theory
+ saw -&gt; 6</code></pre>
+<div class="original">
+<p>If you want to see the command History, type an &#39;<b>H</b>&#39;:</p>
+</div>
+<p>コマンド履歴を見たいなら、&#39;<b>H</b>&#39; をタイプします:</p>
+<pre class="prettyprint lang-perl"><code> D<b>5</b> H
+ 4: p &#39;saw -&gt; &#39;.($cnt += map { print &quot;\t:\t$_\n&quot; } grep(/the/, sort @data))
+ 3: @data = qw(this that the other atheism leather theory scythe)
+ 2: x $obj
+ 1: $obj = bless({&#39;unique_id&#39;=&gt;&#39;123&#39;, &#39;attr&#39;=&gt;
+ {&#39;col&#39; =&gt; &#39;black&#39;, &#39;things&#39; =&gt; [qw(this that etc)]}}, &#39;MY_class&#39;)
+ D<b>5</b></code></pre>
+<div class="original">
+<p>And if you want to repeat any previous command, use the exclamation: &#39;<b>!</b>&#39;:</p>
+</div>
+<p>以前に使ったコマンドを繰り返したい場合は、感嘆符を使います: &#39;<b>!</b>&#39;:</p>
+<pre class="prettyprint lang-perl"><code> D<b>5</b> !4
+ p &#39;saw -&gt; &#39;.($cnt += map { print &quot;$_\n&quot; } grep(/the/, sort @data))
+ atheism
+ leather
+ other
+ scythe
+ the
+ theory
+ saw -&gt; 12</code></pre>
+<div class="original">
+<p>For more on references see <a href="/pod/perlref">perlref</a> and <a href="/pod/perlreftut">perlreftut</a></p>
+</div>
+<p>リファレンスについてのさらなる情報については <a href="/pod/perlref">perlref</a> と <a href="/pod/perlreftut">perlreftut</a> を 参照してください。</p>
+<h1 id="Stepping32through32code">コードをステップ実行する<a href="#Stepping32through32code" class="toc_link">&#182;</a></h1>
+<p></p>
+<div class="original">
+<p>Here&#39;s a simple program which converts between Celsius and Fahrenheit, it too has a problem:</p>
+</div>
+<p>以下は摂氏と華氏とを変換する単純なプログラムで、やはり問題を抱えています:</p>
+<pre class="prettyprint lang-perl"><code> #!/usr/bin/perl -w
+ use strict;
+
+ my $arg = $ARGV[0] || &#39;-c20&#39;;
+
+ if ($arg =~ /^\-(c|f)((\-|\+)*\d+(\.\d+)*)$/) {
+        my ($deg, $num) = ($1, $2);
+        my ($in, $out) = ($num, $num);
+        if ($deg eq &#39;c&#39;) {
+                $deg = &#39;f&#39;;
+                $out = &amp;c2f($num);
+        } else {
+                $deg = &#39;c&#39;;
+                $out = &amp;f2c($num);
+        }
+        $out = sprintf(&#39;%0.2f&#39;, $out);
+        $out =~ s/^((\-|\+)*\d+)\.0+$/$1/;
+        print &quot;$out $deg\n&quot;;
+ } else {
+        print &quot;Usage: $0 -[c|f] num\n&quot;;
+ }
+ exit;
+
+ sub f2c {
+        my $f = shift;
+        my $c = 5 * $f - 32 / 9;
+        return $c;
+ }
+
+ sub c2f {
+        my $c = shift;
+        my $f = 9 * $c / 5 + 32;
+        return $f;
+ }</code></pre>
+<div class="original">
+<p>For some reason, the Fahrenheit to Celsius conversion fails to return the expected output. This is what it does:</p>
+</div>
+<p>なぜか、華氏から摂氏への変換は推測される結果を返すのに失敗します。 以下はどうなるかです:</p>
+<pre class="prettyprint lang-perl"><code> &gt; temp -c0.72
+ 33.30 f
+
+ &gt; temp -f33.3
+ 162.94 c</code></pre>
+<div class="original">
+<p>Not very consistent! We&#39;ll set a breakpoint in the code manually and run it under the debugger to see what&#39;s going on. A breakpoint is a flag, to which the debugger will run without interruption, when it reaches the breakpoint, it will stop execution and offer a prompt for further interaction. In normal use, these debugger commands are completely ignored, and they are safe - if a little messy, to leave in production code.</p>
+</div>
+<p>全く一貫していません! 手動でコードにブレークポイントをセットして、何が起きているかを見るために デバッガで実行してみます。 ブレークポイントは、デバッガを中断なしで実行するためのフラグで、 ブレークポイントに到達すると、実行を停止してさらなる対話のためにプロンプトを 出します。 通常の使用では、これらのデバッガコマンドは完全に無視され、これらは 製品コードに残しても安全です - すこし乱雑かもしれませんが。</p>
+<pre class="prettyprint lang-perl"><code>        my ($in, $out) = ($num, $num);
+        $DB::single=2; # insert at line 9!
+        if ($deg eq &#39;c&#39;) 
+                ...
+
+        &gt; perl -d temp -f33.3
+        Default die handler restored.
+
+        Loading DB routines from perl5db.pl version 1.07
+        Editor support available.
+
+        Enter h or `h h&#39; for help, or `man perldebug&#39; for more help.
+
+        main::(temp:4): my $arg = $ARGV[0] || &#39;-c100&#39;;     </code></pre>
+<div class="original">
+<p>We&#39;ll simply continue down to our pre-set breakpoint with a &#39;<b>c</b>&#39;:</p>
+</div>
+<p>&#39;<b>c</b>&#39; をタイプして、単純に予めセットされたブレークポイントまで続けます:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>1</b> c
+        main::(temp:10):                if ($deg eq &#39;c&#39;) {   </code></pre>
+<div class="original">
+<p>Followed by a view command to see where we are:</p>
+</div>
+<p>引き続いて表示コマンドで今どこにいるかを見ます:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>1</b> v
+        7:              my ($deg, $num) = ($1, $2);
+        8:              my ($in, $out) = ($num, $num);
+        9:              $DB::single=2;
+        10==&gt;           if ($deg eq &#39;c&#39;) {
+        11:                     $deg = &#39;f&#39;;
+        12:                     $out = &amp;c2f($num);
+        13              } else {
+        14:                     $deg = &#39;c&#39;;
+        15:                     $out = &amp;f2c($num);
+        16              }                             </code></pre>
+<div class="original">
+<p>And a print to show what values we&#39;re currently using:</p>
+</div>
+<p>そして今使っている値を表示させます:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>1</b> p $deg, $num
+        f33.3</code></pre>
+<div class="original">
+<p>We can put another break point on any line beginning with a colon, we&#39;ll use line 17 as that&#39;s just as we come out of the subroutine, and we&#39;d like to pause there later on:</p>
+</div>
+<p>コロンの付いているどの行にも別のブレークポイントを置くことができます; サブルーチンから返ってきたばかりのところである 17 行目を使うことにして、 あとからここで一旦停止したいとします:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>2</b> b 17</code></pre>
+<div class="original">
+<p>There&#39;s no feedback from this, but you can see what breakpoints are set by using the list &#39;L&#39; command:</p>
+</div>
+<p>これに対する反応はありませんが、一覧 &#39;L&#39; コマンドを使うことで、どの ブレークポイントがセットされているかを見ることができます:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>3</b> L
+        temp:
+                17:            print &quot;$out $deg\n&quot;;
+                break if (1)     </code></pre>
+<div class="original">
+<p>Note that to delete a breakpoint you use &#39;B&#39;.</p>
+</div>
+<p>ブレークポイントを削除するためには &#39;B&#39; を使うことに注意してください。</p>
+<div class="original">
+<p>Now we&#39;ll continue down into our subroutine, this time rather than by line number, we&#39;ll use the subroutine name, followed by the now familiar &#39;v&#39;:</p>
+</div>
+<p>ここでサブルーチンの中に入っていくことにします; 今回は行番号ではなく、 サブルーチン名を使います; その後、今となってはおなじみの &#39;v&#39; を使います:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>3</b> c f2c
+        main::f2c(temp:30):             my $f = shift;  
+
+        D<b>4</b> v
+        24:     exit;
+        25
+        26      sub f2c {
+        27==&gt;           my $f = shift;
+        28:             my $c = 5 * $f - 32 / 9; 
+        29:             return $c;
+        30      }
+        31
+        32      sub c2f {
+        33:             my $c = shift;   </code></pre>
+<div class="original">
+<p>Note that if there was a subroutine call between us and line 29, and we wanted to <b>single-step</b> through it, we could use the &#39;<b>s</b>&#39; command, and to step over it we would use &#39;<b>n</b>&#39; which would execute the sub, but not descend into it for inspection. In this case though, we simply continue down to line 29:</p>
+</div>
+<p>ここと 29 行目との間にサブルーチンがあり、そこを <b>シングルステップ</b> したい 場合、&#39;<b>s</b>&#39; コマンドも使えますし、サブルーチンは実行するけれども サブルーチン内部は検査しないという &#39;<b>n</b>&#39; コマンドで ステップオーバーできます。 しかし、この場合には、単に 29 行まで進めていきます:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>4</b> c 29  
+        main::f2c(temp:29):             return $c;</code></pre>
+<div class="original">
+<p>And have a look at the return value:</p>
+</div>
+<p>そして返り値を見てみます:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>5</b> p $c
+        162.944444444444</code></pre>
+<div class="original">
+<p>This is not the right answer at all, but the sum looks correct. I wonder if it&#39;s anything to do with operator precedence? We&#39;ll try a couple of other possibilities with our sum:</p>
+</div>
+<p>これは全く間違った答えですが、合計は正しいように見えます。 演算子の優先順位が何かを行っているのでしょうか? 合計に関してその他の可能性を試してみます:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>6</b> p (5 * $f - 32 / 9)
+        162.944444444444
+
+        D<b>7</b> p 5 * $f - (32 / 9) 
+        162.944444444444
+
+        D<b>8</b> p (5 * $f) - 32 / 9
+        162.944444444444
+
+        D<b>9</b> p 5 * ($f - 32) / 9
+        0.722222222222221</code></pre>
+<div class="original">
+<p>:-) that&#39;s more like it! Ok, now we can set our return variable and we&#39;ll return out of the sub with an &#39;r&#39;:</p>
+</div>
+<p>:-) これはより似ています! よし、ここで独自の返り値をセットして、&#39;r&#39; を使ってサブルーチンから返ります:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>10</b> $c = 5 * ($f - 32) / 9
+
+        D<b>11</b> r
+        scalar context return from main::f2c: 0.722222222222221</code></pre>
+<div class="original">
+<p>Looks good, let&#39;s just continue off the end of the script:</p>
+</div>
+<p>良さそうです; スクリプトの最後まで実行していましょう:</p>
+<pre class="prettyprint lang-perl"><code>        D<b>12</b> c
+        0.72 c 
+        Debugged program terminated.  Use q to quit or R to restart,
+        use O inhibit_exit to avoid stopping after program termination,
+        h q, h R or h O to get additional info.   </code></pre>
+<div class="original">
+<p>A quick fix to the offending line (insert the missing parentheses) in the actual program and we&#39;re finished.</p>
+</div>
+<p>実際のプログラムの問題のある行に救急処置(不足していたかっこを挿入する)を 施して、終わりです。</p>
+<h1 id="Placeholder32for32a44-32w44-32t44-32T">a, w, t, T のためのプレースホルダ<a href="#Placeholder32for32a44-32w44-32t44-32T" class="toc_link">&#182;</a></h1>
+<p></p>
+<div class="original">
+<p>Actions, watch variables, stack traces etc.: on the TODO list.</p>
+</div>
+<p>アクション、変数の監視、スタックトレースなど: TODO リストです。</p>
+<pre class="prettyprint lang-perl"><code>        a 
+
+        w 
+
+        t 
+
+        T</code></pre>
+<h1 id="REGULAR32EXPRESSIONS">正規表現<a href="#REGULAR32EXPRESSIONS" class="toc_link">&#182;</a></h1>
+<p></p>
+<div class="original">
+<p>Ever wanted to know what a regex looked like? You&#39;ll need perl compiled with the DEBUGGING flag for this one:</p>
+</div>
+<p>正規表現がどのように見えるか知りたいと思いましたか? 以下のようにするには perl を DEBUGGING フラグ付きでコンパイルする必要が あります:</p>
+<pre class="prettyprint lang-perl"><code>  &gt; perl -Dr -e &#39;/^pe(a)*rl$/i&#39;
+  Compiling REx `^pe(a)*rl$&#39;
+  size 17 first at 2
+  rarest char
+   at 0
+     1: BOL(2)
+     2: EXACTF &lt;pe&gt;(4)
+     4: CURLYN[1] {0,32767}(14)
+     6:   NOTHING(8)
+     8:   EXACTF &lt;a&gt;(0)
+    12:   WHILEM(0)
+    13: NOTHING(14)
+    14: EXACTF &lt;rl&gt;(16)
+    16: EOL(17)
+    17: END(0)
+  floating `&#39;$ at 4..2147483647 (checking floating) stclass
+    `EXACTF &lt;pe&gt;&#39; anchored(BOL) minlen 4
+  Omitting $` $&amp; $&#39; support.
+
+  EXECUTING...
+
+  Freeing REx: `^pe(a)*rl$&#39;</code></pre>
+<div class="original">
+<p>Did you really want to know? :-) For more gory details on getting regular expressions to work, have a look at <a href="/pod/perlre">perlre</a>, <a href="/pod/perlretut">perlretut</a>, and to decode the mysterious labels (BOL and CURLYN, etc. above), see <a href="/pod/perldebguts">perldebguts</a>.</p>
+</div>
+<p>本当に知りたかったですか? :-) 正規表現の動作に関する詳細については、<a href="/pod/perlre">perlre</a>, <a href="/pod/perlretut">perlretut</a> を、 (上述の BOL や CURLYN などの)不思議なラベルを解読するには、 <a href="/pod/perldebguts">perldebguts</a> を参照してください。</p>
+<h1 id="OUTPUT32TIPS">出力の小技<a href="#OUTPUT32TIPS" class="toc_link">&#182;</a></h1>
+<p></p>
+<div class="original">
+<p>To get all the output from your error log, and not miss any messages via helpful operating system buffering, insert a line like this, at the start of your script:</p>
+</div>
+<p>エラーログからの全ての出力を得て、親切な OS のバッファリングで メッセージを失わないようにするには、スクリプトの最初に以下のような行を 挿入してください:</p>
+<pre class="prettyprint lang-perl"><code>        $|=1;   </code></pre>
+<div class="original">
+<p>To watch the tail of a dynamically growing logfile, (from the command line):</p>
+</div>
+<p>動的に増え続けるログファイルの末尾を監視するには、(コマンドラインから):</p>
+<pre class="prettyprint lang-perl"><code>        tail -f $error_log</code></pre>
+<div class="original">
+<p>Wrapping all die calls in a handler routine can be useful to see how, and from where, they&#39;re being called, <a href="/pod/perlvar">perlvar</a> has more information:</p>
+</div>
+<p>全ての die 呼び出しをハンドラルーチンで囲むと、どこで、どのように 呼び出されているかを知るのに有用です; <a href="/pod/perlvar">perlvar</a> にさらなる情報があります:</p>
+<pre class="prettyprint lang-perl"><code>    BEGIN { $SIG{__DIE__} = sub { require Carp; Carp::confess(@_) } }</code></pre>
+<div class="original">
+<p>Various useful techniques for the redirection of STDOUT and STDERR filehandles are explained in <a href="/pod/perlopentut">perlopentut</a> and <a href="/pod/perlfaq8">perlfaq8</a>.</p>
+</div>
+<p>STDOUT と STDERR ファイルハンドルのリダイレクトに関する様々な便利な テクニックが <a href="/pod/perlopentut">perlopentut</a> と <a href="/pod/perlfaq8">perlfaq8</a> に記述されています。</p>
+<h1 id="CGI">CGI<a href="#CGI" class="toc_link">&#182;</a></h1>
+<div class="original">
+<p>Just a quick hint here for all those CGI programmers who can&#39;t figure out how on earth to get past that &#39;waiting for input&#39; prompt, when running their CGI script from the command-line, try something like this:</p>
+</div>
+<p>「入力待ち」プロンプトからどうやれば逃れられるのかが分からない全ての CGI プログラマへの簡単なヒントとして、 CGI をコマンドラインから実行するときに、以下のようなものを試してください:</p>
+<pre class="prettyprint lang-perl"><code>        &gt; perl -d my_cgi.pl -nodebug </code></pre>
+<div class="original">
+<p>Of course <a href="/pod/CGI">CGI</a> and <a href="/pod/perlfaq9">perlfaq9</a> will tell you more.</p>
+</div>
+<p>もちろん <a href="/pod/CGI">CGI</a> と <a href="/pod/perlfaq9">perlfaq9</a> にはもっと多くの情報があります。</p>
+<h1 id="GUIs">GUI<a href="#GUIs" class="toc_link">&#182;</a></h1>
+<p></p>
+<div class="original">
+<p>The command line interface is tightly integrated with an <b>emacs</b> extension and there&#39;s a <b>vi</b> interface too.</p>
+</div>
+<p>コマンドラインインターフェースは <b>emacs</b> 拡張と密接に統合されていて、 <b>vi</b> インターフェースもあります。</p>
+<div class="original">
+<p>You don&#39;t have to do this all on the command line, though, there are a few GUI options out there. The nice thing about these is you can wave a mouse over a variable and a dump of its data will appear in an appropriate window, or in a popup balloon, no more tiresome typing of &#39;x $varname&#39; :-)</p>
+</div>
+<p>しかし、これら全てをコマンドラインで実行する必要はありません; いくつかの GUI の選択肢もあります。 これらのよいところは、マウスカーソルを変数の上に移動させると適切な ウィンドウやバルーンにそのデータがダンプされ、もう &#39;x $varname&#39; と タイプしなくていいことです :-)</p>
+<div class="original">
+<p>In particular have a hunt around for the following:</p>
+</div>
+<p>特に以下のものの辺りを調べてみてください:</p>
+<div class="original">
+<p><b>ptkdb</b> perlTK based wrapper for the built-in debugger</p>
+</div>
+<p><b>ptkdb</b> ビルドインデバッガのための perlTK ベースのラッパー</p>
+<div class="original">
+<p><b>ddd</b> data display debugger</p>
+</div>
+<p><b>ddd</b> データ表示デバッガ</p>
+<div class="original">
+<p><b>PerlDevKit</b> and <b>PerlBuilder</b> are NT specific</p>
+</div>
+<p><b>PerlDevKit</b> と <b>PerlBuilder</b> は NT 固有です</p>
+<div class="original">
+<p>NB. (more info on these and others would be appreciated).</p>
+</div>
+<p>注意せよ。 (これらやその他のものに関するさらなる情報を頂ければ幸いです)。</p>
+<h1 id="SUMMARY">まとめ<a href="#SUMMARY" class="toc_link">&#182;</a></h1>
+<p></p>
+<div class="original">
+<p>We&#39;ve seen how to encourage good coding practices with <b>use strict</b> and <b>-w</b>. We can run the perl debugger <b>perl -d scriptname</b> to inspect your data from within the perl debugger with the <b>p</b> and <b>x</b> commands. You can walk through your code, set breakpoints with <b>b</b> and step through that code with <b>s</b> or <b>n</b>, continue with <b>c</b> and return from a sub with <b>r</b>. Fairly intuitive stuff when you get down to it.</p>
+</div>
+<p><b>use strict</b> と <b>-w</b> を使ってどうやって良いコーディングを実践するかを 見ました。 <b>perl -d scriptname</b> とすることで perl デバッガを起動でき、デバッガの <b>p</b> や <b>x</b> のコマンドでデータを検査できます。 コードの中を通り抜けて、<b>b</b> でブレークポイントを設定し、 <b>s</b> や <b>n</b> でステップ実行を行い、<b>c</b> で再開して、<b>r</b> サブルーチンから 戻ります。 うんざりしたときにはかなり直感的な機能です。</p>
+<div class="original">
+<p>There is of course lots more to find out about, this has just scratched the surface. The best way to learn more is to use perldoc to find out more about the language, to read the on-line help (<a href="/pod/perldebug">perldebug</a> is probably the next place to go), and of course, experiment.</p>
+</div>
+<p>もちろんもっと多くの調べるべきことがありますが、これは表面を なぞっただけです。 より多くを学ぶための最善の方法は、言語に関してより多くを調べるために オンラインヘルプを読むために perldoc を使う(おそらく次に進むべき ところは <a href="/pod/perldebug">perldebug</a> でしょう)ことと、もちろん実践です。</p>
+<h1 id="SEE32ALSO">SEE ALSO<a href="#SEE32ALSO" class="toc_link">&#182;</a></h1>
+<p><a href="/pod/perldebug">perldebug</a>, <a href="/pod/perldebguts">perldebguts</a>, <a href="/pod/perldiag">perldiag</a>, <a href="/pod/perlrun">perlrun</a></p>
+<h1 id="AUTHOR">作者<a href="#AUTHOR" class="toc_link">&#182;</a></h1>
+<p>Richard Foley &lt;richard.foley@rfi.net&gt; Copyright (c) 2000</p>
+<h1 id="CONTRIBUTORS">貢献者<a href="#CONTRIBUTORS" class="toc_link">&#182;</a></h1>
+<p></p>
+<div class="original">
+<p>Various people have made helpful suggestions and contributions, in particular:</p>
+</div>
+<p>様々な人々が有益な提案や貢献をしてくれました; 特に:</p>
+<p>Ronald J Kimball &lt;rjk@linguist.dartmouth.edu&gt;</p>
+<p>Hugo van der Sanden &lt;hv@crypt0.demon.co.uk&gt;</p>
+<p>Peter Scott &lt;Peter@PSDT.com&gt;</p>
+<h1 id="POD32ERRORS">POD ERRORS<a href="#POD32ERRORS" class="toc_link">&#182;</a></h1>
+<p>Hey! <b>The above document had some coding errors, which are explained below:</b></p>
+<dl>
+<dt>Around line 395:</dt>
+<dd>
+<p>Deleting unknown formatting code M&lt;&gt;</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer span-24 last">
+Powered by Amon2, <a href="https://sourceforge.jp/projects/perldocjp/">perldocjp project</a>. Operated by <a href="http://japan.perlassociation.org">Japan Perl Association</a>
+</div>
+</div>
+</body>
+</html>

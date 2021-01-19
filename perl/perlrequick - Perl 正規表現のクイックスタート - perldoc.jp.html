@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html style="" lang="ja"><head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Language" content="ja">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>perlrequick - Perl 正規表現のクイックスタート - perldoc.jp</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="description" content="Perl 正規表現のクイックスタート">
+<meta name="keywords" content="Perl,翻訳,モジュール">
+<link href="perlrequick%20-%20Perl%20%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%20-%20perldoc.jp_files/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+<link href="perlrequick%20-%20Perl%20%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%20-%20perldoc.jp_files/print.css" media="print" rel="stylesheet" type="text/css">
+<!--[if IE]>
+    <link href="/static/css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+<link rel="shortcut icon" href="https://perldoc.jp/favicon.ico">
+<script type="text/javascript" async="" src="perlrequick%20-%20Perl%20%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%20-%20perldoc.jp_files/ga.js"></script><script src="perlrequick%20-%20Perl%20%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%20-%20perldoc.jp_files/prettify.js" type="text/javascript"></script>
+<script src="perlrequick%20-%20Perl%20%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%20-%20perldoc.jp_files/jquery.js"></script>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-59935-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+<body onload="prettyPrint();return true;" style="margin-bottom: 59px !important;">
+<div class="container">
+<div class="header span-24 last">
+<a class="SiteLogo" href="https://perldoc.jp/">perldoc.jp</a>
+</div>
+<div class="nav span-24 last">
+<ul>
+<li><a href="https://perldoc.jp/">トップ</a></li>
+<li><a href="https://perldoc.jp/index/core">本体</a></li>
+<li><a href="https://perldoc.jp/index/function">関数</a></li>
+<li><a href="https://perldoc.jp/index/variable">変数</a></li>
+<li><a href="https://perldoc.jp/index/module">モジュール</a></li>
+<li><a href="https://perldoc.jp/category">カテゴリ別</a></li>
+<li><a href="https://perldoc.jp/index/article">その他の翻訳</a></li>
+<li><a href="https://perldoc.jp/translators">翻訳者</a></li>
+<li><a href="https://perldoc.jp/manners">翻訳の作法</a></li>
+<li><a href="https://perldoc.jp/about">このサイトについて</a></li>
+</ul>
+
+<form method="get" action="https://www.google.co.jp/search" id="GoogleSearch">
+<input type="text" name="q" size="31" maxlength="255">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+<input type="hidden" name="hl" value="ja">
+<input type="hidden" name="domains" value="perldoc.jp">
+<input type="hidden" name="sitesearch" value="perldoc.jp">
+<input type="submit" name="btnG" value="Google 検索">
+</form>
+
+</div>
+<div id="main" class="span-24 last">
+<div id="content">
+<div class="content">
+<div class="PodPage">
+<div class="PodInfo">
+<div class="PodVersion">5.26.1</div>
+<div class="CheckAtCPAN"><a href="http://search.cpan.org/perldoc?perlrequick">CPANで確認する</a></div>
+<div class="OtherVersions">
+Other versions:<br>
+<a href="https://perldoc.jp/docs/perl/5.24.1/perlrequick.pod">5.24.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.22.1/perlrequick.pod">5.22.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.20.1/perlrequick.pod">5.20.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.18.1/perlrequick.pod">5.18.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.16.1/perlrequick.pod">5.16.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.14.1/perlrequick.pod">5.14.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.12.1/perlrequick.pod">5.12.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.10.1/perlrequick.pod">5.10.1</a><br>
+</div><form action="/docs/perl/5.26.1/perlrequick.pod/diff">
+<select name="target"><option value="perl/5.24.1/perlrequick.pod" selected="selected">5.24.1</option><option value="perl/5.22.1/perlrequick.pod">5.22.1</option><option value="perl/5.20.1/perlrequick.pod">5.20.1</option><option value="perl/5.18.1/perlrequick.pod">5.18.1</option><option value="perl/5.16.1/perlrequick.pod">5.16.1</option><option value="perl/5.14.1/perlrequick.pod">5.14.1</option><option value="perl/5.12.1/perlrequick.pod">5.12.1</option><option value="perl/5.10.1/perlrequick.pod">5.10.1</option></select>
+<input type="submit" value="diff">
+</form>
+<div class="Source"><a href="https://perldoc.jp/docs/perl/5.26.1/perlrequick.pod.pod">Source</a></div>
+<div><a target="_blank" href="https://sourceforge.jp/cvs/view/perldocjp/docs/perl/5.26.1/perlrequick.pod?view=log">変更履歴(sf.jp)</a></div>
+<div><a target="_blank" href="https://sourceforge.jp/ticket/newticket.php?group_id=136">誤訳の報告</a></div>
+<script>
+              var display_original = false;
+            </script>
+<div>
+<a href="#" onclick="$('.original').css('display', display_original ? 'none' : 'block'); display_original = display_original ? false : true; return false;">原文を表示/隠す</a>
+</div>
+</div>
+<div class="PodBody">
+<ul class="pod_toc">
+<li><a href="#NAME">名前</a></li>
+<li><a href="#DESCRIPTION">説明</a></li>
+<li><a href="#The32Guide">ガイド</a>
+<ul>
+<li><a href="#Simple32word32matching">単純な単語のマッチング</a></li>
+<li><a href="#Using32character32classes">文字クラスを使う</a></li>
+<li><a href="#Matching32this32or32that">あれやこれやにマッチングする</a></li>
+<li><a href="#Grouping32things32and32hierarchical32matching">グループ化と階層的マッチング</a></li>
+<li><a href="#Extracting32matches">マッチングしたものを取り出す</a></li>
+<li><a href="#Matching32repetitions">マッチングの繰り返し</a></li>
+<li><a href="#More32matching">更なるマッチング</a></li>
+<li><a href="#Search32and32replace">検索と置換</a></li>
+<li><a href="#The32split32operator">split 演算子</a></li>
+<li><a href="#use32re32strict"><code>use re 'strict'</code></a></li>
+</ul>
+</li>
+<li><a href="#BUGS">バグ</a></li>
+<li><a href="#SEE32ALSO">SEE ALSO</a></li>
+<li><a href="#AUTHOR32AND32COPYRIGHT">AUTHOR AND COPYRIGHT</a>
+<ul>
+<li><a href="#Acknowledgments">Acknowledgments</a></li>
+</ul>
+</li>
+</ul>
+<div class="pod_content_body"><h1 id="NAME">名前<a href="#NAME" class="toc_link">¶</a></h1>
+<div class="original">
+<p>perlrequick - Perl regular expressions quick start</p>
+</div>
+<p>perlrequick - Perl 正規表現のクイックスタート</p>
+<h1 id="DESCRIPTION">説明<a href="#DESCRIPTION" class="toc_link">¶</a></h1>
+<div class="original">
+<p>This page covers the very basics of understanding, creating and using regular expressions ('regexes') in Perl.</p>
+</div>
+<p>このページは、Perl の正規表現 ('regexes') の理解、作成、使用の基本中の 基本に対応しています。</p>
+<h1 id="The32Guide">ガイド<a href="#The32Guide" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>This page assumes you already know things, like what a "pattern" is, and the basic syntax of using them. If you don't, see <a href="https://perldoc.jp/pod/perlretut">perlretut</a>.</p>
+</div>
+<p>このページは、あなたが「パターンとは何か」やそれを使うための基本的な 文法を既に知っていることを仮定しています。 もしそうでなければ、<a href="https://perldoc.jp/pod/perlretut">perlretut</a> を参照してください。</p>
+<h2 id="Simple32word32matching">単純な単語のマッチング<a href="#Simple32word32matching" class="toc_link">¶</a></h2>
+<p></p>
+<div class="original">
+<p>The simplest regex is simply a word, or more generally, a string of 
+characters. A regex consisting of a word matches any string that 
+contains that word:</p>
+</div>
+<p>最も単純な正規表現は単なる単語、より一般的には文字の並びです。 正規表現は単語を構成する任意の文字列にマッチングする単語からなります:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="typ">World</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches</span></code></pre>
+<div class="original">
+<p>In this statement, <code>World</code> is a regex and the <code>//</code> enclosing <code>/World/</code> tells Perl to search a string for a match. The operator <code>=~</code>
+ associates the string with the regex match and produces a true value if
+ the regex matched, or false if the regex did not match. In our case, <code>World</code> matches the second word in <code>"Hello World"</code>, so the expression is true. This idea has several variations.</p>
+</div>
+<p>この文で、<code>World</code> は正規表現であり、 <code>//</code> で囲まれた <code>/World/</code> は Perl に対してマッチングのために文字列を検索することを指示します。 <code>=~</code> という演算子は正規表現にマッチングする文字列に結び付けられ、 正規表現がマッチングすれば真の値を生成し、マッチングしなければ偽となります。 この例では、<code>World</code> は <code>"Hello World"</code> の二番目の単語にマッチングするので、 式は真となります。 この考え方にはいくつかのバリエーションがあります。</p>
+<div class="original">
+<p>Expressions like this are useful in conditionals:</p>
+</div>
+<p>以下のような式は条件文で便利です:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"It matches\n"</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="typ">World</span><span class="pun">/;</span></code></pre>
+<div class="original">
+<p>The sense of the match can be reversed by using <code>!~</code> operator:</p>
+</div>
+<p>マッチングの成否の意味を反転する演算子 <code>!~</code> があります:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"It doesn't match\n"</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">!~</span><span class="pln"> </span><span class="pun">/</span><span class="typ">World</span><span class="pun">/;</span></code></pre>
+<div class="original">
+<p>The literal string in the regex can be replaced by a variable:</p>
+</div>
+<p>正規表現中のリテラル文字列は変数に置き換えることもができます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $greeting </span><span class="pun">=</span><span class="pln"> </span><span class="str">"World"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"It matches\n"</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">$greeting</span><span class="pun">/;</span></code></pre>
+<div class="original">
+<p>If you're matching against <code>$_</code>, the <code>$_ =~</code> part can be omitted:</p>
+</div>
+<p><code>$_</code> に対してマッチングを行う場合、<code>$_ =~</code> の部分は省略できます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $_ </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Hello World"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"It matches\n"</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">/</span><span class="typ">World</span><span class="pun">/;</span></code></pre>
+<div class="original">
+<p>Finally, the <code>//</code> default delimiters for a match can be changed to arbitrary delimiters by putting an <code>'m'</code> out front:</p>
+</div>
+<p>最後に、マッチングのための <code>//</code> のデフォルトデリミタは <code>'m'</code> を 前置することにより任意のものにすることができます:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> m</span><span class="pun">!</span><span class="typ">World</span><span class="pun">!;</span><span class="pln"> &nbsp; </span><span class="com"># matches, delimited by '!'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> m</span><span class="pun">{</span><span class="typ">World</span><span class="pun">};</span><span class="pln"> &nbsp; </span><span class="com"># matches, note the matching '{}'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"/usr/bin/perl"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> m</span><span class="str">"/perl"</span><span class="pun">;</span><span class="pln"> </span><span class="com"># matches after '/usr/bin',</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># '/' becomes an ordinary char</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> m</span><span class="pun">!</span><span class="typ">World</span><span class="pun">!;</span><span class="pln"> &nbsp; </span><span class="com"># マッチングする; デリミタは '!'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> m</span><span class="pun">{</span><span class="typ">World</span><span class="pun">};</span><span class="pln"> &nbsp; </span><span class="com"># マッチングする; 組になっている '{}' に注意</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"/usr/bin/perl"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> m</span><span class="str">"/perl"</span><span class="pun">;</span><span class="pln"> </span><span class="com"># 'usr/bin' の後にマッチングする</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># '/' は普通の文字になっている</span></code></pre>
+<div class="original">
+<p>Regexes must match a part of the string <i>exactly</i> in order for the statement to be true:</p>
+</div>
+<p>正規表現は、文が真となるためには <i>正確に</i> 順序通りに文字列の 一部としてマッチングしなければなりません。</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">world</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># doesn't match, case sensitive</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">o W</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp;</span><span class="com"># matches, ' ' is an ordinary char</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="typ">World</span><span class="pln"> </span><span class="pun">/;</span><span class="pln"> </span><span class="com"># doesn't match, no ' ' at end</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">world</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># マッチングしない; 大文字小文字は区別する</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">o W</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp;</span><span class="com"># マッチングする; ' ' は普通の文字</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="typ">World</span><span class="pln"> </span><span class="pun">/;</span><span class="pln"> </span><span class="com"># マッチングしない; 末尾に ' ' はない</span></code></pre>
+<div class="original">
+<p>Perl will always match at the earliest possible point in the string:</p>
+</div>
+<p>Perl は常に文字列の中で最初に現れるものをマッチングしようとします:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">o</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; </span><span class="com"># matches 'o' in 'Hello'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"That hat is red"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">hat</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># matches 'hat' in 'That'</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"Hello World"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">o</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; </span><span class="com"># 'Hello' の 'o' にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"That hat is red"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">hat</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># 'That' の中の 'hat' にマッチング</span></code></pre>
+<div class="original">
+<p>Not all characters can be used 'as is' in a match. Some characters, called <b>metacharacters</b>, are reserved for use in regex notation. The metacharacters are</p>
+</div>
+<p>すべての文字がマッチングにおいて'あるがまま'(as is) に使われるのでは ありません。 <i>メタ文字</i> と呼ばれる幾つかの文字が正規表現の記述に使うために 予約されています。 メタ文字には以下のものがあります</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">{}[]()^</span><span class="pln">$</span><span class="pun">.|*+?\</span></code></pre>
+<div class="original">
+<p>A metacharacter can be matched by putting a backslash before it:</p>
+</div>
+<p>メタ文字はバックスラッシュを前置することによってマッチングさせられます:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"2+2=4"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="lit">2</span><span class="pun">+</span><span class="lit">2</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp;</span><span class="com"># doesn't match, + is a metacharacter</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"2+2=4"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="lit">2</span><span class="pun">\+</span><span class="lit">2</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># matches, \+ is treated like an ordinary +</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">'C:\WIN32'</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">C</span><span class="pun">:\\</span><span class="pln">WIN</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># matches</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"/usr/bin/perl"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/\/</span><span class="pln">usr</span><span class="pun">\/</span><span class="pln">bin</span><span class="pun">\/</span><span class="pln">perl</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"2+2=4"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="lit">2</span><span class="pun">+</span><span class="lit">2</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp;</span><span class="com"># マッチングしない; + はメタ文字</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"2+2=4"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="lit">2</span><span class="pun">\+</span><span class="lit">2</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># マッチングする; \+ 普通の + のように扱われる</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">'C:\WIN32'</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">C</span><span class="pun">:\\</span><span class="pln">WIN</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># マッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"/usr/bin/perl"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/\/</span><span class="pln">usr</span><span class="pun">\/</span><span class="pln">bin</span><span class="pun">\/</span><span class="pln">perl</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># マッチングする</span></code></pre>
+<div class="original">
+<p>In the last regex, the forward slash <code>'/'</code> is also backslashed, because it is used to delimit the regex.</p>
+</div>
+<p>最後の正規表現では、スラッシュ <code>'/'</code> もまたバックスラッシュが つけられています; なぜなら、それが正規表現のデリミタとして使われているからです。</p>
+<div class="original">
+<p>Non-printable ASCII characters are represented by <b>escape sequences</b>. Common examples are <code>\t</code> for a tab, <code>\n</code> for a newline, and <code>\r</code> for a carriage return. Arbitrary bytes are represented by octal escape sequences, e.g., <code>\033</code>, or hexadecimal escape sequences, e.g., <code>\x1B</code>:</p>
+</div>
+<p>印字できない ASCII 文字は <b>エスケープシーケンス</b> によって表現されます。 一般的な例では、タブを表す <code>\t</code>、改行を表す <code>\n</code>、復帰を表す <code>\r</code> が あります。 任意のバイトは 8 進エスケープシーケンス (例えば <code>\033</code>) あるいは 16 進エスケープシーケンス (例えば <code>\x1B</code>) で表現できます:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"1000\t2000"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> m</span><span class="pun">(</span><span class="lit">0</span><span class="pun">\</span><span class="pln">t2</span><span class="pun">)</span><span class="pln"> &nbsp;</span><span class="com"># matches</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"cat"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/\</span><span class="lit">143</span><span class="pun">\</span><span class="pln">x61</span><span class="pun">\</span><span class="pln">x74</span><span class="pun">/</span><span class="pln"> &nbsp;</span><span class="com"># matches in ASCII, but </span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># a weird way to spell cat</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"1000\t2000"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> m</span><span class="pun">(</span><span class="lit">0</span><span class="pun">\</span><span class="pln">t2</span><span class="pun">)</span><span class="pln"> &nbsp;</span><span class="com"># マッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"cat"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/\</span><span class="lit">143</span><span class="pun">\</span><span class="pln">x61</span><span class="pun">\</span><span class="pln">x74</span><span class="pun">/</span><span class="pln"> &nbsp;</span><span class="com"># ASCII でマッチングするが、</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># cat を綴る変な方法</span></code></pre>
+<div class="original">
+<p>Regexes are treated mostly as double-quoted strings, so variable substitution works:</p>
+</div>
+<p>正規表現はほとんどの場合においてダブルクォートで囲まれた文字列のように 扱われるので、変数置換は動作します:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $foo </span><span class="pun">=</span><span class="pln"> </span><span class="str">'house'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">'cathouse'</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">cat$foo</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># matches</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">'housecat'</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">$</span><span class="pun">{</span><span class="pln">foo</span><span class="pun">}</span><span class="pln">cat</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># matches</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $foo </span><span class="pun">=</span><span class="pln"> </span><span class="str">'house'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">'cathouse'</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">cat$foo</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># マッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">'housecat'</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">$</span><span class="pun">{</span><span class="pln">foo</span><span class="pun">}</span><span class="pln">cat</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># マッチングする</span></code></pre>
+<div class="original">
+<p>With all of the regexes above, if the regex matched anywhere in the string, it was considered a match. To specify <i>where</i> it should match, we would use the <b>anchor</b> metacharacters <code>^</code> and <code>$</code>. The anchor <code>^</code> means match at the beginning of the string and the anchor <code>$</code> means match at the end of the string, or before a newline at the end of the string. Some examples:</p>
+</div>
+<p>これまでの正規表現では、文字列のどこかでマッチングすればマッチングしたと みなしてきました。 文字列の <i>どこで</i> 正規表現がマッチングするのかを指定するには、 <i>アンカー</i> メタ文字である <code>^</code> と <code>$</code> を使います。 アンカー <code>^</code> は文字列の先頭でマッチングすることを意味し、アンカー <code>$</code> は 文字列の末尾(あるいは文字列の末尾にある改行の前) でマッチングすることを 意味します。 いくつか例を挙げます:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"housekeeper"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">keeper</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># matches</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"housekeeper"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^</span><span class="pln">keeper</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># doesn't match</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"housekeeper"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">keeper$</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># matches</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"housekeeper\n"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">keeper$</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="com"># matches</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"housekeeper"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^</span><span class="pln">housekeeper$</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"housekeeper"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">keeper</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># マッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"housekeeper"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^</span><span class="pln">keeper</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># マッチングしない</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"housekeeper"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">keeper$</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># マッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"housekeeper\n"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">keeper$</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="com"># マッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"housekeeper"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^</span><span class="pln">housekeeper$</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># マッチングする</span></code></pre>
+<h2 id="Using32character32classes">文字クラスを使う<a href="#Using32character32classes" class="toc_link">¶</a></h2>
+<p></p>
+<div class="original">
+<p>A <b>character class</b> allows a set of possible characters, rather 
+than just a single character, to match at a particular point in a regex.
+ Character classes are denoted by brackets <code>[...]</code>, with the set of characters to be possibly matched inside. Here are some examples:</p>
+</div>
+<p><b>文字クラス</b> は正規表現の特定の場所においてマッチングする可能性のある文字の 集合です(単一の文字ではありません)。 文字クラスはブラケット <code>[...]</code> で表現され、マッチングする可能性のある文字の 集合はその内側に置かれます。 以下はその例です:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">cat</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># matches 'cat'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[</span><span class="pln">bcr</span><span class="pun">]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># matches 'bat', 'cat', or 'rat'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"abc"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/[</span><span class="pln">cab</span><span class="pun">]/;</span><span class="pln"> </span><span class="com"># matches 'a'</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">cat</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># 'cat' にマッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[</span><span class="pln">bcr</span><span class="pun">]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># 'bat', 'cat', 'rat' のいずれかにマッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"abc"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/[</span><span class="pln">cab</span><span class="pun">]/;</span><span class="pln"> </span><span class="com"># 'a' にマッチングする</span></code></pre>
+<div class="original">
+<p>In the last statement, even though <code>'c'</code> is the first character in the class, the earliest point at which the regex can match is <code>'a'</code>.</p>
+</div>
+<p>最後の文において、<code>'c'</code> がクラスの最初の文字であるにもかかわらず 正規表現がマッチングすることのできる最初の位置にある文字である <code>'a'</code> が マッチングします。</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/[</span><span class="pln">yY</span><span class="pun">][</span><span class="pln">eE</span><span class="pun">][</span><span class="pln">sS</span><span class="pun">]/;</span><span class="pln"> </span><span class="com"># match 'yes' in a case-insensitive way</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># 'yes', 'Yes', 'YES', etc.</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">yes</span><span class="pun">/</span><span class="pln">i</span><span class="pun">;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># also match 'yes' in a case-insensitive way</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/[</span><span class="pln">yY</span><span class="pun">][</span><span class="pln">eE</span><span class="pun">][</span><span class="pln">sS</span><span class="pun">]/;</span><span class="pln"> </span><span class="com"># 大文字小文字を無視して 'yes' にマッチングする</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># 'yes', 'Yes', 'YES' など。</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">yes</span><span class="pun">/</span><span class="pln">i</span><span class="pun">;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># これも大文字小文字を無視して 'yes' にマッチングする</span></code></pre>
+<div class="original">
+<p>The last example shows a match with an <code>'i'</code> <b>modifier</b>, which makes the match case-insensitive.</p>
+</div>
+<p>最後の例は大文字小文字を無視してマッチングするようにする <code>'i'</code> <b>修飾子</b> (modifier) を使ったマッチングを示しています。</p>
+<div class="original">
+<p>Character classes also have ordinary and special characters, but the 
+sets of ordinary and special characters inside a character class are 
+different than those outside a character class. The special characters 
+for a character class are <code>-]\^$</code> and are matched using an escape:</p>
+</div>
+<p>文字クラスも普通の文字と特殊文字がありますが、文字クラスの内側での 普通の文字と特殊文字は、文字クラスの外側の物とは違います。 文字クラスのために特殊な文字は <code>-]\^$</code> で、エスケープを使って マッチングされます:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp;</span><span class="pun">/[\]</span><span class="pln">c</span><span class="pun">]</span><span class="pln">def</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># matches ']def' or 'cdef'</span><span class="pln"><br>&nbsp; &nbsp;$x </span><span class="pun">=</span><span class="pln"> </span><span class="str">'bcr'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp;</span><span class="str">/[$x]at/</span><span class="pun">;</span><span class="pln"> &nbsp; </span><span class="com"># matches 'bat, 'cat', or 'rat'</span><span class="pln"><br>&nbsp; &nbsp;</span><span class="pun">/[\</span><span class="pln">$x</span><span class="pun">]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches '$at' or 'xat'</span><span class="pln"><br>&nbsp; &nbsp;</span><span class="pun">/[\\</span><span class="pln">$x</span><span class="pun">]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># matches '\at', 'bat, 'cat', or 'rat'</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp;</span><span class="pun">/[\]</span><span class="pln">c</span><span class="pun">]</span><span class="pln">def</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># ']def' または 'cdef' にマッチング</span><span class="pln"><br>&nbsp; &nbsp;$x </span><span class="pun">=</span><span class="pln"> </span><span class="str">'bcr'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp;</span><span class="str">/[$x]at/</span><span class="pun">;</span><span class="pln"> &nbsp; </span><span class="com"># 'bat', 'cat', 'rat' にマッチング</span><span class="pln"><br>&nbsp; &nbsp;</span><span class="pun">/[\</span><span class="pln">$x</span><span class="pun">]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># '$at' または 'xat' にマッチング</span><span class="pln"><br>&nbsp; &nbsp;</span><span class="pun">/[\\</span><span class="pln">$x</span><span class="pun">]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># '\at', 'bat, 'cat', 'rat' にマッチング</span></code></pre>
+<div class="original">
+<p>The special character <code>'-'</code> acts as a range operator within character classes, so that the unwieldy <code>[0123456789]</code> and <code>[abc...xyz]</code> become the svelte <code>[0-9]</code> and <code>[a-z]</code>:</p>
+</div>
+<p>特殊文字 <code>'-'</code> は文字クラスの中で範囲演算子として振舞うので、 <code>[0123456789]</code> や <code>[abc...xyz]</code> のような 見づらいものはすっきりとした <code>[0-9]</code> であるとか <code>[a-z]</code> のように 書き換えられます:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">item</span><span class="pun">[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">9</span><span class="pun">]/;</span><span class="pln"> &nbsp;</span><span class="com"># matches 'item0' or ... or 'item9'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">9a</span><span class="pun">-</span><span class="pln">fA</span><span class="pun">-</span><span class="pln">F</span><span class="pun">]/;</span><span class="pln"> &nbsp;</span><span class="com"># matches a hexadecimal digit</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">item</span><span class="pun">[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">9</span><span class="pun">]/;</span><span class="pln"> &nbsp;</span><span class="com"># 'item0' ... 'item9' にマッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">9a</span><span class="pun">-</span><span class="pln">fA</span><span class="pun">-</span><span class="pln">F</span><span class="pun">]/;</span><span class="pln"> &nbsp;</span><span class="com"># 16 進数にマッチングする</span></code></pre>
+<div class="original">
+<p>If <code>'-'</code> is the first or last character in a character class, it is treated as an ordinary character.</p>
+</div>
+<p><code>'-'</code> が文字クラスの中の最初か最後の文字であった場合、通常の文字として 扱われます。</p>
+<div class="original">
+<p>The special character <code>^</code> in the first position of a character class denotes a <b>negated character class</b>, which matches any character but those in the brackets. Both <code>[...]</code> and <code>[^...]</code> must match a character, or the match fails. Then</p>
+</div>
+<p>文字クラスの先頭の位置にある特殊文字 <code>^</code> は <b>反転文字クラス</b> を表し、 ブラケットの中にない文字にマッチングします。 <code>[...]</code> と <code>[^...]</code> の両方とも、一つの文字にマッチングせねばならず、 そうでない場合にはマッチングは失敗します。 ですから</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/[^</span><span class="pln">a</span><span class="pun">]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># doesn't match 'aat' or 'at', but matches</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># all other 'bat', 'cat, '0at', '%at', etc.</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[^</span><span class="lit">0</span><span class="pun">-</span><span class="lit">9</span><span class="pun">]/;</span><span class="pln"> &nbsp;</span><span class="com"># matches a non-numeric character</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[</span><span class="pln">a</span><span class="pun">^]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches 'aat' or '^at'; here '^' is ordinary</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/[^</span><span class="pln">a</span><span class="pun">]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># 'aat' や 'at' にはマッチングしないが、その他の</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># 'bat', 'cat, '0at', '%at' などにはマッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[^</span><span class="lit">0</span><span class="pun">-</span><span class="lit">9</span><span class="pun">]/;</span><span class="pln"> &nbsp;</span><span class="com"># 数字以外にマッチングする</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[</span><span class="pln">a</span><span class="pun">^]</span><span class="pln">at</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># 'aat' か '^at'にマッチングする; ここでは '^' は通常の文字</span></code></pre>
+<div class="original">
+<p>Perl has several abbreviations for common character classes. (These 
+definitions are those that Perl uses in ASCII-safe mode with the <code>/a</code> modifier. Otherwise they could match many more non-ASCII Unicode characters as well. See <a href="https://perldoc.jp/pod/perlrecharclass#Backslash32sequences">"Backslash sequences" in perlrecharclass</a> for details.)</p>
+</div>
+<p>Perl は一般的な文字クラスの略記法を持っています。 (これらの定義は Perl が <code>/a</code> 修飾子によって ASCII 安全モードを 使っているときのものです。 さもなければもっと多くの非 ASCII の Unicode 文字に マッチングするかもしれません。 詳しくは <a href="https://perldoc.jp/pod/perlrecharclass#Backslash32sequences">"Backslash sequences" in perlrecharclass</a> を参照してください。)</p>
+<ul>
+<li><p></p>
+<div class="original">
+<p>\d is a digit and represents</p>
+</div>
+<p>\d は数字で、以下のものを表します</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">9</span><span class="pun">]</span></code></pre>
+</li>
+<li><p></p>
+<div class="original">
+<p>\s is a whitespace character and represents</p>
+</div>
+<p>\s は空白文字で、以下のものを表します</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">[\</span><span class="pln"> </span><span class="pun">\</span><span class="pln">t</span><span class="pun">\</span><span class="pln">r</span><span class="pun">\</span><span class="pln">n</span><span class="pun">\</span><span class="pln">f</span><span class="pun">]</span></code></pre>
+</li>
+<li><p></p>
+<div class="original">
+<p>\w is a word character (alphanumeric or _) and represents</p>
+</div>
+<p>\w は単語を構成する文字(英数字 と _)で、以下のものを表します</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">[</span><span class="lit">0</span><span class="pun">-</span><span class="lit">9a</span><span class="pun">-</span><span class="pln">zA</span><span class="pun">-</span><span class="pln">Z_</span><span class="pun">]</span></code></pre>
+</li>
+<li><p></p>
+<div class="original">
+<p>\D is a negated \d; it represents any character but a digit</p>
+</div>
+<p>\D は \d の否定形です; 数字以外の文字を表します</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">[^</span><span class="lit">0</span><span class="pun">-</span><span class="lit">9</span><span class="pun">]</span></code></pre>
+</li>
+<li><p></p>
+<div class="original">
+<p>\S is a negated \s; it represents any non-whitespace character</p>
+</div>
+<p>\S は \s の否定形です; 非空白文字を表します</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">[^\</span><span class="pln">s</span><span class="pun">]</span></code></pre>
+</li>
+<li><p></p>
+<div class="original">
+<p>\W is a negated \w; it represents any non-word character</p>
+</div>
+<p>\W は \w の否定形です; 単語を構成しない文字を表します</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">[^\</span><span class="pln">w</span><span class="pun">]</span></code></pre>
+</li>
+<li><p></p>
+<div class="original">
+<p>The period '.' matches any character but "\n"</p>
+</div>
+<p>ピリオド '.' は "\n" 以外の任意の文字にマッチングします</p>
+</li>
+</ul>
+<div class="original">
+<p>The <code>\d\s\w\D\S\W</code> abbreviations can be used both inside and outside of character classes. Here are some in use:</p>
+</div>
+<p><code>\d\s\w\D\S\W</code> の省略記法は文字クラスの内側でも外側でも使うことができます。 以下はその例です:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">:\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">:\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># matches a hh:mm:ss time format</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">s</span><span class="pun">]/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># matches any digit or whitespace character</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/\</span><span class="pln">w</span><span class="pun">\</span><span class="pln">W</span><span class="pun">\</span><span class="pln">w</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># matches a word char, followed by a</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># non-word char, followed by a word char</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/..</span><span class="pln">rt</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># matches any two chars, followed by 'rt'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">end</span><span class="pun">\./;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># matches 'end.'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">end</span><span class="pun">[.]/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># same thing, matches 'end.'</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">:\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">:\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># hh:mm:ss 形式の時間表記にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/[\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">s</span><span class="pun">]/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># 数字または空白にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/\</span><span class="pln">w</span><span class="pun">\</span><span class="pln">W</span><span class="pun">\</span><span class="pln">w</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># 非単語文字が続きさらに単語文字が続く</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># 単語文字にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/..</span><span class="pln">rt</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># 'rt' が続く任意の二文字にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">end</span><span class="pun">\./;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># 'end.' にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">end</span><span class="pun">[.]/;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># 同じこと; 'end.' にマッチング</span></code></pre>
+<div class="original">
+<p>The <span style="white-space: nowrap;"><b>word anchor</b> </span> <code>\b</code> matches a boundary between a word character and a non-word character <code>\w\W</code> or <code>\W\w</code>:</p>
+</div>
+<p><span style="white-space: nowrap;"><b>語アンカー</b> </span> (word anchor) <code>\b</code> はこれは単語を構成する文字と単語を 構成しない文字の間 <code>\w\W</code> や <code>\W\w</code> の境界にマッチングします:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Housecat catenates house and cat"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/\</span><span class="pln">bcat</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches cat in 'catenates'</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">cat</span><span class="pun">\</span><span class="pln">b</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches cat in 'housecat'</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/\</span><span class="pln">bcat</span><span class="pun">\</span><span class="pln">b</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches 'cat' at end of string</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Housecat catenates house and cat"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">cat</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp;</span><span class="com"># 'housecat' の cat にマッチング</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/\</span><span class="pln">bcat</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># 'catenates' の cat にマッチング</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">cat</span><span class="pun">\</span><span class="pln">b</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># 'housecat' の cat にマッチング</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/\</span><span class="pln">bcat</span><span class="pun">\</span><span class="pln">b</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># 文字列の終端の'cat'にマッチング</span></code></pre>
+<div class="original">
+<p>In the last example, the end of the string is considered a word boundary.</p>
+</div>
+<p>最後の例では、文字列の終端は単語境界として認識されています。</p>
+<div class="original">
+<p>For natural language processing (so that, for example, apostrophes are included in words), use instead <code>\b{wb}</code></p>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"don't"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="pun">.+?</span><span class="pln"> </span><span class="pun">\</span><span class="pln">b</span><span class="pun">{</span><span class="pln">wb</span><span class="pun">}</span><span class="pln"> </span><span class="pun">/</span><span class="pln">x</span><span class="pun">;</span><span class="pln"> &nbsp;</span><span class="com"># matches the whole string</span><span class="pln"><br><br>&nbsp; &nbsp; </span><span class="str">"don't"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="pun">.+?</span><span class="pln"> </span><span class="pun">\</span><span class="pln">b</span><span class="pun">{</span><span class="pln">wb</span><span class="pun">}</span><span class="pln"> </span><span class="pun">/</span><span class="pln">x</span><span class="pun">;</span><span class="pln"> &nbsp;</span><span class="com"># matches the whole string</span></code></pre>
+<h2 id="Matching32this32or32that">あれやこれやにマッチングする<a href="#Matching32this32or32that" class="toc_link">¶</a></h2>
+<p></p>
+<div class="original">
+<p>We can match different character strings with the <b>alternation</b> metacharacter <code>'|'</code>. To match <code>dog</code> or <code>cat</code>, we form the regex <code>dog|cat</code>.
+ As before, Perl will try to match the regex at the earliest possible 
+point in the string. At each character position, Perl will first try to 
+match the first alternative, <code>dog</code>. If <code>dog</code> doesn't match, Perl will then try the next alternative, <code>cat</code>. If <code>cat</code> doesn't match either, then the match fails and Perl moves to the next position in the string. Some examples:</p>
+</div>
+<p>異なる文字列を <b>選択</b> メタ文字 <code>'|'</code> によって行えます。 <code>dog</code> または <code>cat</code> にマッチングさせるには、正規表現を <code>dog|cat</code> のようにします。 以前述べた通り、Perlは文字列の可能な限り最も早い位置でマッチングを 行おうとします。 それぞれの文字位置で、Perlはまずはじめに最初の選択である <code>dog</code> に マッチングさせることを試みます。 もし <code>dog</code> がマッチングしなければ、Perl は次の選択肢である <code>cat</code> を 試します。 <code>cat</code> もまたマッチングしなければ、マッチングは失敗してPerlは文字列の 次の位置に移動します。 幾つか例を挙げましょう:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"cats and dogs"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">cat</span><span class="pun">|</span><span class="pln">dog</span><span class="pun">|</span><span class="pln">bird</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches "cat"</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"cats and dogs"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">dog</span><span class="pun">|</span><span class="pln">cat</span><span class="pun">|</span><span class="pln">bird</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches "cat"</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"cats and dogs"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">cat</span><span class="pun">|</span><span class="pln">dog</span><span class="pun">|</span><span class="pln">bird</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># "cat" にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"cats and dogs"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">dog</span><span class="pun">|</span><span class="pln">cat</span><span class="pun">|</span><span class="pln">bird</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># "cat" にマッチング</span></code></pre>
+<div class="original">
+<p>Even though <code>dog</code> is the first alternative in the second regex, <code>cat</code> is able to match earlier in the string.</p>
+</div>
+<p>二番目の正規表現において最初の選択肢が <code>dog</code> であるにもかかわらず、 <code>cat</code> が文字列で最初に現れるマッチング対象です。</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"cats"</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">c</span><span class="pun">|</span><span class="pln">ca</span><span class="pun">|</span><span class="pln">cat</span><span class="pun">|</span><span class="pln">cats</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># matches "c"</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"cats"</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">cats</span><span class="pun">|</span><span class="pln">cat</span><span class="pun">|</span><span class="pln">ca</span><span class="pun">|</span><span class="pln">c</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># matches "cats"</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"cats"</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">c</span><span class="pun">|</span><span class="pln">ca</span><span class="pun">|</span><span class="pln">cat</span><span class="pun">|</span><span class="pln">cats</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># "c" にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"cats"</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/</span><span class="pln">cats</span><span class="pun">|</span><span class="pln">cat</span><span class="pun">|</span><span class="pln">ca</span><span class="pun">|</span><span class="pln">c</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># "cats" にマッチング</span></code></pre>
+<div class="original">
+<p>At a given character position, the first alternative that allows the 
+regex match to succeed will be the one that matches. Here, all the 
+alternatives match at the first string position, so the first matches.</p>
+</div>
+<p>与えられた文字位置で、正規表現のマッチングを成功させるための 最初の選択肢はマッチングする一つとなります。 ここでは、全ての選択はは最初の文字列位置でマッチングするので、 最初のものがマッチングします。</p>
+<h2 id="Grouping32things32and32hierarchical32matching">グループ化と階層的マッチング<a href="#Grouping32things32and32hierarchical32matching" class="toc_link">¶</a></h2>
+<p></p>
+<div class="original">
+<p>The <b>grouping</b> metacharacters <code>()</code> allow a part of a 
+regex to be treated as a single unit. Parts of a regex are grouped by 
+enclosing them in parentheses. The regex <code>house(cat|keeper)</code> means match <code>house</code> followed by either <code>cat</code> or <code>keeper</code>. Some more examples are</p>
+</div>
+<p><b>グループ化</b> メタ文字 <code>()</code> は正規表現の一部分を一つのユニットとして 扱うことを許します。 ある正規表現の一部はカッコによって囲まれることでグループ化されます。 正規表現 <code>house(cat|keeper)</code> は、<code>cat</code> か <code>keeper</code> が後続する <code>house</code> にマッチングすることを意味します。 幾つか例を挙げましょう</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/(</span><span class="pln">a</span><span class="pun">|</span><span class="pln">b</span><span class="pun">)</span><span class="pln">b</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp;</span><span class="com"># matches 'ab' or 'bb'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/(^</span><span class="pln">a</span><span class="pun">|</span><span class="pln">b</span><span class="pun">)</span><span class="pln">c</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># matches 'ac' at start of string or 'bc' anywhere</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/(</span><span class="pln">a</span><span class="pun">|</span><span class="pln">b</span><span class="pun">)</span><span class="pln">b</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp;</span><span class="com"># 'ab' または 'bb' にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/(^</span><span class="pln">a</span><span class="pun">|</span><span class="pln">b</span><span class="pun">)</span><span class="pln">c</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># 文字列の先頭にある 'ac' か任意の場所の'bc'にマッチング</span></code></pre>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">house</span><span class="pun">(</span><span class="pln">cat</span><span class="pun">|)/;</span><span class="pln"> &nbsp;</span><span class="com"># matches either 'housecat' or 'house'</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">house</span><span class="pun">(</span><span class="pln">cat</span><span class="pun">(</span><span class="pln">s</span><span class="pun">|)|)/;</span><span class="pln"> &nbsp;</span><span class="com"># matches either 'housecats' or 'housecat' or</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># 'house'. &nbsp;Note groups can be nested.</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">house</span><span class="pun">(</span><span class="pln">cat</span><span class="pun">|)/;</span><span class="pln"> &nbsp;</span><span class="com"># 'housecat' か 'house' にマッチング</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">/</span><span class="pln">house</span><span class="pun">(</span><span class="pln">cat</span><span class="pun">(</span><span class="pln">s</span><span class="pun">|)|)/;</span><span class="pln"> &nbsp;</span><span class="com"># 'housecats' か 'housecat' か 'house' のいずれかに</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># マッチング。グループがネストできることに注意</span></code></pre>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"20"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/(</span><span class="lit">19</span><span class="pun">|</span><span class="lit">20</span><span class="pun">|)\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># matches the null alternative '()\d\d',</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># because '20\d\d' can't match</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="str">"20"</span><span class="pln"> </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/(</span><span class="lit">19</span><span class="pun">|</span><span class="lit">20</span><span class="pun">|)\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># 空の選択肢 '()\d\d' にマッチング</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># '20\d\d' はマッチングできないから</span></code></pre>
+<h2 id="Extracting32matches">マッチングしたものを取り出す<a href="#Extracting32matches" class="toc_link">¶</a></h2>
+<p></p>
+<div class="original">
+<p>The grouping metacharacters <code>()</code> also allow the extraction
+ of the parts of a string that matched. For each grouping, the part that
+ matched inside goes into the special variables <code>$1</code>, <code>$2</code>, etc. They can be used just as ordinary variables:</p>
+</div>
+<p>グループ化メタ文字 <code>()</code> はまた、マッチングした文字列の一部分を 展開することができます。 それぞれのグループ化に対して、マッチングした部分が特殊変数 <code>$1</code>, <code>$2</code> などに格納されます。 これらの変数は通常の変数と同じように使うことができます:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="com"># extract hours, minutes, seconds</span><span class="pln"><br>&nbsp; &nbsp; $time </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/(\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">):(\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">):(\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">)/;</span><span class="pln"> &nbsp;</span><span class="com"># match hh:mm:ss format</span><span class="pln"><br>&nbsp; &nbsp; $hours </span><span class="pun">=</span><span class="pln"> $1</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $minutes </span><span class="pun">=</span><span class="pln"> $2</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $seconds </span><span class="pun">=</span><span class="pln"> $3</span><span class="pun">;</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="com"># 時、分、秒を抽出する</span><span class="pln"><br>&nbsp; &nbsp; $time </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/(\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">):(\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">):(\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">)/;</span><span class="pln"> &nbsp;</span><span class="com"># hh:mm:ss 形式にマッチングする</span><span class="pln"><br>&nbsp; &nbsp; $hours </span><span class="pun">=</span><span class="pln"> $1</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $minutes </span><span class="pun">=</span><span class="pln"> $2</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $seconds </span><span class="pun">=</span><span class="pln"> $3</span><span class="pun">;</span></code></pre>
+<div class="original">
+<p>In list context, a match <code>/regex/</code> with groupings will return the list of matched values <code>($1,$2,...)</code>. So we could rewrite it as</p>
+</div>
+<p>リストコンテキストでは、グループ化付きのマッチング <code>/regex/</code> は マッチングした値のリスト <code>($1,$2,...)</code> を返します。 従ってこれは以下のように書き換えられます</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">(</span><span class="pln">$hours</span><span class="pun">,</span><span class="pln"> $minutes</span><span class="pun">,</span><span class="pln"> $second</span><span class="pun">)</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$time </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/(\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">):(\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">):(\</span><span class="pln">d</span><span class="pun">\</span><span class="pln">d</span><span class="pun">)/);</span></code></pre>
+<div class="original">
+<p>If the groupings in a regex are nested, <code>$1</code> gets the group with the leftmost opening parenthesis, <code>$2</code> the next opening parenthesis, etc. For example, here is a complex regex and the matching variables indicated below it:</p>
+</div>
+<p>正規表現中のグループ化がネストしていた場合、<code>$1</code> は最も左にある 開きかっこによってグループ化されているものを取り、<code>$2</code> は 次の開きかっこによるものを取り…となっていきます。 例えば、以下は複雑な正規表現と、後述するマッチング変数です:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/(</span><span class="pln">ab</span><span class="pun">(</span><span class="pln">cd</span><span class="pun">|</span><span class="pln">ef</span><span class="pun">)((</span><span class="pln">gi</span><span class="pun">)|</span><span class="pln">j</span><span class="pun">))/;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp;</span><span class="lit">1</span><span class="pln"> &nbsp;</span><span class="lit">2</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="lit">34</span></code></pre>
+<div class="original">
+<p>Associated with the matching variables <code>$1</code>, <code>$2</code>, ... are the <b>backreferences</b> <code>\g1</code>, <code>\g2</code>, ... Backreferences are matching variables that can be used <i>inside</i> a regex:</p>
+</div>
+<p>マッチング変数 <code>$1</code>, <code>$2</code> …に密接に結び付けられたものは、 <b>後方参照</b> (backreferences) <code>\g1</code>, <code>\g2</code> …です。 後方参照は正規表現の <i>内側</i> で使うことのできるマッチング変数です:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/(\</span><span class="pln">w</span><span class="pun">\</span><span class="pln">w</span><span class="pun">\</span><span class="pln">w</span><span class="pun">)\</span><span class="pln">s</span><span class="pun">\</span><span class="pln">g1</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># find sequences like 'the the' in string</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/(\</span><span class="pln">w</span><span class="pun">\</span><span class="pln">w</span><span class="pun">\</span><span class="pln">w</span><span class="pun">)\</span><span class="pln">s</span><span class="pun">\</span><span class="pln">g1</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># 文字列中の 'the the' のような並びを探す</span></code></pre>
+<div class="original">
+<p><code>$1</code>, <code>$2</code>, ... should only be used outside of a regex, and <code>\g1</code>, <code>\g2</code>, ... only inside a regex.</p>
+</div>
+<p><code>$1</code>, <code>$2</code> …は正規表現の外側のみで用い、 後方参照 <code>\1</code>, <code>\2</code> …は正規表現の内側でのみ使うようにすべきです。</p>
+<h2 id="Matching32repetitions">マッチングの繰り返し<a href="#Matching32repetitions" class="toc_link">¶</a></h2>
+<p></p>
+<div class="original">
+<p>The <b>quantifier</b> metacharacters <code>?</code>, <code>*</code>, <code>+</code>, and <code>{}</code>
+ allow us to determine the number of repeats of a portion of a regex we 
+consider to be a match. Quantifiers are put immediately after the 
+character, character class, or grouping that we want to specify. They 
+have the following meanings:</p>
+</div>
+<p><b>量指定子</b> (quatifier) <code>?</code>, <code>*</code>, <code>+</code>, <code>{}</code> によって、 マッチングさせたいと考えている正規表現の一部分の繰り返し回数を 指定できます。 量指定子は繰り返しを指定したい文字、文字クラス、またはグループの直後に 置きます。 量指定子には以下のような意味があります:</p>
+<ul>
+<li><p></p>
+<div class="original">
+<p><code>a?</code> = match 'a' 1 or 0 times</p>
+</div>
+<p><code>a?</code> は: 'a' または空文字列にマッチングします。</p>
+</li>
+<li><p></p>
+<div class="original">
+<p><code>a*</code> = match 'a' 0 or more times, i.e., any number of times</p>
+</div>
+<p><code>a*</code> は: 'a' のゼロ回以上の繰り返しにマッチングします。</p>
+</li>
+<li><p></p>
+<div class="original">
+<p><code>a+</code> = match 'a' 1 or more times, i.e., at least once</p>
+</div>
+<p><code>a+</code> は: 'a' の一回以上の繰り返しにマッチングします。</p>
+</li>
+<li><p></p>
+<div class="original">
+<p><code>a{n,m}</code> = match at least <code>n</code> times, but not more than <code>m</code> times.</p>
+</div>
+<p><code>a{n,m}</code> は: <code>n</code> 回以上 <code>m</code> 回以下の繰り返しにマッチングします。</p>
+</li>
+<li><p></p>
+<div class="original">
+<p><code>a{n,}</code> = match at least <code>n</code> or more times</p>
+</div>
+<p><code>a{n,}</code> は: <code>n</code> 回以上の繰り返しにマッチングします。</p>
+</li>
+<li><p></p>
+<div class="original">
+<p><code>a{n}</code> = match exactly <code>n</code> times</p>
+</div>
+<p><code>a{n}</code> は: <code>n</code> 回の繰り返しにマッチングします。</p>
+</li>
+</ul>
+<div class="original">
+<p>Here are some examples:</p>
+</div>
+<p>以下に幾つか例を挙げます:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/[</span><span class="pln">a</span><span class="pun">-</span><span class="pln">z</span><span class="pun">]+\</span><span class="pln">s</span><span class="pun">+\</span><span class="pln">d</span><span class="pun">*</span><span class="str">/; &nbsp;# match a lowercase word, at least some space, and<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# any number of digits<br>&nbsp; &nbsp; /</span><span class="pun">(\</span><span class="pln">w</span><span class="pun">+)\</span><span class="pln">s</span><span class="pun">+\</span><span class="pln">g1</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp;</span><span class="com"># match doubled words of arbitrary length</span><span class="pln"><br>&nbsp; &nbsp; $year </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^\</span><span class="pln">d</span><span class="pun">{</span><span class="lit">2</span><span class="pun">,</span><span class="lit">4</span><span class="pun">}</span><span class="pln">$</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># make sure year is at least 2 but not more</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># than 4 digits</span><span class="pln"><br>&nbsp; &nbsp; $year </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^\</span><span class="pln">d</span><span class="pun">{</span><span class="lit">4</span><span class="pun">}</span><span class="pln">$</span><span class="pun">|^\</span><span class="pln">d</span><span class="pun">{</span><span class="lit">2</span><span class="pun">}</span><span class="pln">$</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># better match; throw out 3 digit dates</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="pun">/[</span><span class="pln">a</span><span class="pun">-</span><span class="pln">z</span><span class="pun">]+\</span><span class="pln">s</span><span class="pun">+\</span><span class="pln">d</span><span class="pun">*</span><span class="str">/; &nbsp;# 小文字の単語、幾つかの空白、それに続く任意の長さの<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;# 数字にマッチング<br>&nbsp; &nbsp; /</span><span class="pun">(\</span><span class="pln">w</span><span class="pun">+)\</span><span class="pln">s</span><span class="pun">+\</span><span class="lit">1</span><span class="pun">/;</span><span class="pln"> &nbsp; &nbsp; </span><span class="com"># 任意の長さの単語の重複にマッチング</span><span class="pln"><br>&nbsp; &nbsp; $year </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/\</span><span class="pln">d</span><span class="pun">{</span><span class="lit">2</span><span class="pun">,</span><span class="lit">4</span><span class="pun">}/;</span><span class="pln"> &nbsp;</span><span class="com"># 年が少なくとも 2 桁あるが最大でも 4 桁に</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># なるようにする</span><span class="pln"><br>&nbsp; &nbsp; $year </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^\</span><span class="pln">d</span><span class="pun">{</span><span class="lit">4</span><span class="pun">}</span><span class="pln">$</span><span class="pun">|^\</span><span class="pln">d</span><span class="pun">{</span><span class="lit">2</span><span class="pun">}</span><span class="pln">$</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># もっと良い; 3桁をはじく</span></code></pre>
+<div class="original">
+<p>These quantifiers will try to match as much of the string as possible, while still allowing the regex to match. So we have</p>
+</div>
+<p>これらの量指定子はは正規表現のマッチングが成功するのを許す範囲で 可能な限りの文字列をマッチングさせようとします。 従って、以下のようになります</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">'the cat in the hat'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^(.*)(</span><span class="pln">at</span><span class="pun">)(.*)</span><span class="pln">$</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># matches,</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $1 = 'the cat in the h'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $2 = 'at'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $3 = '' &nbsp; (0 matches)</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">'the cat in the hat'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^(.*)(</span><span class="pln">at</span><span class="pun">)(.*)</span><span class="pln">$</span><span class="pun">/;</span><span class="pln"> </span><span class="com"># マッチングする</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $1 = 'the cat in the h'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $2 = 'at'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $3 = '' &nbsp; (0 回マッチング)</span></code></pre>
+<div class="original">
+<p>The first quantifier <code>.*</code> grabs as much of the string as possible while still having the regex match. The second quantifier <code>.*</code> has no string left to it, so it matches 0 times.</p>
+</div>
+<p>最初の量指定子 <code>.*</code> は正規表現がマッチングする範囲で可能な限りの 長い文字列をつかみとります。 2 番目の量指定子は <code>.*</code> には文字列が残されていないので、0 回 マッチングします。</p>
+<h2 id="More32matching">更なるマッチング<a href="#More32matching" class="toc_link">¶</a></h2>
+<p></p>
+<div class="original">
+<p>There are a few more things you might want to know about matching operators. The global modifier <code>/g</code>
+ allows the matching operator to match within a string as many times as 
+possible. In scalar context, successive matches against a string will 
+have <code>/g</code> jump from match to match, keeping track of position in the string as it goes along. You can get or set the position with the <code>pos()</code> function. For example,</p>
+</div>
+<p>マッチング演算子について知りたいかもしれないことがあといくつかあります。 グローバル修飾子 <code>/g</code> は一つの文字列に出来るだけ何回もマッチングすることを 許します。 スカラコンテキストでは、文字列に対するマッチングの成功によって <code>/g</code> はマッチングからマッチングにジャンプし、文字列の位置を記録し続けて いきます。 <code>pos()</code> 関数を使って位置を取得または設定できます。 例えば:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"cat dog house"</span><span class="pun">;</span><span class="pln"> </span><span class="com"># 3 words</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/(\</span><span class="pln">w</span><span class="pun">+)/</span><span class="pln">g</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"Word is $1, ends at position "</span><span class="pun">,</span><span class="pln"> pos $x</span><span class="pun">,</span><span class="pln"> </span><span class="str">"\n"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="pun">}</span></code></pre>
+<div class="original">
+<p>prints</p>
+</div>
+<p>は以下を表示します</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="typ">Word</span><span class="pln"> is cat</span><span class="pun">,</span><span class="pln"> ends at position </span><span class="lit">3</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="typ">Word</span><span class="pln"> is dog</span><span class="pun">,</span><span class="pln"> ends at position </span><span class="lit">7</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="typ">Word</span><span class="pln"> is house</span><span class="pun">,</span><span class="pln"> ends at position </span><span class="lit">13</span></code></pre>
+<div class="original">
+<p>A failed match or changing the target string resets the position. If 
+you don't want the position reset after failure to match, add the <code>/c</code>, as in <code>/regex/gc</code>.</p>
+</div>
+<p>マッチングに失敗したり、ターゲット文字列を変更するとこの位置は リセットされます。 もしマッチングに失敗したときに位置をリセットしたくないのであれば、 <code>/regexp/gc</code> のように <code>/c</code> を追加します。</p>
+<div class="original">
+<p>In list context, <code>/g</code> returns a list of matched groupings, or if there are no groupings, a list of matches to the whole regex. So</p>
+</div>
+<p>リストコンテキストでは、<code>/g</code> はマッチングしたグループのリストを返します; グループ化の指定がなければ、正規表現全体にマッチングするリストを返します。 従って</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="lit">@words</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/(\</span><span class="pln">w</span><span class="pun">+)/</span><span class="pln">g</span><span class="pun">);</span><span class="pln"> &nbsp;</span><span class="com"># matches,</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $word[0] = 'cat'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $word[1] = 'dog'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $word[2] = 'house'</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="lit">@words</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$x </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/(\</span><span class="pln">w</span><span class="pun">+)/</span><span class="pln">g</span><span class="pun">);</span><span class="pln"> &nbsp;</span><span class="com"># マッチングする</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $word[0] = 'cat'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $word[1] = 'dog'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $word[2] = 'house'</span></code></pre>
+<h2 id="Search32and32replace">検索と置換<a href="#Search32and32replace" class="toc_link">¶</a></h2>
+<p></p>
+<div class="original">
+<p>Search and replace is performed using <code>s/regex/replacement/modifiers</code>. The <code>replacement</code> is a Perl double-quoted string that replaces in the string whatever is matched with the <code>regex</code>. The operator <code>=~</code> is also used here to associate a string with <code>s///</code>. If matching against <code>$_</code>, the <span style="white-space: nowrap;"><code>$_ =~</code></span> can be dropped. If there is a match, <code>s///</code> returns the number of substitutions made; otherwise it returns false. Here are a few examples:</p>
+</div>
+<p>検索と置換は <code>s/regexp/replacement/modifiers</code> を使って処理されます。 <code>replacement</code> は Perlでのダブルクォートで囲まれた文字列で、 <code>regexp</code> にマッチングした文字列を置き換えるものです。 <code>=~</code> 演算子もまた <code>s///</code> を伴った文字列に結びつけられるために 使われます。 <code>$_</code> に対してマッチングを行う場合には、<span style="white-space: nowrap;"><code>$_ =~</code> </span> は省略できます。 マッチングに成功した場合には <code>s///</code> は置換が行われた数を返します; 失敗した場合には偽を返します。 幾つか例を挙げましょう:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Time to feed the cat!"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/</span><span class="pln">cat</span><span class="pun">/</span><span class="pln">hacker</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># $x contains "Time to feed the hacker!"</span><span class="pln"><br>&nbsp; &nbsp; $y </span><span class="pun">=</span><span class="pln"> </span><span class="str">"'quoted words'"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $y </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/^</span><span class="str">'(.*)'</span><span class="pln">$</span><span class="pun">/</span><span class="pln">$1</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># strip single quotes,</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># $y contains "quoted words"</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Time to feed the cat!"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/</span><span class="pln">cat</span><span class="pun">/</span><span class="pln">hacker</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># $x の内容は "Time to feed the hacker!"</span><span class="pln"><br>&nbsp; &nbsp; $y </span><span class="pun">=</span><span class="pln"> </span><span class="str">"'quoted words'"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $y </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/^</span><span class="str">'(.*)'</span><span class="pln">$</span><span class="pun">/</span><span class="pln">$1</span><span class="pun">/;</span><span class="pln"> &nbsp;</span><span class="com"># シングルクォートを剥ぎ取る</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com"># $y の内容は "quoted words"</span></code></pre>
+<div class="original">
+<p>With the <code>s///</code> operator, the matched variables <code>$1</code>, <code>$2</code>, etc. are immediately available for use in the replacement expression. With the global modifier, <code>s///g</code> will search and replace all occurrences of the regex in the string:</p>
+</div>
+<p><code>s///</code> 演算子を使うにあたって、<code>$1</code>, <code>$2</code> といったマッチング変数は その置換式のなかで即座に使うことができます。 グローバル修飾子 <code>s///g</code> を使うことで、文字列中のすべての正規表現に マッチングする検索と置換を行います:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"I batted 4 for 4"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/</span><span class="lit">4</span><span class="pun">/</span><span class="pln">four</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># $x contains "I batted four for 4"</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"I batted 4 for 4"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/</span><span class="lit">4</span><span class="pun">/</span><span class="pln">four</span><span class="pun">/</span><span class="pln">g</span><span class="pun">;</span><span class="pln"> &nbsp;</span><span class="com"># $x contains "I batted four for four"</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"I batted 4 for 4"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/</span><span class="lit">4</span><span class="pun">/</span><span class="pln">four</span><span class="pun">/;</span><span class="pln"> &nbsp; </span><span class="com"># $x の内容は "I batted four for 4"</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"I batted 4 for 4"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/</span><span class="lit">4</span><span class="pun">/</span><span class="pln">four</span><span class="pun">/</span><span class="pln">g</span><span class="pun">;</span><span class="pln"> &nbsp;</span><span class="com"># $x の内容は "I batted four for four"</span></code></pre>
+<div class="original">
+<p>The non-destructive modifier <code>s///r</code> causes the result of the substitution to be returned instead of modifying <code>$_</code> (or whatever variable the substitute was bound to with <code>=~</code>):</p>
+</div>
+<p>非破壊修飾子 <code>s///r</code> は <code>$_</code> (または <code>=~</code> によって置換されることになる 変数) を変更する代わりに、置換の結果を返します:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"I like dogs."</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $y </span><span class="pun">=</span><span class="pln"> $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/</span><span class="pln">dogs</span><span class="pun">/</span><span class="pln">cats</span><span class="pun">/</span><span class="pln">r</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"$x $y\n"</span><span class="pun">;</span><span class="pln"> </span><span class="com"># prints "I like dogs. I like cats."</span><span class="pln"><br><br>&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Cats are great."</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/</span><span class="typ">Cats</span><span class="pun">/</span><span class="typ">Dogs</span><span class="pun">/</span><span class="pln">r </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/</span><span class="typ">Dogs</span><span class="pun">/</span><span class="typ">Frogs</span><span class="pun">/</span><span class="pln">r </span><span class="pun">=~</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; s</span><span class="pun">/</span><span class="typ">Frogs</span><span class="pun">/</span><span class="typ">Hedgehogs</span><span class="pun">/</span><span class="pln">r</span><span class="pun">,</span><span class="pln"> </span><span class="str">"\n"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="com"># prints "Hedgehogs are great."</span><span class="pln"><br><br>&nbsp; &nbsp; </span><span class="lit">@foo</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> map </span><span class="pun">{</span><span class="pln"> s</span><span class="pun">/[</span><span class="pln">a</span><span class="pun">-</span><span class="pln">z</span><span class="pun">]/</span><span class="pln">X</span><span class="pun">/</span><span class="pln">r </span><span class="pun">}</span><span class="pln"> qw</span><span class="pun">(</span><span class="pln">a b c </span><span class="lit">1</span><span class="pln"> </span><span class="lit">2</span><span class="pln"> </span><span class="lit">3</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="com"># @foo is now qw(X X X 1 2 3)</span></code></pre>
+<div class="original">
+<p>The evaluation modifier <code>s///e</code> wraps an <code>eval{...}</code> around the replacement string and the evaluated result is substituted for the matched substring. Some examples:</p>
+</div>
+<p>評価修飾子 <code>s///e</code> は置換文字列を <code>eval{...}</code> でラップし、その評価結果を マッチングした部分文字列の置換のために使います。 いくつか例を挙げます:</p>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="com"># reverse all the words in a string</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"the cat in the hat"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/(\</span><span class="pln">w</span><span class="pun">+)/</span><span class="pln">reverse $1</span><span class="pun">/</span><span class="pln">ge</span><span class="pun">;</span><span class="pln"> &nbsp; </span><span class="com"># $x contains "eht tac ni eht tah"</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="com"># 文字列中の全ての単語を逆順にする</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"the cat in the hat"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/(\</span><span class="pln">w</span><span class="pun">+)/</span><span class="pln">reverse $1</span><span class="pun">/</span><span class="pln">ge</span><span class="pun">;</span><span class="pln"> &nbsp; </span><span class="com"># $x は "eht tac ni eht tah"</span></code></pre>
+<div class="original">
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="com"># convert percentage to decimal</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"A 39% hit rate"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">!(\</span><span class="pln">d</span><span class="pun">+)%!</span><span class="pln">$1</span><span class="pun">/</span><span class="lit">100</span><span class="pun">!</span><span class="pln">e</span><span class="pun">;</span><span class="pln"> &nbsp; &nbsp; &nbsp; </span><span class="com"># $x contains "A 0.39 hit rate"</span></code></pre>
+</div>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="com"># 百分率を 10 進数に置き換える</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"A 39% hit rate"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; $x </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">!(\</span><span class="pln">d</span><span class="pun">+)%!</span><span class="pln">$1</span><span class="pun">/</span><span class="lit">100</span><span class="pun">!</span><span class="pln">e</span><span class="pun">;</span><span class="pln"> &nbsp; &nbsp; &nbsp; </span><span class="com"># $x は "A 0.39 hit rate"</span></code></pre>
+<div class="original">
+<p>The last example shows that <code>s///</code> can use other delimiters, such as <code>s!!!</code> and <code>s{}{}</code>, and even <code>s{}//</code>. If single quotes are used <code>s'''</code>, then the regex and replacement are treated as single-quoted strings.</p>
+</div>
+<p>最後の例のように、<code>s///</code> も <code>s!!!</code> や <code>s{}{}</code> 、 果ては <code>s{}//</code> のように異なるデリミタを使うことができます。 <code>s'''</code> のようにシングルクォートが使われた場合、その正規表現と 置換テキストはシングルクォート文字列のように扱われ、変数の置き換えは 行われません。</p>
+<h2 id="The32split32operator">split 演算子<a href="#The32split32operator" class="toc_link">¶</a></h2>
+<p></p>
+<div class="original">
+<p><code>split /regex/, string</code> splits <code>string</code> into a list of substrings and returns that list. The regex determines the character sequence that <code>string</code> is split with respect to. For example, to split a string into words, use</p>
+</div>
+<p><code>split /regex/, string, limit</code> は <code>string</code> オペランドを部分文字列の リストに分割し、そのリストを返します。 regex は、<code>string</code> を分割するときに使われる文字並びを決定します。 たとえば、文字列を単語に分割するには以下のようにします</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"Calvin and Hobbes"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="lit">@word</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> split </span><span class="pun">/\</span><span class="pln">s</span><span class="pun">+/,</span><span class="pln"> $x</span><span class="pun">;</span><span class="pln"> &nbsp;</span><span class="com"># $word[0] = 'Calvin'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $word[1] = 'and'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $word[2] = 'Hobbes'</span></code></pre>
+<div class="original">
+<p>To extract a comma-delimited list of numbers, use</p>
+</div>
+<p>カンマ区切りの数値リストを展開するには、以下のようにします</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"1.618,2.718, &nbsp; 3.142"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="lit">@const</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> split </span><span class="pun">/,\</span><span class="pln">s</span><span class="pun">*/,</span><span class="pln"> $x</span><span class="pun">;</span><span class="pln"> &nbsp;</span><span class="com"># $const[0] = '1.618'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $const[1] = '2.718'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $const[2] = '3.142'</span></code></pre>
+<div class="original">
+<p>If the empty regex <code>//</code> is used, the string is split into 
+individual characters. If the regex has groupings, then the list 
+produced contains the matched substrings from the groupings as well:</p>
+</div>
+<p><code>//</code> が使われた場合には、文字列は個々の文字に分割されます。 正規表現がグループ化を伴っていた場合には、グループ化されたものも部分文字列に 含まれるようになります:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; $x </span><span class="pun">=</span><span class="pln"> </span><span class="str">"/usr/bin"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="lit">@parts</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> split m</span><span class="pun">!(/)!,</span><span class="pln"> $x</span><span class="pun">;</span><span class="pln"> &nbsp;</span><span class="com"># $parts[0] = ''</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $parts[1] = '/'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $parts[2] = 'usr'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $parts[3] = '/'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># $parts[4] = 'bin'</span></code></pre>
+<div class="original">
+<p>Since the first character of $x matched the regex, <code>split</code> prepended an empty initial element to the list.</p>
+</div>
+<p>$x の最初の文字に正規表現がマッチングしているので、<code>split</code> はリストの 最初の要素に空要素を置きます。</p>
+<h2 id="use32re32strict"><code>use re 'strict'</code><a href="#use32re32strict" class="toc_link">¶</a></h2>
+<div class="original">
+<p>New in v5.22, this applies stricter rules than otherwise when 
+compiling regular expression patterns. It can find things that, while 
+legal, may not be what you intended.</p>
+</div>
+<p>これは v5.22 からの新機能で、正規表現パターンをコンパイルするときに他よりも より厳密な規則を適用します。 これにより、有効ではあるけれども、意図しているものと違うかも知れないものを 見つけることができます。</p>
+<div class="original">
+<p>See <a href="https://perldoc.jp/pod/re#strict32mode">'strict' in re</a>.</p>
+</div>
+<p><a href="https://perldoc.jp/pod/re#strict32mode">'strict' in re</a> を参照してください。</p>
+<h1 id="BUGS">バグ<a href="#BUGS" class="toc_link">¶</a></h1>
+<div class="original">
+<p>None.</p>
+</div>
+<p>なし。</p>
+<h1 id="SEE32ALSO">SEE ALSO<a href="#SEE32ALSO" class="toc_link">¶</a></h1>
+<div class="original">
+<p>This is just a quick start guide. For a more in-depth tutorial on regexes, see <a href="https://perldoc.jp/pod/perlretut">perlretut</a> and for the reference page, see <a href="https://perldoc.jp/pod/perlre">perlre</a>.</p>
+</div>
+<p>これは単なるクイックスタートガイドです。 正規表現に関するより深いチュートリアルについては <a href="https://perldoc.jp/pod/perlretut">perlretut</a> を、 リファレンスについては <a href="https://perldoc.jp/pod/perlre">perlre</a> を参照してください。</p>
+<h1 id="AUTHOR32AND32COPYRIGHT">AUTHOR AND COPYRIGHT<a href="#AUTHOR32AND32COPYRIGHT" class="toc_link">¶</a></h1>
+<p>Copyright (c) 2000 Mark Kvale All rights reserved.</p>
+<p>This document may be distributed under the same terms as Perl itself.</p>
+<h2 id="Acknowledgments">Acknowledgments<a href="#Acknowledgments" class="toc_link">¶</a></h2>
+<p>The author would like to thank Mark-Jason Dominus, Tom Christiansen, 
+Ilya Zakharevich, Brad Hughes, and Mike Giroux for all their helpful 
+comments.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer span-24 last">
+Powered by Amon2, <a href="https://sourceforge.jp/projects/perldocjp/">perldocjp project</a>. Operated by <a href="http://japan.perlassociation.org/">Japan Perl Association</a>
+</div>
+</div>
+
+
+<div id="DownloadStatusBarContainer" style="height: auto; width: auto; display: block; --background:#EFEFEF; --backgroundHover:#FFFFFF; --button:transparent; --buttonHover:#CCCCCC; --buttonBorder:#AAAAAA; --border:#888888; --download:#AAAAAA; --progress:#2A911F; --text:#111111; --error:#FF574F;"></div><link rel="stylesheet" type="text/css" href="perlrequick%20-%20Perl%20%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%20-%20perldoc.jp_files/s3downbar.css"><link rel="stylesheet" type="text/css" href="perlrequick%20-%20Perl%20%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%20-%20perldoc.jp_files/contextmenu.css"><link rel="stylesheet" type="text/css" href="perlrequick%20-%20Perl%20%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%20-%20perldoc.jp_files/tooltip.css"><div id="s3downbar-ibmbeeacmbeeaebmfjpmnlgkhoejinha" style="box-sizing: initial !important; position: fixed; white-space: nowrap; width: 140% !important; left: 0px; bottom: 0px; border-top: 1px solid rgb(153, 153, 153); transform-origin: left bottom 0px; z-index: 2147483647; margin: 0px; padding: 2px 0px; background-color: rgb(238, 238, 238); color: rgb(34, 34, 34); display: flex !important; transform: scale(0.714286) !important;"><style type="text/css" media="print">#s3downbar-ibmbeeacmbeeaebmfjpmnlgkhoejinha { display: none !important; }</style><div style="box-sizing: initial !important; position: absolute !important;" id="s3downbar_resize_pane" is_top="false"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important; color: rgb(34, 34, 34) !important; position: relative !important; order: 4 !important;" class="s3dmBox" id="s3downbar_hide_button" is_hidden="false"><div id="s3downbar_hide_button_img" style="box-sizing: initial !important; background-image: url(&quot;moz-extension://23811b7e-3b61-4d29-be41-d247d903121b/skin/s3dm_icons.png&quot;) !important; display: inline-block !important;"></div><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div style="box-sizing: initial !important;" class="tooltipText">Hide Download Bar</div><div style="box-sizing: initial !important;" class="tooltipText">Ctrl + Shift + Z = Show/Hide Download Bar</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important; color: rgb(34, 34, 34) !important; position: relative !important;" class="s3dmBox" id="s3downbar_main_menu_button" is_hidden="false"><img style="box-sizing: initial !important;" src="perlrequick%20-%20Perl%20%E6%AD%A3%E8%A6%8F%E8%A1%A8%E7%8F%BE%E3%81%AE%E3%82%AF%E3%82%A4%E3%83%83%E3%82%AF%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%20-%20perldoc.jp_files/logo16.png"><span style="box-sizing: initial !important;">ダウンロード</span><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div style="box-sizing: initial !important;" class="tooltipText">Download Manager (S3)</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important; color: rgb(34, 34, 34) !important; position: relative !important; order: 2 !important;" class="s3dmBox" id="s3downbar_clear_button" is_hidden="false">クリア<div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div style="box-sizing: initial !important;" class="tooltipText">左クリック: 完了したダウンロードをすべてクリア</div><div style="box-sizing: initial !important;" class="tooltipText">右クリック: 最後のクリアを元に戻す</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important; color: rgb(34, 34, 34) !important; position: relative !important; order: 1 !important;" class="s3dmBox" id="s3downbar_holder_summary_progress" is_hidden="false"><div style="box-sizing: initial !important;">0%</div><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div style="box-sizing: initial !important;" class="tooltipText">ダウンロード履歴</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important;" id="s3downbar_download_data_listbox"><div style="box-sizing: initial !important; max-height: 25px !important;" id="s3downbar_download_data_listbox_scroll" list_count="5"><div style="box-sizing: initial !important;" id="s3downbar_download_data_list_empty">Download list is empty</div><div id="s3db_C4CA4238A0B923820DCC509A6F75849B" class="download_data_box db_finishedHbox" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" click_handle="finished_click_handle">
+		<div class="download_data_box_iframe_box"><div id="s3downbar_download_box_iframe" is_hidden="true" class="download_data_box_iframe"></div></div>
+		<div id="s3downbar_download_box_progressremainder" class="download_data_box_progressremainder" is_hidden="true"></div>
+		<div id="s3downbar_download_box_progress" class="download_data_box_progress" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important; width: 100% !important;" is_hidden="true"></div>
+		<div id="s3downbar_download_box_data" class="download_data_box_data">
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" id="s3downbar_download_box_img" class="download_data_box_img" style="background: rgba(0, 0, 0, 0) url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABB0lEQVQ4jWNgQAPtLU2bKstL/uPC1ZVlv6sqShPQ9cFBZXnJ/1+/fuHEMINwGkKMASdPnsBtCCEDVq5YhuIdBoEaxwsCNY7/cWHrycl4XcOATzMME2VAx74F/z9+//JfvsX3/6P3L/5PP7YGxYD1z878Nz7S+N/+eMf/iHPTMQ2Aabz8/A7cIGQDrn54/P/h59f/p93f+9/4SCN2L3TsW/D//////zv2LcDwAkxjysX52A2Qb/H9//H7F5wuMD7S+P/Emzv/H35+jd2A6cfW/H/0/sV/gRrH/4/ev/i/7NwOFAMKry777316Am4XEBMLVz88xhoLlKUDUlMi7Q0glJ2RcXtL0yYA9KCEMWzgpGwAAAAASUVORK5CYII=&quot;) no-repeat scroll 50% 50% / contain !important;" no_image="false" is_hidden="false">
+			<img src="" id="s3downbar_download_box_img_queue" class="download_data_box_img" is_hidden="true">
+			<img src="" id="s3downbar_download_box_picToShrink" pictoshrink="true" is_hidden="true" class="download_data_box_img">
+			<div id="s3downbar_download_box_filename" class="download_data_box_filename">test101.csv</div>
+			<div id="s3downbar_download_box_progress_data" class="download_data_box_progress_data" is_hidden="true">
+				<div id="s3downbar_download_box_progress_percent" class="download_data_box_progress_percent" is_hidden="true">100%</div>
+				<div id="s3downbar_download_box_progress_remaintime" class="download_data_box_progress_remaintime" is_hidden="false">--:--</div>
+				<div id="s3downbar_download_box_progress_bytesReceived" class="download_data_box_progress_bytesReceived" is_hidden="true">227 bytes</div>
+				<div id="s3downbar_download_box_progress_speed" class="download_data_box_progress_speed" is_hidden="false">-.--</div>
+			</div>
+		</div>
+	<div style="box-sizing: initial !important; position: fixed !important; z-index: 50 !important;"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div id="download_data_tooltip" class="download_data_tooltip">
+		<div class="download_data_tooltip_head">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABv0lEQVRYhe3XP0sCYRwH8F6C76B34OILMOdqL1wanNwEwy68wRA8w6FBbBIlSWpIIepoSKcTFUUSMxoODhXUMEgxCJ7l23QPalrXPZdZ+MCPO57l+fD7c39WVhZxBfwHl5zHDb2xv7e7wwTgPG4QQnSFIQhWQLFYYEOwAgghbAgjAEwIowC6EUYCNCFM/NqOyWuDnjgpXY0ddn6W/HREpwN0Hq7Gd7Kz+ABzaBuDt1cAQLJyQ/c3oi6oayPq+tkMCNk4Pcwc2obJa0OtIwMArh+k+ZSg+dKlWXBeBAEAg7dXrPo35wOwn/I0CyqGE8Mze6Ax7GG9dASL5INF8oF/TLE3oaTcUUStI3/ahPV+C4lmDo1hD7dP97BIPmMBzZful1OQbpdxKItwVGPsAE4M07qrJRCy8ZkA/jEFa17AoSwi3S6zAUZHkRPDtAlHp2IS4KjGEFEyIIQg0cxRQETJ0HvNgOsH6UPa1SxIyt1UQETJwJoXsFU5HiuBoxqDq57UDhjtfudFcOq+/ZSf2gP1fguFZxmEEHq15gWk2+U/9Cj+HYCBr2NdgMnF8kGyBCwB/wPA+nM6KwL+g0tNgHmud/L6xD5HneDTAAAAAElFTkSuQmCC" id="s3downbar_download_tooltip_img" class="download_data_tooltip_img" no_image="false">
+			<div id="s3downbar_download_tooltip_filename" class="download_data_tooltip_filename">test101.csv </div>
+		</div>
+		<div class="download_data_tooltip_data_box" id="s3downbar_download_tooltip_data_box" is_hidden_progress="true" is_hidden_finish="false">
+			<table class="download_data_tooltip_data">
+				<tbody><tr id="s3downbar_download_tooltip_source_box"><td><div>Source:</div></td><td><input type="text" id="s3downbar_download_tooltip_source" class="download_data_tooltip_url" readonly="true" title="http://www.ken3.org/asp/backno/asp101.html#google_vignette" value="http://www.ken3.org/asp/backno/asp101.html#google_vignette"></td></tr>
+				<tr><td><div>転送元:</div></td><td><input type="text" id="s3downbar_download_tooltip_from" class="download_data_tooltip_url" readonly="true" title="http://www.ken3.org/cgi-bin/test/test101.csv" value="http://www.ken3.org/cgi-bin/test/test101.csv"></td></tr>
+				<tr><td><div>転送先:</div></td><td><div id="s3downbar_download_tooltip_to">C:\Users\yossy\AppData\Local\Temp\test101.csv</div></td></tr>
+				<tr class="download_progress"><td><div>状態:</div></td><td><div id="s3downbar_download_tooltip_status">227 bytes / 227 bytes ( -.-- )</div></td></tr>
+				<tr class="download_finish"><td><div>ファイルのサイズ:</div></td><td><div id="s3downbar_download_tooltip_size" filenotfound="false">227 bytes</div></td></tr>
+				<tr class="download_finish" id="s3downbar_download_virus_scan_box" is_hidden="true"><td><div id="s3downbar_download_virus_scan_label">Virus scan:</div></td><td><a id="s3downbar_download_virus_scan" target="_blank"></a></td></tr>
+				<tr><td><div>開始時刻:</div></td><td><div id="s3downbar_download_tooltip_timeStart">2020.12.13 - 13:53:59</div></td></tr>
+				<tr class="download_finish"><td><div>所要時間:</div></td><td><div id="s3downbar_download_tooltip_timeEnd">&lt;00:01</div></td></tr>
+				<tr class="download_progress"><td><div>残り時間:</div></td><td><div id="s3downbar_download_tooltip_timeLeft">--:--</div></td></tr>
+				<tr class="download_progress"><td><div>進行率:</div></td><td><div id="s3downbar_download_tooltip_percent">100%</div></td></tr>
+				<tr class="download_finish"><td><div>平均転送速度:</div></td><td><div id="s3downbar_download_tooltip_speed">2 KB/秒</div></td></tr>
+			</tbody></table>
+			<div class="download_data_tooltip_img_preview_box download_finish"><div class="download_data_tooltip_img_box">
+				<img src="" id="s3downbar_download_tooltip_img_preview" is_hidden="true" class="download_data_tooltip_img_preview download_finish" width="120" height="120">
+				<div id="s3downbar_download_tooltip_img_size" class="download_data_tooltip_img_size"></div>
+			</div></div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_progress" is_hidden="true">
+			<div>mouse double click: download pause/resume</div>
+			<div>mouse middle click: download cancel</div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_finish" is_hidden="false">
+			<div>mouse double click: open file</div>
+			<div>mouse double click + Ctrl: open dir</div>
+			<div style="padding-top: 4px !important;">mouse middle click: delete from list</div>
+			<div>mouse middle click + Ctrl: delete from system</div>
+			<div style="padding-top: 4px !important;">press mouse button + Ctrl: drag &amp; drop</div>
+		</div>
+	</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div></div><div id="s3db_C81E728D9D4C2F636F067F89CC14862C" class="download_data_box db_finishedHbox" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" click_handle="finished_click_handle">
+		<div class="download_data_box_iframe_box"><div id="s3downbar_download_box_iframe" is_hidden="true" class="download_data_box_iframe"></div></div>
+		<div id="s3downbar_download_box_progressremainder" class="download_data_box_progressremainder" is_hidden="true"></div>
+		<div id="s3downbar_download_box_progress" class="download_data_box_progress" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important; width: 100% !important;" is_hidden="true"></div>
+		<div id="s3downbar_download_box_data" class="download_data_box_data">
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" id="s3downbar_download_box_img" class="download_data_box_img" style="background: rgba(0, 0, 0, 0) url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABB0lEQVQ4jWNgQAPtLU2bKstL/uPC1ZVlv6sqShPQ9cFBZXnJ/1+/fuHEMINwGkKMASdPnsBtCCEDVq5YhuIdBoEaxwsCNY7/cWHrycl4XcOATzMME2VAx74F/z9+//JfvsX3/6P3L/5PP7YGxYD1z878Nz7S+N/+eMf/iHPTMQ2Aabz8/A7cIGQDrn54/P/h59f/p93f+9/4SCN2L3TsW/D//////zv2LcDwAkxjysX52A2Qb/H9//H7F5wuMD7S+P/Emzv/H35+jd2A6cfW/H/0/sV/gRrH/4/ev/i/7NwOFAMKry777316Am4XEBMLVz88xhoLlKUDUlMi7Q0glJ2RcXtL0yYA9KCEMWzgpGwAAAAASUVORK5CYII=&quot;) no-repeat scroll 50% 50% / contain !important;" no_image="false" is_hidden="false">
+			<img src="" id="s3downbar_download_box_img_queue" class="download_data_box_img" is_hidden="true">
+			<img src="" id="s3downbar_download_box_picToShrink" pictoshrink="true" is_hidden="true" class="download_data_box_img">
+			<div id="s3downbar_download_box_filename" class="download_data_box_filename">test101.csv</div>
+			<div id="s3downbar_download_box_progress_data" class="download_data_box_progress_data" is_hidden="true">
+				<div id="s3downbar_download_box_progress_percent" class="download_data_box_progress_percent" is_hidden="true">100%</div>
+				<div id="s3downbar_download_box_progress_remaintime" class="download_data_box_progress_remaintime" is_hidden="false">--:--</div>
+				<div id="s3downbar_download_box_progress_bytesReceived" class="download_data_box_progress_bytesReceived" is_hidden="true">227 bytes</div>
+				<div id="s3downbar_download_box_progress_speed" class="download_data_box_progress_speed" is_hidden="false">-.--</div>
+			</div>
+		</div>
+	<div style="box-sizing: initial !important; position: fixed !important; z-index: 50 !important;"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div id="download_data_tooltip" class="download_data_tooltip">
+		<div class="download_data_tooltip_head">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABv0lEQVRYhe3XP0sCYRwH8F6C76B34OILMOdqL1wanNwEwy68wRA8w6FBbBIlSWpIIepoSKcTFUUSMxoODhXUMEgxCJ7l23QPalrXPZdZ+MCPO57l+fD7c39WVhZxBfwHl5zHDb2xv7e7wwTgPG4QQnSFIQhWQLFYYEOwAgghbAgjAEwIowC6EUYCNCFM/NqOyWuDnjgpXY0ddn6W/HREpwN0Hq7Gd7Kz+ABzaBuDt1cAQLJyQ/c3oi6oayPq+tkMCNk4Pcwc2obJa0OtIwMArh+k+ZSg+dKlWXBeBAEAg7dXrPo35wOwn/I0CyqGE8Mze6Ax7GG9dASL5INF8oF/TLE3oaTcUUStI3/ahPV+C4lmDo1hD7dP97BIPmMBzZful1OQbpdxKItwVGPsAE4M07qrJRCy8ZkA/jEFa17AoSwi3S6zAUZHkRPDtAlHp2IS4KjGEFEyIIQg0cxRQETJ0HvNgOsH6UPa1SxIyt1UQETJwJoXsFU5HiuBoxqDq57UDhjtfudFcOq+/ZSf2gP1fguFZxmEEHq15gWk2+U/9Cj+HYCBr2NdgMnF8kGyBCwB/wPA+nM6KwL+g0tNgHmud/L6xD5HneDTAAAAAElFTkSuQmCC" id="s3downbar_download_tooltip_img" class="download_data_tooltip_img" no_image="false">
+			<div id="s3downbar_download_tooltip_filename" class="download_data_tooltip_filename">test101.csv </div>
+		</div>
+		<div class="download_data_tooltip_data_box" id="s3downbar_download_tooltip_data_box" is_hidden_progress="true" is_hidden_finish="false">
+			<table class="download_data_tooltip_data">
+				<tbody><tr id="s3downbar_download_tooltip_source_box"><td><div>Source:</div></td><td><input type="text" id="s3downbar_download_tooltip_source" class="download_data_tooltip_url" readonly="true" title="http://www.ken3.org/asp/backno/asp101.html" value="http://www.ken3.org/asp/backno/asp101.html"></td></tr>
+				<tr><td><div>転送元:</div></td><td><input type="text" id="s3downbar_download_tooltip_from" class="download_data_tooltip_url" readonly="true" title="http://www.ken3.org/cgi-bin/test/test101.csv" value="http://www.ken3.org/cgi-bin/test/test101.csv"></td></tr>
+				<tr><td><div>転送先:</div></td><td><div id="s3downbar_download_tooltip_to">C:\Users\yossy\Downloads\test101.csv</div></td></tr>
+				<tr class="download_progress"><td><div>状態:</div></td><td><div id="s3downbar_download_tooltip_status">227 bytes / 227 bytes ( -.-- )</div></td></tr>
+				<tr class="download_finish"><td><div>ファイルのサイズ:</div></td><td><div id="s3downbar_download_tooltip_size" filenotfound="false">227 bytes</div></td></tr>
+				<tr class="download_finish" id="s3downbar_download_virus_scan_box" is_hidden="true"><td><div id="s3downbar_download_virus_scan_label">Virus scan:</div></td><td><a id="s3downbar_download_virus_scan" target="_blank"></a></td></tr>
+				<tr><td><div>開始時刻:</div></td><td><div id="s3downbar_download_tooltip_timeStart">2020.12.13 - 13:54:19</div></td></tr>
+				<tr class="download_finish"><td><div>所要時間:</div></td><td><div id="s3downbar_download_tooltip_timeEnd">&lt;00:01</div></td></tr>
+				<tr class="download_progress"><td><div>残り時間:</div></td><td><div id="s3downbar_download_tooltip_timeLeft">--:--</div></td></tr>
+				<tr class="download_progress"><td><div>進行率:</div></td><td><div id="s3downbar_download_tooltip_percent">100%</div></td></tr>
+				<tr class="download_finish"><td><div>平均転送速度:</div></td><td><div id="s3downbar_download_tooltip_speed">3 KB/秒</div></td></tr>
+			</tbody></table>
+			<div class="download_data_tooltip_img_preview_box download_finish"><div class="download_data_tooltip_img_box">
+				<img src="" id="s3downbar_download_tooltip_img_preview" is_hidden="true" class="download_data_tooltip_img_preview download_finish" width="120" height="120">
+				<div id="s3downbar_download_tooltip_img_size" class="download_data_tooltip_img_size"></div>
+			</div></div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_progress" is_hidden="true">
+			<div>mouse double click: download pause/resume</div>
+			<div>mouse middle click: download cancel</div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_finish" is_hidden="false">
+			<div>mouse double click: open file</div>
+			<div>mouse double click + Ctrl: open dir</div>
+			<div style="padding-top: 4px !important;">mouse middle click: delete from list</div>
+			<div>mouse middle click + Ctrl: delete from system</div>
+			<div style="padding-top: 4px !important;">press mouse button + Ctrl: drag &amp; drop</div>
+		</div>
+	</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div></div><div id="s3db_ECCBC87E4B5CE2FE28308FD9F2A7BAF3" class="download_data_box db_finishedHbox" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" click_handle="finished_click_handle">
+		<div class="download_data_box_iframe_box"><div id="s3downbar_download_box_iframe" is_hidden="true" class="download_data_box_iframe"></div></div>
+		<div id="s3downbar_download_box_progressremainder" class="download_data_box_progressremainder" is_hidden="true"></div>
+		<div id="s3downbar_download_box_progress" class="download_data_box_progress" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important; width: 100% !important; background-color: rgb(112, 143, 181) !important; border-right: 1px solid rgb(255, 0, 0) !important;" is_hidden="true"></div>
+		<div id="s3downbar_download_box_data" class="download_data_box_data">
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" id="s3downbar_download_box_img" class="download_data_box_img" style="background: rgba(0, 0, 0, 0) url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACBElEQVQ4jY3RQUiTcRjH8T/4+ILQIWmSjd75OoZups18dWy5933nlmuoyVBsKRMGkgctyYMQhVFQBAkGHguSDhV0LrxFBw9FpwJZeTCKCCzIDtnJ+e0QEbF30gPf4/O5/JT6e4f37ws4lVKq+phSqkbtcWZP+1US4fmyIsEpxu3HRaWqzcqISMxpn6fFGC7LqHe4NvSZMefhW6WqO90RkbgdvkyoYagso97h1unt34j14J1SqsEdaLtIyJctyzhooddF0euitBo5lEivG2DFW+cI6oP/9PJpho03GQLeNAFvmkhwChHpcQW6Q7PY/gyPCh3MDTjEghl2PyRha4C1lSTxcD/doVmUiOUG2LHmGdaz3XDDy4+lECsD93k1c4+dYhI+pvi62keseQYlYrsBTrRpmtJYJ6XrTezePcL35UGepDfZXs3Ca4vd9TTRpmmUiOPyL4lIYJJSbxIKR3men+XK8CaLZ3ZYv30enkXYeeEQCUwiIglXoKtxgk/+Apy02MqdYGFkkTsTS/xcaIPlNrYWEnQ1TlQEekyjwIXaUb4F8mCnoC8OwxEYNfkyEuPm8QSmUXBfQUSSpm8cv8fmXG2Ooucs7/URNnynWPMOcelQP36PjekbR0SSrkCHnqfxgLVnHXq+IpBq10f5n0QkVT6jprVUaVq2SqvJ7Z2WVZrW8uftF7z9KaH0ajk5AAAAAElFTkSuQmCC&quot;) no-repeat scroll 50% 50% / contain !important;" no_image="false" is_hidden="false">
+			<img src="" id="s3downbar_download_box_img_queue" class="download_data_box_img" is_hidden="true">
+			<img src="" id="s3downbar_download_box_picToShrink" pictoshrink="true" is_hidden="true" class="download_data_box_img">
+			<div id="s3downbar_download_box_filename" class="download_data_box_filename">perldebtut - Perl でのデバッグのチュートリアル - perldoc.jp.html</div>
+			<div id="s3downbar_download_box_progress_data" class="download_data_box_progress_data" is_hidden="true">
+				<div id="s3downbar_download_box_progress_percent" class="download_data_box_progress_percent" is_hidden="true">100%</div>
+				<div id="s3downbar_download_box_progress_remaintime" class="download_data_box_progress_remaintime" is_hidden="false">00:01</div>
+				<div id="s3downbar_download_box_progress_bytesReceived" class="download_data_box_progress_bytesReceived" is_hidden="true">6 KB</div>
+				<div id="s3downbar_download_box_progress_speed" class="download_data_box_progress_speed" is_hidden="false">10 KB/秒</div>
+			</div>
+		</div>
+	<div style="box-sizing: initial !important; position: fixed !important; z-index: 50 !important;"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div id="download_data_tooltip" class="download_data_tooltip">
+		<div class="download_data_tooltip_head">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAGYElEQVRYhe2Wa2xT5xmAU37sosUm+NhOfE5i+xzn4ksaAiHBiY/t+BI7TsjFuZGUS7gkIeGaZmysiEWjlJRsQAgIreoqdVInVLFOm4TWy4bWqlM3aVqh68q2jsvabYxL0Rhkg7IYP/thJ0C1SXGZ9muf9Oh9v/f9Pr3POefPycr6//o3SyvkL9UK0urMMa3SLBA9Go2of0gBaXWVZT2Z4HcMUb9k+G53bPulXFNx/+eFfOlTC2gEqbfK0oesU5F1HhQhFWWdiiyoyDoVZXbvudfTq5S5goz3vXpbKnAM5eTkWT/N/Ec0grSmytqHIqhYBU8KnSc1TPAgp+szuXxfb4Egc6gHxteevGM2L9o6PzdXyVRgnkaQ1ritgyiCNzVAULHqU084s/9PzAhM9CQZX/36dJFt6fb5xgJbZgI6ca1bGcSm9yELXmR9mnSu6O/VlE/UZwQOPZbgwPI77H3s9USp3b8zkzcxT6MT19UoG1EMfhS9D0U/E9MYfMh6H7LB90Bd1vtYIMgP4Cj2sTw88g+tXmrMSEAt3ILNEEhJGPwohtoHc70/hcHPiRei3LnWRKnZj2zwIRu8s9Fm8BFZvBWNTlyXicB6tWgbNmMQm7E2haEWxRjAZgzct6/l8K5a+NsyuNnMn09H7p03BlCMAQoNATy2TWh04vpMBPrUkmEKjSFsuUFsxiArl1TjK/amBYKz9en3/fBRDK4vg2sN/PRYLTZjkEJjMB1DqEXDaHRi39wF9KZ+b8kIhblhCo0hNi9USR7No7+mmlNfqeLJLjeFuSEGYh74TQ18GIDLUbhaDxfDvLTfx1c31FOYG6IoN4y3ZASN3tSficCAt+RLFOXVUSHV8c+RYviGkdtjVjhSxnMrVA7Xfpkfdx/it6N7uPydNXChFj4Mwp9CJH9fy8e/XkaTN0JRbgR/yXY0etPAnAWy9dIGv2MHxaYoL6sR2G6D3flwUA/PCyResPFmxw94zfMXTnou8Ub8FGcPjMJ71fC+D86FSV6o54NXAxTnRfE7dpCtlzZkIjDodz1BsRjjepMfNjpI7HCRnLDDEQc8b4aXzPz12TZO1F3lleAlbpzsIXk2AG+r8E4IzsZIvOOn2FSP3/UE2XppcO4CgjQUKN1FidhAMl4NvQtJDJeRfE6BH9pIvlzG1IuNnDm4l2+33OZYbIoXQx+QfLcaTtfAGyF4N8rdM1FKxAYCpbvIFqShDATEjYHSUUqkRu7WBaCjEnoXwiY7NybcPBn+BaPtV3hq5W0Odic4Gr/FN4MX+fgVN/x8MXy3Dk55SbxVT4nYSKBslGxB3JiJwKZg+W7sUhM3y7sgpkJ7FaxaxLmBOIM1P2FD/D02rvoj21deYXfrFca955j+vh1OlMFxP7xVxfTxRuzSMoLlu8kWxE1zFtAK4uZw+R7s+c2cyRsCXxCiXmh1M716Kfvi++kOvUZP/Gesi59muO40P1q7E56xw7fK4fhiEt/zcGO8EXt+M8HyPWgFcXMmAlvCi8ZwFLQwZhhgqngFeMIQ8kOjh0RXDW/GB5hsfJojrU/xds8KEkPlsHMhjJfD0SX8/Wsxji2P4ShoIVy+F60gbslEYGu4YgxnQSv2ghZ+N3+EKUcPLI2ALwRhPzSo0FKd+jTLl0BPBaytgK2VTA0GuLaqCZe5FYe5lciiMbSCuHXuAjrTtkjFPpzmNuzmViJSN3/QbOOqpZfE4qaUiBqC2kBKJuqFBpVkTOWaO8JHNZ202FtwWOI4zXEiFfvQ6kzbMhOo3I/T3I7DEsdhiRMo6OaMdpjzul4umldwvaSbW4+2cWthKzcfbeZyUTMXTJ1cEFfRoLTNDnea24hWfD1jgeFo5QGclg6c1naclnacljaclnZ25fXzy5xtnJ+/gXM5azib08v5nH5+pRtit9g7e9ZhSd1zyR1EKw+g1ZmGMxCQHo9WTeCSO3Fa0xL3R0s7LmtHuvYJLGnSuUvuJFo5gVYnPZ6ZgHuSUqUTl9xFqdKFS+nEJXdSKnfhUrrSeYrZXEn1Z5i5G6uazExAo5NGYu7DxNyTxKomiVWlc/ckUfdhZnrR2d7h1LmZujuVR9337ml00sicBbJ1UqdGL33xv4lWZ4rOVSBLo5EEzQJR1RryGx6WLwhiOP1bPm/OAllZWY9kZbk+k2W1fu6hKSz8bKbD/6frXxrUMwwLLuzqAAAAAElFTkSuQmCC" id="s3downbar_download_tooltip_img" class="download_data_tooltip_img" no_image="false">
+			<div id="s3downbar_download_tooltip_filename" class="download_data_tooltip_filename">perldebtut - Perl でのデバッグのチュートリアル - perldoc.jp.html </div>
+		</div>
+		<div class="download_data_tooltip_data_box" id="s3downbar_download_tooltip_data_box" is_hidden_progress="true" is_hidden_finish="false">
+			<table class="download_data_tooltip_data">
+				<tbody><tr id="s3downbar_download_tooltip_source_box" is_hidden="true"><td><div>Source:</div></td><td><input type="text" id="s3downbar_download_tooltip_source" class="download_data_tooltip_url" readonly="true"></td></tr>
+				<tr><td><div>転送元:</div></td><td><input type="text" id="s3downbar_download_tooltip_from" class="download_data_tooltip_url" readonly="true" title="https://perldoc.jp/docs/perl/5.26.1/perldebtut.pod" value="https://perldoc.jp/docs/perl/5.26.1/perldebtut.pod"></td></tr>
+				<tr><td><div>転送先:</div></td><td><div id="s3downbar_download_tooltip_to">Z:\Documsnts\asciidoc\asciidoc\perl\perldebtut - Perl でのデバッグのチュートリアル - perldoc.jp.html</div></td></tr>
+				<tr class="download_progress"><td><div>状態:</div></td><td><div id="s3downbar_download_tooltip_status">6 KB / 17 KB ( 10 KB/秒 )</div></td></tr>
+				<tr class="download_finish"><td><div>ファイルのサイズ:</div></td><td><div id="s3downbar_download_tooltip_size" filenotfound="false">141 KB</div></td></tr>
+				<tr class="download_finish" id="s3downbar_download_virus_scan_box" is_hidden="true"><td><div id="s3downbar_download_virus_scan_label">Virus scan:</div></td><td><a id="s3downbar_download_virus_scan" target="_blank"></a></td></tr>
+				<tr><td><div>開始時刻:</div></td><td><div id="s3downbar_download_tooltip_timeStart">2020.12.15 - 06:30:17</div></td></tr>
+				<tr class="download_finish"><td><div>所要時間:</div></td><td><div id="s3downbar_download_tooltip_timeEnd">00:01</div></td></tr>
+				<tr class="download_progress"><td><div>残り時間:</div></td><td><div id="s3downbar_download_tooltip_timeLeft">00:01</div></td></tr>
+				<tr class="download_progress"><td><div>進行率:</div></td><td><div id="s3downbar_download_tooltip_percent">100%</div></td></tr>
+				<tr class="download_finish"><td><div>平均転送速度:</div></td><td><div id="s3downbar_download_tooltip_speed">211 KB/秒</div></td></tr>
+			</tbody></table>
+			<div class="download_data_tooltip_img_preview_box download_finish"><div class="download_data_tooltip_img_box">
+				<img src="" id="s3downbar_download_tooltip_img_preview" is_hidden="true" class="download_data_tooltip_img_preview download_finish" width="120" height="120">
+				<div id="s3downbar_download_tooltip_img_size" class="download_data_tooltip_img_size"></div>
+			</div></div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_progress" is_hidden="true">
+			<div>mouse double click: download pause/resume</div>
+			<div>mouse middle click: download cancel</div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_finish" is_hidden="false">
+			<div>mouse double click: open file</div>
+			<div>mouse double click + Ctrl: open dir</div>
+			<div style="padding-top: 4px !important;">mouse middle click: delete from list</div>
+			<div>mouse middle click + Ctrl: delete from system</div>
+			<div style="padding-top: 4px !important;">press mouse button + Ctrl: drag &amp; drop</div>
+		</div>
+	</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div></div><div id="s3db_A87FF679A2F3E71D9181A67B7542122C" class="download_data_box db_finishedHbox" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" click_handle="finished_click_handle">
+		<div class="download_data_box_iframe_box"><div id="s3downbar_download_box_iframe" is_hidden="true" class="download_data_box_iframe"></div></div>
+		<div id="s3downbar_download_box_progressremainder" class="download_data_box_progressremainder" is_hidden="true"></div>
+		<div id="s3downbar_download_box_progress" class="download_data_box_progress" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important; width: 100% !important;" is_hidden="true"></div>
+		<div id="s3downbar_download_box_data" class="download_data_box_data">
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" id="s3downbar_download_box_img" class="download_data_box_img" style="background: rgba(0, 0, 0, 0) url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACBElEQVQ4jY3RQUiTcRjH8T/4+ILQIWmSjd75OoZups18dWy5933nlmuoyVBsKRMGkgctyYMQhVFQBAkGHguSDhV0LrxFBw9FpwJZeTCKCCzIDtnJ+e0QEbF30gPf4/O5/JT6e4f37ws4lVKq+phSqkbtcWZP+1US4fmyIsEpxu3HRaWqzcqISMxpn6fFGC7LqHe4NvSZMefhW6WqO90RkbgdvkyoYagso97h1unt34j14J1SqsEdaLtIyJctyzhooddF0euitBo5lEivG2DFW+cI6oP/9PJpho03GQLeNAFvmkhwChHpcQW6Q7PY/gyPCh3MDTjEghl2PyRha4C1lSTxcD/doVmUiOUG2LHmGdaz3XDDy4+lECsD93k1c4+dYhI+pvi62keseQYlYrsBTrRpmtJYJ6XrTezePcL35UGepDfZXs3Ca4vd9TTRpmmUiOPyL4lIYJJSbxIKR3men+XK8CaLZ3ZYv30enkXYeeEQCUwiIglXoKtxgk/+Apy02MqdYGFkkTsTS/xcaIPlNrYWEnQ1TlQEekyjwIXaUb4F8mCnoC8OwxEYNfkyEuPm8QSmUXBfQUSSpm8cv8fmXG2Ooucs7/URNnynWPMOcelQP36PjekbR0SSrkCHnqfxgLVnHXq+IpBq10f5n0QkVT6jprVUaVq2SqvJ7Z2WVZrW8uftF7z9KaH0ajk5AAAAAElFTkSuQmCC&quot;) no-repeat scroll 50% 50% / contain !important;" no_image="false" is_hidden="false">
+			<img src="" id="s3downbar_download_box_img_queue" class="download_data_box_img" is_hidden="true">
+			<img src="" id="s3downbar_download_box_picToShrink" pictoshrink="true" is_hidden="true" class="download_data_box_img">
+			<div id="s3downbar_download_box_filename" class="download_data_box_filename">perlretut - Perl の正規表現のチュートリアル - perldoc.jp.html</div>
+			<div id="s3downbar_download_box_progress_data" class="download_data_box_progress_data" is_hidden="true">
+				<div id="s3downbar_download_box_progress_percent" class="download_data_box_progress_percent" is_hidden="true">100%</div>
+				<div id="s3downbar_download_box_progress_remaintime" class="download_data_box_progress_remaintime" is_hidden="false">--:--</div>
+				<div id="s3downbar_download_box_progress_bytesReceived" class="download_data_box_progress_bytesReceived" is_hidden="true">6 KB</div>
+				<div id="s3downbar_download_box_progress_speed" class="download_data_box_progress_speed" is_hidden="false">-.--</div>
+			</div>
+		</div>
+	<div style="box-sizing: initial !important; position: fixed !important; z-index: 50 !important;"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div id="download_data_tooltip" class="download_data_tooltip">
+		<div class="download_data_tooltip_head">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAGYElEQVRYhe2Wa2xT5xmAU37sosUm+NhOfE5i+xzn4ksaAiHBiY/t+BI7TsjFuZGUS7gkIeGaZmysiEWjlJRsQAgIreoqdVInVLFOm4TWy4bWqlM3aVqh68q2jsvabYxL0Rhkg7IYP/thJ0C1SXGZ9muf9Oh9v/f9Pr3POefPycr6//o3SyvkL9UK0urMMa3SLBA9Go2of0gBaXWVZT2Z4HcMUb9k+G53bPulXFNx/+eFfOlTC2gEqbfK0oesU5F1HhQhFWWdiiyoyDoVZXbvudfTq5S5goz3vXpbKnAM5eTkWT/N/Ec0grSmytqHIqhYBU8KnSc1TPAgp+szuXxfb4Egc6gHxteevGM2L9o6PzdXyVRgnkaQ1ritgyiCNzVAULHqU084s/9PzAhM9CQZX/36dJFt6fb5xgJbZgI6ca1bGcSm9yELXmR9mnSu6O/VlE/UZwQOPZbgwPI77H3s9USp3b8zkzcxT6MT19UoG1EMfhS9D0U/E9MYfMh6H7LB90Bd1vtYIMgP4Cj2sTw88g+tXmrMSEAt3ILNEEhJGPwohtoHc70/hcHPiRei3LnWRKnZj2zwIRu8s9Fm8BFZvBWNTlyXicB6tWgbNmMQm7E2haEWxRjAZgzct6/l8K5a+NsyuNnMn09H7p03BlCMAQoNATy2TWh04vpMBPrUkmEKjSFsuUFsxiArl1TjK/amBYKz9en3/fBRDK4vg2sN/PRYLTZjkEJjMB1DqEXDaHRi39wF9KZ+b8kIhblhCo0hNi9USR7No7+mmlNfqeLJLjeFuSEGYh74TQ18GIDLUbhaDxfDvLTfx1c31FOYG6IoN4y3ZASN3tSficCAt+RLFOXVUSHV8c+RYviGkdtjVjhSxnMrVA7Xfpkfdx/it6N7uPydNXChFj4Mwp9CJH9fy8e/XkaTN0JRbgR/yXY0etPAnAWy9dIGv2MHxaYoL6sR2G6D3flwUA/PCyResPFmxw94zfMXTnou8Ub8FGcPjMJ71fC+D86FSV6o54NXAxTnRfE7dpCtlzZkIjDodz1BsRjjepMfNjpI7HCRnLDDEQc8b4aXzPz12TZO1F3lleAlbpzsIXk2AG+r8E4IzsZIvOOn2FSP3/UE2XppcO4CgjQUKN1FidhAMl4NvQtJDJeRfE6BH9pIvlzG1IuNnDm4l2+33OZYbIoXQx+QfLcaTtfAGyF4N8rdM1FKxAYCpbvIFqShDATEjYHSUUqkRu7WBaCjEnoXwiY7NybcPBn+BaPtV3hq5W0Odic4Gr/FN4MX+fgVN/x8MXy3Dk55SbxVT4nYSKBslGxB3JiJwKZg+W7sUhM3y7sgpkJ7FaxaxLmBOIM1P2FD/D02rvoj21deYXfrFca955j+vh1OlMFxP7xVxfTxRuzSMoLlu8kWxE1zFtAK4uZw+R7s+c2cyRsCXxCiXmh1M716Kfvi++kOvUZP/Gesi59muO40P1q7E56xw7fK4fhiEt/zcGO8EXt+M8HyPWgFcXMmAlvCi8ZwFLQwZhhgqngFeMIQ8kOjh0RXDW/GB5hsfJojrU/xds8KEkPlsHMhjJfD0SX8/Wsxji2P4ShoIVy+F60gbslEYGu4YgxnQSv2ghZ+N3+EKUcPLI2ALwRhPzSo0FKd+jTLl0BPBaytgK2VTA0GuLaqCZe5FYe5lciiMbSCuHXuAjrTtkjFPpzmNuzmViJSN3/QbOOqpZfE4qaUiBqC2kBKJuqFBpVkTOWaO8JHNZ202FtwWOI4zXEiFfvQ6kzbMhOo3I/T3I7DEsdhiRMo6OaMdpjzul4umldwvaSbW4+2cWthKzcfbeZyUTMXTJ1cEFfRoLTNDnea24hWfD1jgeFo5QGclg6c1naclnacljaclnZ25fXzy5xtnJ+/gXM5azib08v5nH5+pRtit9g7e9ZhSd1zyR1EKw+g1ZmGMxCQHo9WTeCSO3Fa0xL3R0s7LmtHuvYJLGnSuUvuJFo5gVYnPZ6ZgHuSUqUTl9xFqdKFS+nEJXdSKnfhUrrSeYrZXEn1Z5i5G6uazExAo5NGYu7DxNyTxKomiVWlc/ckUfdhZnrR2d7h1LmZujuVR9337ml00sicBbJ1UqdGL33xv4lWZ4rOVSBLo5EEzQJR1RryGx6WLwhiOP1bPm/OAllZWY9kZbk+k2W1fu6hKSz8bKbD/6frXxrUMwwLLuzqAAAAAElFTkSuQmCC" id="s3downbar_download_tooltip_img" class="download_data_tooltip_img" no_image="false">
+			<div id="s3downbar_download_tooltip_filename" class="download_data_tooltip_filename">perlretut - Perl の正規表現のチュートリアル - perldoc.jp.html </div>
+		</div>
+		<div class="download_data_tooltip_data_box" id="s3downbar_download_tooltip_data_box" is_hidden_progress="true" is_hidden_finish="false">
+			<table class="download_data_tooltip_data">
+				<tbody><tr id="s3downbar_download_tooltip_source_box" is_hidden="true"><td><div>Source:</div></td><td><input type="text" id="s3downbar_download_tooltip_source" class="download_data_tooltip_url" readonly="true"></td></tr>
+				<tr><td><div>転送元:</div></td><td><input type="text" id="s3downbar_download_tooltip_from" class="download_data_tooltip_url" readonly="true" title="https://perldoc.jp/docs/perl/5.26.1/perlretut.pod" value="https://perldoc.jp/docs/perl/5.26.1/perlretut.pod"></td></tr>
+				<tr><td><div>転送先:</div></td><td><div id="s3downbar_download_tooltip_to">Z:\Documsnts\asciidoc\asciidoc\perl\perlretut - Perl の正規表現のチュートリアル - perldoc.jp.html</div></td></tr>
+				<tr class="download_progress"><td><div>状態:</div></td><td><div id="s3downbar_download_tooltip_status">6 KB / 27 KB ( -.-- )</div></td></tr>
+				<tr class="download_finish"><td><div>ファイルのサイズ:</div></td><td><div id="s3downbar_download_tooltip_size" filenotfound="false">564 KB</div></td></tr>
+				<tr class="download_finish" id="s3downbar_download_virus_scan_box" is_hidden="true"><td><div id="s3downbar_download_virus_scan_label">Virus scan:</div></td><td><a id="s3downbar_download_virus_scan" target="_blank"></a></td></tr>
+				<tr><td><div>開始時刻:</div></td><td><div id="s3downbar_download_tooltip_timeStart">2020.12.15 - 06:30:40</div></td></tr>
+				<tr class="download_finish"><td><div>所要時間:</div></td><td><div id="s3downbar_download_tooltip_timeEnd">00:01</div></td></tr>
+				<tr class="download_progress"><td><div>残り時間:</div></td><td><div id="s3downbar_download_tooltip_timeLeft">--:--</div></td></tr>
+				<tr class="download_progress"><td><div>進行率:</div></td><td><div id="s3downbar_download_tooltip_percent">100%</div></td></tr>
+				<tr class="download_finish"><td><div>平均転送速度:</div></td><td><div id="s3downbar_download_tooltip_speed">579 KB/秒</div></td></tr>
+			</tbody></table>
+			<div class="download_data_tooltip_img_preview_box download_finish"><div class="download_data_tooltip_img_box">
+				<img src="" id="s3downbar_download_tooltip_img_preview" is_hidden="true" class="download_data_tooltip_img_preview download_finish" width="120" height="120">
+				<div id="s3downbar_download_tooltip_img_size" class="download_data_tooltip_img_size"></div>
+			</div></div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_progress" is_hidden="true">
+			<div>mouse double click: download pause/resume</div>
+			<div>mouse middle click: download cancel</div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_finish" is_hidden="false">
+			<div>mouse double click: open file</div>
+			<div>mouse double click + Ctrl: open dir</div>
+			<div style="padding-top: 4px !important;">mouse middle click: delete from list</div>
+			<div>mouse middle click + Ctrl: delete from system</div>
+			<div style="padding-top: 4px !important;">press mouse button + Ctrl: drag &amp; drop</div>
+		</div>
+	</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div></div><div id="s3db_E4DA3B7FBBCE2345D7772B0674A318D5" class="download_data_box db_progressStack" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" click_handle="progress_click_handle">
+		<div class="download_data_box_iframe_box"><div id="s3downbar_download_box_iframe" is_hidden="true" class="download_data_box_iframe"></div></div>
+		<div id="s3downbar_download_box_progressremainder" class="download_data_box_progressremainder" is_hidden="false"></div>
+		<div id="s3downbar_download_box_progress" class="download_data_box_progress" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" is_hidden="false"></div>
+		<div id="s3downbar_download_box_data" class="download_data_box_data">
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" id="s3downbar_download_box_img" class="download_data_box_img" style="background: rgba(0, 0, 0, 0) url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACBElEQVQ4jY3RQUiTcRjH8T/4+ILQIWmSjd75OoZups18dWy5933nlmuoyVBsKRMGkgctyYMQhVFQBAkGHguSDhV0LrxFBw9FpwJZeTCKCCzIDtnJ+e0QEbF30gPf4/O5/JT6e4f37ws4lVKq+phSqkbtcWZP+1US4fmyIsEpxu3HRaWqzcqISMxpn6fFGC7LqHe4NvSZMefhW6WqO90RkbgdvkyoYagso97h1unt34j14J1SqsEdaLtIyJctyzhooddF0euitBo5lEivG2DFW+cI6oP/9PJpho03GQLeNAFvmkhwChHpcQW6Q7PY/gyPCh3MDTjEghl2PyRha4C1lSTxcD/doVmUiOUG2LHmGdaz3XDDy4+lECsD93k1c4+dYhI+pvi62keseQYlYrsBTrRpmtJYJ6XrTezePcL35UGepDfZXs3Ca4vd9TTRpmmUiOPyL4lIYJJSbxIKR3men+XK8CaLZ3ZYv30enkXYeeEQCUwiIglXoKtxgk/+Apy02MqdYGFkkTsTS/xcaIPlNrYWEnQ1TlQEekyjwIXaUb4F8mCnoC8OwxEYNfkyEuPm8QSmUXBfQUSSpm8cv8fmXG2Ooucs7/URNnynWPMOcelQP36PjekbR0SSrkCHnqfxgLVnHXq+IpBq10f5n0QkVT6jprVUaVq2SqvJ7Z2WVZrW8uftF7z9KaH0ajk5AAAAAElFTkSuQmCC&quot;) no-repeat scroll 50% 50% / contain !important;" no_image="false" is_hidden="true">
+			<img src="" id="s3downbar_download_box_img_queue" class="download_data_box_img" is_hidden="true">
+			<img src="" id="s3downbar_download_box_picToShrink" pictoshrink="true" is_hidden="true" class="download_data_box_img">
+			<div id="s3downbar_download_box_filename" class="download_data_box_filename">perlrequick - Perl 正規表現のクイックスタート - perldoc.jp.html</div>
+			<div id="s3downbar_download_box_progress_data" class="download_data_box_progress_data" is_hidden="false">
+				<div id="s3downbar_download_box_progress_percent" class="download_data_box_progress_percent" is_hidden="true">不明</div>
+				<div id="s3downbar_download_box_progress_remaintime" class="download_data_box_progress_remaintime" is_hidden="false">不明</div>
+				<div id="s3downbar_download_box_progress_bytesReceived" class="download_data_box_progress_bytesReceived" is_hidden="true">-.--</div>
+				<div id="s3downbar_download_box_progress_speed" class="download_data_box_progress_speed" is_hidden="false">-.--</div>
+			</div>
+		</div>
+	<div style="box-sizing: initial !important; position: fixed !important; z-index: 50 !important;"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div id="download_data_tooltip" class="download_data_tooltip">
+		<div class="download_data_tooltip_head">
+			<img src="" id="s3downbar_download_tooltip_img" class="download_data_tooltip_img" no_image="true">
+			<div id="s3downbar_download_tooltip_filename" class="download_data_tooltip_filename">perlrequick - Perl 正規表現のクイックスタート - perldoc.jp.html </div>
+		</div>
+		<div class="download_data_tooltip_data_box" id="s3downbar_download_tooltip_data_box" is_hidden_progress="false" is_hidden_finish="true">
+			<table class="download_data_tooltip_data">
+				<tbody><tr id="s3downbar_download_tooltip_source_box" is_hidden="true"><td><div>Source:</div></td><td><input type="text" id="s3downbar_download_tooltip_source" class="download_data_tooltip_url" readonly="true"></td></tr>
+				<tr><td><div>転送元:</div></td><td><input type="text" id="s3downbar_download_tooltip_from" class="download_data_tooltip_url" readonly="true" title="https://perldoc.jp/docs/perl/5.26.1/perlrequick.pod" value="https://perldoc.jp/docs/perl/5.26.1/perlrequick.pod"></td></tr>
+				<tr><td><div>転送先:</div></td><td><div id="s3downbar_download_tooltip_to">Z:\Documsnts\asciidoc\asciidoc\perl\perlrequick - Perl 正規表現のクイックスタート - perldoc.jp.html</div></td></tr>
+				<tr class="download_progress"><td><div>状態:</div></td><td><div id="s3downbar_download_tooltip_status">-.-- / 不明 ( -.-- )</div></td></tr>
+				<tr class="download_finish"><td><div>ファイルのサイズ:</div></td><td><div id="s3downbar_download_tooltip_size" filenotfound="true">ファイルが見つかりません</div></td></tr>
+				<tr class="download_finish" id="s3downbar_download_virus_scan_box" is_hidden="true"><td><div id="s3downbar_download_virus_scan_label">Virus scan:</div></td><td><a id="s3downbar_download_virus_scan" target="_blank"></a></td></tr>
+				<tr><td><div>開始時刻:</div></td><td><div id="s3downbar_download_tooltip_timeStart">2020.12.15 - 06:31:14</div></td></tr>
+				<tr class="download_finish"><td><div>所要時間:</div></td><td><div id="s3downbar_download_tooltip_timeEnd">不明</div></td></tr>
+				<tr class="download_progress"><td><div>残り時間:</div></td><td><div id="s3downbar_download_tooltip_timeLeft">不明</div></td></tr>
+				<tr class="download_progress"><td><div>進行率:</div></td><td><div id="s3downbar_download_tooltip_percent">不明</div></td></tr>
+				<tr class="download_finish"><td><div>平均転送速度:</div></td><td><div id="s3downbar_download_tooltip_speed">不明</div></td></tr>
+			</tbody></table>
+			<div class="download_data_tooltip_img_preview_box download_finish"><div class="download_data_tooltip_img_box">
+				<img src="" id="s3downbar_download_tooltip_img_preview" is_hidden="true" class="download_data_tooltip_img_preview download_finish" width="120" height="120">
+				<div id="s3downbar_download_tooltip_img_size" class="download_data_tooltip_img_size"></div>
+			</div></div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_progress" is_hidden="false">
+			<div>mouse double click: download pause/resume</div>
+			<div>mouse middle click: download cancel</div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_finish" is_hidden="true">
+			<div>mouse double click: open file</div>
+			<div>mouse double click + Ctrl: open dir</div>
+			<div style="padding-top: 4px !important;">mouse middle click: delete from list</div>
+			<div>mouse middle click + Ctrl: delete from system</div>
+			<div style="padding-top: 4px !important;">press mouse button + Ctrl: drag &amp; drop</div>
+		</div>
+	</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div></div></div></div></div></body></html>

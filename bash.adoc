@@ -295,7 +295,7 @@ $ ./hoge.sh altair betelgeuse canopus
 while read line ; do
     echo ${line}
 
-done < ${DATAFILE}
+done < ./command.txt
 ----
 
 

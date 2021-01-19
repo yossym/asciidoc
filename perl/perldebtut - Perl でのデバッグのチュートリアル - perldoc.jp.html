@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html style="" lang="ja"><head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Content-Language" content="ja">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>perldebtut - Perl でのデバッグのチュートリアル - perldoc.jp</title>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="description" content="Perl でのデバッグのチュートリアル">
+<meta name="keywords" content="Perl,翻訳,モジュール">
+<link href="perldebtut%20-%20Perl%20%E3%81%A7%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20-%20perldoc.jp_files/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+<link href="perldebtut%20-%20Perl%20%E3%81%A7%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20-%20perldoc.jp_files/print.css" media="print" rel="stylesheet" type="text/css">
+<!--[if IE]>
+    <link href="/static/css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+    <![endif]-->
+<link rel="shortcut icon" href="https://perldoc.jp/favicon.ico">
+<script type="text/javascript" async="" src="perldebtut%20-%20Perl%20%E3%81%A7%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20-%20perldoc.jp_files/ga.js"></script><script src="perldebtut%20-%20Perl%20%E3%81%A7%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20-%20perldoc.jp_files/prettify.js" type="text/javascript"></script>
+<script src="perldebtut%20-%20Perl%20%E3%81%A7%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20-%20perldoc.jp_files/jquery.js"></script>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+<script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-59935-4']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+<body onload="prettyPrint();return true;" style="margin-bottom: 28px !important;">
+<div class="container">
+<div class="header span-24 last">
+<a class="SiteLogo" href="https://perldoc.jp/">perldoc.jp</a>
+</div>
+<div class="nav span-24 last">
+<ul>
+<li><a href="https://perldoc.jp/">トップ</a></li>
+<li><a href="https://perldoc.jp/index/core">本体</a></li>
+<li><a href="https://perldoc.jp/index/function">関数</a></li>
+<li><a href="https://perldoc.jp/index/variable">変数</a></li>
+<li><a href="https://perldoc.jp/index/module">モジュール</a></li>
+<li><a href="https://perldoc.jp/category">カテゴリ別</a></li>
+<li><a href="https://perldoc.jp/index/article">その他の翻訳</a></li>
+<li><a href="https://perldoc.jp/translators">翻訳者</a></li>
+<li><a href="https://perldoc.jp/manners">翻訳の作法</a></li>
+<li><a href="https://perldoc.jp/about">このサイトについて</a></li>
+</ul>
+
+<form method="get" action="https://www.google.co.jp/search" id="GoogleSearch">
+<input type="text" name="q" size="31" maxlength="255">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+<input type="hidden" name="hl" value="ja">
+<input type="hidden" name="domains" value="perldoc.jp">
+<input type="hidden" name="sitesearch" value="perldoc.jp">
+<input type="submit" name="btnG" value="Google 検索">
+</form>
+
+</div>
+<div id="main" class="span-24 last">
+<div id="content">
+<div class="content">
+<div class="PodPage">
+<div class="PodInfo">
+<div class="PodVersion">5.26.1</div>
+<div class="CheckAtCPAN"><a href="http://search.cpan.org/perldoc?perldebtut">CPANで確認する</a></div>
+<div class="OtherVersions">
+Other versions:<br>
+<a href="https://perldoc.jp/docs/perl/5.24.1/perldebtut.pod">5.24.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.22.1/perldebtut.pod">5.22.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.20.1/perldebtut.pod">5.20.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.18.1/perldebtut.pod">5.18.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.16.1/perldebtut.pod">5.16.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.14.1/perldebtut.pod">5.14.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.12.1/perldebtut.pod">5.12.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.10.1/perldebtut.pod">5.10.1</a><br>
+<a href="https://perldoc.jp/docs/perl/5.10.0/perldebtut.pod">5.10.0</a><br>
+</div><form action="/docs/perl/5.26.1/perldebtut.pod/diff">
+<select name="target"><option value="perl/5.24.1/perldebtut.pod" selected="selected">5.24.1</option><option value="perl/5.22.1/perldebtut.pod">5.22.1</option><option value="perl/5.20.1/perldebtut.pod">5.20.1</option><option value="perl/5.18.1/perldebtut.pod">5.18.1</option><option value="perl/5.16.1/perldebtut.pod">5.16.1</option><option value="perl/5.14.1/perldebtut.pod">5.14.1</option><option value="perl/5.12.1/perldebtut.pod">5.12.1</option><option value="perl/5.10.1/perldebtut.pod">5.10.1</option><option value="perl/5.10.0/perldebtut.pod">5.10.0</option></select>
+<input type="submit" value="diff">
+</form>
+<div class="Source"><a href="https://perldoc.jp/docs/perl/5.26.1/perldebtut.pod.pod">Source</a></div>
+<div><a target="_blank" href="https://sourceforge.jp/cvs/view/perldocjp/docs/perl/5.26.1/perldebtut.pod?view=log">変更履歴(sf.jp)</a></div>
+<div><a target="_blank" href="https://sourceforge.jp/ticket/newticket.php?group_id=136">誤訳の報告</a></div>
+<script>
+              var display_original = false;
+            </script>
+<div>
+<a href="#" onclick="$('.original').css('display', display_original ? 'none' : 'block'); display_original = display_original ? false : true; return false;">原文を表示/隠す</a>
+</div>
+</div>
+<div class="PodBody">
+<ul class="pod_toc">
+<li><a href="#NAME">名前</a></li>
+<li><a href="#DESCRIPTION">説明</a></li>
+<li><a href="#use32strict">use strict</a></li>
+<li><a href="#Looking32at32data32and32-w32and32v">データの見方と -w と v</a></li>
+<li><a href="#help">ヘルプ</a></li>
+<li><a href="#Stepping32through32code">コードをステップ実行する</a></li>
+<li><a href="#Placeholder32for32a44-32w44-32t44-32T">a, w, t, T のためのプレースホルダ</a></li>
+<li><a href="#REGULAR32EXPRESSIONS">正規表現</a></li>
+<li><a href="#OUTPUT32TIPS">出力の小技</a></li>
+<li><a href="#CGI">CGI</a></li>
+<li><a href="#GUIs">GUI</a></li>
+<li><a href="#SUMMARY">まとめ</a></li>
+<li><a href="#SEE32ALSO">SEE ALSO</a></li>
+<li><a href="#AUTHOR">作者</a></li>
+<li><a href="#CONTRIBUTORS">貢献者</a></li>
+<li><a href="#POD32ERRORS">POD ERRORS</a></li>
+</ul>
+<div class="pod_content_body"><h1 id="NAME">名前<a href="#NAME" class="toc_link">¶</a></h1>
+<div class="original">
+<p>perldebtut - Perl debugging tutorial</p>
+</div>
+<p>perldebtut - Perl でのデバッグのチュートリアル</p>
+<h1 id="DESCRIPTION">説明<a href="#DESCRIPTION" class="toc_link">¶</a></h1>
+<div class="original">
+<p>A (very) lightweight introduction in the use of the perl debugger, 
+and a pointer to existing, deeper sources of information on the subject 
+of debugging perl programs.</p>
+</div>
+<p>perl デバッガの使い方の(とても) 軽量な紹介および、 perl プログラムの デバッグに関する、すでに存在するより深い情報源へのポインタです。</p>
+<div class="original">
+<p>There's an extraordinary number of people out there who don't appear 
+to know anything about using the perl debugger, though they use the 
+language every day. This is for them.</p>
+</div>
+<p>perl を毎日使っているのに、perl デバッガを使うことについて何も知らないように 思われる人が非常にたくさんいます。 これはそのような人たちのためのものです。</p>
+<h1 id="use32strict">use strict<a href="#use32strict" class="toc_link">¶</a></h1>
+<div class="original">
+<p>First of all, there's a few things you can do to make your life a lot
+ more straightforward when it comes to debugging perl programs, without 
+using the debugger at all. To demonstrate, here's a simple script, named
+ "hello", with a problem:</p>
+</div>
+<p>まず最初に、perl のプログラムをデバッグするときに、デバッガを全く 使うことなく、人生を遥かに素直なものにするためにできることがいくつか あります。 それを示すために、"hello" という名前の、単純ですが問題を抱えたスクリプトを 示します:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">#!/usr/bin/perl</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; $var1 </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Hello World'</span><span class="pun">;</span><span class="pln"> </span><span class="com"># always wanted to do that :-)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; $var2 </span><span class="pun">=</span><span class="pln"> </span><span class="str">"$varl\n"</span><span class="pun">;</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> $var2</span><span class="pun">;</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">exit</span><span class="pun">;</span></code></pre>
+<div class="original">
+<p>While this compiles and runs happily, it probably won't do what's 
+expected, namely it doesn't print "Hello World\n" at all; It will on the
+ other hand do exactly what it was told to do, computers being a bit 
+that way inclined. That is, it will print out a newline character, and 
+you'll get what looks like a blank line. It looks like there's 2 
+variables when (because of the typo) there's really 3:</p>
+</div>
+<p>これはエラーなくコンパイルおよび実行されますが、おそらく想定したことは 起きないでしょう; すなわち、"Hello World\n" 
+とは全く表示されません; 一方 (コンピュータに少しある傾向通りに) するように言われた通りに 動作しています。 
+これは、改行文字を表示していて、それが空行のように見えるのです。 2 つの変数があるように見えますが、実際には (タイプミスのために) 3 
+つの変数があるのです:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; $var1 </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Hello World'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; $varl </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">undef</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; $var2 </span><span class="pun">=</span><span class="pln"> </span><span class="str">"\n"</span><span class="pun">;</span></code></pre>
+<div class="original">
+<p>To catch this kind of problem, we can force each variable to be 
+declared before use by pulling in the strict module, by putting 'use 
+strict;' after the first line of the script.</p>
+</div>
+<p>この種の問題を補足するには、スクリプトの最初の行の後に 'use strict;' を 書いて strict モジュールを導入することで、変数を使う前には宣言することを 強制できます。</p>
+<div class="original">
+<p>Now when you run it, perl complains about the 3 undeclared variables 
+and we get four error messages because one variable is referenced twice:</p>
+</div>
+<p>これで実行すると、perl は 3 つの未宣言変数に関して 4 つのエラーメッセージが でます; なぜなら 1 つの変数は 2 回参照されているからです:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp;</span><span class="typ">Global</span><span class="pln"> symbol </span><span class="str">"$var1"</span><span class="pln"> requires explicit </span><span class="kwd">package</span><span class="pln"> name at </span><span class="pun">./</span><span class="pln">t1 line </span><span class="lit">4.</span><span class="pln"><br>&nbsp;</span><span class="typ">Global</span><span class="pln"> symbol </span><span class="str">"$var2"</span><span class="pln"> requires explicit </span><span class="kwd">package</span><span class="pln"> name at </span><span class="pun">./</span><span class="pln">t1 line </span><span class="lit">5.</span><span class="pln"><br>&nbsp;</span><span class="typ">Global</span><span class="pln"> symbol </span><span class="str">"$varl"</span><span class="pln"> requires explicit </span><span class="kwd">package</span><span class="pln"> name at </span><span class="pun">./</span><span class="pln">t1 line </span><span class="lit">5.</span><span class="pln"><br>&nbsp;</span><span class="typ">Global</span><span class="pln"> symbol </span><span class="str">"$var2"</span><span class="pln"> requires explicit </span><span class="kwd">package</span><span class="pln"> name at </span><span class="pun">./</span><span class="pln">t1 line </span><span class="lit">7.</span><span class="pln"><br>&nbsp;</span><span class="typ">Execution</span><span class="pln"> of </span><span class="pun">./</span><span class="pln">hello aborted due to compilation errors</span><span class="pun">.</span><span class="pln"> &nbsp; &nbsp; </span></code></pre>
+<div class="original">
+<p>Luvverly! and to fix this we declare all variables explicitly and now our script looks like this:</p>
+</div>
+<p>バッチリだ! そしてこれを修正するために、全ての変数を明示的に宣言することにすると、 スクリプトは以下のようになります:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">#!/usr/bin/perl</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">use</span><span class="pln"> strict</span><span class="pun">;</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $var1 </span><span class="pun">=</span><span class="pln"> </span><span class="str">'Hello World'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $varl </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">undef</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $var2 </span><span class="pun">=</span><span class="pln"> </span><span class="str">"$varl\n"</span><span class="pun">;</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> $var2</span><span class="pun">;</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">exit</span><span class="pun">;</span></code></pre>
+<div class="original">
+<p>We then do (always a good idea) a syntax check before we try to run it again:</p>
+</div>
+<p>それから、もう一度実行する前に文法チェックを行います(これは常に いい考えです):</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">&gt;</span><span class="pln"> perl </span><span class="pun">-</span><span class="pln">c hello<br>&nbsp; &nbsp; &nbsp; &nbsp; hello syntax OK </span></code></pre>
+<div class="original">
+<p>And now when we run it, we get "\n" still, but at least we know why. 
+Just getting this script to compile has exposed the '$varl' (with the 
+letter 'l') variable, and simply changing $varl to $var1 solves the 
+problem.</p>
+</div>
+<p>そして実行すると、やはり "\n" が表示されますが、少なくともなぜかは 分かります。 コンパイルしたスクリプトに '$varl' (文字 'l' です) があることが明らかになり、 単に $varl を $var1 に変更すれば問題は解決します。</p>
+<h1 id="Looking32at32data32and32-w32and32v">データの見方と -w と v<a href="#Looking32at32data32and32-w32and32v" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>Ok, but how about when you want to really see your data, what's in that dynamic variable, just before using it?</p>
+</div>
+<p>よし、でも本当に、動的変数に入っているデータを、それを使う直前に知るには?</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">#!/usr/bin/perl </span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">use</span><span class="pln"> strict</span><span class="pun">;</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $key </span><span class="pun">=</span><span class="pln"> </span><span class="str">'welcome'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> </span><span class="pun">%</span><span class="pln">data </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'this'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> qw</span><span class="pun">(</span><span class="pln">that</span><span class="pun">),</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'tom'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> qw</span><span class="pun">(</span><span class="pln">and jerry</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'welcome'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> q</span><span class="pun">(</span><span class="typ">Hello</span><span class="pln"> </span><span class="typ">World</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'zip'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> q</span><span class="pun">(</span><span class="pln">welcome</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> </span><span class="lit">@data</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> keys </span><span class="pun">%</span><span class="pln">data</span><span class="pun">;</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"$data{$key}\n"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">exit</span><span class="pun">;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></code></pre>
+<div class="original">
+<p>Looks OK, after it's been through the syntax check (perl -c scriptname), we run it and all we get is a blank line again! Hmmmm.</p>
+</div>
+<p>良さそうに見えます; 文法チェック (perl -c scriptname) の後、実行してみると、 またも空行しか出ません! ふーむ。</p>
+<div class="original">
+<p>One common debugging approach here, would be to liberally sprinkle a 
+few print statements, to add a check just before we print out our data, 
+and another just after:</p>
+</div>
+<p>ここで一般的なデバッグ手法の一つは、print 文を自由にいくつかばらまいて、 データをプリントする直前のチェックを追加することです:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"All OK\n"</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> grep</span><span class="pun">(</span><span class="pln">$key</span><span class="pun">,</span><span class="pln"> keys </span><span class="pun">%</span><span class="pln">data</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"$data{$key}\n"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"done: '$data{$key}'\n"</span><span class="pun">;</span></code></pre>
+<div class="original">
+<p>And try again:</p>
+</div>
+<p>そして再挑戦します:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">&gt;</span><span class="pln"> perl data<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">All</span><span class="pln"> OK &nbsp; &nbsp; <br><br>&nbsp; &nbsp; &nbsp; &nbsp; done</span><span class="pun">:</span><span class="pln"> </span><span class="str">''</span></code></pre>
+<div class="original">
+<p>After much staring at the same piece of code and not seeing the wood 
+for the trees for some time, we get a cup of coffee and try another 
+approach. That is, we bring in the cavalry by giving perl the '<b>-d</b>' switch on the command line:</p>
+</div>
+<p>同じコード片を見つめすぎて、木を見て森を見ずになっていることがあります; 一服して違う手法を試しましょう。 それは、コマンドラインで perl に '<b>-d</b>' オプションを与えることで騎兵隊を 迎え入れることです:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">&gt;</span><span class="pln"> perl </span><span class="pun">-</span><span class="pln">d data <br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Default</span><span class="pln"> </span><span class="kwd">die</span><span class="pln"> handler restored</span><span class="pun">.</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Loading</span><span class="pln"> DB routines from perl5db</span><span class="pun">.</span><span class="pln">pl version </span><span class="lit">1.07</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Editor</span><span class="pln"> support available</span><span class="pun">.</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Enter</span><span class="pln"> h or </span><span class="str">`h h' for help, or `</span><span class="pln">man perldebug</span><span class="str">' for more help.<br><br>&nbsp; &nbsp; &nbsp; &nbsp; main::(./data:4): &nbsp; &nbsp; my $key = '</span><span class="pln">welcome</span><span class="str">'; &nbsp; </span></code></pre>
+<div class="original">
+<p>Now, what we've done here is to launch the built-in perl debugger on 
+our script. It's stopped at the first line of executable code and is 
+waiting for input.</p>
+</div>
+<p>ここでしたことは、スクリプトに対して組み込み perl デバッガを 起動したことです。 それは実行コードの最初の行で停止して、入力を待っています。</p>
+<div class="original">
+<p>Before we go any further, you'll want to know how to quit the debugger: use just the letter '<b>q</b>', not the words 'quit' or 'exit':</p>
+</div>
+<p>先に進む前に、どうやってデバッガを抜けるかを知りたいでしょう: 単語 'quit' や 'exit' ではなく、単に文字 '<b>q</b>' をタイプしてください:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">1</span></b><span class="pln"> q<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">&gt;</span></code></pre>
+<div class="original">
+<p>That's it, you're back on home turf again.</p>
+</div>
+<p>これで、再びホームグラウンドに戻ってきます。</p>
+<h1 id="help">ヘルプ<a href="#help" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>Fire the debugger up again on your script and we'll look at the help menu. There's a couple of ways of calling help: a simple '<b>h</b>' will get the summary help list, '<b>|h</b>' (pipe-h) will pipe the help through your pager (which is (probably 'more' or 'less'), and finally, '<b>h h</b>' (h-space-h) will give you the entire help screen. Here is the summary page:</p>
+</div>
+<p>スクリプトに対してもう一度デバッガを起動して、ヘルプメニューを見てみます。 ヘルプを呼び出すには複数の方法があります: 単純な '<b>h</b>' はヘルプリストの 要約を出力し、'<b>|h</b>' (パイプ-h) はヘルプをページャ(多分 'more' か 'less') に送り、最後に '<b>h h</b>' (h-空白-h) はヘルプスクリーン全体を 表示します。 以下は要約ページです:</p>
+<p>D<b>1</b>h</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp;</span><span class="typ">List</span><span class="pun">/</span><span class="pln">search source lines</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Control</span><span class="pln"> script execution</span><span class="pun">:</span><span class="pln"><br>&nbsp; l </span><span class="pun">[</span><span class="pln">ln</span><span class="pun">|</span><span class="kwd">sub</span><span class="pun">]</span><span class="pln"> &nbsp;</span><span class="typ">List</span><span class="pln"> source code &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;T &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Stack</span><span class="pln"> trace<br>&nbsp; </span><span class="pun">-</span><span class="pln"> or </span><span class="pun">.</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="typ">List</span><span class="pln"> previous</span><span class="pun">/</span><span class="pln">current line &nbsp;s </span><span class="pun">[</span><span class="pln">expr</span><span class="pun">]</span><span class="pln"> &nbsp; &nbsp;</span><span class="typ">Single</span><span class="pln"> step<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">[</span><span class="pln">in expr</span><span class="pun">]</span><span class="pln"><br>&nbsp; v </span><span class="pun">[</span><span class="pln">line</span><span class="pun">]</span><span class="pln"> &nbsp; &nbsp;</span><span class="typ">View</span><span class="pln"> around line &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;n </span><span class="pun">[</span><span class="pln">expr</span><span class="pun">]</span><span class="pln"> &nbsp; &nbsp;</span><span class="typ">Next</span><span class="pun">,</span><span class="pln"> steps over<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; subs<br>&nbsp; f filename &nbsp;</span><span class="typ">View</span><span class="pln"> source in file &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">&lt;</span><span class="pln">CR</span><span class="pun">/</span><span class="typ">Enter</span><span class="pun">&gt;</span><span class="pln"> &nbsp;</span><span class="typ">Repeat</span><span class="pln"> </span><span class="kwd">last</span><span class="pln"> n or s<br>&nbsp; </span><span class="pun">/</span><span class="pln">pattern</span><span class="pun">/</span><span class="pln"> </span><span class="pun">?</span><span class="pln">patt</span><span class="pun">?</span><span class="pln"> &nbsp; </span><span class="typ">Search</span><span class="pln"> forw</span><span class="pun">/</span><span class="pln">backw &nbsp; &nbsp;r &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Return</span><span class="pln"> from<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; subroutine<br>&nbsp; M &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Show</span><span class="pln"> module versions &nbsp; &nbsp; &nbsp; &nbsp;c </span><span class="pun">[</span><span class="pln">ln</span><span class="pun">|</span><span class="kwd">sub</span><span class="pun">]</span><span class="pln"> &nbsp;</span><span class="typ">Continue</span><span class="pln"> </span><span class="kwd">until</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; position<br>&nbsp;</span><span class="typ">Debugger</span><span class="pln"> controls</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; L &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">List</span><span class="pln"> break</span><span class="str">/watch/</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;actions<br>&nbsp; o </span><span class="pun">[...]</span><span class="pln"> &nbsp; &nbsp; </span><span class="typ">Set</span><span class="pln"> debugger options &nbsp; &nbsp; &nbsp; &nbsp;t </span><span class="pun">[</span><span class="pln">expr</span><span class="pun">]</span><span class="pln"> &nbsp; &nbsp;</span><span class="typ">Toggle</span><span class="pln"> trace<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">[</span><span class="pln">trace expr</span><span class="pun">]</span><span class="pln"><br>&nbsp; </span><span class="pun">&lt;[&lt;]|{[{]|&gt;[&gt;]</span><span class="pln"> </span><span class="pun">[</span><span class="pln">cmd</span><span class="pun">]</span><span class="pln"> </span><span class="typ">Do</span><span class="pln"> pre</span><span class="pun">/</span><span class="pln">post</span><span class="pun">-</span><span class="pln">prompt b </span><span class="pun">[</span><span class="pln">ln</span><span class="pun">|</span><span class="pln">event</span><span class="pun">|</span><span class="kwd">sub</span><span class="pun">]</span><span class="pln"> </span><span class="pun">[</span><span class="pln">cnd</span><span class="pun">]</span><span class="pln"> </span><span class="typ">Set</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; breakpoint<br>&nbsp; </span><span class="pun">!</span><span class="pln"> </span><span class="pun">[</span><span class="pln">N</span><span class="pun">|</span><span class="pln">pat</span><span class="pun">]</span><span class="pln"> &nbsp; </span><span class="typ">Redo</span><span class="pln"> a previous command &nbsp; &nbsp; B ln</span><span class="pun">|*</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="typ">Delete</span><span class="pln"> a</span><span class="pun">/</span><span class="pln">all<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;breakpoints<br>&nbsp; H </span><span class="pun">[-</span><span class="pln">num</span><span class="pun">]</span><span class="pln"> &nbsp; &nbsp;</span><span class="typ">Display</span><span class="pln"> </span><span class="kwd">last</span><span class="pln"> num commands &nbsp; a </span><span class="pun">[</span><span class="pln">ln</span><span class="pun">]</span><span class="pln"> cmd &nbsp;</span><span class="typ">Do</span><span class="pln"> cmd before line<br>&nbsp; </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="pln">a val</span><span class="pun">]</span><span class="pln"> &nbsp; </span><span class="typ">Define</span><span class="pun">/</span><span class="pln">list an alias &nbsp; &nbsp; &nbsp; &nbsp;A ln</span><span class="pun">|*</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="typ">Delete</span><span class="pln"> a</span><span class="pun">/</span><span class="pln">all<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;actions<br>&nbsp; h </span><span class="pun">[</span><span class="pln">db_cmd</span><span class="pun">]</span><span class="pln"> &nbsp;</span><span class="typ">Get</span><span class="pln"> help on command &nbsp; &nbsp; &nbsp; &nbsp; w expr &nbsp; &nbsp; &nbsp;</span><span class="typ">Add</span><span class="pln"> a watch<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; expression<br>&nbsp; h h &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Complete</span><span class="pln"> help page &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;W expr</span><span class="pun">|*</span><span class="pln"> &nbsp; &nbsp;</span><span class="typ">Delete</span><span class="pln"> a</span><span class="pun">/</span><span class="pln">all watch<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;exprs<br>&nbsp; </span><span class="pun">|[|]</span><span class="pln">db_cmd &nbsp;</span><span class="typ">Send</span><span class="pln"> output to pager &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">![!]</span><span class="pln"> syscmd </span><span class="typ">Run</span><span class="pln"> cmd in a<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; subprocess<br>&nbsp; q or </span><span class="pun">^</span><span class="pln">D &nbsp; &nbsp; </span><span class="typ">Quit</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;R &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Attempt</span><span class="pln"> a restart<br>&nbsp;</span><span class="typ">Data</span><span class="pln"> </span><span class="typ">Examination</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; expr &nbsp; &nbsp; </span><span class="typ">Execute</span><span class="pln"> perl code</span><span class="pun">,</span><span class="pln"> also see</span><span class="pun">:</span><span class="pln"> s</span><span class="pun">,</span><span class="pln">n</span><span class="pun">,</span><span class="pln">t expr<br>&nbsp; x</span><span class="pun">|</span><span class="pln">m expr &nbsp; &nbsp; &nbsp; </span><span class="typ">Evals</span><span class="pln"> expr in list context</span><span class="pun">,</span><span class="pln"> dumps the result or lists<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; methods</span><span class="pun">.</span><span class="pln"><br>&nbsp; p expr &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Print</span><span class="pln"> expression </span><span class="pun">(</span><span class="pln">uses script</span><span class="str">'s current package).<br>&nbsp; S [[!]pat] &nbsp; &nbsp; List subroutine names [not] matching pattern<br>&nbsp; V [Pk [Vars]] &nbsp;List Variables in Package. &nbsp;Vars can be ~pattern or<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;!pattern.<br>&nbsp; X [Vars] &nbsp; &nbsp; &nbsp; Same as "V current_package [Vars]".<br>&nbsp; y [n [Vars]] &nbsp; List lexicals in higher scope &lt;n&gt;. &nbsp;Vars same as V.<br>&nbsp;For more help, type h cmd_letter, or run man perldebug for all docs. </span></code></pre>
+<div class="original">
+<p>More confusing options than you can shake a big stick at! It's not as
+ bad as it looks and it's very useful to know more about all of it, and 
+fun too!</p>
+</div>
+<p>とても多くの混乱させるオプションがあります! これは見た目ほど悪くはありませんし、これらすべてについてもっと知ることは とても有用ですし、楽しくもあります!</p>
+<div class="original">
+<p>There's a couple of useful ones to know about straight away. You 
+wouldn't think we're using any libraries at all at the moment, but '<b>M</b>' will show which modules are currently loaded, and their version number, while '<b>m</b>' will show the methods, and '<b>S</b>' shows all subroutines (by pattern) as shown below. '<b>V</b>' and '<b>X</b>' show variables in the program by package scope and can be constrained by pattern.</p>
+</div>
+<p>まず知っておくべきいくつかのコマンドがあります。 この時点では何かのライブラリを使っているとは考えていないでしょうが、 '<b>M</b>' は現在読み込まれているモジュールとバージョン番号を表示し、 一方 '<b>m</b>' はメソッドを表示し、'<b>S</b>' は以下のように、(パターンによって) 全てのサブルーチンを表示します。 '<b>V</b>' と'<b>X</b>' は、パッケージスコープと、パターンによって制限できる、 変数を表示します。</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">2</span></b><span class="pln">S str <br>&nbsp; &nbsp; &nbsp; &nbsp; dumpvar</span><span class="pun">::</span><span class="pln">stringify<br>&nbsp; &nbsp; &nbsp; &nbsp; strict</span><span class="pun">::</span><span class="pln">bits<br>&nbsp; &nbsp; &nbsp; &nbsp; strict</span><span class="pun">::</span><span class="kwd">import</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; strict</span><span class="pun">::</span><span class="pln">unimport &nbsp;</span></code></pre>
+<div class="original">
+<p>Using 'X' and cousins requires you not to use the type identifiers ($@%), just the 'name':</p>
+</div>
+<p>X' とその親類を使う時には、型指定子($@%)を使う必要はありません; 単に 'name' を入力してください:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D3X </span><span class="pun">~</span><span class="pln">err<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">FileHandle</span><span class="pun">(</span><span class="pln">stderr</span><span class="pun">)</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> fileno</span><span class="pun">(</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> &nbsp; &nbsp;</span></code></pre>
+<div class="original">
+<p>Remember we're in our tiny program with a problem, we should have a 
+look at where we are, and what our data looks like. First of all let's 
+view some code at our present position (the first line of code in this 
+case), via '<b>v</b>':</p>
+</div>
+<p>問題を抱えた小さなプログラムがあって、今どこにいるか、そしてデータが どのようにあっているのかを見ようとしていることを思い出してください。 まず最初に、現在位置 (この場合ではコードの最初の行) のコードを見てみましょう; '<b>v</b>' を使います:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">4</span></b><span class="pln"> v<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">1</span><span class="pln"> &nbsp; &nbsp; &nbsp; </span><span class="com">#!/usr/bin/perl</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">2</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="kwd">use</span><span class="pln"> strict</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">3</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">4</span><span class="pun">==&gt;</span><span class="pln"> &nbsp; &nbsp;</span><span class="kwd">my</span><span class="pln"> $key </span><span class="pun">=</span><span class="pln"> </span><span class="str">'welcome'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">5</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="kwd">my</span><span class="pln"> </span><span class="pun">%</span><span class="pln">data </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">6</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'this'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> qw</span><span class="pun">(</span><span class="pln">that</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">7</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'tom'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> qw</span><span class="pun">(</span><span class="pln">and jerry</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">8</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'welcome'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> q</span><span class="pun">(</span><span class="typ">Hello</span><span class="pln"> </span><span class="typ">World</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">9</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'zip'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> q</span><span class="pun">(</span><span class="pln">welcome</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">10</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="pun">);</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></code></pre>
+<div class="original">
+<p>At line number 4 is a helpful pointer, that tells you where you are now. To see more code, type 'v' again:</p>
+</div>
+<p>行番号 4 にあるのは助けになるポインタで、今どこにいるのかを示しています。 さらにコードを見るには、再び 'v' をタイプします:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">4</span></b><span class="pln"> v<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">8</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'welcome'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> q</span><span class="pun">(</span><span class="typ">Hello</span><span class="pln"> </span><span class="typ">World</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">9</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'zip'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> q</span><span class="pun">(</span><span class="pln">welcome</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">10</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">11</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> </span><span class="lit">@data</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> keys </span><span class="pun">%</span><span class="pln">data</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">12</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"All OK\n"</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> grep</span><span class="pun">(</span><span class="pln">$key</span><span class="pun">,</span><span class="pln"> keys </span><span class="pun">%</span><span class="pln">data</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">13</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"$data{$key}\n"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">14</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"done: '$data{$key}'\n"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">15</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; </span><span class="kwd">exit</span><span class="pun">;</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span></code></pre>
+<div class="original">
+<p>And if you wanted to list line 5 again, type 'l 5', (note the space):</p>
+</div>
+<p>そしてもし行番号 5 を再び見たいなら、'l 5' をタイプします (空白に注意してください):</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">4</span></b><span class="pln"> l </span><span class="lit">5</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">5</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="kwd">my</span><span class="pln"> </span><span class="pun">%</span><span class="pln">data </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span></code></pre>
+<div class="original">
+<p>In this case, there's not much to see, but of course normally there's
+ pages of stuff to wade through, and 'l' can be very useful. To reset 
+your view to the line we're about to execute, type a lone period '.':</p>
+</div>
+<p>この場合、見られるものはあまり多くはありませんが、もちろん普通は見渡すのに 何ページにもなる内容があるので、'l' はとても有用です。 見ている場所を実行しようとしているところにリセットするには、単一の '.' を タイプします:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">5</span></b><span class="pln"> </span><span class="pun">.</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::(./</span><span class="pln">data_a</span><span class="pun">:</span><span class="lit">4</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $key </span><span class="pun">=</span><span class="pln"> </span><span class="str">'welcome'</span><span class="pun">;</span><span class="pln"> &nbsp;</span></code></pre>
+<div class="original">
+<p>The line shown is the one that is about to be executed <b>next</b>, it hasn't happened yet. So while we can print a variable with the letter '<b>p</b>',
+ at this point all we'd get is an empty (undefined) value back. What we 
+need to do is to step through the next executable statement with an '<b>s</b>':</p>
+</div>
+<p>表示されている行は <b>次に</b> 実行されようとしているもので、まだ 実行されていません。 従って、ここで文字 '<b>p</b>' を使って変数を表示できますが、この時点では 表示されるのは空(未定義)値だけです。 するべきことは、'<b>s</b>' を使って次の実行可能文に進むことです:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">6</span></b><span class="pln"> s<br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::(./</span><span class="pln">data_a</span><span class="pun">:</span><span class="lit">5</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> </span><span class="pun">%</span><span class="pln">data </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::(./</span><span class="pln">data_a</span><span class="pun">:</span><span class="lit">6</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'this'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> qw</span><span class="pun">(</span><span class="pln">that</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::(./</span><span class="pln">data_a</span><span class="pun">:</span><span class="lit">7</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'tom'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> qw</span><span class="pun">(</span><span class="pln">and jerry</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::(./</span><span class="pln">data_a</span><span class="pun">:</span><span class="lit">8</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'welcome'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> q</span><span class="pun">(</span><span class="typ">Hello</span><span class="pln"> </span><span class="typ">World</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::(./</span><span class="pln">data_a</span><span class="pun">:</span><span class="lit">9</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'zip'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> q</span><span class="pun">(</span><span class="pln">welcome</span><span class="pun">),</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::(./</span><span class="pln">data_a</span><span class="pun">:</span><span class="lit">10</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp;</span><span class="pun">);</span><span class="pln"> &nbsp; </span></code></pre>
+<div class="original">
+<p>Now we can have a look at that first ($key) variable:</p>
+</div>
+<p>ここで最初の ($key) 変数を見ることができます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">7</span></b><span class="pln"> p $key <br>&nbsp; &nbsp; &nbsp; &nbsp; welcome </span></code></pre>
+<div class="original">
+<p>line 13 is where the action is, so let's continue down to there via the letter '<b>c</b>', which by the way, inserts a 'one-time-only' breakpoint at the given line or sub routine:</p>
+</div>
+<p>行 13 が処理の場所なので、文字 '<b>c</b>' を使って、今度は「一回だけ」の ブレークポイントを与えられた行かサブルーチンに挿入することでそこまで 進めていきましょう:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">8</span></b><span class="pln"> c </span><span class="lit">13</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">All</span><span class="pln"> OK<br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::(./</span><span class="pln">data_a</span><span class="pun">:</span><span class="lit">13</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp;</span><span class="kwd">print</span><span class="pln"> </span><span class="str">"$data{$key}\n"</span><span class="pun">;</span></code></pre>
+<div class="original">
+<p>We've gone past our check (where 'All OK' was printed) and have 
+stopped just before the meat of our task. We could try to print out a 
+couple of variables to see what is happening:</p>
+</div>
+<p>チェック('All OK' が表示された場所)を通り過ぎて、作業の要点の直線で 停止しました。 何が起きているのかを見るために二つの変数を表示させようとすることが できます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">9</span></b><span class="pln"> p $data</span><span class="pun">{</span><span class="pln">$key</span><span class="pun">}</span></code></pre>
+<div class="original">
+<p>Not much in there, lets have a look at our hash:</p>
+</div>
+<p>あまりありませんが、ハッシュを見てみましょう:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">10</span></b><span class="pln"> p </span><span class="pun">%</span><span class="pln">data<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Hello</span><span class="pln"> </span><span class="typ">Worldziptomandwelcomejerrywelcomethisthat</span><span class="pln"> <br><br>&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">11</span></b><span class="pln"> p keys </span><span class="pun">%</span><span class="pln">data<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Hello</span><span class="pln"> </span><span class="typ">Worldtomwelcomejerrythis</span><span class="pln"> &nbsp;</span></code></pre>
+<div class="original">
+<p>Well, this isn't very easy to read, and using the helpful manual (<b>h h</b>), the '<b>x</b>' command looks promising:</p>
+</div>
+<p>うーん、これはとても読みやすいというものではありません; そして親切な マニュアル (<b>h h</b>) を使うと、'<b>x</b>' コマンドが見込みがありそうです:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">12</span></b><span class="pln"> x </span><span class="pun">%</span><span class="pln">data<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">0</span><span class="pln"> &nbsp;</span><span class="str">'Hello World'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">1</span><span class="pln"> &nbsp;</span><span class="str">'zip'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">2</span><span class="pln"> &nbsp;</span><span class="str">'tom'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">3</span><span class="pln"> &nbsp;</span><span class="str">'and'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">4</span><span class="pln"> &nbsp;</span><span class="str">'welcome'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">5</span><span class="pln"> &nbsp;</span><span class="kwd">undef</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">6</span><span class="pln"> &nbsp;</span><span class="str">'jerry'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">7</span><span class="pln"> &nbsp;</span><span class="str">'welcome'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">8</span><span class="pln"> &nbsp;</span><span class="str">'this'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">9</span><span class="pln"> &nbsp;</span><span class="str">'that'</span><span class="pln"> &nbsp; &nbsp; </span></code></pre>
+<div class="original">
+<p>That's not much help, a couple of welcomes in there, but no 
+indication of which are keys, and which are values, it's just a listed 
+array dump and, in this case, not particularly helpful. The trick here, 
+is to use a <b>reference</b> to the data structure:</p>
+</div>
+<p>これはあまり助けにはなりません; ここには 2 つの "welcome" がありますが、 どれがキーでどれが値かを示すものがなく、単に配列ダンプの一覧で、 この場合、特に役に立つものではありません。 ここでの技は、データ構造への <b>リファレンス</b> を使うことです:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">13</span></b><span class="pln"> x </span><span class="pun">\%</span><span class="pln">data<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">0</span><span class="pln"> &nbsp;HASH</span><span class="pun">(</span><span class="lit">0x8194bc4</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="str">'Hello World'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'zip'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="str">'jerry'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'welcome'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="str">'this'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'that'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="str">'tom'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'and'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="str">'welcome'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="kwd">undef</span><span class="pln"> &nbsp;</span></code></pre>
+<div class="original">
+<p>The reference is truly dumped and we can finally see what we're 
+dealing with. Our quoting was perfectly valid but wrong for our 
+purposes, with 'and jerry' being treated as 2 separate words rather than
+ a phrase, thus throwing the evenly paired hash structure out of 
+alignment.</p>
+</div>
+<p>リファレンスが完全にダンプされて、ついに扱っているものが見えました。 クォートは完全に有効でしたが、今回の目的には間違ったものでした; 
+'and jerry' が熟語ではなく、2 つの別々の単語として扱われています; 従って、2 つ組のハッシュ構造のアライメントがずれたのです。</p>
+<div class="original">
+<p>The '<b>-w</b>' switch would have told us about this, had we used it at the start, and saved us a lot of trouble:</p>
+</div>
+<p>'<b>-w</b>' オプションはこれについて教えてくれるので、最初に使っておけば、 多くの問題から救ってくれていました:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">&gt;</span><span class="pln"> perl </span><span class="pun">-</span><span class="pln">w data<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Odd</span><span class="pln"> number of elements in hash assignment at </span><span class="pun">./</span><span class="pln">data line </span><span class="lit">5.</span><span class="pln"> &nbsp; &nbsp;</span></code></pre>
+<div class="original">
+<p>We fix our quoting: 'tom' =&gt; q(and jerry), and run it again, this time we get our expected output:</p>
+</div>
+<p>クォートを修正します: 'tom' =&gt; q(and jerry)、そして再実行すると、今度は 予想通りの出力が得られます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">&gt;</span><span class="pln"> perl </span><span class="pun">-</span><span class="pln">w data<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Hello</span><span class="pln"> </span><span class="typ">World</span></code></pre>
+<div class="original">
+<p>While we're here, take a closer look at the '<b>x</b>' command, it's 
+really useful and will merrily dump out nested references, complete 
+objects, partial objects - just about whatever you throw at it:</p>
+</div>
+<p>ここにいる間に '<b>x</b>' コマンドをより近くで見てみると、これは本当に有用で、 ネストしたリファレンス、完全なオブジェクト、オブジェクトの一部 - コマンドに 与えたものは何でも - 楽しくダンプします:</p>
+<div class="original">
+<p>Let's make a quick object and x-plode it, first we'll start the 
+debugger: it wants some form of input from STDIN, so we give it 
+something non-committal, a zero:</p>
+</div>
+<p>簡単なオブジェクトを作って、見てみましょう; まずデバッガを起動します: これは STDIN から何らかの形の入力を要求するので、何か無害なもの - ゼロ - を 入力します:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp;</span><span class="pun">&gt;</span><span class="pln"> perl </span><span class="pun">-</span><span class="pln">de </span><span class="lit">0</span><span class="pln"><br>&nbsp;</span><span class="typ">Default</span><span class="pln"> </span><span class="kwd">die</span><span class="pln"> handler restored</span><span class="pun">.</span><span class="pln"><br><br>&nbsp;</span><span class="typ">Loading</span><span class="pln"> DB routines from perl5db</span><span class="pun">.</span><span class="pln">pl version </span><span class="lit">1.07</span><span class="pln"><br>&nbsp;</span><span class="typ">Editor</span><span class="pln"> support available</span><span class="pun">.</span><span class="pln"><br><br>&nbsp;</span><span class="typ">Enter</span><span class="pln"> h or </span><span class="str">`h h' for help, or `</span><span class="pln">man perldebug</span><span class="str">' for more help.<br><br>&nbsp;main::(-e:1): &nbsp; 0</span></code></pre>
+<div class="original">
+<p>Now build an on-the-fly object over a couple of lines (note the backslash):</p>
+</div>
+<p>ここで、複数行を使ってその場でオブジェクトを構築します (バックスラッシュに注意してください):</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp;D</span><b><span class="pln">1</span></b><span class="pln"> $obj </span><span class="pun">=</span><span class="pln"> bless</span><span class="pun">({</span><span class="str">'unique_id'</span><span class="pun">=&gt;</span><span class="str">'123'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'attr'</span><span class="pun">=&gt;</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp;cont</span><span class="pun">:</span><span class="pln"> &nbsp;</span><span class="pun">{</span><span class="str">'col'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'black'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'things'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="pun">[</span><span class="pln">qw</span><span class="pun">(</span><span class="pln">this that etc</span><span class="pun">)]}},</span><span class="pln"> </span><span class="str">'MY_class'</span><span class="pun">)</span></code></pre>
+<div class="original">
+<p>And let's have a look at it:</p>
+</div>
+<p>そして見てみましょう:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">2</span></b><span class="pln"> x $obj<br>&nbsp;</span><span class="lit">0</span><span class="pln"> &nbsp;MY_class</span><span class="pun">=</span><span class="pln">HASH</span><span class="pun">(</span><span class="lit">0x828ad98</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'attr'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> HASH</span><span class="pun">(</span><span class="lit">0x828ad68</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'col'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'black'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'things'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> ARRAY</span><span class="pun">(</span><span class="lit">0x828abb8</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">0</span><span class="pln"> &nbsp;</span><span class="str">'this'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">1</span><span class="pln"> &nbsp;</span><span class="str">'that'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">2</span><span class="pln"> &nbsp;</span><span class="str">'etc'</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="str">'unique_id'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="lit">123</span><span class="pln"> &nbsp; &nbsp; &nbsp; <br>&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">3</span></b></code></pre>
+<div class="original">
+<p>Useful, huh? You can eval nearly anything in there, and experiment with bits of code or regexes until the cows come home:</p>
+</div>
+<p>便利でしょう? ここでほとんどなんでも eval できて、ちょっとしたコードや正規表現を いつまでも実験できます。</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp;D</span><b><span class="pln">3</span></b><span class="pln"> </span><span class="lit">@data</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> qw</span><span class="pun">(</span><span class="pln">this that the other atheism leather theory scythe</span><span class="pun">)</span><span class="pln"><br><br>&nbsp;D</span><b><span class="pln">4</span></b><span class="pln"> p </span><span class="str">'saw -&gt; '</span><span class="pun">.(</span><span class="pln">$cnt </span><span class="pun">+=</span><span class="pln"> map </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"\t:\t$_\n"</span><span class="pln"> </span><span class="pun">}</span><span class="pln"> grep</span><span class="pun">(</span><span class="str">/the/</span><span class="pun">,</span><span class="pln"> sort </span><span class="lit">@data</span><span class="pun">))</span><span class="pln"><br>&nbsp;atheism<br>&nbsp;leather<br>&nbsp;other<br>&nbsp;scythe<br>&nbsp;the<br>&nbsp;theory<br>&nbsp;saw </span><span class="pun">-&gt;</span><span class="pln"> </span><span class="lit">6</span></code></pre>
+<div class="original">
+<p>If you want to see the command History, type an '<b>H</b>':</p>
+</div>
+<p>コマンド履歴を見たいなら、'<b>H</b>' をタイプします:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp;D</span><b><span class="pln">5</span></b><span class="pln"> H<br>&nbsp;</span><span class="lit">4</span><span class="pun">:</span><span class="pln"> p </span><span class="str">'saw -&gt; '</span><span class="pun">.(</span><span class="pln">$cnt </span><span class="pun">+=</span><span class="pln"> map </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"\t:\t$_\n"</span><span class="pln"> </span><span class="pun">}</span><span class="pln"> grep</span><span class="pun">(</span><span class="str">/the/</span><span class="pun">,</span><span class="pln"> sort </span><span class="lit">@data</span><span class="pun">))</span><span class="pln"><br>&nbsp;</span><span class="lit">3</span><span class="pun">:</span><span class="pln"> </span><span class="lit">@data</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> qw</span><span class="pun">(</span><span class="pln">this that the other atheism leather theory scythe</span><span class="pun">)</span><span class="pln"><br>&nbsp;</span><span class="lit">2</span><span class="pun">:</span><span class="pln"> x $obj<br>&nbsp;</span><span class="lit">1</span><span class="pun">:</span><span class="pln"> $obj </span><span class="pun">=</span><span class="pln"> bless</span><span class="pun">({</span><span class="str">'unique_id'</span><span class="pun">=&gt;</span><span class="str">'123'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'attr'</span><span class="pun">=&gt;</span><span class="pln"><br>&nbsp;</span><span class="pun">{</span><span class="str">'col'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="str">'black'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'things'</span><span class="pln"> </span><span class="pun">=&gt;</span><span class="pln"> </span><span class="pun">[</span><span class="pln">qw</span><span class="pun">(</span><span class="pln">this that etc</span><span class="pun">)]}},</span><span class="pln"> </span><span class="str">'MY_class'</span><span class="pun">)</span><span class="pln"><br>&nbsp;D</span><b><span class="pln">5</span></b></code></pre>
+<div class="original">
+<p>And if you want to repeat any previous command, use the exclamation: '<b>!</b>':</p>
+</div>
+<p>以前に使ったコマンドを繰り返したい場合は、感嘆符を使います: '<b>!</b>':</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp;D</span><b><span class="pln">5</span></b><span class="pln"> </span><span class="pun">!</span><span class="lit">4</span><span class="pln"><br>&nbsp;p </span><span class="str">'saw -&gt; '</span><span class="pun">.(</span><span class="pln">$cnt </span><span class="pun">+=</span><span class="pln"> map </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"$_\n"</span><span class="pln"> </span><span class="pun">}</span><span class="pln"> grep</span><span class="pun">(</span><span class="str">/the/</span><span class="pun">,</span><span class="pln"> sort </span><span class="lit">@data</span><span class="pun">))</span><span class="pln"><br>&nbsp;atheism<br>&nbsp;leather<br>&nbsp;other<br>&nbsp;scythe<br>&nbsp;the<br>&nbsp;theory<br>&nbsp;saw </span><span class="pun">-&gt;</span><span class="pln"> </span><span class="lit">12</span></code></pre>
+<div class="original">
+<p>For more on references see <a href="https://perldoc.jp/pod/perlref">perlref</a> and <a href="https://perldoc.jp/pod/perlreftut">perlreftut</a></p>
+</div>
+<p>リファレンスについてのさらなる情報については <a href="https://perldoc.jp/pod/perlref">perlref</a> と <a href="https://perldoc.jp/pod/perlreftut">perlreftut</a> を 参照してください。</p>
+<h1 id="Stepping32through32code">コードをステップ実行する<a href="#Stepping32through32code" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>Here's a simple program which converts between Celsius and Fahrenheit, it too has a problem:</p>
+</div>
+<p>以下は摂氏と華氏とを変換する単純なプログラムで、やはり問題を抱えています:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp;</span><span class="com">#!/usr/bin/perl -w</span><span class="pln"><br>&nbsp;</span><span class="kwd">use</span><span class="pln"> strict</span><span class="pun">;</span><span class="pln"><br><br>&nbsp;</span><span class="kwd">my</span><span class="pln"> $arg </span><span class="pun">=</span><span class="pln"> $ARGV</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]</span><span class="pln"> </span><span class="pun">||</span><span class="pln"> </span><span class="str">'-c20'</span><span class="pun">;</span><span class="pln"><br><br>&nbsp;</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$arg </span><span class="pun">=~</span><span class="pln"> </span><span class="pun">/^\-(</span><span class="pln">c</span><span class="pun">|</span><span class="pln">f</span><span class="pun">)((\-|\+)*\</span><span class="pln">d</span><span class="pun">+(\.\</span><span class="pln">d</span><span class="pun">+)*)</span><span class="pln">$</span><span class="pun">/)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$deg</span><span class="pun">,</span><span class="pln"> $num</span><span class="pun">)</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$1</span><span class="pun">,</span><span class="pln"> $2</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$in</span><span class="pun">,</span><span class="pln"> $out</span><span class="pun">)</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$num</span><span class="pun">,</span><span class="pln"> $num</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$deg eq </span><span class="str">'c'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $deg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'f'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $out </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">c2f</span><span class="pun">(</span><span class="pln">$num</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"> else </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $deg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'c'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $out </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">f2c</span><span class="pun">(</span><span class="pln">$num</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; $out </span><span class="pun">=</span><span class="pln"> sprintf</span><span class="pun">(</span><span class="str">'%0.2f'</span><span class="pun">,</span><span class="pln"> $out</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; $out </span><span class="pun">=~</span><span class="pln"> s</span><span class="pun">/^((\-|\+)*\</span><span class="pln">d</span><span class="pun">+)\</span><span class="lit">.0+</span><span class="pln">$</span><span class="pun">/</span><span class="pln">$1</span><span class="pun">/;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"$out $deg\n"</span><span class="pun">;</span><span class="pln"><br>&nbsp;</span><span class="pun">}</span><span class="pln"> else </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> </span><span class="str">"Usage: $0 -[c|f] num\n"</span><span class="pun">;</span><span class="pln"><br>&nbsp;</span><span class="pun">}</span><span class="pln"><br>&nbsp;</span><span class="kwd">exit</span><span class="pun">;</span><span class="pln"><br><br>&nbsp;</span><span class="kwd">sub</span><span class="pln"> f2c </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $f </span><span class="pun">=</span><span class="pln"> shift</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $c </span><span class="pun">=</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> $f </span><span class="pun">-</span><span class="pln"> </span><span class="lit">32</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">9</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; return $c</span><span class="pun">;</span><span class="pln"><br>&nbsp;</span><span class="pun">}</span><span class="pln"><br><br>&nbsp;</span><span class="kwd">sub</span><span class="pln"> c2f </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $c </span><span class="pun">=</span><span class="pln"> shift</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $f </span><span class="pun">=</span><span class="pln"> </span><span class="lit">9</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> $c </span><span class="pun">/</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="lit">32</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; return $f</span><span class="pun">;</span><span class="pln"><br>&nbsp;</span><span class="pun">}</span></code></pre>
+<div class="original">
+<p>For some reason, the Fahrenheit to Celsius conversion fails to return the expected output. This is what it does:</p>
+</div>
+<p>なぜか、華氏から摂氏への変換は推測される結果を返すのに失敗します。 以下はどうなるかです:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp;</span><span class="pun">&gt;</span><span class="pln"> temp </span><span class="pun">-</span><span class="pln">c0</span><span class="pun">.</span><span class="lit">72</span><span class="pln"><br>&nbsp;</span><span class="lit">33.30</span><span class="pln"> f<br><br>&nbsp;</span><span class="pun">&gt;</span><span class="pln"> temp </span><span class="pun">-</span><span class="pln">f33</span><span class="pun">.</span><span class="lit">3</span><span class="pln"><br>&nbsp;</span><span class="lit">162.94</span><span class="pln"> c</span></code></pre>
+<div class="original">
+<p>Not very consistent! We'll set a breakpoint in the code manually and 
+run it under the debugger to see what's going on. A breakpoint is a 
+flag, to which the debugger will run without interruption, when it 
+reaches the breakpoint, it will stop execution and offer a prompt for 
+further interaction. In normal use, these debugger commands are 
+completely ignored, and they are safe - if a little messy, to leave in 
+production code.</p>
+</div>
+<p>全く一貫していません! 手動でコードにブレークポイントをセットして、何が起きているかを見るために デバッガで実行してみます。 
+ブレークポイントは、デバッガを中断なしで実行するためのフラグで、 ブレークポイントに到達すると、実行を停止してさらなる対話のためにプロンプトを 
+出します。 通常の使用では、これらのデバッガコマンドは完全に無視され、これらは 製品コードに残しても安全です - すこし乱雑かもしれませんが。</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$in</span><span class="pun">,</span><span class="pln"> $out</span><span class="pun">)</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$num</span><span class="pun">,</span><span class="pln"> $num</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; $DB</span><span class="pun">::</span><span class="pln">single</span><span class="pun">=</span><span class="lit">2</span><span class="pun">;</span><span class="pln"> </span><span class="com"># insert at line 9!</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$deg eq </span><span class="str">'c'</span><span class="pun">)</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">...</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">&gt;</span><span class="pln"> perl </span><span class="pun">-</span><span class="pln">d temp </span><span class="pun">-</span><span class="pln">f33</span><span class="pun">.</span><span class="lit">3</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Default</span><span class="pln"> </span><span class="kwd">die</span><span class="pln"> handler restored</span><span class="pun">.</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Loading</span><span class="pln"> DB routines from perl5db</span><span class="pun">.</span><span class="pln">pl version </span><span class="lit">1.07</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Editor</span><span class="pln"> support available</span><span class="pun">.</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Enter</span><span class="pln"> h or </span><span class="str">`h h' for help, or `</span><span class="pln">man perldebug</span><span class="str">' for more help.<br><br>&nbsp; &nbsp; &nbsp; &nbsp; main::(temp:4): my $arg = $ARGV[0] || '</span><span class="pun">-</span><span class="pln">c100</span><span class="str">'; &nbsp; &nbsp; </span></code></pre>
+<div class="original">
+<p>We'll simply continue down to our pre-set breakpoint with a '<b>c</b>':</p>
+</div>
+<p>'<b>c</b>' をタイプして、単純に予めセットされたブレークポイントまで続けます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">1</span></b><span class="pln"> c<br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::(</span><span class="pln">temp</span><span class="pun">:</span><span class="lit">10</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$deg eq </span><span class="str">'c'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> &nbsp; </span></code></pre>
+<div class="original">
+<p>Followed by a view command to see where we are:</p>
+</div>
+<p>引き続いて表示コマンドで今どこにいるかを見ます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">1</span></b><span class="pln"> v<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">7</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="kwd">my</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$deg</span><span class="pun">,</span><span class="pln"> $num</span><span class="pun">)</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$1</span><span class="pun">,</span><span class="pln"> $2</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">8</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="kwd">my</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$in</span><span class="pun">,</span><span class="pln"> $out</span><span class="pun">)</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$num</span><span class="pun">,</span><span class="pln"> $num</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">9</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;$DB</span><span class="pun">::</span><span class="pln">single</span><span class="pun">=</span><span class="lit">2</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">10</span><span class="pun">==&gt;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$deg eq </span><span class="str">'c'</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">11</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $deg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'f'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">12</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $out </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">c2f</span><span class="pun">(</span><span class="pln">$num</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">13</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">}</span><span class="pln"> else </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">14</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $deg </span><span class="pun">=</span><span class="pln"> </span><span class="str">'c'</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">15</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; $out </span><span class="pun">=</span><span class="pln"> </span><span class="pun">&amp;</span><span class="pln">f2c</span><span class="pun">(</span><span class="pln">$num</span><span class="pun">);</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">16</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="pun">}</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></code></pre>
+<div class="original">
+<p>And a print to show what values we're currently using:</p>
+</div>
+<p>そして今使っている値を表示させます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">1</span></b><span class="pln"> p $deg</span><span class="pun">,</span><span class="pln"> $num<br>&nbsp; &nbsp; &nbsp; &nbsp; f33</span><span class="pun">.</span><span class="lit">3</span></code></pre>
+<div class="original">
+<p>We can put another break point on any line beginning with a colon, 
+we'll use line 17 as that's just as we come out of the subroutine, and 
+we'd like to pause there later on:</p>
+</div>
+<p>コロンの付いているどの行にも別のブレークポイントを置くことができます; サブルーチンから返ってきたばかりのところである 17 行目を使うことにして、 あとからここで一旦停止したいとします:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">2</span></b><span class="pln"> b </span><span class="lit">17</span></code></pre>
+<div class="original">
+<p>There's no feedback from this, but you can see what breakpoints are set by using the list 'L' command:</p>
+</div>
+<p>これに対する反応はありませんが、一覧 'L' コマンドを使うことで、どの ブレークポイントがセットされているかを見ることができます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">3</span></b><span class="pln"> L<br>&nbsp; &nbsp; &nbsp; &nbsp; temp</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">17</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="kwd">print</span><span class="pln"> </span><span class="str">"$out $deg\n"</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; break </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> &nbsp; &nbsp; </span></code></pre>
+<div class="original">
+<p>Note that to delete a breakpoint you use 'B'.</p>
+</div>
+<p>ブレークポイントを削除するためには 'B' を使うことに注意してください。</p>
+<div class="original">
+<p>Now we'll continue down into our subroutine, this time rather than by
+ line number, we'll use the subroutine name, followed by the now 
+familiar 'v':</p>
+</div>
+<p>ここでサブルーチンの中に入っていくことにします; 今回は行番号ではなく、 サブルーチン名を使います; その後、今となってはおなじみの 'v' を使います:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">3</span></b><span class="pln"> c f2c<br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::</span><span class="pln">f2c</span><span class="pun">(</span><span class="pln">temp</span><span class="pun">:</span><span class="lit">30</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $f </span><span class="pun">=</span><span class="pln"> shift</span><span class="pun">;</span><span class="pln"> &nbsp;<br><br>&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">4</span></b><span class="pln"> v<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">24</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; </span><span class="kwd">exit</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">25</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">26</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="kwd">sub</span><span class="pln"> f2c </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">27</span><span class="pun">==&gt;</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $f </span><span class="pun">=</span><span class="pln"> shift</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">28</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $c </span><span class="pun">=</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> $f </span><span class="pun">-</span><span class="pln"> </span><span class="lit">32</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">9</span><span class="pun">;</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">29</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return $c</span><span class="pun">;</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">30</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="pun">}</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">31</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">32</span><span class="pln"> &nbsp; &nbsp; &nbsp;</span><span class="kwd">sub</span><span class="pln"> c2f </span><span class="pun">{</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">33</span><span class="pun">:</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">my</span><span class="pln"> $c </span><span class="pun">=</span><span class="pln"> shift</span><span class="pun">;</span><span class="pln"> &nbsp; </span></code></pre>
+<div class="original">
+<p>Note that if there was a subroutine call between us and line 29, and we wanted to <b>single-step</b> through it, we could use the '<b>s</b>' command, and to step over it we would use '<b>n</b>' which would execute the sub, but not descend into it for inspection. In this case though, we simply continue down to line 29:</p>
+</div>
+<p>ここと 29 行目との間にサブルーチンがあり、そこを <b>シングルステップ</b> したい 場合、'<b>s</b>' コマンドも使えますし、サブルーチンは実行するけれども サブルーチン内部は検査しないという '<b>n</b>' コマンドで ステップオーバーできます。 しかし、この場合には、単に 29 行まで進めていきます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">4</span></b><span class="pln"> c </span><span class="lit">29</span><span class="pln"> &nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; main</span><span class="pun">::</span><span class="pln">f2c</span><span class="pun">(</span><span class="pln">temp</span><span class="pun">:</span><span class="lit">29</span><span class="pun">):</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return $c</span><span class="pun">;</span></code></pre>
+<div class="original">
+<p>And have a look at the return value:</p>
+</div>
+<p>そして返り値を見てみます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">5</span></b><span class="pln"> p $c<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">162.944444444444</span></code></pre>
+<div class="original">
+<p>This is not the right answer at all, but the sum looks correct. I 
+wonder if it's anything to do with operator precedence? We'll try a 
+couple of other possibilities with our sum:</p>
+</div>
+<p>これは全く間違った答えですが、合計は正しいように見えます。 演算子の優先順位が何かを行っているのでしょうか? 合計に関してその他の可能性を試してみます:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">6</span></b><span class="pln"> p </span><span class="pun">(</span><span class="lit">5</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> $f </span><span class="pun">-</span><span class="pln"> </span><span class="lit">32</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">9</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">162.944444444444</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">7</span></b><span class="pln"> p </span><span class="lit">5</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> $f </span><span class="pun">-</span><span class="pln"> </span><span class="pun">(</span><span class="lit">32</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">9</span><span class="pun">)</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">162.944444444444</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">8</span></b><span class="pln"> p </span><span class="pun">(</span><span class="lit">5</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> $f</span><span class="pun">)</span><span class="pln"> </span><span class="pun">-</span><span class="pln"> </span><span class="lit">32</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">9</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">162.944444444444</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">9</span></b><span class="pln"> p </span><span class="lit">5</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$f </span><span class="pun">-</span><span class="pln"> </span><span class="lit">32</span><span class="pun">)</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">9</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">0.722222222222221</span></code></pre>
+<div class="original">
+<p>:-) that's more like it! Ok, now we can set our return variable and we'll return out of the sub with an 'r':</p>
+</div>
+<p>:-) これはより似ています! よし、ここで独自の返り値をセットして、'r' を使ってサブルーチンから返ります:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">10</span></b><span class="pln"> $c </span><span class="pun">=</span><span class="pln"> </span><span class="lit">5</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="pun">(</span><span class="pln">$f </span><span class="pun">-</span><span class="pln"> </span><span class="lit">32</span><span class="pun">)</span><span class="pln"> </span><span class="pun">/</span><span class="pln"> </span><span class="lit">9</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">11</span></b><span class="pln"> r<br>&nbsp; &nbsp; &nbsp; &nbsp; scalar context return from main</span><span class="pun">::</span><span class="pln">f2c</span><span class="pun">:</span><span class="pln"> </span><span class="lit">0.722222222222221</span></code></pre>
+<div class="original">
+<p>Looks good, let's just continue off the end of the script:</p>
+</div>
+<p>良さそうです; スクリプトの最後まで実行していましょう:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; D</span><b><span class="pln">12</span></b><span class="pln"> c<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="lit">0.72</span><span class="pln"> c <br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="typ">Debugged</span><span class="pln"> program terminated</span><span class="pun">.</span><span class="pln"> &nbsp;</span><span class="typ">Use</span><span class="pln"> q to quit or R to restart</span><span class="pun">,</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">use</span><span class="pln"> O inhibit_exit to avoid stopping after program termination</span><span class="pun">,</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; h q</span><span class="pun">,</span><span class="pln"> h R or h O to get additional info</span><span class="pun">.</span><span class="pln"> &nbsp; </span></code></pre>
+<div class="original">
+<p>A quick fix to the offending line (insert the missing parentheses) in the actual program and we're finished.</p>
+</div>
+<p>実際のプログラムの問題のある行に救急処置(不足していたかっこを挿入する)を 施して、終わりです。</p>
+<h1 id="Placeholder32for32a44-32w44-32t44-32T">a, w, t, T のためのプレースホルダ<a href="#Placeholder32for32a44-32w44-32t44-32T" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>Actions, watch variables, stack traces etc.: on the TODO list.</p>
+</div>
+<p>アクション、変数の監視、スタックトレースなど: TODO リストです。</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; a <br><br>&nbsp; &nbsp; &nbsp; &nbsp; w <br><br>&nbsp; &nbsp; &nbsp; &nbsp; t <br><br>&nbsp; &nbsp; &nbsp; &nbsp; T</span></code></pre>
+<h1 id="REGULAR32EXPRESSIONS">正規表現<a href="#REGULAR32EXPRESSIONS" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>Ever wanted to know what a regex looked like? You'll need perl compiled with the DEBUGGING flag for this one:</p>
+</div>
+<p>正規表現がどのように見えるか知りたいと思いましたか? 以下のようにするには perl を DEBUGGING フラグ付きでコンパイルする必要が あります:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; </span><span class="pun">&gt;</span><span class="pln"> perl </span><span class="pun">-</span><span class="typ">Dr</span><span class="pln"> </span><span class="pun">-</span><span class="pln">e </span><span class="str">'/^pe(a)*rl$/i'</span><span class="pln"><br>&nbsp; </span><span class="typ">Compiling</span><span class="pln"> </span><span class="typ">REx</span><span class="pln"> </span><span class="str">`^pe(a)*rl$'<br>&nbsp; size 17 first at 2<br>&nbsp; rarest char<br>&nbsp; &nbsp;at 0<br>&nbsp; &nbsp; &nbsp;1: BOL(2)<br>&nbsp; &nbsp; &nbsp;2: EXACTF &lt;pe&gt;(4)<br>&nbsp; &nbsp; &nbsp;4: CURLYN[1] {0,32767}(14)<br>&nbsp; &nbsp; &nbsp;6: &nbsp; NOTHING(8)<br>&nbsp; &nbsp; &nbsp;8: &nbsp; EXACTF &lt;a&gt;(0)<br>&nbsp; &nbsp; 12: &nbsp; WHILEM(0)<br>&nbsp; &nbsp; 13: NOTHING(14)<br>&nbsp; &nbsp; 14: EXACTF &lt;rl&gt;(16)<br>&nbsp; &nbsp; 16: EOL(17)<br>&nbsp; &nbsp; 17: END(0)<br>&nbsp; floating `'$ at 4..2147483647 (checking floating) stclass<br>&nbsp; &nbsp; `EXACTF &lt;pe&gt;'</span><span class="pln"> anchored</span><span class="pun">(</span><span class="pln">BOL</span><span class="pun">)</span><span class="pln"> minlen </span><span class="lit">4</span><span class="pln"><br>&nbsp; </span><span class="typ">Omitting</span><span class="pln"> $</span><span class="str">` $&amp; $' support.<br><br>&nbsp; EXECUTING...<br><br>&nbsp; Freeing REx: `</span><span class="pun">^</span><span class="pln">pe</span><span class="pun">(</span><span class="pln">a</span><span class="pun">)*</span><span class="pln">rl$</span><span class="str">'</span></code></pre>
+<div class="original">
+<p>Did you really want to know? :-) For more gory details on getting regular expressions to work, have a look at <a href="https://perldoc.jp/pod/perlre">perlre</a>, <a href="https://perldoc.jp/pod/perlretut">perlretut</a>, and to decode the mysterious labels (BOL and CURLYN, etc. above), see <a href="https://perldoc.jp/pod/perldebguts">perldebguts</a>.</p>
+</div>
+<p>本当に知りたかったですか? :-) 正規表現の動作に関する詳細については、<a href="https://perldoc.jp/pod/perlre">perlre</a>, <a href="https://perldoc.jp/pod/perlretut">perlretut</a> を、 (上述の BOL や CURLYN などの)不思議なラベルを解読するには、 <a href="https://perldoc.jp/pod/perldebguts">perldebguts</a> を参照してください。</p>
+<h1 id="OUTPUT32TIPS">出力の小技<a href="#OUTPUT32TIPS" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>To get all the output from your error log, and not miss any messages 
+via helpful operating system buffering, insert a line like this, at the 
+start of your script:</p>
+</div>
+<p>エラーログからの全ての出力を得て、親切な OS のバッファリングで メッセージを失わないようにするには、スクリプトの最初に以下のような行を 挿入してください:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; $</span><span class="pun">|=</span><span class="lit">1</span><span class="pun">;</span><span class="pln"> &nbsp; </span></code></pre>
+<div class="original">
+<p>To watch the tail of a dynamically growing logfile, (from the command line):</p>
+</div>
+<p>動的に増え続けるログファイルの末尾を監視するには、(コマンドラインから):</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; tail </span><span class="pun">-</span><span class="pln">f $error_log</span></code></pre>
+<div class="original">
+<p>Wrapping all die calls in a handler routine can be useful to see how, and from where, they're being called, <a href="https://perldoc.jp/pod/perlvar">perlvar</a> has more information:</p>
+</div>
+<p>全ての die 呼び出しをハンドラルーチンで囲むと、どこで、どのように 呼び出されているかを知るのに有用です; <a href="https://perldoc.jp/pod/perlvar">perlvar</a> にさらなる情報があります:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; </span><span class="kwd">BEGIN</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> $SIG</span><span class="pun">{</span><span class="pln">__DIE__</span><span class="pun">}</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">sub</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="kwd">require</span><span class="pln"> </span><span class="typ">Carp</span><span class="pun">;</span><span class="pln"> </span><span class="typ">Carp</span><span class="pun">::</span><span class="pln">confess</span><span class="pun">(</span><span class="lit">@_</span><span class="pun">)</span><span class="pln"> </span><span class="pun">}</span><span class="pln"> </span><span class="pun">}</span></code></pre>
+<div class="original">
+<p>Various useful techniques for the redirection of STDOUT and STDERR filehandles are explained in <a href="https://perldoc.jp/pod/perlopentut">perlopentut</a> and <a href="https://perldoc.jp/pod/perlfaq8">perlfaq8</a>.</p>
+</div>
+<p>STDOUT と STDERR ファイルハンドルのリダイレクトに関する様々な便利な テクニックが <a href="https://perldoc.jp/pod/perlopentut">perlopentut</a> と <a href="https://perldoc.jp/pod/perlfaq8">perlfaq8</a> に記述されています。</p>
+<h1 id="CGI">CGI<a href="#CGI" class="toc_link">¶</a></h1>
+<div class="original">
+<p>Just a quick hint here for all those CGI programmers who can't figure
+ out how on earth to get past that 'waiting for input' prompt, when 
+running their CGI script from the command-line, try something like this:</p>
+</div>
+<p>「入力待ち」プロンプトからどうやれば逃れられるのかが分からない全ての CGI プログラマへの簡単なヒントとして、 CGI をコマンドラインから実行するときに、以下のようなものを試してください:</p>
+<pre class="prettyprint lang-perl"><code><span class="pln">&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="pun">&gt;</span><span class="pln"> perl </span><span class="pun">-</span><span class="pln">d my_cgi</span><span class="pun">.</span><span class="pln">pl </span><span class="pun">-</span><span class="pln">nodebug </span></code></pre>
+<div class="original">
+<p>Of course <a href="https://perldoc.jp/pod/CGI">CGI</a> and <a href="https://perldoc.jp/pod/perlfaq9">perlfaq9</a> will tell you more.</p>
+</div>
+<p>もちろん <a href="https://perldoc.jp/pod/CGI">CGI</a> と <a href="https://perldoc.jp/pod/perlfaq9">perlfaq9</a> にはもっと多くの情報があります。</p>
+<h1 id="GUIs">GUI<a href="#GUIs" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>The command line interface is tightly integrated with an <b>emacs</b> extension and there's a <b>vi</b> interface too.</p>
+</div>
+<p>コマンドラインインターフェースは <b>emacs</b> 拡張と密接に統合されていて、 <b>vi</b> インターフェースもあります。</p>
+<div class="original">
+<p>You don't have to do this all on the command line, though, there are a
+ few GUI options out there. The nice thing about these is you can wave a
+ mouse over a variable and a dump of its data will appear in an 
+appropriate window, or in a popup balloon, no more tiresome typing of 'x
+ $varname' :-)</p>
+</div>
+<p>しかし、これら全てをコマンドラインで実行する必要はありません; いくつかの GUI の選択肢もあります。 
+これらのよいところは、マウスカーソルを変数の上に移動させると適切な ウィンドウやバルーンにそのデータがダンプされ、もう 'x $varname'
+ と タイプしなくていいことです :-)</p>
+<div class="original">
+<p>In particular have a hunt around for the following:</p>
+</div>
+<p>特に以下のものの辺りを調べてみてください:</p>
+<div class="original">
+<p><b>ptkdb</b> perlTK based wrapper for the built-in debugger</p>
+</div>
+<p><b>ptkdb</b> ビルドインデバッガのための perlTK ベースのラッパー</p>
+<div class="original">
+<p><b>ddd</b> data display debugger</p>
+</div>
+<p><b>ddd</b> データ表示デバッガ</p>
+<div class="original">
+<p><b>PerlDevKit</b> and <b>PerlBuilder</b> are NT specific</p>
+</div>
+<p><b>PerlDevKit</b> と <b>PerlBuilder</b> は NT 固有です</p>
+<div class="original">
+<p>NB. (more info on these and others would be appreciated).</p>
+</div>
+<p>注意せよ。 (これらやその他のものに関するさらなる情報を頂ければ幸いです)。</p>
+<h1 id="SUMMARY">まとめ<a href="#SUMMARY" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>We've seen how to encourage good coding practices with <b>use strict</b> and <b>-w</b>. We can run the perl debugger <b>perl -d scriptname</b> to inspect your data from within the perl debugger with the <b>p</b> and <b>x</b> commands. You can walk through your code, set breakpoints with <b>b</b> and step through that code with <b>s</b> or <b>n</b>, continue with <b>c</b> and return from a sub with <b>r</b>. Fairly intuitive stuff when you get down to it.</p>
+</div>
+<p><b>use strict</b> と <b>-w</b> を使ってどうやって良いコーディングを実践するかを 見ました。 <b>perl -d scriptname</b> とすることで perl デバッガを起動でき、デバッガの <b>p</b> や <b>x</b> のコマンドでデータを検査できます。 コードの中を通り抜けて、<b>b</b> でブレークポイントを設定し、 <b>s</b> や <b>n</b> でステップ実行を行い、<b>c</b> で再開して、<b>r</b> サブルーチンから 戻ります。 うんざりしたときにはかなり直感的な機能です。</p>
+<div class="original">
+<p>There is of course lots more to find out about, this has just 
+scratched the surface. The best way to learn more is to use perldoc to 
+find out more about the language, to read the on-line help (<a href="https://perldoc.jp/pod/perldebug">perldebug</a> is probably the next place to go), and of course, experiment.</p>
+</div>
+<p>もちろんもっと多くの調べるべきことがありますが、これは表面を なぞっただけです。 より多くを学ぶための最善の方法は、言語に関してより多くを調べるために オンラインヘルプを読むために perldoc を使う(おそらく次に進むべき ところは <a href="https://perldoc.jp/pod/perldebug">perldebug</a> でしょう)ことと、もちろん実践です。</p>
+<h1 id="SEE32ALSO">SEE ALSO<a href="#SEE32ALSO" class="toc_link">¶</a></h1>
+<p><a href="https://perldoc.jp/pod/perldebug">perldebug</a>, <a href="https://perldoc.jp/pod/perldebguts">perldebguts</a>, <a href="https://perldoc.jp/pod/perldiag">perldiag</a>, <a href="https://perldoc.jp/pod/perlrun">perlrun</a></p>
+<h1 id="AUTHOR">作者<a href="#AUTHOR" class="toc_link">¶</a></h1>
+<p>Richard Foley &lt;richard.foley@rfi.net&gt; Copyright (c) 2000</p>
+<h1 id="CONTRIBUTORS">貢献者<a href="#CONTRIBUTORS" class="toc_link">¶</a></h1>
+<p></p>
+<div class="original">
+<p>Various people have made helpful suggestions and contributions, in particular:</p>
+</div>
+<p>様々な人々が有益な提案や貢献をしてくれました; 特に:</p>
+<p>Ronald J Kimball &lt;rjk@linguist.dartmouth.edu&gt;</p>
+<p>Hugo van der Sanden &lt;hv@crypt0.demon.co.uk&gt;</p>
+<p>Peter Scott &lt;Peter@PSDT.com&gt;</p>
+<h1 id="POD32ERRORS">POD ERRORS<a href="#POD32ERRORS" class="toc_link">¶</a></h1>
+<p>Hey! <b>The above document had some coding errors, which are explained below:</b></p>
+<dl>
+<dt>Around line 395:</dt>
+<dd>
+<p>Deleting unknown formatting code M&lt;&gt;</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer span-24 last">
+Powered by Amon2, <a href="https://sourceforge.jp/projects/perldocjp/">perldocjp project</a>. Operated by <a href="http://japan.perlassociation.org/">Japan Perl Association</a>
+</div>
+</div>
+
+
+<div id="DownloadStatusBarContainer" style="height: auto; width: auto; display: block; --background:#EFEFEF; --backgroundHover:#FFFFFF; --button:transparent; --buttonHover:#CCCCCC; --buttonBorder:#AAAAAA; --border:#888888; --download:#AAAAAA; --progress:#2A911F; --text:#111111; --error:#FF574F;"></div><link rel="stylesheet" type="text/css" href="perldebtut%20-%20Perl%20%E3%81%A7%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20-%20perldoc.jp_files/s3downbar.css"><link rel="stylesheet" type="text/css" href="perldebtut%20-%20Perl%20%E3%81%A7%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20-%20perldoc.jp_files/contextmenu.css"><link rel="stylesheet" type="text/css" href="perldebtut%20-%20Perl%20%E3%81%A7%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20-%20perldoc.jp_files/tooltip.css"><div id="s3downbar-ibmbeeacmbeeaebmfjpmnlgkhoejinha" style="box-sizing: initial !important; position: fixed; white-space: nowrap; width: 140% !important; left: 0px; bottom: 0px; border-top: 1px solid rgb(153, 153, 153); transform-origin: left bottom 0px; z-index: 2147483647; margin: 0px; padding: 2px 0px; background-color: rgb(238, 238, 238); color: rgb(34, 34, 34); display: flex !important; transform: scale(0.714286) !important;"><style type="text/css" media="print">#s3downbar-ibmbeeacmbeeaebmfjpmnlgkhoejinha { display: none !important; }</style><div style="box-sizing: initial !important; position: absolute !important;" id="s3downbar_resize_pane" is_top="false"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important; color: rgb(34, 34, 34) !important; position: relative !important; order: 4 !important;" class="s3dmBox" id="s3downbar_hide_button" is_hidden="false"><div id="s3downbar_hide_button_img" style="box-sizing: initial !important; background-image: url(&quot;moz-extension://23811b7e-3b61-4d29-be41-d247d903121b/skin/s3dm_icons.png&quot;) !important; display: inline-block !important;"></div><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div style="box-sizing: initial !important;" class="tooltipText">Hide Download Bar</div><div style="box-sizing: initial !important;" class="tooltipText">Ctrl + Shift + Z = Show/Hide Download Bar</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important; color: rgb(34, 34, 34) !important; position: relative !important;" class="s3dmBox" id="s3downbar_main_menu_button" is_hidden="false"><img style="box-sizing: initial !important;" src="perldebtut%20-%20Perl%20%E3%81%A7%E3%81%AE%E3%83%87%E3%83%90%E3%83%83%E3%82%B0%E3%81%AE%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB%20-%20perldoc.jp_files/logo16.png"><span style="box-sizing: initial !important;">ダウンロード</span><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div style="box-sizing: initial !important;" class="tooltipText">Download Manager (S3)</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important; color: rgb(34, 34, 34) !important; position: relative !important; order: 2 !important;" class="s3dmBox" id="s3downbar_clear_button" is_hidden="false">クリア<div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div style="box-sizing: initial !important;" class="tooltipText">左クリック: 完了したダウンロードをすべてクリア</div><div style="box-sizing: initial !important;" class="tooltipText">右クリック: 最後のクリアを元に戻す</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important; color: rgb(34, 34, 34) !important; position: relative !important; order: 1 !important;" class="s3dmBox" id="s3downbar_holder_summary_progress" is_hidden="false"><div style="box-sizing: initial !important;">0%</div><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div style="box-sizing: initial !important;" class="tooltipText">ダウンロード履歴</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div><div style="box-sizing: initial !important;" id="s3downbar_download_data_listbox"><div style="box-sizing: initial !important; max-height: 25px !important;" id="s3downbar_download_data_listbox_scroll" list_count="3"><div style="box-sizing: initial !important;" id="s3downbar_download_data_list_empty">Download list is empty</div><div id="s3db_C4CA4238A0B923820DCC509A6F75849B" class="download_data_box db_finishedHbox" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" click_handle="finished_click_handle">
+		<div class="download_data_box_iframe_box"><div id="s3downbar_download_box_iframe" is_hidden="true" class="download_data_box_iframe"></div></div>
+		<div id="s3downbar_download_box_progressremainder" class="download_data_box_progressremainder" is_hidden="true"></div>
+		<div id="s3downbar_download_box_progress" class="download_data_box_progress" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important; width: 100% !important;" is_hidden="true"></div>
+		<div id="s3downbar_download_box_data" class="download_data_box_data">
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" id="s3downbar_download_box_img" class="download_data_box_img" style="background: rgba(0, 0, 0, 0) url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABB0lEQVQ4jWNgQAPtLU2bKstL/uPC1ZVlv6sqShPQ9cFBZXnJ/1+/fuHEMINwGkKMASdPnsBtCCEDVq5YhuIdBoEaxwsCNY7/cWHrycl4XcOATzMME2VAx74F/z9+//JfvsX3/6P3L/5PP7YGxYD1z878Nz7S+N/+eMf/iHPTMQ2Aabz8/A7cIGQDrn54/P/h59f/p93f+9/4SCN2L3TsW/D//////zv2LcDwAkxjysX52A2Qb/H9//H7F5wuMD7S+P/Emzv/H35+jd2A6cfW/H/0/sV/gRrH/4/ev/i/7NwOFAMKry777316Am4XEBMLVz88xhoLlKUDUlMi7Q0glJ2RcXtL0yYA9KCEMWzgpGwAAAAASUVORK5CYII=&quot;) no-repeat scroll 50% 50% / contain !important;" no_image="false" is_hidden="false">
+			<img src="" id="s3downbar_download_box_img_queue" class="download_data_box_img" is_hidden="true">
+			<img src="" id="s3downbar_download_box_picToShrink" pictoshrink="true" is_hidden="true" class="download_data_box_img">
+			<div id="s3downbar_download_box_filename" class="download_data_box_filename">test101.csv</div>
+			<div id="s3downbar_download_box_progress_data" class="download_data_box_progress_data" is_hidden="true">
+				<div id="s3downbar_download_box_progress_percent" class="download_data_box_progress_percent" is_hidden="true">100%</div>
+				<div id="s3downbar_download_box_progress_remaintime" class="download_data_box_progress_remaintime" is_hidden="false">--:--</div>
+				<div id="s3downbar_download_box_progress_bytesReceived" class="download_data_box_progress_bytesReceived" is_hidden="true">227 bytes</div>
+				<div id="s3downbar_download_box_progress_speed" class="download_data_box_progress_speed" is_hidden="false">-.--</div>
+			</div>
+		</div>
+	<div style="box-sizing: initial !important; position: fixed !important; z-index: 50 !important;"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div id="download_data_tooltip" class="download_data_tooltip">
+		<div class="download_data_tooltip_head">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABv0lEQVRYhe3XP0sCYRwH8F6C76B34OILMOdqL1wanNwEwy68wRA8w6FBbBIlSWpIIepoSKcTFUUSMxoODhXUMEgxCJ7l23QPalrXPZdZ+MCPO57l+fD7c39WVhZxBfwHl5zHDb2xv7e7wwTgPG4QQnSFIQhWQLFYYEOwAgghbAgjAEwIowC6EUYCNCFM/NqOyWuDnjgpXY0ddn6W/HREpwN0Hq7Gd7Kz+ABzaBuDt1cAQLJyQ/c3oi6oayPq+tkMCNk4Pcwc2obJa0OtIwMArh+k+ZSg+dKlWXBeBAEAg7dXrPo35wOwn/I0CyqGE8Mze6Ax7GG9dASL5INF8oF/TLE3oaTcUUStI3/ahPV+C4lmDo1hD7dP97BIPmMBzZful1OQbpdxKItwVGPsAE4M07qrJRCy8ZkA/jEFa17AoSwi3S6zAUZHkRPDtAlHp2IS4KjGEFEyIIQg0cxRQETJ0HvNgOsH6UPa1SxIyt1UQETJwJoXsFU5HiuBoxqDq57UDhjtfudFcOq+/ZSf2gP1fguFZxmEEHq15gWk2+U/9Cj+HYCBr2NdgMnF8kGyBCwB/wPA+nM6KwL+g0tNgHmud/L6xD5HneDTAAAAAElFTkSuQmCC" id="s3downbar_download_tooltip_img" class="download_data_tooltip_img" no_image="false">
+			<div id="s3downbar_download_tooltip_filename" class="download_data_tooltip_filename">test101.csv </div>
+		</div>
+		<div class="download_data_tooltip_data_box" id="s3downbar_download_tooltip_data_box" is_hidden_progress="true" is_hidden_finish="false">
+			<table class="download_data_tooltip_data">
+				<tbody><tr id="s3downbar_download_tooltip_source_box"><td><div>Source:</div></td><td><input type="text" id="s3downbar_download_tooltip_source" class="download_data_tooltip_url" readonly="true" title="http://www.ken3.org/asp/backno/asp101.html#google_vignette" value="http://www.ken3.org/asp/backno/asp101.html#google_vignette"></td></tr>
+				<tr><td><div>転送元:</div></td><td><input type="text" id="s3downbar_download_tooltip_from" class="download_data_tooltip_url" readonly="true" title="http://www.ken3.org/cgi-bin/test/test101.csv" value="http://www.ken3.org/cgi-bin/test/test101.csv"></td></tr>
+				<tr><td><div>転送先:</div></td><td><div id="s3downbar_download_tooltip_to">C:\Users\yossy\AppData\Local\Temp\test101.csv</div></td></tr>
+				<tr class="download_progress"><td><div>状態:</div></td><td><div id="s3downbar_download_tooltip_status">227 bytes / 227 bytes ( -.-- )</div></td></tr>
+				<tr class="download_finish"><td><div>ファイルのサイズ:</div></td><td><div id="s3downbar_download_tooltip_size" filenotfound="false">227 bytes</div></td></tr>
+				<tr class="download_finish" id="s3downbar_download_virus_scan_box" is_hidden="true"><td><div id="s3downbar_download_virus_scan_label">Virus scan:</div></td><td><a id="s3downbar_download_virus_scan" target="_blank"></a></td></tr>
+				<tr><td><div>開始時刻:</div></td><td><div id="s3downbar_download_tooltip_timeStart">2020.12.13 - 13:53:59</div></td></tr>
+				<tr class="download_finish"><td><div>所要時間:</div></td><td><div id="s3downbar_download_tooltip_timeEnd">&lt;00:01</div></td></tr>
+				<tr class="download_progress"><td><div>残り時間:</div></td><td><div id="s3downbar_download_tooltip_timeLeft">--:--</div></td></tr>
+				<tr class="download_progress"><td><div>進行率:</div></td><td><div id="s3downbar_download_tooltip_percent">100%</div></td></tr>
+				<tr class="download_finish"><td><div>平均転送速度:</div></td><td><div id="s3downbar_download_tooltip_speed">2 KB/秒</div></td></tr>
+			</tbody></table>
+			<div class="download_data_tooltip_img_preview_box download_finish"><div class="download_data_tooltip_img_box">
+				<img src="" id="s3downbar_download_tooltip_img_preview" is_hidden="true" class="download_data_tooltip_img_preview download_finish" width="120" height="120">
+				<div id="s3downbar_download_tooltip_img_size" class="download_data_tooltip_img_size"></div>
+			</div></div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_progress" is_hidden="true">
+			<div>mouse double click: download pause/resume</div>
+			<div>mouse middle click: download cancel</div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_finish" is_hidden="false">
+			<div>mouse double click: open file</div>
+			<div>mouse double click + Ctrl: open dir</div>
+			<div style="padding-top: 4px !important;">mouse middle click: delete from list</div>
+			<div>mouse middle click + Ctrl: delete from system</div>
+			<div style="padding-top: 4px !important;">press mouse button + Ctrl: drag &amp; drop</div>
+		</div>
+	</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div></div><div id="s3db_C81E728D9D4C2F636F067F89CC14862C" class="download_data_box db_finishedHbox" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" click_handle="finished_click_handle">
+		<div class="download_data_box_iframe_box"><div id="s3downbar_download_box_iframe" is_hidden="true" class="download_data_box_iframe"></div></div>
+		<div id="s3downbar_download_box_progressremainder" class="download_data_box_progressremainder" is_hidden="true"></div>
+		<div id="s3downbar_download_box_progress" class="download_data_box_progress" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important; width: 100% !important;" is_hidden="true"></div>
+		<div id="s3downbar_download_box_data" class="download_data_box_data">
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" id="s3downbar_download_box_img" class="download_data_box_img" style="background: rgba(0, 0, 0, 0) url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABB0lEQVQ4jWNgQAPtLU2bKstL/uPC1ZVlv6sqShPQ9cFBZXnJ/1+/fuHEMINwGkKMASdPnsBtCCEDVq5YhuIdBoEaxwsCNY7/cWHrycl4XcOATzMME2VAx74F/z9+//JfvsX3/6P3L/5PP7YGxYD1z878Nz7S+N/+eMf/iHPTMQ2Aabz8/A7cIGQDrn54/P/h59f/p93f+9/4SCN2L3TsW/D//////zv2LcDwAkxjysX52A2Qb/H9//H7F5wuMD7S+P/Emzv/H35+jd2A6cfW/H/0/sV/gRrH/4/ev/i/7NwOFAMKry777316Am4XEBMLVz88xhoLlKUDUlMi7Q0glJ2RcXtL0yYA9KCEMWzgpGwAAAAASUVORK5CYII=&quot;) no-repeat scroll 50% 50% / contain !important;" no_image="false" is_hidden="false">
+			<img src="" id="s3downbar_download_box_img_queue" class="download_data_box_img" is_hidden="true">
+			<img src="" id="s3downbar_download_box_picToShrink" pictoshrink="true" is_hidden="true" class="download_data_box_img">
+			<div id="s3downbar_download_box_filename" class="download_data_box_filename">test101.csv</div>
+			<div id="s3downbar_download_box_progress_data" class="download_data_box_progress_data" is_hidden="true">
+				<div id="s3downbar_download_box_progress_percent" class="download_data_box_progress_percent" is_hidden="true">100%</div>
+				<div id="s3downbar_download_box_progress_remaintime" class="download_data_box_progress_remaintime" is_hidden="false">--:--</div>
+				<div id="s3downbar_download_box_progress_bytesReceived" class="download_data_box_progress_bytesReceived" is_hidden="true">227 bytes</div>
+				<div id="s3downbar_download_box_progress_speed" class="download_data_box_progress_speed" is_hidden="false">-.--</div>
+			</div>
+		</div>
+	<div style="box-sizing: initial !important; position: fixed !important; z-index: 50 !important;"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div id="download_data_tooltip" class="download_data_tooltip">
+		<div class="download_data_tooltip_head">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABv0lEQVRYhe3XP0sCYRwH8F6C76B34OILMOdqL1wanNwEwy68wRA8w6FBbBIlSWpIIepoSKcTFUUSMxoODhXUMEgxCJ7l23QPalrXPZdZ+MCPO57l+fD7c39WVhZxBfwHl5zHDb2xv7e7wwTgPG4QQnSFIQhWQLFYYEOwAgghbAgjAEwIowC6EUYCNCFM/NqOyWuDnjgpXY0ddn6W/HREpwN0Hq7Gd7Kz+ABzaBuDt1cAQLJyQ/c3oi6oayPq+tkMCNk4Pcwc2obJa0OtIwMArh+k+ZSg+dKlWXBeBAEAg7dXrPo35wOwn/I0CyqGE8Mze6Ax7GG9dASL5INF8oF/TLE3oaTcUUStI3/ahPV+C4lmDo1hD7dP97BIPmMBzZful1OQbpdxKItwVGPsAE4M07qrJRCy8ZkA/jEFa17AoSwi3S6zAUZHkRPDtAlHp2IS4KjGEFEyIIQg0cxRQETJ0HvNgOsH6UPa1SxIyt1UQETJwJoXsFU5HiuBoxqDq57UDhjtfudFcOq+/ZSf2gP1fguFZxmEEHq15gWk2+U/9Cj+HYCBr2NdgMnF8kGyBCwB/wPA+nM6KwL+g0tNgHmud/L6xD5HneDTAAAAAElFTkSuQmCC" id="s3downbar_download_tooltip_img" class="download_data_tooltip_img" no_image="false">
+			<div id="s3downbar_download_tooltip_filename" class="download_data_tooltip_filename">test101.csv </div>
+		</div>
+		<div class="download_data_tooltip_data_box" id="s3downbar_download_tooltip_data_box" is_hidden_progress="true" is_hidden_finish="false">
+			<table class="download_data_tooltip_data">
+				<tbody><tr id="s3downbar_download_tooltip_source_box"><td><div>Source:</div></td><td><input type="text" id="s3downbar_download_tooltip_source" class="download_data_tooltip_url" readonly="true" title="http://www.ken3.org/asp/backno/asp101.html" value="http://www.ken3.org/asp/backno/asp101.html"></td></tr>
+				<tr><td><div>転送元:</div></td><td><input type="text" id="s3downbar_download_tooltip_from" class="download_data_tooltip_url" readonly="true" title="http://www.ken3.org/cgi-bin/test/test101.csv" value="http://www.ken3.org/cgi-bin/test/test101.csv"></td></tr>
+				<tr><td><div>転送先:</div></td><td><div id="s3downbar_download_tooltip_to">C:\Users\yossy\Downloads\test101.csv</div></td></tr>
+				<tr class="download_progress"><td><div>状態:</div></td><td><div id="s3downbar_download_tooltip_status">227 bytes / 227 bytes ( -.-- )</div></td></tr>
+				<tr class="download_finish"><td><div>ファイルのサイズ:</div></td><td><div id="s3downbar_download_tooltip_size" filenotfound="false">227 bytes</div></td></tr>
+				<tr class="download_finish" id="s3downbar_download_virus_scan_box" is_hidden="true"><td><div id="s3downbar_download_virus_scan_label">Virus scan:</div></td><td><a id="s3downbar_download_virus_scan" target="_blank"></a></td></tr>
+				<tr><td><div>開始時刻:</div></td><td><div id="s3downbar_download_tooltip_timeStart">2020.12.13 - 13:54:19</div></td></tr>
+				<tr class="download_finish"><td><div>所要時間:</div></td><td><div id="s3downbar_download_tooltip_timeEnd">&lt;00:01</div></td></tr>
+				<tr class="download_progress"><td><div>残り時間:</div></td><td><div id="s3downbar_download_tooltip_timeLeft">--:--</div></td></tr>
+				<tr class="download_progress"><td><div>進行率:</div></td><td><div id="s3downbar_download_tooltip_percent">100%</div></td></tr>
+				<tr class="download_finish"><td><div>平均転送速度:</div></td><td><div id="s3downbar_download_tooltip_speed">3 KB/秒</div></td></tr>
+			</tbody></table>
+			<div class="download_data_tooltip_img_preview_box download_finish"><div class="download_data_tooltip_img_box">
+				<img src="" id="s3downbar_download_tooltip_img_preview" is_hidden="true" class="download_data_tooltip_img_preview download_finish" width="120" height="120">
+				<div id="s3downbar_download_tooltip_img_size" class="download_data_tooltip_img_size"></div>
+			</div></div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_progress" is_hidden="true">
+			<div>mouse double click: download pause/resume</div>
+			<div>mouse middle click: download cancel</div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_finish" is_hidden="false">
+			<div>mouse double click: open file</div>
+			<div>mouse double click + Ctrl: open dir</div>
+			<div style="padding-top: 4px !important;">mouse middle click: delete from list</div>
+			<div>mouse middle click + Ctrl: delete from system</div>
+			<div style="padding-top: 4px !important;">press mouse button + Ctrl: drag &amp; drop</div>
+		</div>
+	</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div></div><div id="s3db_ECCBC87E4B5CE2FE28308FD9F2A7BAF3" class="download_data_box db_progressStack" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" click_handle="progress_click_handle">
+		<div class="download_data_box_iframe_box"><div id="s3downbar_download_box_iframe" is_hidden="true" class="download_data_box_iframe"></div></div>
+		<div id="s3downbar_download_box_progressremainder" class="download_data_box_progressremainder" is_hidden="false"></div>
+		<div id="s3downbar_download_box_progress" class="download_data_box_progress" style="background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)) !important;" is_hidden="false"></div>
+		<div id="s3downbar_download_box_data" class="download_data_box_data">
+			<img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" id="s3downbar_download_box_img" class="download_data_box_img" no_image="true" is_hidden="true">
+			<img src="" id="s3downbar_download_box_img_queue" class="download_data_box_img" is_hidden="true">
+			<img src="" id="s3downbar_download_box_picToShrink" pictoshrink="true" is_hidden="true" class="download_data_box_img">
+			<div id="s3downbar_download_box_filename" class="download_data_box_filename">perldebtut - Perl でのデバッグのチュートリアル - perldoc.jp.html</div>
+			<div id="s3downbar_download_box_progress_data" class="download_data_box_progress_data" is_hidden="false">
+				<div id="s3downbar_download_box_progress_percent" class="download_data_box_progress_percent" is_hidden="true">不明</div>
+				<div id="s3downbar_download_box_progress_remaintime" class="download_data_box_progress_remaintime" is_hidden="false">不明</div>
+				<div id="s3downbar_download_box_progress_bytesReceived" class="download_data_box_progress_bytesReceived" is_hidden="true">-.--</div>
+				<div id="s3downbar_download_box_progress_speed" class="download_data_box_progress_speed" is_hidden="false">-.--</div>
+			</div>
+		</div>
+	<div style="box-sizing: initial !important; position: fixed !important; z-index: 50 !important;"><div style="box-sizing: initial !important;" class="tooltip_box" is_top="false"><div id="download_data_tooltip" class="download_data_tooltip">
+		<div class="download_data_tooltip_head">
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAGYElEQVRYhe2Wa2xT5xmAU37sosUm+NhOfE5i+xzn4ksaAiHBiY/t+BI7TsjFuZGUS7gkIeGaZmysiEWjlJRsQAgIreoqdVInVLFOm4TWy4bWqlM3aVqh68q2jsvabYxL0Rhkg7IYP/thJ0C1SXGZ9muf9Oh9v/f9Pr3POefPycr6//o3SyvkL9UK0urMMa3SLBA9Go2of0gBaXWVZT2Z4HcMUb9k+G53bPulXFNx/+eFfOlTC2gEqbfK0oesU5F1HhQhFWWdiiyoyDoVZXbvudfTq5S5goz3vXpbKnAM5eTkWT/N/Ec0grSmytqHIqhYBU8KnSc1TPAgp+szuXxfb4Egc6gHxteevGM2L9o6PzdXyVRgnkaQ1ritgyiCNzVAULHqU084s/9PzAhM9CQZX/36dJFt6fb5xgJbZgI6ca1bGcSm9yELXmR9mnSu6O/VlE/UZwQOPZbgwPI77H3s9USp3b8zkzcxT6MT19UoG1EMfhS9D0U/E9MYfMh6H7LB90Bd1vtYIMgP4Cj2sTw88g+tXmrMSEAt3ILNEEhJGPwohtoHc70/hcHPiRei3LnWRKnZj2zwIRu8s9Fm8BFZvBWNTlyXicB6tWgbNmMQm7E2haEWxRjAZgzct6/l8K5a+NsyuNnMn09H7p03BlCMAQoNATy2TWh04vpMBPrUkmEKjSFsuUFsxiArl1TjK/amBYKz9en3/fBRDK4vg2sN/PRYLTZjkEJjMB1DqEXDaHRi39wF9KZ+b8kIhblhCo0hNi9USR7No7+mmlNfqeLJLjeFuSEGYh74TQ18GIDLUbhaDxfDvLTfx1c31FOYG6IoN4y3ZASN3tSficCAt+RLFOXVUSHV8c+RYviGkdtjVjhSxnMrVA7Xfpkfdx/it6N7uPydNXChFj4Mwp9CJH9fy8e/XkaTN0JRbgR/yXY0etPAnAWy9dIGv2MHxaYoL6sR2G6D3flwUA/PCyResPFmxw94zfMXTnou8Ub8FGcPjMJ71fC+D86FSV6o54NXAxTnRfE7dpCtlzZkIjDodz1BsRjjepMfNjpI7HCRnLDDEQc8b4aXzPz12TZO1F3lleAlbpzsIXk2AG+r8E4IzsZIvOOn2FSP3/UE2XppcO4CgjQUKN1FidhAMl4NvQtJDJeRfE6BH9pIvlzG1IuNnDm4l2+33OZYbIoXQx+QfLcaTtfAGyF4N8rdM1FKxAYCpbvIFqShDATEjYHSUUqkRu7WBaCjEnoXwiY7NybcPBn+BaPtV3hq5W0Odic4Gr/FN4MX+fgVN/x8MXy3Dk55SbxVT4nYSKBslGxB3JiJwKZg+W7sUhM3y7sgpkJ7FaxaxLmBOIM1P2FD/D02rvoj21deYXfrFca955j+vh1OlMFxP7xVxfTxRuzSMoLlu8kWxE1zFtAK4uZw+R7s+c2cyRsCXxCiXmh1M716Kfvi++kOvUZP/Gesi59muO40P1q7E56xw7fK4fhiEt/zcGO8EXt+M8HyPWgFcXMmAlvCi8ZwFLQwZhhgqngFeMIQ8kOjh0RXDW/GB5hsfJojrU/xds8KEkPlsHMhjJfD0SX8/Wsxji2P4ShoIVy+F60gbslEYGu4YgxnQSv2ghZ+N3+EKUcPLI2ALwRhPzSo0FKd+jTLl0BPBaytgK2VTA0GuLaqCZe5FYe5lciiMbSCuHXuAjrTtkjFPpzmNuzmViJSN3/QbOOqpZfE4qaUiBqC2kBKJuqFBpVkTOWaO8JHNZ202FtwWOI4zXEiFfvQ6kzbMhOo3I/T3I7DEsdhiRMo6OaMdpjzul4umldwvaSbW4+2cWthKzcfbeZyUTMXTJ1cEFfRoLTNDnea24hWfD1jgeFo5QGclg6c1naclnacljaclnZ25fXzy5xtnJ+/gXM5azib08v5nH5+pRtit9g7e9ZhSd1zyR1EKw+g1ZmGMxCQHo9WTeCSO3Fa0xL3R0s7LmtHuvYJLGnSuUvuJFo5gVYnPZ6ZgHuSUqUTl9xFqdKFS+nEJXdSKnfhUrrSeYrZXEn1Z5i5G6uazExAo5NGYu7DxNyTxKomiVWlc/ckUfdhZnrR2d7h1LmZujuVR9337ml00sicBbJ1UqdGL33xv4lWZ4rOVSBLo5EEzQJR1RryGx6WLwhiOP1bPm/OAllZWY9kZbk+k2W1fu6hKSz8bKbD/6frXxrUMwwLLuzqAAAAAElFTkSuQmCC" id="s3downbar_download_tooltip_img" class="download_data_tooltip_img" no_image="false">
+			<div id="s3downbar_download_tooltip_filename" class="download_data_tooltip_filename">perldebtut - Perl でのデバッグのチュートリアル - perldoc.jp.html </div>
+		</div>
+		<div class="download_data_tooltip_data_box" id="s3downbar_download_tooltip_data_box" is_hidden_progress="false" is_hidden_finish="true">
+			<table class="download_data_tooltip_data">
+				<tbody><tr id="s3downbar_download_tooltip_source_box" is_hidden="true"><td><div>Source:</div></td><td><input type="text" id="s3downbar_download_tooltip_source" class="download_data_tooltip_url" readonly="true"></td></tr>
+				<tr><td><div>転送元:</div></td><td><input type="text" id="s3downbar_download_tooltip_from" class="download_data_tooltip_url" readonly="true" title="https://perldoc.jp/docs/perl/5.26.1/perldebtut.pod" value="https://perldoc.jp/docs/perl/5.26.1/perldebtut.pod"></td></tr>
+				<tr><td><div>転送先:</div></td><td><div id="s3downbar_download_tooltip_to">Z:\Documsnts\asciidoc\asciidoc\perl\perldebtut - Perl でのデバッグのチュートリアル - perldoc.jp.html</div></td></tr>
+				<tr class="download_progress"><td><div>状態:</div></td><td><div id="s3downbar_download_tooltip_status">-.-- / 不明 ( -.-- )</div></td></tr>
+				<tr class="download_finish"><td><div>ファイルのサイズ:</div></td><td><div id="s3downbar_download_tooltip_size" filenotfound="true">ファイルが見つかりません</div></td></tr>
+				<tr class="download_finish" id="s3downbar_download_virus_scan_box" is_hidden="true"><td><div id="s3downbar_download_virus_scan_label">Virus scan:</div></td><td><a id="s3downbar_download_virus_scan" target="_blank"></a></td></tr>
+				<tr><td><div>開始時刻:</div></td><td><div id="s3downbar_download_tooltip_timeStart">2020.12.15 - 06:30:17</div></td></tr>
+				<tr class="download_finish"><td><div>所要時間:</div></td><td><div id="s3downbar_download_tooltip_timeEnd">不明</div></td></tr>
+				<tr class="download_progress"><td><div>残り時間:</div></td><td><div id="s3downbar_download_tooltip_timeLeft">不明</div></td></tr>
+				<tr class="download_progress"><td><div>進行率:</div></td><td><div id="s3downbar_download_tooltip_percent">不明</div></td></tr>
+				<tr class="download_finish"><td><div>平均転送速度:</div></td><td><div id="s3downbar_download_tooltip_speed">不明</div></td></tr>
+			</tbody></table>
+			<div class="download_data_tooltip_img_preview_box download_finish"><div class="download_data_tooltip_img_box">
+				<img src="" id="s3downbar_download_tooltip_img_preview" is_hidden="true" class="download_data_tooltip_img_preview download_finish" width="120" height="120">
+				<div id="s3downbar_download_tooltip_img_size" class="download_data_tooltip_img_size"></div>
+			</div></div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_progress" is_hidden="false">
+			<div>mouse double click: download pause/resume</div>
+			<div>mouse middle click: download cancel</div>
+		</div>
+		<div class="download_data_tooltip_hint" id="s3downbar_download_tooltip_hint_finish" is_hidden="true">
+			<div>mouse double click: open file</div>
+			<div>mouse double click + Ctrl: open dir</div>
+			<div style="padding-top: 4px !important;">mouse middle click: delete from list</div>
+			<div>mouse middle click + Ctrl: delete from system</div>
+			<div style="padding-top: 4px !important;">press mouse button + Ctrl: drag &amp; drop</div>
+		</div>
+	</div></div><div style="box-sizing: initial !important;" class="tooltip_arrow" is_top="false"></div></div></div></div></div></div></body></html>

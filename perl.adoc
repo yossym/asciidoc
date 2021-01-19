@@ -1,0 +1,306 @@
+= perl
+// 著者の名前(省略可)<メールアドレス(省略可能)>
+// バージョンや作成日(省略可)
+:Author:	yossym
+:Email:		docomoxyz@gmail.com
+:Date:		2020-12-28
+:Revision:	0.1
+
+:toc:
+:sectnums:
+:toclevels: 5
+
+:lang: ja
+:doctype: book
+:docname: VBA
+:toclevels: 5
+:sectnums:
+:sectnumlevels: 5
+// :source-highlighter: pygments
+:source-language: VBscript
+:toc: right
+// :toc: left
+:toc-title: 目次
+
+/////
+NOTE: 脚注段落は補足情報を示すものです。
+段落冒頭のラベルによって脚注の種類を使い分けることができます。
+
+NOTE以外にも下記のような脚注があります。
+
+TIP: チップスを記述します。
+IMPORTANT: 重要事項を記述します。
+WARNING: 警告を記述します。
+CAUTION: 注意を記述します。
+
+/////
+
+== 配列
+
+=== 配列の宣言
+
+
+[source,perl]
+----
+my @numbers;
+----
+=== 配列の初期化
+
+[source,perl]
+----
+my @numbers = (10,25,40,4,-6);
+----
+
+=== 配列の参照
+
+
+[source,perl]
+----
+print $numbers[0];
+----
+
+=== 配列へ代入
+
+$配列[添え字] = 値;
+
+
+[source,perl]
+----
+$numbers[0] = 20;
+----
+
+=== 配列の個数
+
+[source,perl]
+----
+my $cnt = @numbers;
+print $cnt;
+
+my $cnt = $#numbers;
+print $cnt;
+----
+
+// == hash
+
+// == 変数
+
+
+== ファイル
+
+=== 単純に開く
+
+[source,perl]
+----
+    open(INFO,      "datafile") || die("can't open datafile: $!");
+    open(INFO,   "<  datafile") || die("can't open datafile: $!");
+    open(RESULTS,">  runstats") || die("can't open runstats: $!");
+    open(LOG,    ">> logfile ") || die("can't open logfile:  $!");
+
+close(INFO);
+close(RESULTS);
+close(LOG);
+----
+
+==== 間接ファイルハンドル
+
+[source,perl]
+----
+    open( my $in, $infile )   or die "Couldn't read $infile: $!";
+    while ( <$in> ) {
+        # do something with $_
+    }
+    close $in;
+----
+
+もう一つの便利は振る舞いとして、間接ファイルハンドルは、スコープ外に出るか
+undef にされると、自動的に閉じます:
+
+[source,perl]
+----
+    sub firstline {
+        open( my $in, shift ) && return scalar <$in>;
+        # no close() required
+    }
+----
+
+== 演算子
+
+=== 数値比較演算子
+
+
+[source,perl]
+----
+if ($xx == $yy)            # $xxと$yyが等しければ
+if ($xx != $yy)            # $xxと$yyが異なっていれば
+if ($xx < $yy)             # $xxが$yyより小さければ
+if ($xx > $yy)             # $xxが$yyより大きければ
+if ($xx <= $yy)            # $xxが$yyより等しいか小さければ
+if ($xx >= $yy)            # $xxが$yyより等しいか大きければ
+if (($xx==2) && ($yy==3))  # $xxが2、かつ、$yyが3であれば
+if (($xx==2) || ($yy==3))  # $xxが2、もしくは、$yyが3であれば
+if ($xx <=> $yy)           # 比較結果を -1, 0, 1 のいずれかで返す
+----
+
+
+=== 文字列比較演算子
+
+[source,perl]
+----
+if ($xx eq $yy)            # $xxと$yyが等しければ
+if ($xx ne $yy)            # $xxと$yyが異なっていれば
+if ($xx lt $yy)            # $xxが$yyより小さければ
+if ($xx gt $yy)            # $xxが$yyより大きければ
+if ($xx le $yy)            # $xxが$yyより等しいか小さければ
+if ($xx ge $yy)            # $xxが$yyより等しいか大きければ
+if ($xx =~ /ABC/)          # $xxがABCという文字を含んでいれば
+if ($xx !~ /ABC/)          # $xxがABCという文字を含んでいなければ
+if ($xx cmp $yy)           # 比較し、-1, 0, 1 のいずれかで返す
+----
+
+=== マッチング
+
+[source,perl]
+----
+if ($xx =~ /[0-9]+/)        # 正規表現にマッチすれば
+if ($xx !~ /[0-9]+/)        # 正規表現にマッチしなければ
+----
+
+=== 文字列連結
+
+[source,perl]
+----
+$xx = $yy . $zz;    # 文字列 $yy と 文字列 $zz を連結します
+$xx .= $yy;         # $xx = $xx . $yy と同様です。
+----
+
+=== 文字列置換
+
+[source,perl]
+----
+$xx =~ s/abc/ABC/g;
+----
+
+=== 繰り返し演算子
+
+[source,perl]
+----
+print '-' x 80;     # '-'を80個表示します。
+$xx x= 80;          # $xx を80回繰り返したものを$xxに代入します。
+@ones = (1) x 80;   # 80個の(1, 1, 1, 1, ......, 1)と同様です。
+----
+
+=== 範囲演算子
+
+[source,perl]
+----
+@xx = (0 .. 5);     # @xx = (0, 1, 2, 3, 4, 5);と同様。
+for (0 .. 5)        # for ($_ = 0; $_ <= 5; $_++) と同様
+----
+
+
+== Config::Tiny 設定保存
+
+[source,perl]
+----
+use Config::Tiny;
+
+# コンフィグの作成
+my $Config = Config::Tiny->new;
+
+# コンフィグファイルのオープン
+$Config = Config::Tiny->read( 'file.conf' );
+
+my $one = $Config->{This}->{is};
+
+print "$one\n";
+
+$Config->{This}->{is} = 100;
+$one = $Config->{This}->{is};
+print "$one\n";
+
+$Config->{This}->{is} ="This is a pen.";
+$one = $Config->{This}->{is};
+print "$one\n";
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//	vim:fileencoding=utf-8:ff=unix:

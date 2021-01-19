@@ -1,0 +1,1 @@
+[ソケットによる通信を行う - Perlゼミ](https://tutorial.perlzemi.com/blog/20090406123890.html)
