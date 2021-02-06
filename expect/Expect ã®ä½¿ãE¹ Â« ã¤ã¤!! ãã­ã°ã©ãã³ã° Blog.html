@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Expect の使い方 &laquo;  イイ!! プログラミング Blog</title>
+
+<link rel="stylesheet" href="http://blog.majide.com/wp-content/themes/default/style.css" type="text/css" media="screen" />
+<link rel="pingback" href="http://blog.majide.com/xmlrpc.php" />
+
+<style type="text/css" media="screen">
+
+	#page { background: url("http://blog.majide.com/wp-content/themes/default/images/kubrickbgwide.jpg") repeat-y top; border: none; }
+
+</style>
+
+ 
+
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="イイ!! プログラミング Blog &raquo; フィード" href="http://blog.majide.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="イイ!! プログラミング Blog &raquo; コメントフィード" href="http://blog.majide.com/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/blog.majide.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.7.2"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),!(j.toDataURL().length<3e3)&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,65039,8205,55356,57096),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,55356,57096),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55357,56425,55356,57341,8205,55357,56507),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55357,56425,55356,57341,55357,56507),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='https://api.w.org/' href='http://blog.majide.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.majide.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.majide.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='[C 言語]ダイナミックリンクライブラリ(共有ライブラリ)の作成' href='http://blog.majide.com/2006/01/how-to-build-shared-library/' />
+<link rel='next' title='[vim] 日付の挿入' href='http://blog.majide.com/2006/01/vim-inserting-date/' />
+<meta name="generator" content="WordPress 4.7.2" />
+<link rel="canonical" href="http://blog.majide.com/2006/01/how-to-use-expect/" />
+<link rel='shortlink' href='http://blog.majide.com/?p=817' />
+<link rel="alternate" type="application/json+oembed" href="http://blog.majide.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.majide.com%2F2006%2F01%2Fhow-to-use-expect%2F" />
+<link rel="alternate" type="text/xml+oembed" href="http://blog.majide.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblog.majide.com%2F2006%2F01%2Fhow-to-use-expect%2F&#038;format=xml" />
+		<style type="text/css" id="wp-custom-css">
+			/*
+ここに独自の CSS を追加することができます。
+
+詳しくは上のヘルプアイコンをクリックしてください。
+*/
+		</style>
+		<link type="text/css" rel="stylesheet" href="http://blog.majide.com/wp-content/plugins/syntaxhighlighter-plus/syntaxhighlighter/styles/shCore.css"></link>
+	<link type="text/css" rel="stylesheet" href="http://blog.majide.com/wp-content/plugins/syntaxhighlighter-plus/syntaxhighlighter/styles/shThemeDefault.css"></link>
+</head>
+<body class="post-template-default single single-post postid-817 single-format-standard">
+<div id="page">
+
+
+<div id="header" role="banner">
+	<div id="headerimg">
+		<h1><a href="http://blog.majide.com/">イイ!! プログラミング Blog</a></h1>
+		<div class="description">プログラミングやLinuxについてのメモです。</div>
+	</div>
+</div>
+<hr />
+
+	<div id="content" class="widecolumn" role="main">
+
+	
+		<div class="navigation">
+			<div class="alignleft"><a href="http://blog.majide.com/2006/01/how-to-build-shared-library/" rel="prev">&laquo; [C 言語]ダイナミックリンクライブラリ(共有ライブラリ)の作成</a></div>
+			<div class="alignright"><a href="http://blog.majide.com/2006/01/vim-inserting-date/" rel="next">[vim] 日付の挿入 &raquo;</a></div>
+		</div>
+
+		<div class="post-817 post type-post status-publish format-standard hentry" id="post-817">
+			<h2>Expect の使い方</h2>
+<br>
+<div id="north_ad">
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-3656116070200969";
+/* 336x280, 作成済み 09/02/25 */
+google_ad_slot = "9916985401";
+google_ad_width = 336;
+google_ad_height = 280;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+<br>
+</div>
+
+			<div class="entry">
+				<h3> expectとは </h3>
+<p>LinuxやFreeBSDで利用できる、sshやSQL等、対話的な通信を自動化するツールです。</p>
+<h3> expectでsshするサンプル </h3>
+<p>sshで接続して、lsを実行。</p>
+<pre class="brush: sh">
+ #!/usr/bin/expect
+ 
+ set timeout 5
+ spawn ssh somehost.example.com
+ expect &quot;password:&quot;
+ send &quot;YOUR PASSWD\r&quot;
+ expect &quot;Last login&quot;
+ send &quot;ls\r&quot;
+ interact
+</pre>
+<h3> expectでメールを送信するサンプル </h3>
+<p>sendmailをexpectで叩いてメール送信。テスト送信を何回もやるとき便利。</p>
+<pre class="brush: sh">
+ #!/usr/bin/expect
+ 
+ set timeout 5
+ spawn telnet somehost.example.com 25
+ expect &quot;somehost.example.com&quot;
+ send &quot;helo somehost.example.com\n&quot;
+ expect &quot;pleased to meet you&quot;
+ send &quot;mail from:someone@someplace.example.com\n&quot;
+ expect &quot;Sender ok&quot;
+ send &quot;rcpt to:yourfriend@somehost.example.com\n&quot;
+ expect &quot;Recipient ok&quot;
+ send &quot;data\n&quot;
+ expect &quot;itself&quot;
+ send &quot;This is Message for TEST\n&quot;
+ send &quot;.\n&quot;
+ expect &quot;accepted for delivery&quot;
+ send &quot;quit\n&quot;
+</pre>
+<h3> expect のコマンド一覧 </h3>
+<table id="table-simple">
+<tr>
+<th> コマンド </th>
+<th> 説明 </th>
+</tr>
+<tr>
+<td>set timeout <i>N</i> </td>
+<td> タイムアウトを設定する（単位は秒）<br />
+設定したN秒以上、標準入力から応答がないと、expectは通信を終了する。<br />
+-1で、タイムアウトをナシにできる。</td>
+</tr>
+<tr>
+<td>spawn <i>command</i></td>
+<td>spawnは新しいジョブを作成し、expectプログラムの<br />
+入出力をそのジョブに接続する。<br />
+ジョブへの送信はsend、受信はexpectとなる。</td>
+</tr>
+<tr>
+<td>expect <i>文字列</i></td>
+<td>expectコマンドは標準入力データが正規表現での文字列に<br />
+マッチするまで次のプログラム行の実行を停止し、データを標準出力に出力します。</td>
+</tr>
+<tr>
+<td>send <i>文字列</i></td>
+<td>文字列をジョブへ出力します</td>
+</tr>
+<tr>
+<td>interact</td>
+<td>interactはspawnで作成されたジョブの標準入出力を、キーボードと画面にする。<br />
+すなわち通常の通信になる。</td>
+</tr>
+</table>
+<h3> 参考文献 </h3>
+<table style="border: 0px">
+<tr>
+<td>
+<a href="http://www.amazon.co.jp/Linux%E3%82%B5%E3%83%BC%E3%83%90Hacks%E2%80%95%E3%83%97%E3%83%AD%E3%81%8C%E4%BD%BF%E3%81%86%E3%83%86%E3%82%AF%E3%83%8B%E3%83%83%E3%82%AF-%E3%83%84%E3%83%BC%E3%83%AB100%E9%81%B8-%E3%83%AD%E3%83%96-%E3%83%95%E3%83%AA%E3%83%83%E3%82%B1%E3%83%B3%E3%82%AC%E3%83%BC/dp/487311151X%3FSubscriptionId%3D0T87JZ8NZF1GR715WV82%26tag%3Diimemo-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D487311151X" title="Amazon で商品の詳細を確認する"><img src="http://ecx.images-amazon.com/images/I/413TXN9N5JL._SL160_.jpg" alt="LinuxサーバHacks―プロが使うテクニック&#038;ツール100選" /></a>
+</td>
+<td style="padding:0em 0em 0em 5em;" >
+<a href="http://www.amazon.co.jp/Linux%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%88%E3%83%AC%E3%83%BC%E3%83%8B%E3%83%B3%E3%82%B0%E3%83%96%E3%83%83%E3%82%AF-%E7%A6%8F%E7%94%B0-%E5%92%8C%E5%AE%8F/dp/4881664514%3FSubscriptionId%3D0T87JZ8NZF1GR715WV82%26tag%3Diimemo-22%26linkCode%3Dxm2%26camp%3D2025%26creative%3D165953%26creativeASIN%3D4881664514" title="Amazon で商品の詳細を確認する"><img src="http://ecx.images-amazon.com/images/I/51CFRTFJR3L._SL160_.jpg" alt="Linuxコマンドトレーニングブック" /></a>
+</td>
+</tr>
+</table>
+
+								
+				<p class="postmetadata alt">
+					<small>
+												This entry was posted on 日曜日, 1月 22nd, 2006 at 12:29 AM and is filed under 未分類.						You can follow any responses to this entry through the <a href='http://blog.majide.com/2006/01/how-to-use-expect/feed/'>RSS 2.0</a> feed. 
+
+													Both comments and pings are currently closed.
+						
+					</small>
+				</p>
+
+			</div>
+		</div>
+
+	
+<!-- You can start editing here. -->
+
+
+			<!-- If comments are closed. -->
+		<p class="nocomments">Comments are closed.</p>
+
+	
+
+
+	
+    <div class="zen">
+        <!-- X:S ZenBackWidget --><script type="text/javascript">document.write(unescape("%3Cscript")+" src='http://widget.zenback.jp/?base_uri=http%3A//blog.majide.com/&nsid=95986009774235313%3A%3A95986014069195083&rand="+Math.ceil((new Date()*1)*Math.random())+"' type='text/javascript'"+unescape("%3E%3C/script%3E"));</script><!-- X:E ZenBackWidget -->
+    </div>
+
+
+	</div>
+
+
+	<div id="sidebar" role="complementary">
+		<ul>
+<li>
+<script type="text/javascript"><!--
+google_ad_client = "pub-3656116070200969";
+/* 160x600, 作成済み 10/02/12 */
+google_ad_slot = "5419551577";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</li>
+
+
+			<li id="popular-posts" class="widget widget_rrm_popular_posts"><h2 class="widgettitle">人気の投稿</h2><ul><li><a href="http://blog.majide.com/2009/02/socket-programming-server/" rel="bookmark" title="2009 年 2 月 25 日">[C言語]Socket間通信 echoサーバを作る</a></li>
+
+<li><a href="http://blog.majide.com/2006/01/linux-df-du-quota-command/" rel="bookmark" title="2006 年 1 月 21 日">[Linux] ディスク容量を表示 df,du,quotaコマンド</a></li>
+
+<li><a href="http://blog.majide.com/2009/03/c-regex-sample-code/" rel="bookmark" title="2009 年 3 月 16 日">[C言語]正規表現 サンプルコード</a></li>
+
+<li><a href="http://blog.majide.com/2009/03/c-signal-sample-program/" rel="bookmark" title="2009 年 3 月 9 日">[C言語]シグナルをキャッチする サンプルコード</a></li>
+
+<li><a href="http://blog.majide.com/2009/02/socket-programming-client/" rel="bookmark" title="2009 年 2 月 27 日">[C言語]Socket間通信 HTTPクライアントを作る</a></li>
+</ul><!-- popular Posts took 8.458 ms --></li><li id="archives-4" class="widget widget_archive"><h2 class="widgettitle">アーカイブ</h2>		<ul>
+			<li><a href='http://blog.majide.com/2012/10/'>2012年10月</a></li>
+	<li><a href='http://blog.majide.com/2012/07/'>2012年7月</a></li>
+	<li><a href='http://blog.majide.com/2011/09/'>2011年9月</a></li>
+	<li><a href='http://blog.majide.com/2011/08/'>2011年8月</a></li>
+	<li><a href='http://blog.majide.com/2011/05/'>2011年5月</a></li>
+	<li><a href='http://blog.majide.com/2011/04/'>2011年4月</a></li>
+	<li><a href='http://blog.majide.com/2011/01/'>2011年1月</a></li>
+	<li><a href='http://blog.majide.com/2010/12/'>2010年12月</a></li>
+	<li><a href='http://blog.majide.com/2010/11/'>2010年11月</a></li>
+	<li><a href='http://blog.majide.com/2010/07/'>2010年7月</a></li>
+	<li><a href='http://blog.majide.com/2010/06/'>2010年6月</a></li>
+	<li><a href='http://blog.majide.com/2010/05/'>2010年5月</a></li>
+	<li><a href='http://blog.majide.com/2010/04/'>2010年4月</a></li>
+	<li><a href='http://blog.majide.com/2010/02/'>2010年2月</a></li>
+	<li><a href='http://blog.majide.com/2009/05/'>2009年5月</a></li>
+	<li><a href='http://blog.majide.com/2009/04/'>2009年4月</a></li>
+	<li><a href='http://blog.majide.com/2009/03/'>2009年3月</a></li>
+	<li><a href='http://blog.majide.com/2009/02/'>2009年2月</a></li>
+	<li><a href='http://blog.majide.com/2007/11/'>2007年11月</a></li>
+	<li><a href='http://blog.majide.com/2006/06/'>2006年6月</a></li>
+	<li><a href='http://blog.majide.com/2006/03/'>2006年3月</a></li>
+	<li><a href='http://blog.majide.com/2006/01/'>2006年1月</a></li>
+		</ul>
+		</li><li id="pages-4" class="widget widget_pages"><h2 class="widgettitle">固定ページ</h2>		<ul>
+			<li class="page_item page-item-83"><a href="http://blog.majide.com/mypc_spec/">MyPC_Spec</a></li>
+<li class="page_item page-item-2"><a href="http://blog.majide.com/about/">紹介</a></li>
+		</ul>
+		</li><li id="categories-4" class="widget widget_categories"><h2 class="widgettitle">カテゴリー</h2>		<ul>
+	<li class="cat-item cat-item-1"><a href="http://blog.majide.com/category/uncategorize/" >未分類</a>
+</li>
+		</ul>
+</li>		</ul>
+	</div>
+
+
+
+
+<hr />
+<div id="footer" role="contentinfo">
+<!-- If you'd like to support WordPress, having the "powered by" link somewhere on your blog is the best way; it's our only promotion or advertising. -->
+	<p>
+		イイ!! プログラミング Blog is proudly powered by <a href="http://wordpress.org/">WordPress</a>		<br /><a href="http://blog.majide.com/feed/">Entries (RSS)</a> and <a href="http://blog.majide.com/comments/feed/">Comments (RSS)</a>.		<!-- 33 queries. 1.064 seconds. -->
+	</p>
+</div>
+</div>
+
+<!-- Gorgeous design by Michael Heilemann - http://binarybonsai.com/kubrick/ -->
+
+		<script type='text/javascript' src='http://blog.majide.com/wp-includes/js/comment-reply.min.js?ver=4.7.2'></script>
+<script type='text/javascript' src='http://blog.majide.com/wp-includes/js/wp-embed.min.js?ver=4.7.2'></script>
+
+<!-- SyntaxHighlighter Stuff -->
+<script type="text/javascript" src="http://blog.majide.com/wp-content/plugins/syntaxhighlighter-plus/syntaxhighlighter/src/shCore.js"></script>
+	<script type="text/javascript" src="http://blog.majide.com/wp-content/plugins/syntaxhighlighter-plus/syntaxhighlighter/scripts/shBrushBash.js"></script>
+	<!-- Reassign aliases -->
+	<script type="text/javascript">
+				SyntaxHighlighter.brushes.Bash.aliases = ["bash", "sh", "shell"];
+	</script>
+<script type="text/javascript">
+	SyntaxHighlighter.all();
+</script>
+
+</body>
+</html>
+
+<!-- Dynamic Page Served (once) in 1.065 seconds -->

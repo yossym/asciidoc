@@ -6,7 +6,6 @@
 :Date:      	2020-09-11
 :Revision:  0.1
 
-
 :toc:
 :sectnums:
 :toclevels: 5
@@ -457,6 +456,14 @@ worksheets.select
 ----
 
 == cells
+
+.シートの指定
+[source,VBSCRIPT]
+----
+="'[ilename]シート名'!A1"
+="'シート名'!A1"
+----
+
 === 行の追加
 
 ==== 1行追加
@@ -776,6 +783,9 @@ v = Range("A1:C3")
 ----
 
 
+
+
+
 === コピペ
 
 .普通にコピペ
@@ -883,15 +893,25 @@ Activecell.Address(ReferenceStyle:= xlR1C1)
 R1C1 形式
 
 
-Set mc = Worksheets("Sheet1").Cells(1, 1) 
-MsgBox mc.Address() ' $A$1 
-MsgBox mc.Address(RowAbsolute:=False) ' $A1 
-MsgBox mc.Address(ReferenceStyle:=xlR1C1) ' R1C1 
-MsgBox mc.Address(ReferenceStyle:=xlR1C1, _ 
- RowAbsolute:=False, _ 
- ColumnAbsolute:=False, _ 
- RelativeTo:=Worksheets(1).Cells(3, 3)) ' R[-2]C[-2]
+Set mc = Worksheets("Sheet1").Cells(1, 1)
+MsgBox mc.Address() ' $A$1
+MsgBox mc.Address(RowAbsolute:=False) ' $A1
+MsgBox mc.Address(ReferenceStyle:=xlR1C1) ' R1C1
+MsgBox mc.Address(ReferenceStyle:=xlR1C1, _
+    RowAbsolute:=False, _
+    ColumnAbsolute:=False, _
+    RelativeTo:=Worksheets(1).Cells(3, 3)) ' R[-2]C[-2]
 ----
+
+=== ハイパーリンク
+
+
+[source,vbscript]
+----
+    ActiveSheet.Hyperlinks.Add _
+            Anchor:=Range("A3"), Address:="Sheet2!A3"
+----
+
 
 
 == 変数
@@ -1024,7 +1044,6 @@ Public Function sprintf(ByVal st As String, ParamArray args() As Variant) As Str
     sprintf = buf
 End Function
 ----
-
 
 
 
@@ -1291,6 +1310,57 @@ Public Sub FolderSearch(Path As String, fs As Collection)
 End Sub
 ----
 
+
+=== adoでcsv読み込み
+
+参照設定::
+Microsoft ActiveX Data Objects 6.0 Library
+
+[source,VBSCRIPT]
+----
+sub ado_read_csv()
+    dim con As New ADODB.Connection
+    dim rs As New ADODB.RecordSet
+
+    dim Folder As String
+
+    Dim sql As String
+    Folder = ThisworkBook.Path
+
+    sql = "Select * from database.csv"
+
+    with con
+        .Provider="Microsoft.ACE.OLEDB.12.0"
+        .Propaeries("Extended Properties")
+        .open Folder
+    end with
+
+    rs.open source:=sql, _
+        AcriveConnection:=con, _
+        CursorType := adoOpenStatic
+
+    Dim i Ad Long
+    Rs.Movefirst
+
+    For i = 0 to rs.Fields.Count -1
+        Cells(1, i+1).= rs.Fields(i).Name
+    Next
+
+    range("A2").CopyromRecordset rs
+
+    rs.MoveFitst
+    do until rs.EOF
+        for 
+
+
+    Loop
+
+        
+
+
+
+----
+
 == 特殊フォルダ
 
 参照設定::
@@ -1427,48 +1497,75 @@ End Function
 
 [source,vbscript]
 ----
+
+
+
+
 Option Explicit
 
 Dim w,args
-Set w = WScript
+dim fso
+Set w    = WScript
 Set args = w.Arguments
+set fso  = w.CreateObject("Scripting.FileSystemObject")
+
+Const ForReading   = 1
+Const ForWriting   = 2
+Const ForAppending = 8
 
 sub Usage
-	w.echo w.ScriptName  _
-	, VBNewLine _
-	, " bat arguments"
+    w.echo w.ScriptName  _
+    , VBNewLine _
+    , " bat arguments"
+end sub
+
+sub rw(FileName)
+
+    Dim its
+    Set its = fso.OpenTextFile(FileName, ForReading )
+
+    dim  ots, oFileName
+    oFileName = FileName & ".csv"
+    set ots = fso.OpenTextFile(oFileName, ForWriting, True)
+
+    Do Until its.AtEndOfStream
+        Dim line
+        line = its.ReadLine
+        ots.WriteLine line
+    Loop
+
+    its.close
+    ots.close
+
 end sub
 
 sub Main
-  if w.Arguments.Count = 0 then
-  	usage
-  end if
+    if w.Arguments.Count = 0 then
+        usage
+    end if
 
-  dim i
+    dim i
+    set fso = WScript.CreateObject("Scripting.FileSystemObject")
 
-  dim arg
-  for each arg in args
-  	w.echo w.scriptFullName _
-  	, vbnewline _
-  	, w.scriptname _
-  	, vbnewline _
-  	, arg
-  next
+    dim arg
+    for each arg in args
+        ' w.echo w.scriptFullName _
+        ' , vbnewline _
+        ' , w.scriptname _
+        ' , vbnewline _
+        ' , arg
+        rw(arg)
+    next
 
-  w.echo args(0) &  args(1)
 end sub
 
 Main
-
-Dim fso
-Set fso = WScript.CreateObject("Scripting.FileSystemObject")
 ----
 
 == FileSystemObject オブジェクト
 
 参照設定::
 Microsoft ScrptingRuntime
-
 
 コンピューターのファイル システムへのアクセスを提供します。
 
@@ -4917,7 +5014,6 @@ filenumberlist を省略すると、Open ステートメントで開いたすべ
 Close ステートメントを実行すると、ファイルとそのファイル番号の関連付けが終了し
 ます。
 
-
 .例
 
 この例では、<<Close,Close>> ステートメントを使用して、出力用に開いていた 3 つのファイル
@@ -4927,9 +5023,9 @@ Close ステートメントを実行すると、ファイルとそのファイ�
 ----
 Dim I, FileName
 For I = 1 To 3 ' Loop 3 times.
- FileName = "TEST" & I ' Create file name.
- Open FileName For Output As #I ' Open file.
- Print #I, "This is a test." ' Write string to file.
+    FileName = "TEST" & I ' Create file name.
+    Open FileName For Output As #I ' Open file.
+    Print #I, "This is a test." ' Write string to file.
 Next I
 Close ' Close all 3 open files.
 ----
@@ -5143,11 +5239,11 @@ For...Next ループの内部に別の For...Next ループを入れて、For...
 [source,vbscript]
 ----
 For I = 1 To 10
- For J = 1 To 10
- For K = 1 To 10
- ...
- Next K
- Next J
+    For J = 1 To 10
+        For K = 1 To 10
+         ...
+        Next K
+    Next J
 Next I
 ----
 
@@ -5166,10 +5262,10 @@ CAUTION:	Next ステートメントの counter を省略しても、実行は_co
 ----
 Dim Words, Chars, MyString
 For Words = 10 To 1 Step -1 ' Set up 10 repetitions.
- For Chars = 0 To 9 ' Set up 10 repetitions.
- MyString = MyString & Chars ' Append number to string.
- Next Chars ' Increment counter
- MyString = MyString & " " ' Append a space.
+    For Chars = 0 To 9 ' Set up 10 repetitions.
+        MyString = MyString & Chars ' Append number to string.
+    Next Chars ' Increment counter
+    MyString = MyString & " " ' Append a space.
 Next Words
 ----
 
@@ -5330,12 +5426,12 @@ CAUTION:	TypeOf は、Object 以外の Long、Integer などのハード デー�
 Dim Number, Digits, MyString
 Number = 53 ' Initialize variable.
 If Number < 10 Then
- Digits = 1
+    Digits = 1
 ElseIf Number < 100 Then
 ' Condition evaluates to True so the next statement is executed.
- Digits = 2
+    Digits = 2
 Else
- Digits = 3
+    Digits = 3
 End If
 
 ' Assign a value using the single-line form of syntax.
@@ -5350,13 +5446,13 @@ If TypeOf 構造を使用して、プロシージャに渡されたコントロ�
 [source,vbscript]
 ----
 Sub ControlProcessor(MyControl As Control)
- If TypeOf MyControl Is CommandButton Then
- Debug.Print "You passed in a " & TypeName(MyControl)
- ElseIf TypeOf MyControl Is CheckBox Then
- Debug.Print "You passed in a " & TypeName(MyControl)
- ElseIf TypeOf MyControl Is TextBox Then
- Debug.Print "You passed in a " & TypeName(MyControl)
- End If
+    If TypeOf MyControl Is CommandButton Then
+        Debug.Print "You passed in a " & TypeName(MyControl)
+    ElseIf TypeOf MyControl Is CheckBox Then
+        Debug.Print "You passed in a " & TypeName(MyControl)
+    ElseIf TypeOf MyControl Is TextBox Then
+        Debug.Print "You passed in a " & TypeName(MyControl)
+    End If
 End Sub
 ----
 

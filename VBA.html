@@ -1369,6 +1369,14 @@ http://www.gnu.org/software/src-highlite -->
 <div class="sect1">
 <h2 id="_cells">cells</h2>
 <div class="sectionbody">
+<div class="listingblock">
+<div class="title">シートの指定</div>
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="color: #990000">=</span><span style="color: #FF0000">"'[ilename]シート名'!A1"</span>
+<span style="color: #990000">=</span><span style="color: #FF0000">"'シート名'!A1"</span></tt></pre></div></div>
 <div class="sect2">
 <h3 id="_行の追加">行の追加</h3>
 <div class="sect3">
@@ -1899,9 +1907,19 @@ MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><s
 MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' $A1</span></span>
 MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span>xlR1C1<span style="color: #990000">)</span> <span style="font-style: italic"><span style="color: #9A1900">' R1C1</span></span>
 MsgBox mc<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Address</span></span><span style="color: #990000">(</span>ReferenceStyle<span style="color: #990000">:=</span>xlR1C1<span style="color: #990000">,</span> _
- RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
- ColumnAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
- RelativeTo<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">))</span> <span style="font-style: italic"><span style="color: #9A1900">' R[-2]C[-2]</span></span></tt></pre></div></div>
+    RowAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
+    ColumnAbsolute<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #0000FF">False</span></span><span style="color: #990000">,</span> _
+    RelativeTo<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Worksheets</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">).</span><span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">3</span><span style="color: #990000">,</span> <span style="color: #993399">3</span><span style="color: #990000">))</span> <span style="font-style: italic"><span style="color: #9A1900">' R[-2]C[-2]</span></span></tt></pre></div></div>
+</div>
+<div class="sect2">
+<h3 id="_ハイパーリンク">ハイパーリンク</h3>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt>    ActiveSheet<span style="color: #990000">.</span>Hyperlinks<span style="color: #990000">.</span>Add _
+            Anchor<span style="color: #990000">:=</span><span style="font-weight: bold"><span style="color: #000000">Range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A3"</span><span style="color: #990000">),</span> Address<span style="color: #990000">:=</span><span style="color: #FF0000">"Sheet2!A3"</span></tt></pre></div></div>
 </div>
 </div>
 </div>
@@ -2306,6 +2324,65 @@ Public <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></
 
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
 </div>
+<div class="sect2">
+<h3 id="_adoでcsv読み込み">adoでcsv読み込み</h3>
+<div class="dlist"><dl>
+<dt class="hdlist1">
+参照設定
+</dt>
+<dd>
+<p>
+Microsoft ActiveX Data Objects 6.0 Library
+</p>
+</dd>
+</dl></div>
+<div class="listingblock">
+<div class="content"><!-- Generator: GNU source-highlight 3.1.6
+by Lorenzo Bettini
+http://www.lorenzobettini.it
+http://www.gnu.org/software/src-highlite -->
+<pre><tt><span style="font-weight: bold"><span style="color: #0000FF">sub</span></span> <span style="font-weight: bold"><span style="color: #000000">ado_read_csv</span></span><span style="color: #990000">()</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> con As New ADODB<span style="color: #990000">.</span>Connection
+    <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> rs As New ADODB<span style="color: #990000">.</span>RecordSet
+
+    <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> Folder As String
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> sql As String
+    Folder <span style="color: #990000">=</span> ThisworkBook<span style="color: #990000">.</span>Path
+
+    sql <span style="color: #990000">=</span> <span style="color: #FF0000">"Select * from database.csv"</span>
+
+    with con
+        <span style="color: #990000">.</span>Provider<span style="color: #990000">=</span><span style="color: #FF0000">"Microsoft.ACE.OLEDB.12.0"</span>
+        <span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Propaeries</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Extended Properties"</span><span style="color: #990000">)</span>
+        <span style="color: #990000">.</span>open Folder
+    <span style="font-weight: bold"><span style="color: #0000FF">end</span></span> with
+
+    rs<span style="color: #990000">.</span>open source<span style="color: #990000">:=</span>sql<span style="color: #990000">,</span> _
+        AcriveConnection<span style="color: #990000">:=</span>con<span style="color: #990000">,</span> _
+        CursorType <span style="color: #990000">:=</span> adoOpenStatic
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> i Ad Long
+    Rs<span style="color: #990000">.</span>Movefirst
+
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span> to rs<span style="color: #990000">.</span>Fields<span style="color: #990000">.</span>Count <span style="color: #990000">-</span><span style="color: #993399">1</span>
+        <span style="font-weight: bold"><span style="color: #000000">Cells</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">,</span> i<span style="color: #990000">+</span><span style="color: #993399">1</span><span style="color: #990000">).=</span> rs<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">Fields</span></span><span style="color: #990000">(</span>i<span style="color: #990000">).</span>Name
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span>
+
+    <span style="font-weight: bold"><span style="color: #000000">range</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"A2"</span><span style="color: #990000">).</span>CopyromRecordset rs
+
+    rs<span style="color: #990000">.</span>MoveFitst
+    <span style="font-weight: bold"><span style="color: #0000FF">do</span></span> until rs<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">EOF</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">for</span></span>
+
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+
+
+
+
+</tt></pre></div></div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2464,41 +2541,69 @@ http://www.gnu.org/software/src-highlite -->
 by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
-<pre><tt>Option Explicit
+<pre><tt>
+
+
+
+Option Explicit
 
 <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> w<span style="color: #990000">,</span>args
-<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> w <span style="color: #990000">=</span> WScript
+<span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> fso
+<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> w    <span style="color: #990000">=</span> WScript
 <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> args <span style="color: #990000">=</span> w<span style="color: #990000">.</span>Arguments
+<span style="font-weight: bold"><span style="color: #0000FF">set</span></span> fso  <span style="color: #990000">=</span> w<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
+
+Const ForReading   <span style="color: #990000">=</span> <span style="color: #993399">1</span>
+Const ForWriting   <span style="color: #990000">=</span> <span style="color: #993399">2</span>
+Const ForAppending <span style="color: #990000">=</span> <span style="color: #993399">8</span>
 
 <span style="font-weight: bold"><span style="color: #0000FF">sub</span></span> Usage
-        w<span style="color: #990000">.</span>echo w<span style="color: #990000">.</span>ScriptName  _
-        <span style="color: #990000">,</span> VBNewLine _
-        <span style="color: #990000">,</span> <span style="color: #FF0000">" bat arguments"</span>
+    w<span style="color: #990000">.</span>echo w<span style="color: #990000">.</span>ScriptName  _
+    <span style="color: #990000">,</span> VBNewLine _
+    <span style="color: #990000">,</span> <span style="color: #FF0000">" bat arguments"</span>
+<span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">sub</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">sub</span></span> <span style="font-weight: bold"><span style="color: #000000">rw</span></span><span style="color: #990000">(</span>FileName<span style="color: #990000">)</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> its
+    <span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> its <span style="color: #990000">=</span> fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">OpenTextFile</span></span><span style="color: #990000">(</span>FileName<span style="color: #990000">,</span> ForReading <span style="color: #990000">)</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span>  ots<span style="color: #990000">,</span> oFileName
+    oFileName <span style="color: #990000">=</span> FileName <span style="color: #990000">&amp;</span> <span style="color: #FF0000">".csv"</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">set</span></span> ots <span style="color: #990000">=</span> fso<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">OpenTextFile</span></span><span style="color: #990000">(</span>oFileName<span style="color: #990000">,</span> ForWriting<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">True</span></span><span style="color: #990000">)</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">Do</span></span> Until its<span style="color: #990000">.</span>AtEndOfStream
+        <span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> line
+        line <span style="color: #990000">=</span> its<span style="color: #990000">.</span>ReadLine
+        ots<span style="color: #990000">.</span>WriteLine line
+    <span style="font-weight: bold"><span style="color: #0000FF">Loop</span></span>
+
+    its<span style="color: #990000">.</span>close
+    ots<span style="color: #990000">.</span>close
+
 <span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">sub</span></span>
 
 <span style="font-weight: bold"><span style="color: #0000FF">sub</span></span> Main
-  <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> w<span style="color: #990000">.</span>Arguments<span style="color: #990000">.</span>Count <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> w<span style="color: #990000">.</span>Arguments<span style="color: #990000">.</span>Count <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="font-weight: bold"><span style="color: #0000FF">then</span></span>
         usage
-  <span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span>
 
-  <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> i
+    <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> i
+    <span style="font-weight: bold"><span style="color: #0000FF">set</span></span> fso <span style="color: #990000">=</span> WScript<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span>
 
-  <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> arg
-  <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="font-weight: bold"><span style="color: #0000FF">each</span></span> arg in args
-        w<span style="color: #990000">.</span>echo w<span style="color: #990000">.</span>scriptFullName _
-        <span style="color: #990000">,</span> vbnewline _
-        <span style="color: #990000">,</span> w<span style="color: #990000">.</span>scriptname _
-        <span style="color: #990000">,</span> vbnewline _
-        <span style="color: #990000">,</span> arg
-  <span style="font-weight: bold"><span style="color: #0000FF">next</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">dim</span></span> arg
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="font-weight: bold"><span style="color: #0000FF">each</span></span> arg in args
+        <span style="font-style: italic"><span style="color: #9A1900">' w.echo w.scriptFullName _</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">' , vbnewline _</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">' , w.scriptname _</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">' , vbnewline _</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">' , arg</span></span>
+        <span style="font-weight: bold"><span style="color: #000000">rw</span></span><span style="color: #990000">(</span>arg<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">next</span></span>
 
-  w<span style="color: #990000">.</span>echo <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span>  <span style="font-weight: bold"><span style="color: #000000">args</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
 <span style="font-weight: bold"><span style="color: #0000FF">end</span></span> <span style="font-weight: bold"><span style="color: #0000FF">sub</span></span>
 
-Main
-
-<span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> fso
-<span style="font-weight: bold"><span style="color: #0000FF">Set</span></span> fso <span style="color: #990000">=</span> WScript<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #0000FF">CreateObject</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Scripting.FileSystemObject"</span><span style="color: #990000">)</span></tt></pre></div></div>
+Main</tt></pre></div></div>
 </div>
 </div>
 <div class="sect1">
@@ -8919,9 +9024,9 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> I<span style="color: #990000">,</span> FileName
 <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> I <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">3</span> <span style="font-style: italic"><span style="color: #9A1900">' Loop 3 times.</span></span>
- FileName <span style="color: #990000">=</span> <span style="color: #FF0000">"TEST"</span> <span style="color: #990000">&amp;</span> I <span style="font-style: italic"><span style="color: #9A1900">' Create file name.</span></span>
- Open FileName <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Output As #I <span style="font-style: italic"><span style="color: #9A1900">' Open file.</span></span>
- Print #I<span style="color: #990000">,</span> <span style="color: #FF0000">"This is a test."</span> <span style="font-style: italic"><span style="color: #9A1900">' Write string to file.</span></span>
+    FileName <span style="color: #990000">=</span> <span style="color: #FF0000">"TEST"</span> <span style="color: #990000">&amp;</span> I <span style="font-style: italic"><span style="color: #9A1900">' Create file name.</span></span>
+    Open FileName <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Output As #I <span style="font-style: italic"><span style="color: #9A1900">' Open file.</span></span>
+    Print #I<span style="color: #990000">,</span> <span style="color: #FF0000">"This is a test."</span> <span style="font-style: italic"><span style="color: #9A1900">' Write string to file.</span></span>
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> I
 Close <span style="font-style: italic"><span style="color: #9A1900">' Close all 3 open files.</span></span></tt></pre></div></div>
 </div>
@@ -9181,11 +9286,11 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">For</span></span> I <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">10</span>
- <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> J <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">10</span>
- <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> K <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">10</span>
- <span style="color: #990000">...</span>
- <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> K
- <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> J
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> J <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">10</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> K <span style="color: #990000">=</span> <span style="color: #993399">1</span> To <span style="color: #993399">10</span>
+         <span style="color: #990000">...</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> K
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> J
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> I</tt></pre></div></div>
 <div class="admonitionblock">
 <table><tr>
@@ -9208,10 +9313,10 @@ http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Words<span style="color: #990000">,</span> Chars<span style="color: #990000">,</span> MyString
 <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Words <span style="color: #990000">=</span> <span style="color: #993399">10</span> To <span style="color: #993399">1</span> Step <span style="color: #990000">-</span><span style="color: #993399">1</span> <span style="font-style: italic"><span style="color: #9A1900">' Set up 10 repetitions.</span></span>
- <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Chars <span style="color: #990000">=</span> <span style="color: #993399">0</span> To <span style="color: #993399">9</span> <span style="font-style: italic"><span style="color: #9A1900">' Set up 10 repetitions.</span></span>
- MyString <span style="color: #990000">=</span> MyString <span style="color: #990000">&amp;</span> Chars <span style="font-style: italic"><span style="color: #9A1900">' Append number to string.</span></span>
- <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> Chars <span style="font-style: italic"><span style="color: #9A1900">' Increment counter</span></span>
- MyString <span style="color: #990000">=</span> MyString <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" "</span> <span style="font-style: italic"><span style="color: #9A1900">' Append a space.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">For</span></span> Chars <span style="color: #990000">=</span> <span style="color: #993399">0</span> To <span style="color: #993399">9</span> <span style="font-style: italic"><span style="color: #9A1900">' Set up 10 repetitions.</span></span>
+        MyString <span style="color: #990000">=</span> MyString <span style="color: #990000">&amp;</span> Chars <span style="font-style: italic"><span style="color: #9A1900">' Append number to string.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> Chars <span style="font-style: italic"><span style="color: #9A1900">' Increment counter</span></span>
+    MyString <span style="color: #990000">=</span> MyString <span style="color: #990000">&amp;</span> <span style="color: #FF0000">" "</span> <span style="font-style: italic"><span style="color: #9A1900">' Append a space.</span></span>
 <span style="font-weight: bold"><span style="color: #0000FF">Next</span></span> Words</tt></pre></div></div>
 </div>
 <div class="sect2">
@@ -9410,12 +9515,12 @@ http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Dim</span></span> Number<span style="color: #990000">,</span> Digits<span style="color: #990000">,</span> MyString
 Number <span style="color: #990000">=</span> <span style="color: #993399">53</span> <span style="font-style: italic"><span style="color: #9A1900">' Initialize variable.</span></span>
 <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> Number <span style="color: #990000">&lt;</span> <span style="color: #993399">10</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
- Digits <span style="color: #990000">=</span> <span style="color: #993399">1</span>
+    Digits <span style="color: #990000">=</span> <span style="color: #993399">1</span>
 ElseIf Number <span style="color: #990000">&lt;</span> <span style="color: #993399">100</span> <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
 <span style="font-style: italic"><span style="color: #9A1900">' Condition evaluates to True so the next statement is executed.</span></span>
- Digits <span style="color: #990000">=</span> <span style="color: #993399">2</span>
+    Digits <span style="color: #990000">=</span> <span style="color: #993399">2</span>
 <span style="font-weight: bold"><span style="color: #0000FF">Else</span></span>
- Digits <span style="color: #990000">=</span> <span style="color: #993399">3</span>
+    Digits <span style="color: #990000">=</span> <span style="color: #993399">3</span>
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
 
 <span style="font-style: italic"><span style="color: #9A1900">' Assign a value using the single-line form of syntax.</span></span>
@@ -9428,13 +9533,13 @@ by Lorenzo Bettini
 http://www.lorenzobettini.it
 http://www.gnu.org/software/src-highlite -->
 <pre><tt><span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span> <span style="font-weight: bold"><span style="color: #000000">ControlProcessor</span></span><span style="color: #990000">(</span>MyControl As Control<span style="color: #990000">)</span>
- <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> TypeOf MyControl <span style="font-weight: bold"><span style="color: #0000FF">Is</span></span> CommandButton <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
- Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"You passed in a "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">TypeName</span></span><span style="color: #990000">(</span>MyControl<span style="color: #990000">)</span>
- ElseIf TypeOf MyControl <span style="font-weight: bold"><span style="color: #0000FF">Is</span></span> CheckBox <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
- Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"You passed in a "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">TypeName</span></span><span style="color: #990000">(</span>MyControl<span style="color: #990000">)</span>
- ElseIf TypeOf MyControl <span style="font-weight: bold"><span style="color: #0000FF">Is</span></span> TextBox <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
- Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"You passed in a "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">TypeName</span></span><span style="color: #990000">(</span>MyControl<span style="color: #990000">)</span>
- <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">If</span></span> TypeOf MyControl <span style="font-weight: bold"><span style="color: #0000FF">Is</span></span> CommandButton <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"You passed in a "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">TypeName</span></span><span style="color: #990000">(</span>MyControl<span style="color: #990000">)</span>
+    ElseIf TypeOf MyControl <span style="font-weight: bold"><span style="color: #0000FF">Is</span></span> CheckBox <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"You passed in a "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">TypeName</span></span><span style="color: #990000">(</span>MyControl<span style="color: #990000">)</span>
+    ElseIf TypeOf MyControl <span style="font-weight: bold"><span style="color: #0000FF">Is</span></span> TextBox <span style="font-weight: bold"><span style="color: #0000FF">Then</span></span>
+        Debug<span style="color: #990000">.</span>Print <span style="color: #FF0000">"You passed in a "</span> <span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">TypeName</span></span><span style="color: #990000">(</span>MyControl<span style="color: #990000">)</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">If</span></span>
 <span style="font-weight: bold"><span style="color: #0000FF">End</span></span> <span style="font-weight: bold"><span style="color: #0000FF">Sub</span></span></tt></pre></div></div>
 </div>
 <div class="sect2">
@@ -18416,7 +18521,7 @@ cellspacing="0" cellpadding="4">
 <div id="footer">
 <div id="footer-text">
 Version 0.1<br />
-Last updated 2020-12-23 21:22:49 JST
+Last updated 2021-01-24 21:17:29 JST
 </div>
 </div>
 </body>
