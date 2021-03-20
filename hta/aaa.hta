@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>ラジオボタンから値を取得するサンプルプログラム</title>
+
+    <script language="VBScript">
+    Sub getValue()
+        'ラジオボタンの値を取得
+        For i = 0 To document.form1.rdb.length - 1
+            if document.form1.rdb(i).checked then
+                choiced = document.form1.rdb(i).value
+            end if
+        Next
+
+        'テキストボックスに値を返す
+        document.form1.result.value = "ラジオボタンの値は" & choiced & "番目" & vbcr
+
+    End Sub
+    </script>
+</head>
+
+<body>
+<form name="form1">
+    <p>値の選択<br>
+        <input type="radio" name="rdb" value="1"/>1番目<br>
+        <input type="radio" name="rdb" value="2" checked />2番目<br>
+        <input type="radio" name="rdb" value="3" />3番目<br>
+    </p>
+    <p>値の取得<br>
+        <input type="button" value="script実行" onClick="getValue()" />
+    </p>
+    <p>値の表示<br>
+        <textarea name="result" cols="30" rows="10"></textarea>
+</form>
+</body>
+</html>

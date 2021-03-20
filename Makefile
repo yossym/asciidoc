@@ -1,6 +1,9 @@
 CC	= asciidoc
-FLAGS	= -a toc2 -a toclevels=3
-FILES	= VBA.adoc Makefile VBA*.adoc
+# FLAGS	= -a toc2 -a toclevels=3
+# FLAGS	= -a toc -a toclevels=3
+FLAGS	= -a toc -a toclevels=3 --doctype=book
+
+FILES	= VBA.adoc Makefile VBA*.adoc *vbscript* *Microsof*
 
 
 all:	VBA.html AsciiCode.html bash.html perl.html
@@ -36,3 +39,5 @@ perl.html:	perl.adoc
 # 	asciidoc -a toc  bash.adoc
 #
 #
+clean:
+	\rm *.html

@@ -3,13 +3,13 @@
 // バージョンや作成日(省略可)
 :Author:	yossym
 :Email:     docomoxyz@gmail.com
-:Date:      	2020-09-11
+:Date:      	2021-03-03
 :Revision:  0.1
 
 :toc:
 :sectnums:
 :toclevels: 5
-
+:icons: font
 :lang: ja
 :doctype: book
 :docname: VBA
@@ -22,53 +22,52 @@
 // :toc: left
 :toc-title: 目次
 
-////
-Excel VBA リファレンス
+//
+// Excel VBA リファレンス
 
-言語リファレンス
-	概要
-	概念
-		Visual Basic
-			概要
-		Microsoft Forms
-			概要
-	使用方法に関するトピック
-		概要
-	リファレンス
-		概要
-		文字セット
-		定数
-		データ型
-		ディレクティブ
-		イベント
-		関数
-		キーワード
-		Microsoft Forms
-		オブジェクト
-			a
-		演算子
-		財務諸表
-		Visual Basic アドインモデル
-	ユーザインターフェースのヘルプ
-		概要
-		ダイアログボックス
-		メニューとコマンド
-		ツールバー
-		ウィンドウ要素
-		エラーメッセージ
-	用語
+// 言語リファレンス
+// 	概要
+// 	概念
+// 		Visual Basic
+// 			概要
+// 		Microsoft Forms
+// 			概要
+// 	使用方法に関するトピック
+// 		概要
+// 	リファレンス
+// 		概要
+// 		文字セット
+// 		定数
+// 		データ型
+// 		ディレクティブ
+// 		イベント
+// 		関数
+// 		キーワード
+// 		Microsoft Forms
+// 		オブジェクト
+// 			a
+// 		演算子
+// 		財務諸表
+// 		Visual Basic アドインモデル
+// 	ユーザインターフェースのヘルプ
+// 		概要
+// 		ダイアログボックス
+// 		メニューとコマンド
+// 		ツールバー
+// 		ウィンドウ要素
+// 		エラーメッセージ
+// 	用語
+// 
+// 
+// Excel Visual Basic for Applications (VBA) リファレンス | Microsoft Docs
+// https://docs.microsoft.com/ja-jp/office/vba/api/overview/excel
+// 
+// Visual Basic for Applications (VBA) の言語リファレンス | Microsoft Docs
+// https://docs.microsoft.com/ja-jp/office/vba/api/overview/language-reference
+// 
+// Visual Basic 言語リファレンス | Microsoft Docs
+// https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference
 
-
-Excel Visual Basic for Applications (VBA) リファレンス | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/api/overview/excel
-
-Visual Basic for Applications (VBA) の言語リファレンス | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/api/overview/language-reference
-
-Visual Basic 言語リファレンス | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference
-
-/////
 
 /////
 JScript
@@ -106,6 +105,10 @@ IMPORTANT: 重要事項を記述します。
 WARNING: 警告を記述します。
 CAUTION: 注意を記述します。
 
+リンク元 こちらは1つ
+<<anchor-id,このように>>
+リンク先
+[[anchor-id]]
 /////
 
 
@@ -158,24 +161,73 @@ NOTE:	UNIXエポックは1970年1月1日00:00:00で、全てのタイムスタ�
 
 == VBE
 
+=== [エディタの設定]
 レジストリ編集を編集してエディタの色を変更する
 
 [source,vbscript]
 ----
+コンピューター\HKEY_CURRENT_USER\SOFTWARE\Microsoft\VBA\7.1\Common
 HKEY_CURRENT_USER\Software\Microsoft\VBA\7.1\Common
 ----
 
 文字列の編集
 
-.CodeBackColors
-4 0 7 7 6 4 4 4 0 0 0 0 0 0 0 0
 
-.CodeForeColors
-7 0 5 4 1 9 11 1 0 0 0 0 0 0 0 0
+.規定の設定
+* [ CodeBackColors ] 0 0 0 7 6 0 0 0 0 0 0 0 0 0 0 0
+* [ CodeForeColors ] 0 0 5 0 1 10 14 0 0 0 0 0 0 0 0 0
+
+.[おすすめ設定(白系)]
+* [ CodeBackColors ] 0 0 15 7 6 9 0 0 0 0 0 0 0 0 0 0
+* [ CodeForeColors ] 0 0 4 0 1 4 13 15 0 0 0 0 0 0 0 0
+
+.[おすすめ設定(黒系)]
+
+* [ CodeBackColors ] 4 0 7 7 6 4 4 4 0 0 0 0 0 0 0 0
+* [ CodeForeColors ] 7 0 5 4 1 9 11 1 0 0 0 0 0 0 0 0
+
+
+=== ショートカットキー
+
+
+[cols="1,4,4",options="header"]
+| ===
+| キー操作 | 説明                          |
+| CTRL+A   | すべて選択                    |
+| CTRL+B   |                               |
+| CTRL+C   | コピー                        |
+| CTRL+D   |                               |
+| CTRL+E   | ファイルのエクスポート        |
+| CTRL+F   | 検索                          |
+| CTRL+G   | イミディエイト ウィンドウ     |
+| CTRL+H   | 置換                          |
+| CTRL+I   | クイック ヒント               |
+| CTRL+J   |                               |
+| CTRL+K   |                               |
+| CTRL+L   | 呼び出し履歴                  |
+| CTRL+M   | ファイルのインポート          |
+| CTRL+N   |                               |
+| CTRL+O   |                               |
+| CTRL+P   | 印刷                          |
+| CTRL+Q   | 終了してMicrosoft Excelへ戻る |
+| CTRL+R   | プロジェクト エクスプローラー |
+| CTRL+S   | 上書き保存                    |
+| CTRL+T   |                               |
+| CTRL+U   |                               |
+| CTRL+V   | 貼り付け                      |
+| CTRL+W   |                               |
+| CTRL+X   | 切り取り                      |
+| CTRL+Y   |                               |
+| CTRL+Z   | 元に戻す                      |
+| CTRL+    |                               |
+| CTRL+    |                               |
+| CTRL+    |                               |
+| CTRL+    |                               |
+| CTRL+    |                               |
+| ===
 
 include::VBAvariable.adoc[]
-
-
+// VBAvariable.adoc
 
 == Workbook
 
@@ -184,6 +236,7 @@ include::VBAvariable.adoc[]
 [source,vbscript]
 ----
 Dim wb As Workbook
+' シートの枚数を指定
 Application.SheetsInNewWorkbook = 1
 Set wb = Workbooks.Add
 ----
@@ -309,6 +362,29 @@ End Sub
 ----
 
 
+==== WorkBook存在確認
+
+
+[source,vbscript]
+----
+Sub sample()
+    Debug.Print BookExists("sample.xlsm")
+End Sub
+
+Function BookExists(Name As String) As Boolean
+    Dim wb As Workbook
+
+    For Each wb In Workbooks
+        If wb.Name = Name Then
+            BookExists = True
+            Exit Function
+        End If
+    Next
+    BookExists = False
+End Function
+----
+
+
 ==== メニュー追加
 
 
@@ -425,24 +501,38 @@ Worksheets.Add After:=Worksheets(Worksheets.Count)
 Workbooks.Delete
 ----
 
-=== IsSheet シートの存在確認
+=== worksheet copyコピー
+
+.sheets3の右にコピー
+[source,vbscript]
+----
+Worksheets("Sheet1").Copy After:=Worksheets("Sheet3")
+----
+
+.sheets3の右にコピー
+[source,vbscript]
+----
+Worksheets("Sheet1").Copy before:=Worksheets("Sheet1")
+----
+
+=== SheetExists シートの存在確認
 
 [source,vbscript]
 ----
 
-Debug.Print isSheet(ActiveWorkbook, "まとめ")
-
-Function isSheet(Wb As Workbook, Name As String) As Boolean
+Debug.Print SheetExists(ActiveWorkbook, "まとめ")
+' workbookからシートを検索
+Function SheetExists(Wb As Workbook, Name As String) As Boolean
     Dim v As Variant
     Dim Result As Boolean
 
     For Each v In Wb.Sheets
         If v.Name = Name Then
-            isSheet = True
+            SheetExists = True
             Exit Function
         End If
     Next
-    isSheet = False
+    SheetExists = False
 End Function
 
 ----
@@ -457,10 +547,11 @@ worksheets.select
 
 == cells
 
+完全なセルの指定
 .シートの指定
 [source,VBSCRIPT]
 ----
-="'[ilename]シート名'!A1"
+="'[filename]シート名'!A1"
 ="'シート名'!A1"
 ----
 
@@ -542,7 +633,8 @@ Range("A3").CurrentRegion.Selct
 
 [source,vbscript]
 ----
-Range("A3").UsedRange.Select
+Worksheets("Sheet1").Activate
+ActiveSheet.UsedRange.Select
 ----
 
 
@@ -747,6 +839,17 @@ Range("A3:B6").Insert shift:=xlShiftToRight
  | xlShiftToRight | -4161 | セルを挿入後、右に伸ばす
 |===
 
+=== セルの値コピー
+
+空白も含めてコピーしてくれる
+[source,vbscript]
+----
+Dim v As Variant
+v = Range("e2:e6").Value
+
+Range("g2:g6") = v
+----
+
 === セルの値コピー(Fill*)
 
 * 次の使用例は、シート 1 のセル A1 の内容をセル A1:A10 の範囲に複写します。
@@ -775,16 +878,12 @@ Worksheets("Sheet1").Range("A1:A10").FillUp
 
 === セル　↔　配列
 
-
 [source,vbscript]
 ----
-Dim v as Variant
-v = Range("A1:C3")
+Dim var as Variant
+var = Range("A1:C3")
+Range("A1:C3") = var
 ----
-
-
-
-
 
 === コピペ
 
@@ -835,7 +934,7 @@ Call Range("A1:C5").Sort(key1:=Range("A1"), _
     order2:=xlAscending)
 ----
 
-==== セル　→　変数
+==== セル配列　→　変数
 
 
 
@@ -908,10 +1007,44 @@ MsgBox mc.Address(ReferenceStyle:=xlR1C1, _
 
 [source,vbscript]
 ----
-    ActiveSheet.Hyperlinks.Add _
-            Anchor:=Range("A3"), Address:="Sheet2!A3"
+Sheets(1).Hyperlinks.Add Range("E2"), "", "'Sheet2'!G2"
+Sheets(1).Hyperlinks.Add Anchor:=Range("E2"), Address:="",SubAddress:="'Sheet2'!G2"
 ----
 
+=== セル,フォントに色をつける
+
+[source,vbscript]
+----
+Range("A1").Interior.Color = vbYellow
+Range("A1").Font.Color = vbRed
+----
+
+[cols="1,1,4",options="header"]
+|===
+| 定数      | 値       | 説明
+| vbBlack   | 0x0      | 黒
+| vbRed     | 0xFF     | 赤
+| vbGreen   | 0xFF00   | 緑
+| vbYellow  | 0xFFFF   | 黄
+| vbBlue    | 0xFF0000 | 青
+| vbMagenta | 0xFF00FF | 紫
+| vbCyan    | 0xFFFF00 | シアン
+| vbWhite   | 0xFFFFFF | 白
+|===
+
+qbcolor
+[cols="1,1,1,1",options="header"]
+|===
+| 数値 | 色   | 数値 | 色
+| 0    | 黒   | 8    | 灰色
+| 1    | 青   | 9    | 明るい青
+| 2    | 緑   | 10   | 明るい緑
+| 3    | 水色 | 11   | 明るい水色
+| 4    | 赤   | 12   | 明るい赤
+| 5    | 紫   | 13   | 明るい紫
+| 6    | 黄   | 14   | 明るい黄
+| 7    | 白   | 15   | 明るい白
+|===
 
 
 == 変数
@@ -920,12 +1053,12 @@ MsgBox mc.Address(ReferenceStyle:=xlR1C1, _
 
 [cols="1,1,4",options="header"]
 |===
-|種類|型|判定
-|Empty|Variant|IsEmpty if(IsEmpty(s)=0)
-|Nothing|Object|IsNothing if (Object is Nothing)
-|Null|Variant|IsNull　If (isNull(s) = True)
-|""|String|単純比較　IF(s = "")
-|VbNullString|String|StrPtr if(strPtr(s) = 0)
+| 種類         | 型      | 判定
+| Empty        | Variant | IsEmpty if(IsEmpty(s)=0)
+| Nothing      | Object  | IsNothing if (Object is Nothing)
+| Null         | Variant | IsNull　If (isNull(s) = True)
+| ""           | String  | 単純比較　IF(s = "")
+| VbNullString | String  | StrPtr if(strPtr(s) = 0)
 |===
 
 
@@ -970,6 +1103,36 @@ String型
 String型の初期値
 
 == 関数
+
+=== fix, int, round, 四捨五入、切り捨て
+
+.int
+[cols="1,1"]
+|===
+| 1.5  | 1  |
+| 1.4  | 1  |
+| -1.4 | -2 |
+| -1.5 | -2 |
+|===
+
+.fix
+[cols="1,1"]
+|===
+| 1.5  | 1  |
+| 1.4  | 1  |
+| -1.4 | -1 |
+| -1.5 | -1 |
+|===
+
+.round(x,0)
+[cols="1,1"]
+|===
+| 1.5  | 1  |
+| 1.4  | 1  |
+| -1.4 | -1 |
+| -1.5 | -2 |
+|===
+
 === VBAで関数名を変数で使う
 
 
@@ -1310,8 +1473,8 @@ Public Sub FolderSearch(Path As String, fs As Collection)
 End Sub
 ----
 
-
-=== adoでcsv読み込み
+=== ado
+==== adoでcsv読み込み
 
 参照設定::
 Microsoft ActiveX Data Objects 6.0 Library
@@ -1327,7 +1490,8 @@ sub ado_read_csv()
     Dim sql As String
     Folder = ThisworkBook.Path
 
-    sql = "Select * from database.csv"
+    ' スペースを含むitemでも[]で囲むとエラーにならない
+    sql = "Select [*] from [database.csv]"
 
     with con
         .Provider="Microsoft.ACE.OLEDB.12.0"
@@ -1342,6 +1506,7 @@ sub ado_read_csv()
     Dim i Ad Long
     Rs.Movefirst
 
+    ' ヘッダ書き込み
     For i = 0 to rs.Fields.Count -1
         Cells(1, i+1).= rs.Fields(i).Name
     Next
@@ -1349,17 +1514,67 @@ sub ado_read_csv()
     range("A2").CopyromRecordset rs
 
     rs.MoveFitst
+    ' これ登録件数
+    'rs.RecordCount
     do until rs.EOF
         for 
-
-
+        rd.MoveNext
     Loop
 
-        
+    rs.Close
+    Con.Close
 
-
+end Sub
 
 ----
+
+=== ADODB.RecordSetで2次元配列ソート
+
+参照設定::
+Microsoft ActiveX Data Objects 6.0 Library
+
+[cols="1,1,4",options="header"]
+|===
+| 定数          | 値   | 説明
+| adbigint      | 1280 | 8 バイトの符号付き整数を示します (DBTYPE_I8)。
+| adboolean     | #    | ブール値を示します (DBTYPE_BOOL)。
+| adbstr        | ~    | null で終わる文字列 (Unicode) を示します (DBTYPE_BSTR)。
+| adchar        | 129  | 文字列値を示します (DBTYPE_STR)。
+| addbtimestamp | 135  | 日付/タイム スタンプ (yyyymmddhhmmss および 10 億分の 1 桁までの分数) を示します (DBTYPE_DBTIMESTAMP)。
+| addouble      | 5    | 倍精度浮動小数点値を示します (DBTYPE_R8)。
+|adinteger      | 3    | 4 バイトの符号付き整数を示します (DBTYPE_I4)。
+| adguid        | 72   | グローバル一意識別子 (GUID) を示します (DBTYPE_GUID)。
+| adVarChar     | 200  | 文字列値を示します。
+|===
+
+
+[source,VBSCRIPT]
+----
+Const advarchar = 200
+Const addouble = 5
+Const adinteger = 3
+dim rs
+Set rs = CreateObject("ADODB.RecordSet")
+
+'DataTypeEnum
+call rs.Fields.Append("aptime",addouble)
+call rs.Fields.Append("ant",adinteger)
+' 文字列は長さも指定する'
+call rs.Fields.Append("result",advarchar, 250)
+
+call rs.Open
+  rs.AddNew
+    rs.Fields("aptime")  = 12345.234
+    rs.Fields("ant")  = 1
+    rs.Fields("result")  = "OK"
+
+    rs.sort = "ant,aptime"
+----
+
+
+==== askdjfh
+
+
 
 == 特殊フォルダ
 
@@ -2031,7 +2246,7 @@ GetAbsolutePathName メソッドの動作を示しています。
 |"c:....\mydocuments " |"c:\mydocuments"
 |===
 
-==== GetBaseNameメソッド
+==== ★GetBaseNameメソッド
 
 パスの最後のコンポーネントのファイル拡張子を除くベース名を含む文字列を返します。
 
@@ -3085,6 +3300,162 @@ Next
 
 
 |===
+
+== 疑似collection
+
+* https://imihito.hatenablog.jp/entry/2017/05/13/010848[VBS用配列ラッパークラス - imihitoのブログ]
+
+.実装メンバー
+
+Clear::
+	初期化用。
+
+Add::
+要素を末尾に追加。
+
+Item::
+添え字で要素を取得。 上記のコードでは添え字は1からはじまる。 範囲外アクセス時
+の動作は保証しない。
+
+Count::
+要素数。1から数えた場合の数。
+
+Remove::
+指定された添え字の要素を除去する。 除去したらその分自動で詰める。
+
+InitByArray::
+指定した配列で初期化する。 適当実装。
+
+ToArray::
+配列化する。 For Eachの場合や配列そのものが欲しい場合なんかに。
+
+
+
+.使用例
+
+[source,vbscript]
+----
+Option Explicit
+Dim myArray 'As ArrayCol
+Set myArray = New ArrayCol
+
+With myArray
+    .Add 1
+    .Add 3.14
+    .Add "文字列"
+    .Add Now()
+    .Add WScript.ScriptFullName
+    .Add New ArrayCol
+End With    'myArray
+MsgBox myArray(1)
+Dim buf: buf = ""
+Dim tmp
+For Each tmp In myArray.ToArray()
+    If IsObject(tmp) Then
+        buf = buf & TypeName(tmp) & vbCrLf
+    Else
+        buf = buf & tmp & vbCrLf
+    End If
+Next 'tmp
+
+MsgBox buf
+
+'Class ArrayCol
+'～
+
+
+' Class ArrayCol
+Class Collection
+    '内部格納の配列
+    Private clsArray 'As Variant
+    
+    '現在の要素数
+    Private UsedCount 'As Long
+    
+    Private Sub Class_Initialize()
+        Call Me.Clear
+    End Sub
+    
+    Public Sub Clear()
+        UsedCount = 0
+        ReDim clsArray(4)
+    End Sub
+    
+    '配列の下限
+    Private Property Get ARRAY_BASE() 'As Long
+        ARRAY_BASE = 1
+    End Property
+    
+    '添え字変換
+    Private Function UserIndexToRealIndex(Index) 'As Long
+        UserIndexToRealIndex = Index - ARRAY_BASE
+    End Function
+    
+    '要素を追加する。
+    Public Sub Add(iItem)
+        If UBound(clsArray) = UserIndexToRealIndex(UsedCount) Then Call ArrayExpand
+        AssignVal clsArray(UsedCount), iItem
+        UsedCount = UsedCount + 1
+    End Sub
+    
+    Private Sub ArrayExpand()
+        ReDim Preserve clsArray(UBound(clsArray) * 2)
+    End Sub
+    
+    '代入簡略化処理
+    Private Sub AssignVal(ByRef o, i)
+        If IsObject(i) Then
+            Set o = i
+        Else
+            o = i
+        End If
+    End Sub
+    
+    Public Default Property Get Item(ByVal Index) 'As Variant
+        AssignVal Item, clsArray(UserIndexToRealIndex(Index))
+    End Property
+    
+    Public Property Let Item(ByVal Index, Value)
+        clsArray(UserIndexToRealIndex(Index)) = Value
+    End Property
+    
+    Public Property Set Item(ByVal Index, Value)
+        Set clsArray(UserIndexToRealIndex(Index)) = Value
+    End Property
+    
+    Public Property Get Count() 'As Long
+        Count = UsedCount
+    End Property
+    
+    Public Sub Remove(ByVal Index)
+        Dim i
+        For i = UserIndexToRealIndex(Index) To UserIndexToRealIndex(UsedCount - 1)
+            AssignVal clsArray(i), clsArray(i + 1)
+        Next 'i
+        clsArray(UserIndexToRealIndex(UsedCount)) = Empty
+        UsedCount = UsedCount - 1
+    End Sub
+    
+    '既存の配列で初期化する。
+    Public Sub InitByArray(BaseArray)
+        If Not IsArray(BaseArray) Then Err.Raise 5
+        
+        Me.Clear
+        Dim tmp
+        For Each tmp In BaseArray
+            Me.Add tmp
+        Next 'tmp
+    End Sub
+    
+    Public Function ToArray() 'As Variant
+        Dim buf:    buf = clsArray
+        ReDim Preserve buf(UserIndexToRealIndex(UsedCount))
+        ToArray = buf
+    End Function
+End Class
+----
+
+
 
 
 == Collection オブジェクト
@@ -4265,6 +4636,8 @@ Next
 Sub sample()
 
     Dim re As New RegExp
+    Set re = CreateObject("VBScript.RegExp") 
+
     Dim s As String: s = "This is a              pen."
     Dim ms As MatchCollection
     Dim m As Match
@@ -4356,9 +4729,30 @@ A列に数値が入っていて、C1セルA2、C2セルA5と入っていると�
 6	6
 7	7
 8	8
+----
 
+
+
+
+[source,vbscript]
+----
+  A    b
+1 hoge A1
+2
+|
+ ------
+| hoge | Sheet1
+ ------ ---------
+
+=INDIRECT(A1 & "!" & B1)
 
 ----
+
+
+
+
+
+
 
 == 配列を使うのに役立つ4つの関数――Array、LBound、UBound、Splitの使い方
 
@@ -4793,192 +5187,6 @@ End With
 
 
 include::VBAFunction.adoc[]
-
-== https://docs.microsoft.com/ja-jp/office/vba/language/reference/functions-visual-basic-for-applications[関数 (Visual Basic for Applications) | Microsoft Docs]
-
-.変換関数
-
-* Asc
-* Chr
-* CVErr
-* Format
-* 16 進数
-* Oct
-* Str
-* Val
-
-.数学関数
-
-*    Abs
-*    Atn
-*    Cos
-*    Derived Math
-*    Exp
-*    Int、Fix
-*    Log
-*    Rnd
-*    Sgn
-*    Sin
-*    Sqr
-*    Tan
-
-.データ型変換関数
-
-*    データ型変換関数
-
-.その他の関数
-
-* Array
-* CallByName
-* Choose
-* コマンド
-* CreateObject
-* CurDir
-* Date
-* DateAdd
-* DateDiff
-* DatePart
-* DateSerial
-* DateValue
-* Day
-* DDB
-* Dir
-* DoEvents
-* Environ
-* EOF
-* Error
-* FileAttr
-* FileDateTime
-* FileLen
-* Filter
-* FormatCurrency
-* FormatDateTime
-* FormatNumber
-* FormatPercent
-* FreeFile
-* FV
-* GetAllSettings
-* GetAttr
-* GetObject
-* GetSetting
-* Hour
-* IIf
-* IMEStatus
-* Input
-* InputBox
-* InStr
-* InStrRev
-* IPmt
-* IRR
-* IsArray
-* IsDate
-* IsEmpty
-* IsError
-* IsMissing
-* IsNull
-* IsNumeric
-* IsObject
-* Join
-* LBound
-* LCase
-* Left
-* Len
-* Loc
-* LOF
-* LTrim、RTrim、および Trim
-* MacID
-* MacScript
-* Mid
-* Minute
-* MIRR
-* Month
-* MonthName
-* MsgBox
-* Now
-* NPer
-* NPV
-* Partition
-* Pmt
-* PPmt
-* PV
-* QBColor
-* Rate
-* Replace
-* RGB
-* Right
-* Round
-* Second
-* Seek
-* Shell
-* SLN
-* Space
-* Spc
-* Split
-* StrComp
-* StrConv
-* String
-* StrReverse
-* Switch
-* SYD
-* Tab
-* Time
-* Timer
-* TimeSerial
-* TimeValue
-* TypeName
-* UBound
-* UCase
-* VarType
-* Weekday
-* WeekdayName
-* Year
-
-
-=== InStr 関数
-
-ある文字列が別の文字列の中で最初に現れる位置を指定するVariant（Long）を返しま
-す。
-
-
-
-
-
-
-
-
-
-
-=== is関数
-.is関数
-[cols="1,4",options="header"]
-|===
-|IsArray 関数|変数が配列かどうかを示す Boolean 値を返します。
-|IsDate 関数|式が日付であるか、有効な日付または時刻として認識可能な場合にはTrue を返し、それ以外の場合には False を返します。
-|IsEmpty 関数|変数が初期化されているかどうかを示す Boolean 値を返します。
-|IsError 関数|式がエラー値かどうかを示すブール型 (Boolean) の値を返します。
-|IsMissing 関数|省略可能なVariant 引数がプロシージャに渡されたかどうかを示すブール型 (Boolean ) の値を返します。
-|IsNull 関数|式に無効なデータ (Null) が含まれていないかどうかを示すブール型 (Boolean) の値を返します。
-|IsNumeric 関数|式を数値として評価できるかどうかを示すブール型 (Boolean) の値を返します。
-|IsObject 関数|識別子がオブジェクト変数を表しているかどうかを示す Boolean 値を返します。
-|===
-
-
-
-
-=== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/isarray-function[IsArray 関数 (Visual Basic for Applications) | Microsoft Docs]
-
-変数が配列かどうかを示す Boolean 値を返します。
-
-.構文
-
-[source,vbscript]
-----
-IsArray(varname)
-----
-
-
-== https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/keywords-by-task[タスク別のキーワード | Microsoft Docs]
-
 
 
 
@@ -5950,9 +6158,15 @@ Sleep 500
 
 
 include::VBAreference.adoc[]
-include::VBSctipt.adoc[]
+
+include::vbscript_tip.adoc[]
+
+// include::VBSctipt.adoc[]
+
+include::90_MicrosoftWindows_Script_Technology.adoc[]
+include::91_vbscript_Users_Guide.adoc[]
+include::92_vbscript_Language_Reference.adoc[]
 
 
-
-
+[index]
 //	vim:fileencoding=utf-8:ff=unix:

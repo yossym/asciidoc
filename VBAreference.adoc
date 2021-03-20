@@ -1,4 +1,5 @@
-= Visual Basic for Applications (VBA) の言語リファレンス
+// = Visual Basic for Applications (VBA) の言語リファレンス
+= https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference[Visual Basic 言語リファレンス | Microsoft Docs]
 // 著者の名前(省略可)<メールアドレス(省略可能)>
 // バージョンや作成日(省略可)
 :Author:	yossym
@@ -34,14 +35,19 @@ Excel VBA リファレンス
 		Microsoft Forms の概念に関するトピック
 	使用方法に関するトピック
 	Visual Basic の操作手順のトピック
-	Visual Basic 言語リファレンス
-		定数 (Visual Basic for Applications)
-		データ型の概要
-		イベント (Visual Basic for Applications)
-		関数 (Visual Basic for Applications)
-		タスク別のキーワード
-		オブジェクト (Visual Basic for Applications)
-		Statements
+                文字セット
+                定数
+                データ型
+                ディレクティブ
+                イベント
+                関数
+                キーワード
+                Microsoft Forms
+                オブジェクト
+                Operators
+                ステートメント
+                Visual Basic アドイン モデルVisual Basic 言語リファレンス
+
 
 Excel Visual Basic for Applications (VBA) リファレンス | Microsoft Docs
 https://docs.microsoft.com/ja-jp/office/vba/api/overview/excel
@@ -92,75 +98,1237 @@ Visual Basic 言語 (すべてのメソッド、プロパティ、ステート�
 
 === 定数 (Visual Basic for Applications)
 
-==== カレンダー定数
+==== VBA 定数
 
-    2018/12/11
+
+===== カレンダー定数
+
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
 
 [cols="1,4",options="header"]
 |===
-|定数 |値 |説明
-|vbCalGreg |.0 |グレゴリオ暦を使用することを示します。
-|vbCalHijri |1-d |回教暦 (イスラム暦) カレンダーを使用することを示します。
+| 定数       | 値  | 説明
+| vbCalGreg  | .0  | グレゴリオ暦を使用することを示します。
+| vbCalHijri | 1-d | 回教暦 (イスラム暦) カレンダーを使用することを示します。
 |===
 
-==== CallType 定数
+===== CallType 定数
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
 
 [cols="1,1,4",options="header"]
 |===
-|定数 |値 |説明
-|vbMethod |1-d |メソッドが呼び出されることを指定します。
-|vbGet |pbm-2 |Property Get プロシージャを示します。
-|vbLet |2/4 |Property Let プロシージャを示します。
-|vbSet |8 |Property Set プロシージャを示します。
+| 定数     | 値    | 説明
+| vbMethod | 1-d   | メソッドが呼び出されることを指定します。
+| vbGet    | pbm-2 | Property Get プロシージャを示します。
+| vbLet    | 2/4   | Property Let プロシージャを示します。
+| vbSet    | 8     | Property Set プロシージャを示します。
 |===
 
 
-==== カラー定数
+===== カラー定数
 
 [cols="3,3,1",options="header"]
 |===
-|定数 |値 |説明
-|vbBlack |0x0 |黒
-|vbRed |0xFF |赤
-|vbGreen |0xFF00 |緑
-|vbYellow |0xFFFF |黄
-|vbBlue |0xFF0000 |青
-|vbMagenta |0xFF00FF |紫
-|vbCyan |0xFFFF00 |シアン
-|vbWhite |0xFFFFFF |白
+| 定数      | 値       | 説明
+| vbBlack   | 0x0      | 黒
+| vbRed     | 0xFF     | 赤
+| vbGreen   | 0xFF00   | 緑
+| vbYellow  | 0xFFFF   | 黄
+| vbBlue    | 0xFF0000 | 青
+| vbMagenta | 0xFF00FF | 紫
+| vbCyan    | 0xFFFF00 | シアン
+| vbWhite   | 0xFFFFFF | 白
 |===
 
-==== 比較定数
+===== 比較定数
 
 [cols="2,1,4",options="header"]
 |===
-|定数 |値 |説明
-|vbUseCompareOption |-1 |Option Compare ステートメントの設定を使用して比較を実行します。
-|vbBinaryCompare |.0 |バイナリ比較を実行します。
-|vbTextCompare |1-d |テキスト比較を実行します。
-|vbDatabaseCompare |pbm-2 |Microsoft Access (Windows のみ) で、データベースに格納されている情報に基づいて比較を実行します。
+| 定数               | 値    | 説明
+| vbUseCompareOption | -1    | Option Compare ステートメントの設定を使用して比較を実行します。
+| vbBinaryCompare    | .0    | バイナリ比較を実行します。
+| vbTextCompare      | 1-d   | テキスト比較を実行します。
+| vbDatabaseCompare  | pbm-2 | Microsoft Access (Windows のみ) で、データベースに格納されている情報に基づいて比較を実行します。
 |===
 
+===== Date 定数
+
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+.引数の値
+
+firstdayofweek 引数には、次の値があります。
+
+[cols="4,1,4",options="header"]
+|===
+|定数        | 値       | 説明
+|vbUseSystem | .0       | NLS API 設定を使用します。
+|vbSunday    | 1-d      | 日曜日 (既定)
+|vbMonday    | pbm-2    | 月曜日
+|vbTuesday   | 1/3      | 火曜日
+|vbWednesday | 2/4      | 水曜日
+|vbThursday  | 5        | 木曜日
+|vbFriday    | シックス | 金曜日
+|vbSaturday  | 7        | 土曜日
+|===
+
+firstdayofyear 引数には、次の値があります。
+
+[cols="4,1,4",options="header"]
+|===
+| 定数                 | 値    | 説明
+| vbUseSystem          | .0    | NLS API 設定を使用します。
+| VbUseSystemDayOfWeek | .0    | システム設定で週の 1 日目に指定された曜日を使用します。
+| vbFirstJan1          | 1-d   | 1 月 1 日が含まれる週から開始します (既定)。
+| vbFirstFourDays      | pbm-2 | 新年で少なくとも 4 日ある最初の週から開始します。
+| vbFirstFullWeek      | 1/3   | 1 週間全体が含まれる最初の週がその年の第 1 週目になります。
+|===
+
+.戻り値
+
+[cols="4,1,4",options="header"]
+|===
+| 定数        | 値       | 説明
+| vbSunday    | 1-d      | 日曜日
+| vbMonday    | pbm-2    | 月曜日
+| vbTuesday   | 1/3      | 火曜日
+| vbWednesday | 2/4      | 水曜日
+| vbThursday  | 5        | 木曜日
+| vbFriday    | シックス | 金曜日
+| vbSaturday  | 7        | 土曜日
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+===== 日付形式の定数
+
+
+この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
+に参照される場合にのみ使用できます。
+
+[cols="4,1,4",options="header"]
+|===
+|定数          | 値    | 説明
+|vbGeneralDate | .0    | 日付と時刻のどちらか、または両方を表示します。 実数の場合、日付と時刻を表示します。 小数の部分がない場合、日付だけを表示します。 整数部がない場合は、時刻のみを表示します。 日付と時刻の表示は、システムの設定によって決定されます。
+|vbLongDate    | 1-d   | コンピューターの地域の設定で指定されている長い日付形式を使用して日付を表示します。
+|vbShortDate   | pbm-2 | コンピューターの地域の設定で指定されている短い日付形式を使用して日付を表示します。
+|vbLongTime    | 1/3   | コンピューターの地域の設定で指定されている長い時刻形式を使用して時刻を表示します。
+|vbShortTime   | 2/4   | コンピューターの地域の設定で指定されている短い時刻形式を使用して時刻を表示します。
+|===
+
+.関連項目
+
+    定数 (Visual Basic for Applications)
+
+===== Dir、GetAttr、および SetAttr 定数
+
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+
+[cols="4,1,4",options="header"]
+|===
+| 定数        | 値    | 説明
+| vbNormal    | .0    | 標準 (Dir および SetAttr の既定値)
+| vbReadOnly  | 1-d   | 読み取り専用
+| vbHidden    | pbm-2 | 非表示
+| vbSystem    | 2/4   | システム ファイル
+| vbVolume    | 8     | ボリューム ラベル
+| vbDirectory | 16    | ディレクトリまたはフォルダー
+| vbArchive   | 32    | ファイルが前回のバックアップ以降に変更されている
+| vbAlias     | 64    | Macintosh では識別子はエイリアス
+|===
+
+Macintosh では vbNormal、vbReadOnly、vbHidden、および vbAlias のみが使用できま
+す。
+
+関連項目
+
+* <<Dir,Dir 関数>>
+* <<GetAttr,GetAttr 関数>>
+* <<SetArre, SetAttr ステートメント>>
+* 定数 (Visual Basic for Applications)
+
+
+===== DriveType 定数
+
+
+この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
+に参照される場合にのみ使用できます。
+
+
+[cols="2,1,4",options="header"]
+|===
+| 定数      | 値 | 説明
+| Unknown   | 0  | ドライブの種類を特定できません。
+| Removable | 1  | ドライブにリムーバブル メディアがあります。 これには、すべてのフロッピー ドライブと他のさまざまな種類のストレージ デバイスが含まれます。
+| Fixed     | 2  | ドライブに、固定 (取り外しできない) メディアがあります。 これには、取り外し可能なハード ドライブを含むすべてのハード ドライブが含まれます。
+| Remote    | 3  | ネットワーク ドライブです。 これには、ネットワーク上のどこでも共有できるドライブが含まれます。
+| CDROM     | 4  | ドライブは、CD-ROM です。 読み取り専用 CD-ROM ドライブと、読み取り/書き込み可能な CD-ROM ドライブの区別はされません。
+| RAMDisk   | 5  | ディスク ドライブのように動作するローカル コンピューター上のランダム アクセス メモリ (RAM) のブロックによるドライブです。
+|===
+
+.関連項目
+
+    定数 (Visual Basic for Applications)
+
+
+
+===== File Attribute定数
+
+
+この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
+に参照される場合にのみ使用できます。
+
+
+[cols="2,1,4",options="header"]
+|===
+| 定数       | 値  | 説明
+| Normal     | 0   | 標準のファイル。 属性は設定されません。
+| ReadOnly   | 1   | 読み取り専用ファイル。 属性は、読み取り/書き込み可能です。
+| Hidden     | 2   | 隠しファイル。 属性は、読み取り/書き込み可能です。
+| System     | 4   | システム ファイル。 属性は、読み取り/書き込み可能です。
+| Volume     | 8   | ディスク ドライブのボリューム ラベル。 属性は読み取り専用です。
+| Directory  | 16  | フォルダーまたはディレクトリ。 属性は読み取り専用です。
+| Archive    | 32  | 前回のバックアップ以降に変更されているファイル。 属性は、読み取り/書き込み可能です。
+| Alias      | 64  | リンクまたはショートカット。 属性の値の取得のみ可能です。
+| Compressed | 128 | 圧縮ファイル。 属性は読み取り専用です。
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+
+===== File Input/Output定数
+
+
+この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
+に参照される場合にのみ使用できます。
+
+
+[cols="2,1,4",options="header"]
+|===
+| 定数         | 値| 説明
+| ForReading   | 1 | ファイルを読み取り専用として開きます。 このファイルには書き込むことはできません。
+| ForWriting   | 2 | ファイルを書き込み用として開きます。 同じ名前のファイルが既に存在する場合、以前の内容が上書きされます。
+| ForAppending | 8 | ファイルを開き、ファイルの最後に書き込みます。
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+===== Form 定数
+
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+
+[cols="2,1,4",options="header"]
+|===
+| 定数       | 値 | 説明
+| vbModeless | 0  | UserForm はモードレスです。
+| vbModal    | 1  | UserForm はモーダルです (既定値)。
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+
+===== IMEStatus 定数
+
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+日本語のロケールの定数は次のとおりです。
+
+テーブル 1
+
+[cols="4,1,4",options="header"]
+|===
+| 定数                  | 値 | 説明
+| vbIMEModeNoControl    | 0  | IME を制御しません (既定)
+| vbIMEModeOn           | 1  | IME をオンにします。
+| vbIMEModeOff          | 2  | IME がオフ
+| vbIMEModeDisable      | 3  | IME は無効になっています。
+| vbIMEModeHiragana     | 4  | 全角ひらがなモードです。
+| vbIMEModeKatakana     | 5  | 全角カタカナ モードです。
+| vbIMEModeKatakanaHalf | 6  | 半角カタカナ モードです。
+| vbIMEModeAlphaFull    | 7  | 全角英数字モードです。
+| vbIMEModeAlpha        | 8  | 半角英数字モードです。
+|===
+
+韓国語のロケールの定数値は次のとおりです。
+
+[cols="4,1,4",options="header"]
+|===
+| 定数                | 値 | 説明
+| vbIMEModeNoControl  | 0 | IME を制御しません (既定値)。
+| vbIMEModeAlphaFull  | 7  | 全角英数字モードです。
+| vbIMEModeAlpha      | 8  | 半角英数字モード
+| vbIMEModeHangulFull | 9  | 全角ハングル モードです。
+| vbIMEModeHangul     | 10 | 半角ハングル モードです。
+|===
+
+中国語のロケールの定数値は次のとおりです。
+
+[cols="4,1,4",options="header"]
+|===
+| 定数               | 値 | 説明
+| vbIMEModeNoControl | 0  | IME を制御しません (既定)
+| vbIMEModeOn        | 1  | IME をオンにします。
+| vbIMEModeOff       | 2  | IME をオフにします。
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+
+
+===== Keycode 定数
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+.Keycode 定数
+
+[cols="4,1,4",options="header"]
+|===
+| 定数          | 値   | 説明
+| VBKeyLButton  | 0x1  | 左マウス ボタン
+| VBKeyRButton  | 0x2  | 右マウス ボタン
+| VBKeyCancel   | 0x3  | Cancel キー
+| VBKeyMButton  | 0x4  | マウスの中央ボタン
+| VBKeyBack     | 0x8  | Backspace
+| VBKeyTab      | 0x9  | Tab キー
+| VBKeyClear    | 0xC  | Clear
+| VBKeyReturn   | 0xD  | Enter
+| VBKeyShift    | 0x10 | Shift キーが押されました。
+| VBKeyControl  | 0x11 | Ctrl キーが押されました。
+| VBKeyMenu     | 0x12 | メニュー キー
+| VBKeyPause    | 0x13 | Pause
+| VBKeyCapital  | 0x14 | Caps Lock
+| VBKeyEscape   | 0x1B | Esc キー
+| VBKeySpace    | 0x20 | Space キー
+| VBKeyPageUp   | 0x21 | PageUp
+| VBKeyPageDown | 0x22 | PageDown
+| VBKeyEnd      | 0x23 | End
+| VBKeyHome     | 0x24 | Home
+| VBKeyLeft     | 0x25 | ←
+| VBKeyUp       | 0x26 | ↑
+| VBKeyRight    | 0x27 | →
+| VBKeyDown     | 0x28 | ↓
+| VBKeySelect   | 0x29 | Select
+| VBKeyPrint    | 0x2A | PrintScreen
+| VBKeyExecute  | 0x2B | Execute
+| VBKeySnapshot | 0x2C | Snapshot キー
+| VBKeyInsert   | 0x2D | Insert キー
+| VBKeyDelete   | 0x2E | Delete キー
+| VBKeyHelp     | 0x2F | Help
+| VBKeyNumlock  | 0x90 | Num Lock
+|===
+
+.キーと Z キー
+
+A キーから Z キーは、ASCII の A から Z と同じです。
+
+[cols="4,1,4",options="header"]
+|===
+| 定数   | 値 | 説明
+| vbKeyA | 65 | A キー
+| vbKeyB | 66 | B キー
+| vbKeyC | 67 | C キー
+| vbKeyD | 68 | D キー
+| vbKeyE | 69 | E キー
+| vbKeyF | 70 | F キー
+| vbKeyG | 71 | G キー
+| vbKeyH | 72 | H キー
+| vbKeyI | 73 | I キー
+| vbKeyJ | 74 | J キー
+| vbKeyK | 75 | K キー
+| vbKeyL | 76 | L キー
+| vbKeyM | 77 | M キー
+| vbKeyN | 78 | N キー
+| vbKeyO | 79 | O キー
+| vbKeyP | 80 | P キー
+| vbKeyQ | 81 | Q キー
+| vbKeyR | 82 | R キー
+| vbKeyS | 83 | S キー
+| vbKeyT | 84 | T キー
+| vbKeyU | 85 | U キー
+| vbKeyV | 86 | V キー
+| vbKeyW | 87 | W キー
+| vbKeyX | 88 | X キー
+| vbKeyY | 89 | Y キー
+| vbKeyZ | 90 | Z キー
+|===
+
+.0キー-9 キー
+
+0 キーから 9 キーは ASCII の 0 から 9 と同じです。
+
+[cols="4,1,4",options="header"]
+|===
+| 定数   | 値 | 説明
+| vbKey0 | 48 | 0 キー
+| vbKey1 | 49 | 1 キー
+| vbKey2 | 50 | 2 キー
+| vbKey3 | 51 | 3 キー
+| vbKey4 | 52 | 4 キー
+| vbKey5 | 53 | 5 キー
+| vbKey6 | 54 | 6 キー
+| vbKey7 | 55 | 7 キー
+| vbKey8 | 56 | 8 キー
+| vbKey9 | 57 | 9 キー
+|===
+
+.テンキーキー
+
+次の定数は、テンキーのキーを表します。
+
+[cols="4,1,4",options="header"]
+|===
+| 定数           | 値   | 説明
+| vbKeyNumpad0   | 0x60 | 0 キー
+| vbKeyNumpad1   | 0x61 | 1 キー
+| vbKeyNumpad2   | 0x62 | 2 キー
+| vbKeyNumpad3   | 0x63 | 3 キー
+| vbKeyNumpad4   | 0x64 | 4 キー
+| vbKeyNumpad5   | 0x65 | 5 キー
+| vbKeyNumpad6   | 0x66 | 6 キー
+| vbKeyNumpad7   | 0x67 | 7 キー
+| vbKeyNumpad8   | 0x68 | 8 キー
+| vbKeyNumpad9   | 0x69 | 9 キー
+| vbKeyMultiply  | 0x6A | 乗算記号 (*) キー
+| vbKeyAdd       | 0x6B | 加算記号 (+) キー
+| vbKeySeparator | 0x6C | Enter
+| vbKeySubtract  | 0x6D | 減算記号 (-) キー
+| vbKeyDecimal   | 0x6E | 小数点 (.) キー
+| vbKeyDivide    | 0x6F | 除算記号 (/) キー
+|===
+
+.ファンクションキー
+
+次の定数は、ファンクション キーを表します。
+
+
+[cols="4,1,4",options="header"]
+|===
+| 定数     | 値   | 説明
+| vbKeyF1  | 0x70 | F1 キー
+| vbKeyF2  | 0x71 | F2 キー
+| vbKeyF3  | 0x72 | F3 キー
+| vbKeyF4  | 0x73 | F4 キー
+| vbKeyF5  | 0x74 | F5 キー
+| vbKeyF6  | 0x75 | F6 キー
+| vbKeyF7  | 0x76 | F7 キー
+| vbKeyF8  | 0x77 | F8 キー
+| vbKeyF9  | 0x78 | F9 キー
+| vbKeyF10 | 0x79 | F10 キー
+| vbKeyF11 | 0x7A | F11 キー
+| vbKeyF12 | 0x7B | F12 キー
+| vbKeyF13 | 0x7C | F13 キー
+| vbKeyF14 | 0x7D | F14 キー
+| vbKeyF15 | 0x7E | F15 キー
+| vbKeyF16 | 0x7F | F16 キー
+|===
+
+関連項目
+
+定数 (Visual Basic for Applications)
+
+
+===== その他の定数
+
+
+以下の定数は、Visual Basic for Applications のタイプ ライブラリで定義されてお
+り、コードの任意の場所で実際の値の代わりに使用できます。
+
+
+[cols="2,1,4",options="header"]
+|===
+ | 定数          | 値                                             | 説明
+ | vbCrLf        | Chr(13) + Chr(10)                              | キャリッジ リターンとライン フィードの組み合わせ
+ | vbCr          | Chr(13)                                        | キャリッジ リターン文字
+ | vbLf          | Chr(10)                                        | ライン フィード文字
+ | vbNewLine     | Chr(13) + Chr(10)。Macintosh の場合は、Chr(13) | プラットフォーム固有の改行文字。現在のプラットフォームに対応する文字が使用されます。
+ | vbNullChar    | Chr(0)                                         | 値 0 を持つ文字
+ | vbNullString  | 値が 0 の文字列                                | 長さ 0 の文字列 ("") とは異なります。外部プロシージャの呼び出しに使用されます。
+ | vbObjectError | -2147221504                                    | ユーザー定義のエラー番号は、この値より大きい値である必要があります。 次に例を示します。+
+Err.Raise Number = vbObjectError + 1000
+ | vbTab         | Chr(9)  | タブ文字
+ | vbBack        | Chr(8)  | バックスペース文字
+ | vbFormFeed    | Chr(12) | Microsoft Windows または Macintosh では使用しません。
+ | vbVerticalTab | Chr(11) | Microsoft Windows または Macintosh では役に立たない
+|===
+
+関連項目
+
+定数 (Visual Basic for Applications)
+
+===== MsgBox 定数
+
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+.MsgBox の引数
+
+[cols="4,1,4",options="header"]
+|===
+| 定数                  | 値      | 説明
+| vbOKOnly              | 0       | [ OK ] ボタンのみ (既定値)
+| vbOKCancel            | 1       | [OK] ボタンと [キャンセル] ボタン
+| vbAbortRetryIgnore    | 2       | [ 中止 ]、[ 再試行 ]、[ 無視 ] の各ボタン
+| vbYesNoCancel         | 3       | [ はい ]、[ いいえ ]、[ キャンセル ] の各ボタン
+| vbYesNo               | 4       | [ はい ] ボタンと [ いいえ ] ボタン
+| vbRetryCancel         | 5       | [ 再試行 ] ボタンと [ キャンセル ] ボタン
+| vbCritical            | 16      | 重大なメッセージ
+| vbQuestion            | 32      | 警告クエリ
+| vbExclamation         | 48      | 警告メッセージ
+| vbInformation         | 64      | 情報メッセージ
+| vbDefaultButton1      | .0      | 1 番目のボタンが既定 (既定値)
+| vbDefaultButton2      | 256     | 2 番目のボタンが既定
+| vbDefaultButton3      | 512     | 3 番目のボタンが既定
+| vbDefaultButton4      | 768     | 4 番目のボタンが既定
+| vbApplicationModal    | .0      | アプリケーションのモーダル メッセージ ボックス (既定値)
+| vbSystemModal         | 4096    | システムのモーダル メッセージ ボックス
+| vbMsgBoxHelpButton    | 16384   | メッセージ ボックスに [ヘルプ] ボタンを追加する
+| VbMsgBoxSetForeground | 65536   | メッセージ ボックス ウィンドウを手前のウィンドウにする
+| vbMsgBoxRight         | 524288  | テキストを右揃えにする
+| vbMsgBoxRtlReading    | 1048576 | ヘブライ語とアラビア語のシステムでテキストが右から左に読む形式で表示されるようにする
+|===
+
+.MsgBox の戻り値
+
+[cols="4,1,4",options="header"]
+|===
+| 定数     | 値 | 説明
+| vbOK     | 1  | [ OK ] ボタンが押された
+| vbCancel | 2  | [ キャンセル ] ボタンが押された
+| vbAbort  | 3  | [ 中止 ] ボタンが押された
+| vbRetry  | 4  | [ 再試行 ] ボタンが押された
+| vbIgnore | 5  | [ 無視 ] ボタンが押された
+| vbYes    | 6  | [ はい ] ボタンが押された
+| vbNo     | 7  | [いいえ] ボタンが押された
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+===== QueryClose 定数
+
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+.QueryClose 定数
+
+[cols="4,1,4",options="header"]
+|===
+| 定数              | 値    | 説明
+| vbFormControlMenu | .0    | ユーザーが、フォームのコントロールメニューで [閉じる] コマンドを選択しました。
+| vbFormCode        | 1-d   | コードから Unload ステートメントが呼び出されます。
+| vbAppWindows      | pbm-2 | 現在の Microsoft Windows オペレーティング環境のセッションが終了しまします。
+| vbAppTaskManager  | 1/3   | Windows タスク マネージャーがアプリケーションを閉じようとしています。
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+===== shell 定数
+
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+シェル定数
+
+[cols="4,1,4",options="header"]
+|===
+| 定数               | 値 | 説明
+| vbHide             | 0  | ウィンドウは非表示で、フォーカスは非表示ウィンドウに渡されます。
+| vbNormalFocus      | 1  | ウィンドウがフォーカスを持ち、元のサイズと位置に復元されます。
+| vbMinimizedFocus   | 2  | ウィンドウがフォーカスを持ってアイコンとして表示されます。
+| vbMaximizedFocus   | 3  | ウィンドウがフォーカスを持って最大化されます。
+| vbNormalNoFocus    | 4  | ウィンドウは、最新のサイズと位置に復元されます。 現在アクティブなウィンドウはアクティブのままです。
+| vbMinimizedNoFocus | 6  | ウィンドウはアイコンとして表示されます。 現在アクティブなウィンドウはアクティブのままです。
+|===
+
+Macintosh では、vbNormalFocus、vbMinimizedFocus、vbMaximizedFocus はすべて、ア
+プリケーションをフォアグラウンドに配置します。vbHide、vbNoFocus、
+vbMinimizedFocus はすべて、アプリケーションをバックグラウンドに配置します。
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+
+===== SpecialFolder 定数
+
+
+この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
+に参照される場合にのみ使用できます。
+
+.SpecialFolder 定数
+
+[cols="4,1,4",options="header"]
+|===
+| 定数            | 値 | 説明
+| WindowsFolder   | 0  | Windows オペレーティング システムによってインストールされたファイルが格納されている Windows フォルダー。
+| SystemFolder    | 1  | ライブラリ、フォント、およびデバイス ドライバーが格納されている System フォルダー。
+| TemporaryFolder | 2  | 一時ファイルの格納に使用される Temp フォルダー。 このパスは TMP 環境変数で指定されています。
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+
+===== StrConv 定数
+
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+.StrConv 定数
+
+[cols="4,1,4",options="header"]
+|===
+| 定数          | 値  | 説明
+| vbUpperCase   | 1   | 文字列を大文字に変換します。
+| vbLowerCase   | 2   | 文字列を小文字に変換します。
+| vbProperCase  | 3   | 文字列のすべての単語の最初の文字を大文字に変換します。
+| vbWide        | 4   | 文字列の半角 (1 バイト) 文字を全角 (2 バイト) 文字に変換します。 東アジア ロケールに適用されます。
+| vbNarrow      | 8   | 文字列の全角 (2 バイト) 文字を半角 (1 バイト) 文字に変換します。 東アジア ロケールに適用されます。
+| vbKatakana    | 16  | 文字列のひらがなをカタカナに変換します。 日本のみに適用されます。
+| vbHiragana    | 32  | 文字列のカタカナをひらがなに変換します。 日本のみに適用されます。
+| vbUnicode     | 64  | システムの既定のコード ページを使用して文字列を Unicode に変換します (Macintosh では使用できません)。
+| vbFromUnicode | 128 | 文字列を Unicode からシステムの既定のコード ページに変換します (Macintosh では使用できません)。
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
+
+
+===== system color 定数
+
+
+次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
+
+システムカラー定数
+
+[cols="4,1,4",options="header"]
+|===
+| 定数                    | 値         | 説明
+| vbScrollBars            | 0x80000000 | スクロール バーの色
+| vbDesktop               | 0x80000001 | デスクトップの色
+| vbActiveTitleBar バー   | 0x80000002 | アクティブ ウィンドウのタイトル バーの色
+| vbInactiveTitleBar バー | 0x80000003 | 非アクティブ ウィンドウのタイトル バーの色
+| vbMenuBar               | 0x80000004 | メニューの背景色
+| vbWindowBackground      | 0x80000005 | ウィンドウの背景色
+| vbWindowFrame           | 0x80000006 | ウィンドウ枠の色
+| vbMenuText              | 0x80000007 | メニューの文字色
+| vbWindowText            | 0x80000008 | ウィンドウの文字色
+| Vbタイトルバーテキスト  | 0x80000009 | キャプション、サイズ ボックス、およびスクロール矢印の文字色
+| vbActiveBorder          | 0x8000000A | アクティブ ウィンドウの境界線の色
+| vbInactiveBorder        | 0x8000000B | 非アクティブ ウィンドウの境界線の色
+| vbApplicationWorkspace  | 0x8000000C | マルチドキュメント インターフェイス (MDI) アプリケーションの背景色
+| vbHighlight 表示        | 0x8000000D | コントロールで選択されているアイテムの背景色
+| vbHighlightText         | 0x8000000E | コントロールで選択されているアイテムの文字色
+| vbButtonFace            | 0x8000000F | コマンド ボタンの表面の網掛けの色
+| vbButtonShadow          | 0x80000010 | コマンド ボタンの端の網掛けの色
+| Vbグレーのテキスト      | 0x80000011 | 単色表示の (無効な) 文字
+| vbButtonText            | 0x80000012 | プッシュ ボタンの文字色
+| vbInactiveCaptionText   | 0x80000013 | 非アクティブなキャプションの文字色
+| vb3DHighlight           | 0x80000014 | 3D 表示の強調表示色
+| vb3DDKShadow            | 0x80000015 | 3D 表示で最も濃い影に使用する色
+| vb3DLight               | 0x80000016 | 3D 表示で使用する vb3DHighlight の次に明るい色
+| Vbinテキスト            | 0x80000017 | ツール ヒントの文字色
+| vbInfoBackground        | 0x80000018 | ツール ヒントの背景色
+|===
+
+.関連項目
+
+定数 (Visual Basic for Applications)
 
 
 
 
 
-==== Tristate 定数
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===== Tristate 定数
 
 この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
 に参照される場合にのみ使用できます。
 
 [options="header"]
 |===
-|定数 |値 |説明
-|vbTrue |-1 |True
-|vbFalse |;0 |False
-|vbUseDefault |-2 |既定の設定を使用
+| 定数         | 値 | 説明
+| vbTrue       | -1 | True
+| vbFalse      | ;0 | False
+| vbUseDefault | -2 | 既定の設定を使用
 |===
 
 
@@ -297,20 +1465,20 @@ Null
 
 [cols="1,1,4",options="header"]
 |===
-|Function |戻り値の種類 |expression 引数の範囲
-|CBool |Boolean |任意の有効な文字列式または数式を指定します。
-|CByte |Byte |0 から 255。
-|CCur |Currency |-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807。
-|CDate |Date |任意の有効な日付式。
-|CDbl |Double |負の値の場合は -1.79769313486231E308 ～ -4.94065645841247E-324、正の値の場合は 4.94065645841247E-324 ～ 1.79769313486232E308。
-|CDec |Decimal |ゼロスケールの値 (小数部分がない値) の場合は 79,228,162,514,264,337,593,543,950,335 です。 小数点以下が 28 桁の値の場合は 7.9228162514264337593543950335 です。 0 以外で可能な最小値は 0.0000000000000000000000000001 です。
-|CInt |Integer |-32,768 から 32,767。小数点以下は丸められます。
-|CLng |Long |-2,147,483,648 から 2,147,483,647。小数点以下は丸められます。
-|CLngLng |LongLong |-9,223,372,036,854,775,808 から 9,223,372,036,854,775,807。小数点以下は丸められます (64 ビット プラットフォームのみで有効)。
-|CLngPtr |LongPtr |32 ビットのシステムでは -2,147,483,648 ～ 2,147,483,647、64 ビットのシステムでは -9,223,372,036,854,775,808 ～ 9,223,372,036,854,775,807。32 ビットと 64 ビットのどちらのシステムでも、小数部分は丸められます。
-|CSng |Single |負の値の場合は -3.402823E38 ～ -1.401298E-45、正の値の場合は 1.401298E-45 ～ 3.402823E38。
-|CStr |String |CStr の戻り値は、expression 引数に依存します。
-|CVar |Variant |数値の場合は Double と同じ範囲です。 数値以外の場合は String と同じ範囲です。
+|Function | 戻り値の種類 | expression 引数の範囲
+|CBool    | Boolean      | 任意の有効な文字列式または数式を指定します。
+|CByte    | Byte         | 0 から 255。
+|CCur     | Currency     | -922,337,203,685,477.5808 ～ 922,337,203,685,477.5807。
+|CDate    | Date         | 任意の有効な日付式。
+|CDbl     | Double       | 負の値の場合は -1.79769313486231E308 ～ -4.94065645841247E-324、正の値の場合は 4.94065645841247E-324 ～ 1.79769313486232E308。
+|CDec     | Decimal      | ゼロスケールの値 (小数部分がない値) の場合は 79,228,162,514,264,337,593,543,950,335 です。 小数点以下が 28 桁の値の場合は 7.9228162514264337593543950335 です。 0 以外で可能な最小値は 0.0000000000000000000000000001 です。
+|CInt     | Integer      | -32,768 から 32,767。小数点以下は丸められます。
+|CLng     | Long         | -2,147,483,648 から 2,147,483,647。小数点以下は丸められます。
+|CLngLng  | LongLong     | -9,223,372,036,854,775,808 から 9,223,372,036,854,775,807。小数点以下は丸められます (64 ビット プラットフォームのみで有効)。
+|CLngPtr  | LongPtr      | 32 ビットのシステムでは -2,147,483,648 ～ 2,147,483,647、64 ビットのシステムでは -9,223,372,036,854,775,808 ～ 9,223,372,036,854,775,807。32 ビットと 64 ビットのどちらのシステムでも、小数部分は丸められます。
+|CSng     | Single       | 負の値の場合は -3.402823E38 ～ -1.401298E-45、正の値の場合は 1.401298E-45 ～ 3.402823E38。
+|CStr     | String       | CStr の戻り値は、expression 引数に依存します。
+|CVar     | Variant      | 数値の場合は Double と同じ範囲です。 数値以外の場合は String と同じ範囲です。
 |===
 
 .解説
@@ -1719,45 +2887,50 @@ format を指定せずに数値を書式設定する場合、Format は Str 関�
 ローカライズされていない数値文字列を書式設定する場合、目的の書式を実現するには、
 ユーザー定義数値書式を使用する必要があります。
 
-CAUTION:	Calendar プロパティの設定が Gregorian で、format が日付書式を
+CAUTION:Calendar プロパティの設定が Gregorian で、format が日付書式を
 指定する場合、指定する expression は Gregorian である必要があります。 Visual
 Basic Calendar プロパティ設定が Hijri である場合、指定する expression は Hijri
 である必要があります。
 
 
-カレンダーがグレゴリオ暦である場合、format 式記号の意味は変わりません。 カレンダーがイスラム暦の場合、すべての日付書式記号 (たとえば、dddd、mmmm、yyyy) は同じ意味を持ちますが、イスラム暦に適用されます。 書式記号は英語のままです。テキスト表示 (たとえば、AM や PM) になる記号では、その記号に対応する文字列 (英語またはアラビア語) が表示されます。 カレンダーがイスラム暦の場合、特定の記号の範囲は変わります。
+カレンダーがグレゴリオ暦である場合、format 式記号の意味は変わりません。 カレン
+ダーがイスラム暦の場合、すべての日付書式記号 (たとえば、dddd、mmmm、yyyy) は同
+じ意味を持ちますが、イスラム暦に適用されます。 書式記号は英語のままです。テキ
+スト表示 (たとえば、AM や PM) になる記号では、その記号に対応する文字列 (英語ま
+たはアラビア語) が表示されます。 カレンダーがイスラム暦の場合、特定の記号の範
+囲は変わります。
 
 .日付記号
 
 [cols="1,4",options="header"]
 |===
-|記号 |範囲
-|d |1 〜 31 (前に 0 を付けない、月の日付)
-|dd |01 〜 31 (前に 0 を付ける、月の日付)
-|w |1 〜 7 (週の曜日。土曜日 = 1 から開始)
-|ww |1 〜 53 (1 年のうちで何週目かを表す数値。前に 0 を付けず、1 月 1 日から開始。)
-|m |1 〜 12 (月。前に 0 を付けず、1 月 = 1 から開始。)
-|mm |01 〜 12 (月。前に 0 を付け、1 月 = 01 から開始。)
-|mmm |月の省略名を表示 (イスラム暦の月の名前には省略形はありません)
-|mmmm |完全な月名を表示
-|y |1 〜 366 (1 年のうちで何日目かを表す数値)
-|yy |00 〜 99 (西暦年の下 2 桁)
-|yyyy |100 〜 9999 (3 桁または 4 桁の西暦年)
+| 記号 | 範囲
+| d    | 1 〜 31 (前に 0 を付けない、月の日付)
+| dd   | 01 〜 31 (前に 0 を付ける、月の日付)
+| w    | 1 〜 7 (週の曜日。土曜日 = 1 から開始)
+| ww   | 1 〜 53 (1 年のうちで何週目かを表す数値。前に 0 を付けず、1 月 1 日から開始。)
+| m    | 1 〜 12 (月。前に 0 を付けず、1 月 = 1 から開始。)
+| mm   | 01 〜 12 (月。前に 0 を付け、1 月 = 01 から開始。)
+| mmm  | 月の省略名を表示 (イスラム暦の月の名前には省略形はありません)
+| mmmm | 完全な月名を表示
+| y    | 1 〜 366 (1 年のうちで何日目かを表す数値)
+| yy   | 00 〜 99 (西暦年の下 2 桁)
+| yyyy | 100 〜 9999 (3 桁または 4 桁の西暦年)
 |===
 
 .時間記号
 
 [cols="1,4",options="header"]
 |===
-|記号 |範囲
-|h |0 〜 23 (「AM」または「PM」を追加した 1 〜 12 の数値) (前に 0 を付けない、1 日の中の時間)
-|hh |00 〜 23 (「AM」または「PM」を追加した 01 〜 12 の数値) (前に 0 を付ける、1 日の中の時間)
-|n |0 〜 59 (前に 0 を付けない、1 時間の中の分)
-|nn |00 〜 59 (前に 0 を付ける、1 時間の中の分)
-|m |0 〜 59 (前に 0 を付けない、1 時間の中の分) h または hh が先行する場合のみ
-|mm |00 〜 59 (前に 0 を付ける、1 時間の中の分) h または hh が先行する場合のみ
-|s |0 〜 59 (前に 0 を付けない、1分の中の秒)
-|ss |00 〜 59 (前に 0 を付ける、1分の中の秒)
+| 記号 | 範囲
+| h    | 0 〜 23 (「AM」または「PM」を追加した 1 〜 12 の数値) (前に 0 を付けない、1 日の中の時間)
+| hh   | 00 〜 23 (「AM」または「PM」を追加した 01 〜 12 の数値) (前に 0 を付ける、1 日の中の時間)
+| n    | 0 〜 59 (前に 0 を付けない、1 時間の中の分)
+| nn   | 00 〜 59 (前に 0 を付ける、1 時間の中の分)
+| m    | 0 〜 59 (前に 0 を付けない、1 時間の中の分) h または hh が先行する場合のみ
+| mm   | 00 〜 59 (前に 0 を付ける、1 時間の中の分) h または hh が先行する場合のみ
+| s    | 0 〜 59 (前に 0 を付けない、1分の中の秒)
+| ss   | 00 〜 59 (前に 0 を付ける、1分の中の秒)
 |===
 
 .使用例
@@ -1801,7 +2974,9 @@ MyStr = Format("This is it", ">")    ' Returns "THIS IS IT".
 
 .さまざまな数値のさまざまな書式
 
-ユーザー定義の数値書式指定 式は、セミコロンで区切られた 1 から 4 のセクションを持つことができます。 書式引数に名前付き数値書式が含まれる場合は、1 つのセクションのみが許可されます。
+ユーザー定義の数値書式指定 式は、セミコロンで区切られた 1 から 4 のセクション
+を持つことができます。 書式引数に名前付き数値書式が含まれる場合は、1 つのセク
+ションのみが許可されます。
 
 [source,vbscript]
 ----
@@ -1841,8 +3016,9 @@ MyStr = Format("This is it", ">")    ' Returns "THIS IS IT".
 
 以下の表は、定義済みの日付および時間の書式名を示します。
 
-[source,vbscript]
-----
+
+[cols="1,4",options="header"]
+|===
 |書式名 |説明
 |General Date |日付と時刻のどちらか、または両方を表示します (例: 4/3/93 05:34 PM)。 小数の部分がない場合、日付だけを表示します (例: 4/3/93)。 整数の部分がない場合、時間のみを表示します(例: 05:34 PM)。 日付表示はシステム設定に依存します。
 |Long Date |システムの長い日付形式の書式に従って日付を表示します。
@@ -1851,7 +3027,7 @@ MyStr = Format("This is it", ">")    ' Returns "THIS IS IT".
 |Long Time |システムの長い時間形式を使用して時間を表示します。時間、分、秒が含まれます。
 |Medium Time |時間と分を、12 時間の書式と AM/PM を使用して表示します。
 |Short Time |24 時間の形式を使用して時間を表示します (例: 17: 45)。
-----
+|===
 
 .名前付き数値書式
 

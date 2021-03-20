@@ -1,0 +1,44 @@
+<html>
+
+<head>
+
+<script language="VBScript">
+
+Sub A_onClick
+
+ Dim lngYear, lngMonth, lngDay, lngHour, lngMinute, lngSecond
+
+
+
+ lngYear = Year(Now)
+
+ lngMonth = Right("0" & Month(Now), 2)
+
+ lngDay = Right("0" & Day(Now), 2)
+
+ lngHour = Right("0" & Hour(Now), 2)
+
+ lngMinute = Right("0" & Minute(Now), 2)
+
+ lngSecond = Right("0" & Second(Now), 2)
+
+
+
+ B.value=lngYear & "_" & lngMonth & "_" & lngDay & "_" & lngHour & "_" & lngMinute & "_" & lngSecond
+
+End Sub
+
+</script>
+
+</head>
+
+<body>
+
+ <input id="A" type="button" value="Now"><br>
+
+ <input id="B" type="text" size="30">
+
+</body>
+
+</html>
+

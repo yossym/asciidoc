@@ -1,0 +1,2018 @@
+= https://docs.microsoft.com/ja-jp/previous-versions/windows/scripting/cc392483(v=msdn.10)[Microsoft Windows スクリプト テクノロジ | Microsoft Docs]
+
+== https://docs.microsoft.com/ja-jp/previous-versions/windows/scripting/cc428065(v=msdn.10)[Dictionary オブジェクト | Microsoft Docs]
+
+キーと項目を対で格納するオブジェクトです。
+
+.解説
+
+Dictionary オブジェクトは、PERL 関連の配列と同じです。項目はデータの任意の形式
+で配列に保存されます。各項目には、項目を一意に識別するためのキーが関連付けられ
+ます。キーは、それぞれの項目を取り出すときに使用されます。キーは、配列以外の値
+を使用します。通常では整数値または文字列を使用します。
+
+次のコードは、Dictionary オブジェクトを作成する例です。
+
+[source,vbscript]
+----
+[VBScript]
+Dim d   ' Create a variable.
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "アテネ"   ' キーと項目を追加します。
+d.Add "b", "ベオグラード"
+d.Add "c", "カイロ"
+...
+----
+
+.メソッド
+
+<<Dictionary-Add,Add メソッド (Dictionary オブジェクト) >> 
+| <<Dictionary-Exists, Exists メソッド>> 
+| <<Dictionary-Items, Items メソッド>>
+| <<Dictionary-Keys, Keys メソッド>> 
+| <<Dictionary-Remove, Remove メソッド>> 
+| <<Dictionary-Removeall, RemoveAll メソッド>>
+
+.プロパティ
+
+<<Dictionary-Count, Count プロパティ>> 
+| <<Dictionary-Item, Item プロパティ>>
+| <<Dictionary-Key, Key プロパティ>>
+
+.参照
+
+FileSystemObject オブジェクト | TextStream オブジェクト
+
+
+
+
+=== メソッド
+==== Add メソッド (Dictionary オブジェクト)
+ [[ Dictionary-Add ]]
+
+Dictionary オブジェクトに 1 組のキーと項目を追加します。
+
+[source,vbscript]
+----
+object.Add (key, item)
+----
+
+
+.引数
+
+* object
+
+    必ず指定します。Dictionary オブジェクトの名前を指定します。
+
+* key
+
+    必ず指定します。引数 item で指定した項目と関連付けるキーを指定します。
+
+* item
+
+    必ず指定します。引数 key で指定したキーと関連付ける項目を指定します。
+
+.解説
+
+引数 key で指定したキーが既に存在していた場合は、エラーが発生します。
+
+次のコードは、Add メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Dim d   ' 変数を作成します。
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "アテネ"   ' キーと項目を追加します。
+d.Add "b", "ベオグラード"
+d.Add "c", "カイロ"
+----
+
+.参照
+
+<<Dictionary-Add,Add メソッド (Dictionary オブジェクト) >> 
+| <<Dictionary-Exists, Exists メソッド>> 
+| <<Dictionary-Items, Items メソッド>>
+| <<Dictionary-Keys, Keys メソッド>> 
+| <<Dictionary-Remove, Remove メソッド>> 
+| <<Dictionary-Removeall, RemoveAll メソッド>>
+
+対象: Dictionary オブジェクト
+
+==== Exists メソッド
+[[Dictionary-Exists]]
+
+指定したキーが Dictionary オブジェクト内に存在する場合は、真 (true) を返します。
+存在しない場合は、偽 (false) を返します。
+
+[source,vbscript]
+----
+object
+.Exists(
+key
+)
+----
+
+.引数
+
+* object
+
+    必ず指定します。Dictionary オブジェクトの名前を指定します。
+
+* key
+
+    必ず指定します。Dictionary オブジェクト内で検索するキーの値を指定します。
+
+.解説
+
+次のコードは、Exists メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function KeyExistsDemo
+   Dim d, msg   ' 変数を作成します。
+   Set d = CreateObject("Scripting.Dictionary")
+   d.Add "a", "アテネ"   ' キーと項目を追加します。
+   d.Add "b", "ベオグラード"
+   d.Add "c", "カイロ"
+   If d.Exists("c") Then
+      msg = "指定したキーは存在します。"
+   Else
+      msg = "指定したキーはありません。"
+   End If
+   KeyExistsDemo = msg
+End Function
+----
+
+
+==== Items メソッド
+[[Dictionary-Items]]
+
+Dictionary オブジェクト内のすべての項目を格納した配列を返します。
+
+[source,vbscript]
+----
+object.Items( ) 
+----
+
+object には、Dictionary オブジェクトの名前を指定します。
+
+.解説
+
+次のコードは、Items メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function DicDemo
+   Dim a, d, i, s   ' 変数を作成します。
+   Set d = CreateObject("Scripting.Dictionary")
+   d.Add "a", "アテネ"   ' キーと項目を追加します。
+   d.Add "b", "ベオグラード"
+   d.Add "c", "カイロ"
+   a = d.Items   ' 項目を取得します。
+   For i = 0 To d.Count -1 ' 取得した配列に繰り返し処理を行います。
+      s = s & a(i) & "<BR>" ' 結果を返します。
+   Next
+   DicDemo = s
+End Function
+----
+
+.参照
+
+
+<<Dictionary-Add,Add メソッド (Dictionary オブジェクト) >> 
+| <<Dictionary-Exists, Exists メソッド>> 
+| <<Dictionary-Items, Items メソッド>>
+| <<Dictionary-Keys, Keys メソッド>> 
+| <<Dictionary-Remove, Remove メソッド>> 
+| <<Dictionary-Removeall, RemoveAll メソッド>>
+
+
+対象: Dictionary オブジェクト
+
+==== Keys メソッド
+[[Dictionary-Keys]]
+
+Dictionary オブジェクト内のすべての既存キーを格納した配列を返します。
+
+[source,vbscript]
+----
+object.Keys( )
+----
+
+object には、Dictionary オブジェクトの名前を指定します。
+
+.解説
+
+次のコードは、Keys メソッドの使用例です。
+
+
+[source,vbscript]
+----
+[VBScript]
+Function DicDemo
+   Dim a, d, i   ' 変数を作成します。
+   Set d = CreateObject("Scripting.Dictionary")
+   d.Add "a", "アテネ"   ' キーと項目を追加します。
+   d.Add "b", "ベオグラード"
+   d.Add "c", "カイロ"
+   a = d.Keys   ' キーを取得します。
+   For i = 0 To d.Count -1 ' 取得した配列に繰り返し処理を行います。
+      s = s & a(i) & "<BR>" ' 結果を返します。
+   Next
+   DicDemo = s
+End Function
+----
+
+.参照
+
+
+<<Dictionary-Add,Add メソッド (Dictionary オブジェクト) >> 
+| <<Dictionary-Exists, Exists メソッド>> 
+| <<Dictionary-Items, Items メソッド>>
+| <<Dictionary-Keys, Keys メソッド>> 
+| <<Dictionary-Remove, Remove メソッド>> 
+| <<Dictionary-Removeall, RemoveAll メソッド>>
+
+
+対象: Dictionary オブジェクト
+
+
+==== Remove メソッド
+[[Dictionary-Remove]]
+
+Dictionary オブジェクトからキーと項目の組みを削除します。
+
+
+[source,vbscript]
+----
+object
+.Remove(
+key
+)
+----
+
+
+.引数
+
+* object
+
+    必ず指定します。Dictionary オブジェクトの名前を指定します。
+
+* key
+
+    必ず指定します。Dictionary オブジェクトから削除するキーと項目の組みと関連
+付けられた引数 key を指定します。
+
+.解説
+
+存在しないキーを指定した場合は、エラーが発生します。
+
+次のコードは、Remove メソッドの使用例です。
+
+
+[source,vbscript]
+----
+[VBScript]
+Dim a, d   ' 変数を作成します。
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "アテネ"   ' キーと項目を追加します。
+d.Add "b", "ベオグラード"
+d.Add "c", "カイロ"
+...
+d.Remove("b")   '  2 つ目の組を削除します。
+----
+
+.参照
+
+<<Dictionary-Add,Add メソッド (Dictionary オブジェクト) >> 
+| <<Dictionary-Exists, Exists メソッド>> 
+| <<Dictionary-Items, Items メソッド>>
+| <<Dictionary-Keys, Keys メソッド>> 
+| <<Dictionary-Remove, Remove メソッド>> 
+| <<Dictionary-Removeall, RemoveAll メソッド>>
+
+
+対象: Dictionary オブジェクト
+
+
+==== RemoveAll メソッド
+[[Dictionary-RemoveAll]]
+
+Dictionary オブジェクトからすべてのキーと項目を削除します。
+
+[source,vbscript]
+----
+object.RemoveAll( ) 
+----
+
+object には、Dictionary オブジェクトの名前を指定します。
+
+.解説
+
+次のコードは、RemoveAll メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Dim a, d, i   ' 変数を作成します。
+Set d = CreateObject("Scripting.Dictionary")
+d.Add "a", "アテネ"   ' キーと項目を追加します。
+d.Add "b", "ベオグラード"
+d.Add "c", "カイロ"
+...
+a = d.RemoveAll   ' // 辞書をクリアします。
+----
+
+.参照
+
+<<Dictionary-Add,Add メソッド (Dictionary オブジェクト) >> 
+| <<Dictionary-Exists, Exists メソッド>> 
+| <<Dictionary-Items, Items メソッド>>
+| <<Dictionary-Keys, Keys メソッド>> 
+| <<Dictionary-Remove, Remove メソッド>> 
+| <<Dictionary-Removeall, RemoveAll メソッド>>
+
+
+対象: Dictionary オブジェクト
+
+=== プロパティ
+
+==== Count プロパティ
+[[Dictionary-Count]]
+
+コレクションの中のオブジェクト数、または Dictionary オブジェクトに格納される項
+目の数を返します。値の取得のみ可能です。
+
+[source,vbscript]
+----
+object
+.Count
+----
+
+object には、[対象] 一覧内のいずれかの項目の名前を指定します。
+
+.解説
+
+次のコードは、Count プロパティの使用例です。
+
+
+[source,vbscript]
+----
+[VBScript]
+Function ShowKeys
+   Dim a, d, i, s   ' 変数を作成します。
+   Set d = CreateObject("Scripting.Dictionary")
+   d.Add "a", "アテネ"   ' キーと項目を追加します。
+   d.Add "b", "ベオグラード"
+   d.Add "c", "カイロ"
+   a = d.Keys   ' キーを取得します。
+   For i = 0 To d.Count -1 ' 配列に繰り返し処理を行います。
+      s = s & a(i) & "<BR>" ' 結果を返します。
+   Next
+   ShowKeys = s
+End Function
+----
+
+.参照
+
+CompareMode プロパティ | Item プロパティ | Key プロパティ
+
+対象: Dictionary オブジェクト | Drives コレクション | Files コレクション |
+Folders コレクション
+
+
+==== Item プロパティ
+[[Dictionary-Item]]
+Dictionary オブジェクトにある指定されたキーと関連付ける項目を設定します。コレ
+クションの場合は、指定されたキーに対応するオブジェクトを返します。値の取得も可
+能です。
+
+
+[source,vbscript]
+----
+object.Item(key)[ = newitem]
+----
+
+.引数
+
+* object
+
+    必ず指定します。コレクションまたは Dictionary オブジェクトの名前を指定しま
+す。
+
+* key
+
+    必ず指定します。取得または設定する項目に関連付けられているキーを指定します。
+
+* newitem
+
+    省略可能です。Dictionary オブジェクトの場合のみ指定可能で、コレクションに
+は使用できません。引数 key で指定したキーに関連付ける新しい値を指定します。
+
+.解説
+
+項目を変更するときに引数 key で指定したキーが見つからない場合、newitem で指定
+した項目と関連付けられた、引数 key で指定した新しいキーが作成されます。また、
+既存の項目を取得するときに引数 key で指定したキーが見つからない場合は、空の項
+目と関連付けられた、引数 key で指定した新しいキーが作成されます。
+
+次のコードは、Item プロパティの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function ItemDemo
+   Dim d   ' Create some variables.
+   Set d = CreateObject("Scripting.Dictionary")
+   d.Add "a", "アテネ"   ' キーと項目を追加します。
+   d.Add "b", "ベオグラード"
+   d.Add "c", "カイロ"
+   ItemDemo = d.Item("c")   ' 項目を取得します。
+End Function
+----
+
+
+.参照
+
+CompareMode プロパティ | Count プロパティ | Key プロパティ
+
+対象: Dictionary オブジェクト | Drives コレクション | Files コレクション |
+Folders コレクション
+
+==== Key プロパティ
+[[Dictionary-Key]]
+
+
+Dictionary オブジェクトにキーを設定します。
+
+[source,vbscript]
+----
+object.Key(key) = newkey
+----
+
+.引数
+
+* object
+
+    必ず指定します。Dictionary オブジェクトの名前を指定します。
+
+* key
+
+    必ず指定します。変更するキーの値を指定します。
+
+* newkey
+
+    必ず指定します。引数 key で指定したキーと置き換える新しいキーを指定します。
+
+.解説
+
+キーを変更するときに引数 key で指定したキーが見つからなかった場合は、引数 key
+の指定を使って、空の項目を持つ新しいキーが作成されます。
+
+次のコードは、Key プロパティの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function DicDemo
+   Dim d   ' 変数を作成します。
+   Set d = CreateObject("Scripting.Dictionary")
+   d.Add "a", "アテネ"   ' キーと項目を追加します。
+   d.Add "b", "ベオグラード"
+   d.Add "c", "カイロ"
+   d.Key("c") = "d"   ' "c" のキーを "d" にセットします。
+   DicDemo = d.Item("d")   ' 関連した項目を返します。
+End Function
+----
+
+
+.参照
+
+CompareMode プロパティ | Count プロパティ | Item プロパティ
+
+対象: Dictionary オブジェクト
+
+
+
+== https://docs.microsoft.com/ja-jp/previous-versions/windows/scripting/cc428071(v=msdn.10)[FileSystemObject オブジェクト | Microsoft Docs]
+
+ファイル システムへアクセスする方法を提供します。
+
+.解説
+
+
+次のコードは、FileSystemObject を使って、ファイルの読み取りまたは書き込みに使
+用できる TextStream オブジェクトを取得する例です。
+
+参照設定::
+Microsoft ScrptingRuntime
+
+[source,vbscript]
+----
+    Dim fso, MyFile
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set MyFile = fso.CreateTextFile("c:\testfile.txt", True)
+    MyFile.WriteLine("This is a test.")
+    MyFile.Close
+----
+
+上記のコード例では、CreateObject 関数が FileSystemObject (fso) を返します。次
+に、CreateTextFile メソッドを使って TextStream オブジェクト (変数 a) としてフ
+ァイルを作成し、WriteLine メソッドを使って作成したテキスト ファイルに 1 行のテ
+キストを書き込んでいます。さらに、Close メソッドを使ってバッファをフラッシュし、
+ファイルを閉じます。
+
+.メソッド
+
+BuildPath メソッド | CopyFile メソッド | CopyFolder メソッド 
+| CreateFolder メソッド | CreateTextFile メソッド | DeleteFile メソッド 
+| DeleteFolder メソッド | DriveExists メソッド | FileExists メソッド 
+| FolderExists メソッド | GetAbsolutePathName メソッド | GetBaseName メソッド 
+| GetDrive メソッド | GetDriveName メソッド | GetExtensionName メソッド 
+| GetFile メソッド | GetFileName メソッド | GetFolder メソッド 
+| GetParentFolderName メソッド | GetSpecialFolder メソッド 
+| GetTempName メソッド | MoveFile メソッド | MoveFolder メソッド 
+| OpenTextFile メソッド
+
+.プロパティ
+
+Drives プロパティ
+
+.参照
+
+Dictionary オブジェクト | Drive オブジェクト | Drives コレクション 
+| File オブジェクト | Files コレクション | Folder コレクション 
+| Folders コレクション | TextStream オブジェクト
+
+=== メソッド
+
+==== BuildPath メソッド
+[[FileSystemObject-Buildpath]]
+
+既存のパスの末尾に名前を追加します。
+
+
+[source,vbscript]
+----
+object.BuildPath(path, name) 
+----
+
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* path
+
+    必ず指定します。引数 name で指定した名前を末尾に追加する既存パスを指定しま
+す。絶対パスまたは相対パスのどちらかを指定できます。また、必ず既存のフォルダを
+指定する必要はありません。
+
+* name
+
+    必ず指定します。引数 path で指定したパスの末尾に追加する名前を指定します。
+
+.解説
+
+必要な場合に限り、BuildPath メソッドは既存のパスと指定した名前の間にパスの区切
+り文字を挿入します。
+
+次のコードは、BuildPath メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function GetBuildPath(path)
+   Dim fso, newpath
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   newpath = fso.BuildPath(path, "サブ フォルダ") 
+   GetBuildPath = newpath
+End Function
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseNam メソッド | GetDriveName メソッド 
+| GetExtensionName メソッド | GetFileName メソッド 
+| GetParentFolderName メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== CopyFile メソッド
+[[FileSystemObject-CopyFile]]
+
+ファイルを別の場所へコピーします。
+
+[source,vbscript]
+----
+object.CopyFile ( source, destination[, overwrite] ) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* source
+
+    必ず指定します。コピーするファイルを表す文字列を指定します。1 つ以上のファ
+イルを指定するためにワイルドカード文字を使用することもできます。
+
+* destination
+
+    必ず指定します。引数 source で指定したファイルのコピー先を表す文字列を指定
+します。ワイルドカード文字は使用できません。
+
+* overwrite
+
+    省略可能です。既存ファイルを上書きするかどうかを示すブール値を指定します。
+真 (true) を指定すると既存フォルダ内のファイルは上書きされ、偽 (false) を指定
+すると上書きされません。既定値は、真 (true) です。引数 destination に指定した
+コピー先が読み取り専用の属性を持っていた場合は、引数 overwrite に指定した値と
+は関係なく CopyFile メソッドの処理は失敗するので、注意する必要があります。
+
+.解説
+
+ワイルドカード文字は、引数 source に指定する最後の構成要素内でのみ使用できます。
+次のような使い方が可能です。
+
+
+[source,vbscript]
+----
+[VBScript]
+FileSystemObject.CopyFile "c:\mydocuments\letters\*.doc", "c:\tempfolder\"
+----
+
+次のような使い方はできません。
+
+[source,vbscript]
+----
+[VBScript]
+FileSystemObject.CopyFile "c:\mydocuments\*\R1???97.xls", "c:\tempfolder"
+----
+
+引数 source にワイルドカード文字を使用したとき、および引数 destination がパス
+の区切り文字 (\) で終わっているとき、引数 destination には既存フォルダを指定し
+たと判断され、条件に一致するファイルがそのフォルダ内へコピーされます。それ以外
+のときは、引数 destination には作成するファイルの名前を指定したと判断されます。
+いずれの場合も、コピーされる各ファイルで発生する処理の実行は 3 種類あります。
+
+* 引数 destination に指定したファイルが存在しない場合、引数 source に指定した
+ ファイルがコピーされます。これが通常の場合です。
+
+
+
+* 引数 destination に指定したファイルが存在する場合、引数 overwrite に偽
+ (false) を指定しているとエラーが発生します。真 (true) を指定していると引数
+ source に指定したファイルがコピーされ、既存ファイルは上書きされます。
+
+
+
+* 引数 destination がディレクトリの場合、エラーが発生します。
+
+引数 source でワイルドカード文字を使用した指定がどのファイルとも一致しなかった
+場合も、エラーが発生します。CopyFile メソッドは、最初のエラーが発生した時点で
+処理を中止します。エラーが発生するまでに行った処理を取り消したり元に戻したりす
+る処理は一切行われません。
+
+.参照
+
+Copy メソッド | CopyFolder メソッド | CreateTextFile メソッド 
+| DeleteFile メソッド | MoveFile メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== CopyFolder メソッド
+[[FileSystemObject-CopyFolder]]
+
+フォルダを再帰的に別の場所へコピーします。
+
+[source,vbscript]
+----
+object.CopyFolder ( source, destination[, overwrite] ); 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* source
+
+    必ず指定します。フォルダを表す文字列を指定します。1 つ以上のフォルダを指定
+するためにワイルドカード文字を使用できます。
+
+* destination
+
+    必ず指定します。引数 source で指定したフォルダおよびサブフォルダのコピー先
+を表す文字列を指定します。ワイルドカード文字は使用できません。
+
+* overwrite
+
+    省略可能です。既存フォルダを上書きするかどうかを示すブール値を指定します。
+真 (true) を指定すると既存フォルダ内のファイルは上書きされ、偽 (false) を指定
+すると上書きされません。既定値は、真 (true) です。
+
+.解説
+
+ワイルドカード文字は、引数 source に指定する最後の構成要素内でのみ使用できます。
+次のような使い方が可能です。
+
+[source,vbscript]
+----
+[VBScript]
+FileSystemObject.CopyFolder "c:\mydocuments\letters\*", "c:\tempfolder\"
+----
+
+次の方法では使用できません。
+
+
+[source,vbscript]
+----
+[VBScript]
+FileSystemObject.CopyFolder "c:\mydocuments\*\*", "c:\tempfolder\"
+----
+
+引数 source にワイルドカード文字を使用したとき、および引数 destination がパス
+の区切り文字 (\) で終わるときは、引数 destination には既存フォルダを指定したと
+判断され、条件に一致するフォルダおよびサブフォルダがそのフォルダ内へコピーされ
+ます。それ以外のときは、引数 destination には作成するフォルダの名前を指定した
+と判断されます。いずれの場合も、各フォルダのコピーで実行される可能性のある処理
+は 4 種類あります。
+
+* 引数 destination に指定したフォルダが存在しない場合、引数 source に指定した
+ フォルダおよびそのフォルダ内のすべてのファイルとフォルダがコピーされます。こ
+ れが通常の場合です。
+
+* 引数 destination に指定したファイルが存在する場合、エラーが発生します。
+
+* 引数 destination がディレクトリの場合、指定したフォルダおよびそのフォルダ内
+ のすべてのファイルとフォルダをコピーしようとします。引数 source で指定したフ
+ ォルダ内のファイルと同じ名前のファイルが引数 destination で指定したフォルダ
+ 内に既にある場合、引数 overwrite に偽 (false) を指定しているとエラーが発生し
+ ます。真 (true) を指定していると、ファイルがコピーされ、既存ファイルは上書き
+ されます。
+
+* 引数 destination に指定したのが読み取り専用のディレクトリの場合、引数
+ overwrite に偽 (false) を指定していて、既存の読み取り専用ファイルをコピー先
+ ディレクトリ内へコピーしようとすると、エラーが発生します。
+
+引数 source でワイルドカード文字を使用した指定がどのフォルダとも一致しなかった
+場合も、エラーが発生します。
+
+CopyFolder メソッドは、最初のエラーが発生した時点で処理を中止します。エラーが
+発生するまでに行った処理を取り消したり元に戻したりする処理は一切行われません。
+
+.参照
+
+CopyFile メソッド 
+| Copy メソッド 
+| CreateFolder メソッド 
+| DeleteFolder メソッド 
+| MoveFolder メソッド
+
+対象: FileSystemObject オブジェクト
+
+==== CreateFolder メソッド
+[[FileSystemObject-CreateFolder]]
+
+フォルダを作成します。
+
+[source,vbscript]
+----
+object.CreateFolder(foldername)
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* foldername
+
+    必ず指定します。作成するフォルダを表す文字列式を指定します。
+
+.解説
+
+指定したフォルダが既に存在していた場合は、エラーが発生します。
+
+次のコードは、CreateFolder メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function CreateFolderDemo
+   Dim fso, f
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   Set f = fso.CreateFolder("c:\New Folder")
+   CreateFolderDemo = f.Path
+End Function
+----
+
+
+.参照
+
+CopyFolder メソッド 
+| DeleteFolder メソッド 
+| MoveFolder メソッド
+
+対象: FileSystemObject オブジェクト
+
+==== CreateTextFile メソッド
+[[FileSystemObject-CreateTextFile]]
+
+指定した名前のファイルを作成し、作成したファイルの読み取りまたは書き込みに使用
+できる TextStream オブジェクトを返します。
+
+
+[source,vbscript]
+----
+object.CreateTextFile(filename[, overwrite[, unicode]])
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトまたは Folder オブジェクトの
+名前を指定します。
+
+* filename
+
+    必ず指定します。作成するファイルの名前を文字列式で指定します。
+
+* overwrite
+
+    省略可能です。既存ファイルの場合に上書きするかどうかを示すブール値を指定し
+ます。上書きする場合は真 (true) を、上書きしない場合は偽 (false) を指定します。
+省略した場合は、既存ファイルは上書きされません。
+
+* unicode
+
+    省略可能です。Unicode ファイルと ASCII ファイルのどちらを作成するかを示す
+ブール値を指定します。Unicode ファイルを作成する場合は真 (true) を、ASCII ファ
+イルを作成する場合は偽 (false) を指定します。省略した場合は、ASCII ファイルが
+作成されます。
+
+.解説
+
+次のコードは、CreateTextFile メソッドを使ってテキスト ファイルを作成する例です。
+
+[source,vbscript]
+----
+[VBScript]
+Sub CreateAfile
+   Dim fso, MyFile
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   Set MyFile = fso.CreateTextFile("c:\testfile.txt", True)
+   MyFile.WriteLine("これはテストです。")
+   MyFile.Close
+End Sub
+----
+
+
+引数 overwrite に偽 (false) を指定した場合、または省略した場合、引数 filename
+に既存のファイル名を指定するとエラーが発生します。
+
+.参照
+
+CreateFolder メソッド | OpenAsTextStream メソッド | OpenTextFile メソッド
+
+対象: FileSystemObject オブジェクト | Folder オブジェクト
+
+
+==== DeleteFile メソッド
+[[FileSystemObject-DeleteFile]]
+
+指定されたファイルを削除します。
+
+[source,vbscript]
+----
+object.DeleteFile ( filespec[, force] ); 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* filespec
+
+    必ず指定します。削除するファイルの名前を指定します。パスの最後の構成要素内ではワイルドカード文字も使用できます。
+
+* force
+
+    省略可能です。真 (true) を指定すると、読み取り専用の属性を持つファイルも削除されます。偽 (false) を指定すると、読み取り専用ファイルは削除されません (既定値)。
+
+.解説
+
+名前の一致するファイルが見つからない場合は、エラーが発生します。DeleteFile メ
+ソッドは、最初のエラーが発生した時点で処理を中止します。エラーが発生するまでに
+行った処理を、取り消したり元に戻したりする処理は一切行われません。
+
+次のコードは、DeleteFile メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Sub DeleteAFile(filespec)
+   Dim fso
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   fso.DeleteFile(filespec)
+End Sub
+----
+
+.参照
+
+CopyFile メソッド | CreateTextFile メソッド | Delete メソッド 
+| DeleteFolder メソッド | MoveFile メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== DeleteFolder メソッド
+[[FileSystemObject-DeleteFolder]]
+
+指定されたフォルダおよびそのフォルダ内のフォルダとファイルを削除します。
+
+[source,vbscript]
+----
+object.DeleteFolder ( folderspec[, force] ); 
+----
+
+.引数
+
+* object
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+* folderspec
+    必ず指定します。削除するフォルダの名前を指定します。パスの最後の構成要素内ではワイルドカード文字を使用できます。
+* force
+    省略可能です。真 (true) を指定すると、読み取り専用の属性を持つフォルダも削除されます。偽 (false) を指定すると、読み取り専用フォルダは削除されません (既定値)。
+
+.解説
+
+DeleteFolder メソッドでは、ほかのフォルダやファイルを含むフォルダと何も含まな
+いフォルダとは区別されません。指定したフォルダは、ほかのファイルやフォルダが格
+納されているかどうかに関係なく削除されます。
+
+名前の一致するフォルダが見つからない場合は、エラーが発生します。DeleteFolder
+メソッドは、最初のエラーが発生した時点で処理を中止します。エラーが発生するまで
+に行った処理を、取り消したり元に戻したりする処理は一切行われません。
+
+次のコードは、DeleteFolder メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Sub DeleteAFolder(filespec)
+   Dim fso
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   fso.DeleteFolder(filespec)
+End Sub
+----
+
+.参照
+
+CopyFolder メソッド 
+| CreateFolder メソッド 
+| Delete メソッド 
+| DeleteFile メソッド 
+| MoveFolder メソッド
+
+対象: FileSystemObject オブジェクト
+
+==== DriveExists メソッド
+[[FileSystemObject-DriveExists]]
+
+指定されたドライブが存在する場合は、真 (true) を返します。存在しない場合は、偽 (false) を返します。
+
+
+[source,vbscript]
+----
+object.DriveExists(drivespec) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* drivespec
+
+    必ず指定します。ドライブ名またはフル パスを指定します。
+
+.解説
+
+リムーバブル メディアのドライブの場合は、メディアがセットされていなくても真
+(true) が返されます。ドライブの準備ができているかどうかを調べるには、Drive オ
+ブジェクトの IsReady プロパティを使用してください。
+
+次のコードは、DriveExists メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function ReportDriveStatus(drv)
+   Dim fso, msg
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   If fso.DriveExists(drv) Then
+      msg = ("ドライブ " & UCase(drv) & " は、存在します。")
+   Else
+      msg = ("ドライブ " & UCase(drv) & " は、存在しません。")
+   End If
+   ReportDriveStatus = msg
+End Function
+----
+.参照
+
+Drive オブジェクト 
+| Drives コレクション 
+| FileExists メソッド 
+| FolderExists メソッド 
+| GetDrive メソッド 
+| GetDriveName メソッド 
+| IsReady プロパティ
+
+対象: FileSystemObject オブジェクト
+
+==== FileExists メソッド
+[[FileSystemObject-FileExists]]
+
+指定したファイルが存在する場合は、真 (true) を返します。存在しない場合は、偽
+(false) を返します。
+
+[source,vbscript]
+----
+object.FileExists(filespec) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* filespec
+
+    必ず指定します。存在するかどうかを調べるファイルの名前を指定します。カレン
+ト フォルダ内にないファイルを調べる場合は、絶対パスを指定する必要があります。
+絶対パスまたは相対パスのどちらかを指定できます。
+
+次のコードは、FileExists メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function ReportFileStatus(filespec)
+   Dim fso, msg
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   If (fso.FileExists(filespec)) Then
+      msg = filespec & " は、存在します。"
+   Else
+      msg = filespec & " は、存在しません。"
+   End If
+   ReportFileStatus = msg
+End Function
+----
+
+.参照
+
+DriveExists メソッド | FolderExists メソッド | GetFile メソッド | GetFileName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== FolderExists メソッド
+[[FileSystemObject-FolerExists]]
+
+指定されたフォルダが存在する場合は、真 (true) を返します。存在しない場合は、偽
+(false) を返します。
+
+[source,vbscript]
+----
+object.FolderExists(folderspec) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* folderspec
+
+    必ず指定します。存在するかどうかを調べるフォルダの名前を指定します。カレン
+ト フォルダ内にないフォルダを調べる場合は、絶対パスを指定する必要があります。
+絶対パスまたは相対パスのどちらかを指定できます。
+
+次のコードは、FileExists メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function ReportFolderStatus(fldr)
+   Dim fso, msg
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   If (fso.FolderExists(fldr)) Then
+      msg = fldr & " は、存在します。"
+   Else
+      msg = fldr & " は、存在しません。"
+   End If
+   ReportFolderStatus = msg
+End Function
+----
+
+.参照
+
+DriveExists メソッド 
+| FileExists メソッド 
+| GetFolder メソッド 
+| GetParentFolderName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== GetAbsolutePathName メソッド
+[[FileSystemObject-GetAbsolutePathName]]
+
+指定されたパスの絶対パス名を返します。
+
+[source,vbscript]
+----
+object.GetAbsolutePathName(pathspec) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* pathspec
+
+    必ず指定します。絶対パス名を取得するパスを指定します。
+
+.解説
+
+格納されているドライブのルートからの一意的な名前になっていると、パスは絶対パス
+になります。パスがパスの区切り文字 (\) で終わるのは、ドライブ名を割り当てられ
+ているルート フォルダを指定した場合だけです。
+
+次の表は、たとえばカレント ディレクトリが c:\mydocuments\reports の場合、
+GetAbsolutePathName メソッドにより返されるパスを示します。
+
+.解説
+
+pathspec 	返されるパス
+"c:" 	"c:\mydocuments\reports"
+"c:.." 	"c:\mydocuments"
+"c:\\" 	"c:\"
+"c:*.*\\may97" 	"c:\mydocuments\reports\*.*\may97"
+"region1" 	"c:\mydocuments\reports\region1"
+"c:\\..\\..\\mydocuments" 	"c:\mydocuments"
+
+次のコードは、GetAbsolutePathName メソッドの使用例です。
+
+[source,vbscript]
+----
+function ShowAbsolutePath(path)
+{
+   var fso, s= "";
+   fso = new ActiveXObject("Scripting.FileSystemObject");
+   s += fso.GetAbsolutePathName(path);
+   return(s);
+}
+----
+
+.参照
+
+GetBaseName メソッド | GetDrive メソッド | GetDriveName メソッド | GetExtensionName メソッド | GetFile メソッド | GetFileName メソッド | GetFileVersion メソッド | GetFolder メソッド | GetParentFolderName メソッド | GetSpecialFolder メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+
+==== GetBaseName メソッド
+[[FileSystemObject-GetBaseName]]
+
+
+指定されたパス内に含まれるファイルのベース名 (ファイル拡張子を除いたもの) を表
+す文字列を返します。
+
+[source,vbscript]
+----
+object.GetBaseName(path) 
+----
+
+.引数
+
+object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+path
+
+    必ず指定します。ベース名を取得するファイルまたはフォルダのパスを指定します。
+
+.解説
+
+引数 path に指定された文字列でベース名に該当するファイルまたはフォルダがない場
+合は、GetBaseName メソッドは長さ 0 の文字列 ("") を返します。
+
+NOTE:GetBaseName メソッドは、引数 path で指定された文字列に対してのみ処理を行
+います。指定されたパスを解決したり、指定されたパスが実際に存在するかどうかを確
+認したりしません。
+
+次のコードは、GetBaseName メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function GetTheBase(filespec)
+   Dim fso
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   GetTheBase = fso.GetBaseName(filespec)
+End Function
+----
+
+.参照
+
+GetAbsolutePathName メソッド 
+| GetDrive メソッド 
+| GetDriveName メソッド 
+| GetExtensionName メソッド 
+| GetFile メソッド 
+| GetFileName メソッド 
+| GetFileVersion メソッド 
+| GetFolder メソッド 
+| GetParentFolderName メソッド 
+| GetSpecialFolder メソッド 
+| GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+
+==== GetDrive メソッド
+[[FileSystemObject-GetDrive]]
+
+指定されたパスに含まれるドライブに対応する Drive オブジェクトを返します。
+
+[source,vbscript]
+----
+object.GetDrive ( drivespec ); 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* drivespec
+
+    必ず指定します。ドライブ名 (c)、コロン付きのドライブ名 (c:)、コロンとパス
+の区切り文字の付いたドライブ名 (c:\)、任意のネットワーク共有名
+(\\computer2\share1) のいずれかを指定します。
+
+.解説
+
+ネットワーク共有名を指定した場合は、その共有が存在するかどうかが確認されます。
+
+引数 drivespec が指定可能な形式になっていない場合、および指定したドライブが存
+在しない場合は、エラーが発生します。
+
+通常のパス名を使って GetDrive メソッドを呼び出すには、最初に次のようなコードを
+記述して、引数 drivespec に指定できる文字列を取得します。
+
+[source,vbscript]
+----
+[VBScript]
+DriveSpec = GetDriveName(GetAbsolutePathName(Path))
+----
+
+次のコードは、GetDrive メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+
+    Function ShowFreeSpace(drvPath)
+       Dim fso, d, s
+       Set fso = CreateObject("Scripting.FileSystemObject")
+       Set d = fso.GetDrive(fso.GetDriveName(drvPath))
+       s = "ドライブ " & UCase(drvPath) & " - " 
+       s = s & d.VolumeName   & "<BR>"
+       s = s & "空き領域: " & FormatNumber(d.FreeSpace/1024, 0) 
+       s = s & " KB"
+       ShowFreeSpace = s
+    End Function
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseName メソッド | GetDriveName メソッド | GetExtensionName メソッド | GetFile メソッド | GetFileName メソッド | GetFileVersion メソッド | GetFolder メソッド | GetParentFolderName メソッド | GetSpecialFolder メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+
+
+
+==== GetDriveName メソッド
+[[FileSystemObject-GetDriveName]]
+
+指定されたパスのドライブ名を返します。
+
+[source,vbscript]
+----
+object.GetDriveName(path) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* path
+
+    必ず指定します。ドライブ名を取り出すパスを指定します。
+
+.解説
+
+ドライブが判断できない場合は、長さ 0 の文字列 ("") が返されます。
+
+NOTE:GetDriveName メソッドは、引数 path で指定した文字列に対してのみ処理が行
+われます。指定されたパスを解決したり、指定されたパスが実際に存在するかどうかを
+確認したりしません。
+
+次のコードは、GetDriveName メソッドの使用例です。
+
+
+[source,vbscript]
+----
+[VBScript]
+Function GetAName(DriveSpec)
+   Dim fso
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   GetAName = fso.GetDriveName(Drivespec)
+End Function
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseName メソッド | GetDrive メソッド | GetExtensionName メソッド | GetFile メソッド | GetFileName メソッド | GetFileVersion メソッド | GetFolder メソッド | GetParentFolderName メソッド | GetSpecialFolder メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+
+==== GetExtensionName メソッド
+[[FileSystemObject-GetExtensionName]]
+
+指定されたパスの拡張子を表す文字列を返します。
+
+[source,vbscript]
+----
+object.GetExtensionName(path) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* path
+
+    必ず指定します。拡張子を取り出す構成要素のパスを指定します。
+
+.解説
+
+ネットワーク ドライブの場合は、ルート ディレクトリ (\) が構成要素であると見な
+されます。
+
+引数 path に指定された文字列で拡張子に該当するものがない場合は、長さ 0 の文字
+列 ("") が返されます。
+
+次のコードは、GetExtensionName メソッドの使用例です。
+
+
+[source,vbscript]
+----
+[VBScript]
+Function GetAnExtension(DriveSpec)
+   Dim fso
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   GetAnExtension = fso.GetExtensionName(Drivespec)
+End Function
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseName メソッド | GetDrive メソッド | GetDriveName メソッド | GetFile メソッド | GetFileName メソッド | GetFileVersion メソッド | GetFolder メソッド | GetParentFolderName メソッド | GetSpecialFolder メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== GetFile メソッド
+[[FileSystemObject-GetFile]]
+
+
+指定されたパスに置かれているファイルに対応する File オブジェクトを返します。
+
+[source,vbscript]
+----
+object.GetFile(filespec) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* filespec
+
+    必ず指定します。目的のファイルのパスを指定します。絶対パスまたは相対パスの
+どちらかを指定できます。
+
+.解説
+
+指定したファイルが存在しない場合は、エラーが発生します。
+
+次のコードは、GetFile メソッドの使用例です。
+
+
+[source,vbscript]
+----
+[VBScript]
+Function ShowFileAccessInfo(filespec)
+   Dim fso, f, s
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   Set f = fso.GetFile(filespec)
+   s = f.Path & "<br>"
+   s = s & "作成日時: " & f.DateCreated & "<br>"
+   s = s & "最終アクセス日時: " & f.DateLastAccessed & "<br>"
+   s = s & "最終更新日時: " & f.DateLastModified   
+   ShowFileAccessInfo = s
+End Function
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseName メソッド | GetDrive メソッド | GetDriveName メソッド | GetExtensionName メソッド | GetFileName メソッド | GetFileVersion メソッド | GetFolder メソッド | GetParentFolderName メソッド | GetSpecialFolder メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== GetFileName メソッド
+[[FileSystemObject-GetFile]]
+
+指定されたパスの最後のファイル名またはフォルダ名を返します。
+
+[source,vbscript]
+----
+object.GetFileName(pathspec) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* pathspec
+
+    必ず指定します。指定したファイルの絶対パスまたは相対パスです。
+
+.解説
+
+引数 pathspec に指定した文字列の最後が名前付きの構成要素になっていない場合は、
+長さ 0 の文字列 ("") を返します。
+
+NOTE:GetFileName は、パスに指定された文字列に対してのみ処理を行います。指定
+されたパスを解決したり、指定されたパスが実際に存在するかどうかを確認したりしま
+せん。
+
+次のコードは、GetFileName メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function GetAName(DriveSpec)
+   Dim fso
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   GetAName = fso.GetFileName(DriveSpec)
+End Function
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseName メソッド | GetDrive メソッド | GetDriveName メソッド | GetExtensionName メソッド | GetFile メソッド | GetFileVersion メソッド | GetFolder メソッド | GetParentFolderName メソッド | GetSpecialFolder メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+==== GetFolder メソッド
+[[FileSystemObject-GetFolder]]
+
+指定されたパスに置かれているフォルダに対応する Folder オブジェクトを返します。
+
+[source,vbscript]
+----
+object.GetFolder(folderspec) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* folderspec
+
+    必ず指定します。目的のフォルダのパスを指定します。絶対パスまたは相対パスの
+どちらかを指定できます。
+
+.解説
+
+指定したフォルダが存在しない場合は、エラーが発生します。
+
+次のコードは、GetFolder メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Sub AddNewFolder(path, folderName)
+   Dim fso, f, fc, nf
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   Set f = fso.GetFolder(path)
+   Set fc = f.SubFolders
+   If folderName <> "" Then
+      Set nf = fc.Add(folderName)
+   Else
+      Set nf = fc.Add("新しいフォルダ")
+   End If
+End Sub
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseName メソッド | GetDrive メソッド | GetDriveName メソッド | GetExtensionName メソッド | GetFile メソッド | GetFileName メソッド | GetFileVersion メソッド | GetParentFolderName メソッド | GetSpecialFolder メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== GetParentFolderName メソッド
+[[FileSystemObject-GetParentFolderName]]
+
+指定されたパスの最後のファイルまたはフォルダの親フォルダの名前が入った文字列を返します。
+
+object.GetParentFolderName(path) 
+
+引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* path
+
+    必ず指定します。親フォルダの名前を取得するファイルまたはフォルダのパスを指
+定します。
+
+.解説
+
+引数 path に指定したファイルまたはフォルダに親フォルダが存在しない場合は、長さ
+0 の文字列 ("") を返します。
+
+NOTE:GetParentFolderName メソッドは、引数 path で指定された文字列に対してのみ
+処理を行います。指定されたパスを解決したり、指定されたパスが実際に存在するかど
+うかを確認したりしません。
+
+次のコードは、GetParentFolderName メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Function GetTheParent(DriveSpec)
+   Dim fso
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   GetTheParent = fso.GetParentFolderName(Drivespec)
+End Function
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseName メソッド | GetDrive メソッド |
+GetDriveName メソッド | GetExtensionName メソッド | GetFile メソッド |
+GetFileName メソッド | GetFileVersion メソッド | GetFolder メソッド |
+GetSpecialFolder メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== GetSpecialFolder メソッド
+[[FileSystemObject-GetSpecialFolder]]
+
+指定された特殊フォルダを返します。
+
+[source,vbscript]
+----
+object.GetSpecialFolder(folderspec) 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* folderspec
+
+    必ず指定します。取得する特殊フォルダの種類を指定します。指定できる定数につ
+いては、次の「設定値」を参照してください。
+
+.設定値
+
+引数 folderspec に指定できる定数とその値を次に示します。
+
+.設定値
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |内容
+|WindowsFolder |0 |Windows オペレーティング システムによりセットアップされたファイルの置かれている Windows フォルダが返されます。
+|SystemFolder |1 |ライブラリ、フォント、デバイス ドライバなどの置かれている System フォルダが返されます。
+|TemporaryFolder |2 |一時ファイルの格納に使用される Temp フォルダが返されます。このパスは、環境変数 TMP より取得します。
+|===
+
+次のコードは、GetSpecialFolder メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Dim fso, tempfile
+Set fso = CreateObject("Scripting.FileSystemObject")
+
+Function CreateTempFile 
+   Dim tfolder, tname, tfile
+   Const TemporaryFolder = 2
+   Set tfolder = fso.GetSpecialFolder(TemporaryFolder)
+   tname = fso.GetTempName   
+   Set tfile = tfolder.CreateTextFile(tname)
+   Set CreateTempFile = tfile
+End Function
+
+Set tempfile = CreateTempFile
+tempfile.WriteLine "Hello World"
+tempfile.Close
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseName メソッド | GetDrive メソッド |
+GetDriveName メソッド | GetExtensionName メソッド | GetFile メソッド |
+GetFileName メソッド | GetFileVersion メソッド | GetFolder メソッド |
+GetParentFolderName メソッド | GetTempName メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== GetTempName メソッド
+[[FileSystemObject-GetTempName]]
+
+一時ファイルまたは一時フォルダの名前をランダムに生成して返します。このメソッドは、一時ファイルや一時フォルダを必要とする処理を行うときに便利です。
+
+[source,vbscript]
+----
+object.GetTempName ( ); 
+----
+
+object は、省略可能です。FileSystemObject オブジェクトの名前を指定します。
+
+.解説
+
+GetTempName メソッドは、ファイルを作成するのではありません。CreateTextFile を
+使ってファイルを作成する際に使用できる一時ファイル名を返すだけです。
+
+次のコードは、GetTempName メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Dim fso, tempfile
+Set fso = CreateObject("Scripting.FileSystemObject")
+
+Function CreateTempFile 
+   Dim tfolder, tname, tfile
+   Const TemporaryFolder = 2
+   Set tfolder = fso.GetSpecialFolder(TemporaryFolder)
+   tname = fso.GetTempName    
+   Set tfile = tfolder.CreateTextFile(tname)
+   Set CreateTempFile = tfile
+End Function
+
+Set tempfile = CreateTempFile
+tempfile.WriteLine "Hello World"
+tempfile.Close
+----
+
+.参照
+
+GetAbsolutePathName メソッド | GetBaseName メソッド | GetDrive メソッド |
+GetDriveName メソッド | GetExtensionName メソッド | GetFile メソッド |
+GetFileName メソッド | GetFileVersion メソッド | GetFolder メソッド |
+GetParentFolderName メソッド | GetSpecialFolder メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+
+
+
+==== MoveFile メソッド
+[[FileSystemObject-MoveFile]]
+
+
+ファイル (複数可) を別の場所へ移動します。
+
+[source,vbscript]
+----
+object.MoveFile ( source, destination ); 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* source
+
+    必ず指定します。移動するファイルのパスを指定します。パスの最後の構成要素内ではワイルドカード文字を使用できます。
+
+* destination
+
+    必ず指定します。ファイルの移動先のパスを指定します。ワイルドカード文字は使
+用できません。
+
+.解説
+
+引数 source にワイルドカード文字を使用したとき、および引数 destination がパス
+の区切り文字 (\) で終わるとき、引数 destination には既存フォルダを指定したと判
+断され、条件に一致するファイルがそのフォルダ内へ移動されます。それ以外のときは、
+引数 destination には作成するファイルの名前を指定したと判断されます。いずれの
+場合も、移動される各ファイルで発生する処理の実行は 3 種類あります。
+
+* 引数 destination に指定したファイルが存在しない場合、ファイルが移動します。これが通常の場合です。
+* 引数 destination に指定したファイルが存在する場合、エラーが発生します。
+* 引数 destination がディレクトリの場合、エラーが発生します。
+
+引数 source でワイルドカード文字を使用した指定がどのファイルとも一致しなかった
+場合も、エラーが発生します。MoveFile メソッドは、最初のエラーが発生した時点で
+処理を中止します。エラーが発生するまでに行った処理を取り消したり元に戻したりす
+る処理は一切行われません。
+
+NOTE:このメソッドを使用してボリューム間でファイルを移動できるのは、オペレーテ
+ィング システムでボリューム間のファイル移動がサポートされている場合だけです。
+
+次のコードは、MoveFile メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Sub MoveAFile(Drivespec)
+   Dim fso
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   fso.MoveFile Drivespec, "c:\windows\desktop\"
+End Sub
+----
+
+.参照
+
+CopyFile メソッド | DeleteFile メソッド | GetFile メソッド | GetFileName メソ
+ッド | Move メソッド | MoveFolder メソッド | OpenTextFile メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+==== MoveFolder メソッド
+[[FileSystemObject-MoveFolder]]
+
+フォルダ (複数可) を別の場所へ移動します。
+
+[source,vbscript]
+----
+object.MoveFolder ( source, destination ); 
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* source
+
+    必ず指定します。移動するフォルダのパスを指定します。パスの最後の構成要素内
+ではワイルドカード文字を使用できます。
+
+* destination
+
+    必ず指定します。フォルダの移動先のパスを指定します。ワイルドカード文字は使
+用できません。
+
+.解説
+
+引数 source にワイルドカード文字を使用したとき、および引数 destination がパス
+の区切り文字 (\) で終わるとき、引数 destination には既存フォルダを指定したと判
+断され、条件に一致するファイルがそのフォルダ内へ移動されます。それ以外のときは、
+引数 destination に作成するフォルダの名前を指定したと判断されます。いずれの場
+合でも、移動される各フォルダで発生する処理の実行は 3 種類あります。
+
+* 引数 destination に指定したフォルダが存在しない場合、フォルダが移動します。これが通常の場合です。
+* 引数 destination に指定したファイルが存在する場合、エラーが発生します。
+* 引数 destination がディレクトリの場合、エラーが発生します。
+
+引数 source でワイルドカード文字を使用した指定がどのフォルダとも一致しなかった
+場合も、エラーが発生します。MoveFolder メソッドは、最初のエラーが発生した時点
+で処理を中止します。エラーが発生するまでに行った処理を取り消したり元に戻したり
+する処理は一切行われません。
+
+重要 このメソッドを使用してボリューム間でフォルダを移動できるのは、オペレーテ
+ィング システムでボリューム間のフォルダ移動がサポートされている場合だけです。
+
+次のコードは、MoveFolder メソッドの使用例です。
+
+[source,vbscript]
+----
+[VBScript]
+Sub MoveAFolder(Drivespec)
+   Dim fso
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   fso.MoveFolder Drivespec, "c:\windows\desktop\"
+End Sub
+----
+
+.参照
+
+CopyFile メソッド | DeleteFile メソッド | GetFile メソッド | GetFileName メソ
+ッド | Move メソッド | MoveFile メソッド | OpenTextFile メソッド
+
+対象: FileSystemObject オブジェクト
+
+==== OpenTextFile メソッド
+[[FileSystemObject-OpenTextFile]]
+
+指定したファイルを開き、開いたファイルの読み取り、または追加書き込みに使用でき
+る TextStream オブジェクトを返します。
+
+[source,vbscript]
+----
+object.OpenTextFile(filename[, iomode[, create[, format]]])
+----
+
+.引数
+
+* object
+
+    必ず指定します。FileSystemObject オブジェクトの名前を指定します。
+
+* filename
+
+    必ず指定します。作成するファイルの名前を表す文字列式を指定します。
+
+* iomode
+
+    省略可能です。指定する値については、次の「設定値」を参照してください。
+
+* create
+
+    省略可能です。引数 filename で指定したファイルが存在しなかった場合に新しい
+ファイルを作成するかどうかを示すブール値を指定します。新しいファイルを作成する
+場合は真 (true) を、ファイルを作成しない場合は偽 (false) を指定します。省略し
+た場合、新しくファイルは作成されません。
+
+* format
+
+    省略可能です。開くファイルの形式を示す値を指定します。指定する値については、
+次の「設定値」を参照してください。省略した場合、ASCII ファイルとしてファイルが
+開かれます。
+
+.設定値
+
+引数 iomode の設定値は次のとおりです。
+
+.設定値
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |内容
+|ForReading |1 |ファイルを読み取り専用として開きます。このファイルには書き込むことができません。
+|ForWriting |2 |ファイルを書き込み専用として開きます。
+|ForAppending |8 |ファイルを開き、ファイルの最後に追加して書き込みます。
+|===
+
+引数 format の設定値は次のとおりです。
+
+.設定値
+
+[cols="2,4",options="header"]
+|===
+|値 |内容
+|TristateTrue |ファイルを Unicode ファイルとして開きます。
+|TristateFalse |ファイルを ASCII ファイルとして開きます。
+|TristateUseDefault |システム デフォルトを使ってファイルを開きます。
+|===
+
+.解説
+
+次のコードは、OpenTextFile メソッドを使用して、テキストを追加するためにファイルを開く方法を示します。
+
+[source,vbscript]
+----
+[VBScript]
+Sub OpenTextFileTest
+   Const ForReading = 1, ForWriting = 2, ForAppending = 8
+   Dim fso, f
+   Set fso = CreateObject("Scripting.FileSystemObject")
+   Set f = fso.OpenTextFile("c:\testfile.txt", ForWriting, True)
+   f.Write "Hello world!"
+   f.Close
+End Sub
+----
+
+.参照
+
+CreateTextFile メソッド | OpenAsTextStream メソッド
+
+対象: FileSystemObject オブジェクト
+
+
+=== プロパティ
+
+==== Drives プロパティ
+
+
+
+ローカル マシンで利用できるすべての Drive オブジェクトが入った Drives コレクシ
+ョンを返します。
+
+[source,vbscript]
+----
+object.Drives 
+----
+
+object には、FileSystemObject オブジェクトの名前を指定します。
+
+.解説
+
+リムーバブル メディア ドライブは、ドライブにメディアが挿入されていなくても
+Drives コレクションに含まれます。
+
+次のコードは、For Each...Next コンストラクトを使って Drives コレクション内の各
+メンバに繰り返し処理を行う例です。
+
+[source,vbscript]
+----
+[VBScript]
+
+    Function ShowDriveList
+       Dim fso, d, dc, s, n
+       Set fso = CreateObject("Scripting.FileSystemObject")
+       Set dc = fso.Drives
+       For Each d in dc
+          n = ""
+          s = s & d.DriveLetter & " - " 
+          If d.DriveType = 3 Then
+             n = d.ShareName
+          ElseIf d.IsReady Then
+             n = d.VolumeName
+          End If
+          s = s & n & "<BR>"
+       Next
+       ShowDriveList = s
+    End Function
+----
+
+.参照
+
+Drives コレクション | Files プロパティ | SubFolders プロパティ
+
+対象: FileSystemObject オブジェクト
+
+

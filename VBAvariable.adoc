@@ -117,7 +117,6 @@ its
 整列::
 	Alignment
 
-
 下限値::
 	lower limit
 
@@ -127,6 +126,8 @@ its
 中間値::
 	Median
 
+集計::
+	agregate
 
 summary	|まとめ
 

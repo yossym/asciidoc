@@ -1,4 +1,5 @@
 = https://docs.microsoft.com/ja-jp/previous-versions/windows/scripting/cc392489(v=msdn.10)[VBScript | Microsoft Docs]
+
 // 著者の名前(省略可)<メールアドレス(省略可能)>
 // バージョンや作成日(省略可)
 :Author:	yossym

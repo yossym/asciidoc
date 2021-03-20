@@ -1,0 +1,114 @@
+;	AP等にsshもしくはtelnetでログインする
+;	ファイル名を利用してログイン情報を取得してteratermでログインする。
+;
+;	ciscossh@192.168.1.3@admin@version1@.ttl
+;	com@3@root@version1@.ttl
+;	ssh@192.168.1.3@root@version1@.ttl
+;	telnet@192.168.1.3@root@version1@.ttl
+;	 ^	^	  ^	^---	バージョン情報
+;	 |	|	  +---		ログインユーザ名
+;	 |	+---			接続先IPアドレス
+;	 +---				sshもしくはtelnet
+
+
+
+; variable define
+
+strsplit param1 "@"
+protocol=groupmatchstr1
+serverip=groupmatchstr2
+username=groupmatchstr3
+status=groupmatchstr4
+TelnetPrompt=":"
+sprintf2 psswdfilename "%s@%s@password.dat" username status
+timeout=5
+
+
+toupper protocol protocol
+
+;messagebox protocol serverip
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+getpassword psswdfilename username password
+
+strcompare "SSH" protocol
+
+	if result=0 then
+		sprintf2 concmd "%s /ssh /2 /auth=password /user=%s /passwd=%s /keyfile=ssh_known_hosts /nosecuritywarning" serverip username password
+		connect concmd
+	endif
+
+strcompare "TELNET" protocol
+
+	if result=0 then
+		sprintf2 concmd "%s:23 /nossh /T=1" serverip
+		connect concmd
+
+		wait TelnetPrompt
+		sendln username
+
+		wait TelnetPrompt
+		sendln password
+	endif
+
+strscan protocol "COM"
+	if result>0 then
+
+		sprintf2 concmd "/T=%s" serverip
+		connect concmd
+
+		sendln ""
+		wait TelnetPrompt
+		sendln username
+
+		wait TelnetPrompt
+		sendln password
+
+	endif
+
+
+strcompare "CISCOSSH" protocol
+
+	if result=0 then
+		UserNamePrompt="User:"
+		PassWordPrompt="Password:"
+
+;		getpassword 'passwd.dat' username password
+
+		sprintf2 concmd "%s /ssh /auth=password /user=%s /passwd=%s" ServerIp username password
+
+		connect concmd
+
+		wait ")"
+
+		wait UserNamePrompt
+		sendln UserName
+
+		wait PassWordPrompt
+		sendln PassWord
+	endif
+;;;;;;;;;;;;;;;
+; ログファイルの作成
+;;;;;;;;;;;;;;;
+
+testlink
+;	0 Tera Term とリンクされていない。 
+;	1 ホストへの接続はされていないが、Tera Term へのリンクはされている。 
+;	2 リンクおよび接続両方ともされている。 
+
+;messagebox result result
+
+if result=2 then
+	getdir macro_path
+	gettime time_now "%Y%m%d-%H%M%S"
+	sprintf2 logfiename "%s\%s_%s.log" macro_path serverip time_now
+	binary_flag=0
+	append_flag=0
+	plain_text_flag=0
+	timestamp_flag=1
+
+	;logautoclosemode 1
+	logopen  logfiename binary_flag append_flag plain_text_flag timestamp_flag
+endif
+
+;end
+

@@ -28,29 +28,29 @@
 
 .変換関数
 
-* Asc
-* Chr
-* CVErr
-* Format
-* 16 進数
-* Oct
-* Str
-* Val
+* <<Asc,Asc>>
+* <<Chr,Chr>>
+* <<CVErr,CVErr>>
+* <<Format,Format>>
+* <<Hex,Hex>>
+* <<Oct,Oct>>
+* <<Str,Str>>
+* <<Val,Val>>
 
 .数学関数
 
-*    Abs
-*    Atn
-*    Cos
+*    <<Abs,Abs>>
+*    <<Atn,Atn>>
+*    <<Cos,Cos>>
 *    Derived Math
-*    Exp
-*    Int、Fix
-*    Log
-*    Rnd
-*    Sgn
-*    Sin
-*    Sqr
-*    Tan
+*    <<Exp,Exp>>
+*    <<IntFix,Int Fix>>
+*    <<Log,Log>>
+*    <<Rnd,Rnd>>
+*    <<Sgn,Sgn>>
+*    <<Sin,Sin>>
+*    <<Sqr,Sqr>>
+*    <<Tan,Tan>>
 
 .データ型変換関数
 
@@ -163,8 +163,3741 @@
 * WeekdayName
 * Year
 
+=== 変換関数
+[[Asc]]
+==== Asc 関数
 
-=== InStr 関数
+文字列の最初の文字に対応した文字コードを示す整数を返します。
+
+.構文
+
+[source,vbscript]
+----
+Asc(string)
+----
+
+必須の string 引数は、任意の有効な文字列式です。 string に文字が含まれていない
+場合、実行時エラーが発生します。
+
+.解説
+
+戻り値の範囲は、非 DBCS システムでは 0–255 ですが、DBCS システムでは -32768–
+32767 です。
+
+CAUTION: AscB 関数は、文字列に含まれるバイト データの場合に使用します。 先頭の
+文字の文字コードを返す代わりに、AscB は最初のバイトを返します。 AscW 関数は、
+Unicode 文字コードを返します。ただし、Unicode がサポートされていないプラットフ
+ォームでは、Asc 関数と同じ動作になります。
+
+CAUTION: Visual Basic for the Macintosh では、Unicode 文字列をサポートしていま
+せん。 このため、Windows 環境とは異なり、AscW (n) は 128 – 65,535 の範囲の n
+の値に対するすべての Unicode 文字を返すことができません。 代わりに、AscW (n)
+は、127 より大きい Unicode 値 n について "最適なものを推測" します。 したがっ
+て、Macintosh 環境では、AscW を使用してはいけません。。
+
+関数**Chr ()、ChrB ()、および ChrW ()** は、 Asc ()、ascb ()、ascb () の逆です。 Chr () 関数は、整数を文字列に変換します。
+
+.例
+
+この例では、Asc 関数を使って、文字列の先頭の文字に対応する文字コードを返します。
+
+[source,vbscript]
+----
+Dim MyNumber
+MyNumber = Asc("A")    ' Returns 65.
+MyNumber = Asc("a")    ' Returns 97.
+MyNumber = Asc("Apple")    ' Returns 65.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+    Chr ()、ChrB ()、および ChrW () 関数
+
+
+[[Chr]]
+==== Chr 関数
+
+指定した文字コードと関連付けられている文字を含む String を返します。
+
+.構文
+
+[source,vbscript]
+----
+Chr(charcode)
+ChrB(charcode)
+ChrW(charcode)
+----
+
+必須の charcode 引数は、文字を識別する Long です。
+
+.解説
+
+0 から 31 の数値は、標準の印刷できない ASCII コードと同じです。 たとえば、
+  Chr(10) は改行文字を返します。 charcode の通常の範囲は 0 から 255 です。 た
+だし、DBCS システムでは、charcode の実際の範囲は -32768 から 65535 です。
+
+
+CAUTION: ChrB関数は、String に含まれるバイト データの場合に使用します。 ChrBは、
+1 バイトまたは 2 バイトの文字ではなく、常に 1 バイトを返します。
+
+CAUTION: ChrW 関数は、Unicode 文字を含む String を返します。ただし、Unicode が
+サポートされていないプラットフォームでは、Chr 関数と同じ動作になります。
+
+注意
+CAUTION: Visual Basic for the Macintosh では、Unicode 文字列をサポートしていま
+せん。 このため、Windows 環境とは異なり、ChrW(n) は 128 から 65,535 の範囲の n
+の値に対するすべての Unicode 文字を返すことができません。 代わりに、ChrW(n) は、
+127 より大きい Unicode 値 n について "最適なものを推測" します。 したがって、
+Macintosh 環境では、ChrW を使用する必要はありません。
+
+関数 Asc()、AscB()、および AscW() は Chr()、ChrB()、および ChrW() の反対です。
+Asc() 関数は、文字列を整数に変換します。
+
+.例
+
+次の例では、Chr 関数を使用して、指定した文字コードと関連付けられている文字を返
+します。
+
+VB
+
+[source,vbscript]
+----
+Dim MyChar
+MyChar = Chr(65)    ' Returns A.
+MyChar = Chr(97)    ' Returns a.
+MyChar = Chr(62)    ' Returns >.
+MyChar = Chr(37)    ' Returns %.
+----
+
+.関連項目
+
+    文字セット (0 - 127)
+    文字セット (128 - 255)
+    関数 (Visual Basic for Applications)
+    Asc()、AscB()、および AscW() 関数
+
+[[CVErr]]
+==== CVErr 関数
+
+
+ユーザーによって指定されたエラー番号を含むサブタイプ Error の Variant を返しま
+す。
+
+.構文
+
+[source,vbscript]
+----
+CVErr(errornumber)
+----
+
+必須の errornumber 引数は、任意の有効なエラー番号です。
+
+.解説
+
+CVErr 関数は、ユーザーが作成するプロシージャでユーザー定義のエラーを作成するた
+めに使用されます。 たとえば、複数の引数を受け取って普通に文字列を返す関数を作
+成する場合は、関数で入力引数を評価し、受け付けられる範囲内の値であることを確認
+できます。 そうでない場合、関数は期待する結果を返しません。 このような場合、
+CVErr を使用することで、実行する処理の内容を通知するエラー番号を返すことができ
+ます。
+
+Error の暗黙的な変換はできないことに注意してください。 たとえば、CVErr の戻り
+値を、Variant ではない変数に直接割り当てることはできません。 ただし、CVErr に
+よって返される値の明示的な変換を実行し (CInt、CDbl などを使用)、それを適切なデ
+ータ型の変数に割り当てることはできます。
+
+.例
+
+次の例では、CVErr 関数を使用して、VarType が vbError (10) である Variant を返
+します。 ユーザー定義関数 CalculateDouble は、渡された引数が数値でない場合にエ
+ラーを返します。 CVErr を使用して、ユーザー定義プロシージャからユーザー定義エ
+ラーを返すことも、実行時エラーの処理を遅らせることもできます。 値がエラーを表
+しているかどうかを調べるには、IsError 関数を使用します。
+
+
+[source,vbscript]
+----
+' Call CalculateDouble with an error-producing argument.
+Sub Test()
+    Debug.Print CalculateDouble("345.45robert")
+End Sub
+' Define CalculateDouble Function procedure.
+Function CalculateDouble(Number)
+    If IsNumeric(Number) Then
+        CalculateDouble = Number * 2    ' Return result.
+    Else
+        CalculateDouble = CVErr(2001)    ' Return a user-defined error 
+    End If    ' number.
+End Function
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+
+[[Format]]
+==== Format 関数
+
+
+書式指定式の指示に従って書式設定される式を含む Variant (String) を戻します。
+
+.注意
+
+複数のプラットフォーム間で Office エクスペリエンスを拡張するソリューションを開
+発することに関心がありますか? 新しい Office アドイン モデルを参照してください。
+Office アドインは、VSTO アドインやソリューションに比べてフットプリントが小さく、
+HTML5、JavaScript、CSS3、XML などのほぼすべてのWeb プログラミング テクノロジー
+を使用して構築できます。
+
+.構文
+
+[source,vbscript]
+----
+Format(Expression, [Format], [FirstDayOfWeek], [FirstWeekOfYear])
+----
+
+Format 関数の構文には、次の指定項目があります。
+
+.構文
+
+指定項目 	説明
+Expression 	必須。 必ず指定します。任意の有効な式。
+Format 	省略可能。 有効な名前を持つ、またはユーザー定義の書式指定式。
+FirstDayOfWeek 	省略可能。 週の最初の曜日を指定する定数です。
+FirstWeekOfYear 	省略可能。 年内で、最初の週を指定する定数です。
+
+.設定
+
+
+firstdayofweek 引数の設定は次のとおりです。
+
+.設定
+
+[cols="4,1,4",options="header"]
+|===
+|定数        | 値 | 説明
+|vbUseSystem | 0  | NLS API 設定を使用します。
+|vbSunday    | 1  | 日曜日 (既定)
+|vbMonday    | 2  | 月曜日
+|vbTuesday   | 3  | 火曜日
+|vbWednesday | 4  | 水曜日
+|vbThursday  | 5  | 木曜日
+|vbFriday    | 6  | 金曜日
+|vbSaturday  | 7  | 土曜日
+|===
+
+firstweekofyear 引数の設定は次のとおりです。
+
+
+[cols="4,1,4",options="header"]
+|===
+|定数            | 値 | 説明
+|vbUseSystem     | 0  | NLS API 設定を使用します。
+|vbFirstJan1     | 1  | 1 月 1 日が含まれる週から開始します (既定)。
+|vbFirstFourDays | 2  | 4 日以上が含まれる最初の週が年の第 1 週目になります。
+|vbFirstFullWeek | 3  | 1 週間全体が含まれる最初の週がその年の第 1 週目になります。
+|===
+
+[cols="2,4",options="header"]
+|===
+|書式設定の対象       | 説明
+|数値                 | 定義済みの名前付き数値書式を使用するか、ユーザー定義の数値書式を作成します。
+|日付と時刻           | 定義済みの名前付き日付/時刻書式を使用するか、ユーザー定義の日付/時刻書式を作成します。
+|日付と時刻の連続番号 | 日付および時間書式または数値書式を使用します。
+|文字列               | 自分のユーザー定義文字列書式を作成します。
+|===
+
+Format は、format を 257 文字に切り捨てます。
+
+format を指定せずに数値を書式設定する場合、Format は Str 関数と同様の、ただし
+国際対応がされた機能を提供します。 しかし、Format を使用して文字列として書式設
+定された正の数値には、値の記号用に予約済みの先頭のスペースは含まれません。Str
+を使用して変換された数値では、先頭のスペースは保持されます。
+
+ローカライズされていない数値文字列を書式設定する場合、目的の書式を実現するには、
+ユーザー定義数値書式を使用する必要があります。
+
+
+CAUTION: Calendar プロパティの設定が Gregorian で、format が日付書式を指定する
+場合、指定する expression は Gregorian である必要があります。 Visual Basic
+Calendar プロパティ設定が Hijri である場合、指定する expression は Hijri であ
+る必要があります。
+
+カレンダーがグレゴリオ暦である場合、format 式記号の意味は変わりません。 カレン
+ダーがイスラム暦の場合、すべての日付書式記号 (たとえば、dddd、mmmm、yyyy) は同
+じ意味を持ちますが、イスラム暦に適用されます。 書式記号は英語のままです。テキ
+スト表示 (たとえば、AM や PM) になる記号では、その記号に対応する文字列 (英語ま
+たはアラビア語) が表示されます。 カレンダーがイスラム暦の場合、特定の記号の範
+囲は変わります。
+
+
+[cols="1,4",options="header"]
+|===
+|記号 |範囲
+|d |1 〜 31 (前に 0 を付けない、月の日付)
+|dd |01 〜 31 (前に 0 を付ける、月の日付)
+|w |1 〜 7 (週の曜日。土曜日 = 1 から開始)
+|ww |1 〜 53 (1 年のうちで何週目かを表す数値。前に 0 を付けず、1 月 1 日から開始。)
+|m |1 〜 12 (月。前に 0 を付けず、1 月 = 1 から開始。)
+|mm |01 〜 12 (月。前に 0 を付け、1 月 = 01 から開始。)
+|mmm |月の省略名を表示 (イスラム暦の月の名前には省略形はありません)
+|mmmm |完全な月名を表示
+|y |1 〜 366 (1 年のうちで何日目かを表す数値)
+|yy |00 〜 99 (西暦年の下 2 桁)
+|yyyy |100 〜 9999 (3 桁または 4 桁の西暦年)
+|===
+
+
+[cols="4,1,4",options="header"]
+|===
+|記号 |範囲
+|h |0 〜 23 (「AM」または「PM」を追加した 1 〜 12 の数値) (前に 0 を付けない、1 日の中の時間)
+|hh |00 〜 23 (「AM」または「PM」を追加した 01 〜 12 の数値) (前に 0 を付ける、1 日の中の時間)
+|n |0 〜 59 (前に 0 を付けない、1 時間の中の分)
+|nn |00 〜 59 (前に 0 を付ける、1 時間の中の分)
+|m |0 〜 59 (前に 0 を付けない、1 時間の中の分) h または hh が先行する場合のみ
+|mm |00 〜 59 (前に 0 を付ける、1 時間の中の分) h または hh が先行する場合のみ
+|s |0 〜 59 (前に 0 を付けない、1分の中の秒)
+|ss |00 〜 59 (前に 0 を付ける、1分の中の秒)
+|===
+
+.使用例
+
+この例では、名前付き書式とユーザー定義書式の両方を使用して値の書式設定を行う、
+Format 関数のさまざまな使用例を示します。 日付の区切り記号 ( / )、時間の区切り
+記号 (** :** )、リテラルの AM/PM、およびシステムで表示される実際の書式設定され
+る出力は、コードが実行中のロケール設定に基づきます。 時間と日付が開発環境で表
+示されるとき、コード ロケールでの短い時間形式と短い日付形式が使用されます。 コ
+ードの実行により表示される場合は、システム ロケールの短い時間形式と短い日付形
+式が使用されます。これはコード ロケールとは異なることがあります。 この例では、
+English/U.S. を使用します。 MyTime と MyDate が、現在のシステムでの短い時間設
+定と短い日付設定を使用して、開発環境で表示されます。
+
+
+[source,vbscript]
+----
+Dim MyTime, MyDate, MyStr
+MyTime = #17:04:23#
+MyDate = #January 27, 1993#
+
+' Returns current system time in the system-defined long time format.
+MyStr = Format(Time, "Long Time")
+
+' Returns current system date in the system-defined long date format.
+MyStr = Format(Date, "Long Date")
+
+MyStr = Format(MyTime, "h:m:s")    ' Returns "17:4:23".
+MyStr = Format(MyTime, "hh:mm:ss am/pm")    ' Returns "05:04:23 pm".
+MyStr = Format(MyTime, "hh:mm:ss AM/PM")    ' Returns "05:04:23 PM".
+MyStr = Format(MyDate, "dddd, mmm d yyyy")    ' Returns "Wednesday, Jan 27 1993".
+' If format is not supplied, a string is returned.
+MyStr = Format(23)    ' Returns "23".
+
+' User-defined formats.
+MyStr = Format(5459.4, "##,##0.00")    ' Returns "5,459.40".
+MyStr = Format(334.9, "###0.00")    ' Returns "334.90".
+MyStr = Format(5, "0.00%")    ' Returns "500.00%".
+MyStr = Format("HELLO", "<")    ' Returns "hello".
+MyStr = Format("This is it", ">")    ' Returns "THIS IS IT".
+----
+
+さまざまな数値のさまざまな書式
+
+ユーザー定義の数値書式指定 式は、セミコロンで区切られた 1 から 4 のセクションを持つことができます。 書式引数に名前付き数値書式が含まれる場合は、1 つのセクションのみが許可されます。
+さまざまな数値のさまざまな書式
+使用するセクション数 	結果
+
+1. セクションのみ 	書式指定式はすべての値に適用されます。
+2 セクション 	最初のセクションは正の値と 0 に適用され、第 2 のセクションは負の値に適用されます。
+3 セクション 	最初のセクションは正の値、第 2 のセクションは負の値、第 3 のセクションは 0 に適用されます。
+4 セクション 	最初のセクションは正の値、第 2 のセクションは負の値、第 3 のセクションは 0、第 4 のセクションは Null 値に適用されます。
+VB
+
+[source,vbscript]
+----
+"$#,##0;($#,##0)"
+----
+
+間に何も入れずに複数のセミコロンを含めた場合、欠けているセクションは、正の値の
+書式を使用して出力されます。 たとえば、以下の書式は、最初のセクションで書式を
+使用して正と負の値を表示し、値が 0 の場合は、"Zero" を表示します。
+
+
+[source,vbscript]
+----
+"$#,##0;;\Z\e\r\o"
+----
+
+さまざまな文字列値のさまざまな書式
+
+文字列の書式指定式は、セミコロン (;) で区切られた 1 つまたは 2 つのセクションを持つことができます。
+さまざまな文字列値のさまざまな書式
+使用するセクション数 	結果
+1 セクションのみ 	書式はすべての文字列データに適用されます。
+2 セクション 	最初のセクションは文字列データに適用され、第 2 のセクションは Null 値と長さ 0 の文字列 ("") に適用されます。
+名前付き日付/時刻書式
+
+以下の表は、定義済みの日付および時間の書式名を示します。
+
+.名前付き日付/時刻書式
+
+[cols="1,4",options="header"]
+|===
+|書式名 |説明
+|General Date |日付と時刻のどちらか、または両方を表示します (例: 4/3/93 05:34 PM)。 小数の部分がない場合、日付だけを表示します (例: 4/3/93)。 整数の部分がない場合、時間のみを表示します(例: 05:34 PM)。 日付表示はシステム設定に依存します。
+|Long Date |システムの長い日付形式の書式に従って日付を表示します。
+|Medium Date |ホスト アプリケーションの言語バージョンで適切な、中間の長さの日付書式を使用して日付を表示します。
+|Short Date |システムの短い日付書式を使用して日付を表示します。
+|Long Time |システムの長い時間形式を使用して時間を表示します。時間、分、秒が含まれます。
+|Medium Time |時間と分を、12 時間の書式と AM/PM を使用して表示します。
+|Short Time |24 時間の形式を使用して時間を表示します (例: 17: 45)。
+|===
+
+.名前付き数値書式
+
+以下の表は、定義済みの数値の書式名を示します。
+
+[cols="4,1,4",options="header"]
+|===
+|書式名 |説明
+|General Number |桁区切り記号を付けずに数を表示します。
+|Currency |適切な場合は、桁区切り記号を付けて数を表示します。小数点記号の右 2 桁を表示します。 出力はシステム ロケール設定に基づきます。
+|Fixed |少なくとも整数部 1 桁、小数部 2 桁を表示します。
+|Standard |区切り記号を付けて、少なくとも整数部 1 桁、小数部 2 桁を表示します。
+|Percent |数値を 100 倍して、右側にパーセント記号 (%) を付けて表示します。小数部は常に 2 桁です。
+|Scientific |標準の指数表記を使用します。
+|Yes/No |数値が 0 の場合は No を表示します。それ以外の場合は Yes を表示します。
+|True/False |数値が 0 の場合は False を表示します。それ以外の場合は True を表示します。
+|On/Off |数値が 0 の場合は Off を表示します。それ以外の場合は On を表示します。
+|===
+
+ユーザー定義文字列書式
+
+以下の文字を使用して、文字列の書式指定式を作成できます。
+
+.ユーザー定義文字列書式
+
+文字 	説明
+@ 	文字プレースホルダー。 文字またはスペースを表示します。 書式文字列でアット マーク (@ ) の表示位置に文字がある文字列の場合は、その文字が表示されます。それ以外の場合は、その位置にスペースが表示されます。 書式文字列に感嘆符 (** !** ) がある場合を除き、プレースホルダーは右側から左側に向かって埋められます。
+& 	文字プレースホルダー。 文字が表示されるか、または何も表示されません。 アンパサンド (&) の表示位置に文字がある文字列の場合は、その文字が表示されます。それ以外の場合は、何も表示されません。 書式文字列に感嘆符 (** !** ) がある場合を除き、プレースホルダーは右側から左側に向かって埋められます。
+< 	強制的に小文字にします。 すべての文字を小文字で表示します。
+> 	強制的に大文字にします。 すべての文字を大文字で表示します。
+! 	プレースホルダーを左から右に向かって埋めるように強制的に設定します。 既定では、プレースホルダーは右から左に向かって埋めように設定されています。
+ユーザー定義日付/時刻書式
+
+以下の表は、ユーザー定義日付/時刻書式の作成に使用できる文字を示します。
+ユーザー定義日付/時刻書式
+文字 	説明
+(:) 	時刻の区切り記号。 一部のロケールでは、時刻区切り文字を表す目的で他の文字が使用されることがあります。 時刻の値が書式設定されるときに、時刻区切り文字によって時、分、および秒が区切られます。 書式設定された出力で時刻区切り文字として使用される実際の文字は、システム設定によって決まります。
+(/) 	日付の区切り記号。 一部のロケールでは、日付区切り文字を表す目的で他の文字が使用されることがあります。 日付値の書式が設定されている場合、日付、月、および年は、日付の区切り記号によって区切られます。 書式設定された出力で、日付の区切り文字として実際に使用される文字は、システム設定によって決まります。
+c 	日付を ddddd、時刻を ttttt 形式で、日付、時刻の順序で表示します。 日付の連続数値に小数部がない場合は、日付情報だけを表示します。時刻に整数部がない場合は、時刻情報のみを表示します。
+d 	日を先頭に 0 のない数値 (1 〜 31) で表示します。
+dd 	日を先頭に 0 のある数値 (01 〜 31) で表示します。
+ddd 	日を曜日の省略形 (日〜 土) で表示します。 ローカライズされています。
+dddd 	日を曜日の完全な名前 (日曜日〜 土曜日) で表示します。 ローカライズされています。
+ddddd 	日付を完全な日付 (日、月、および年を含む) で表示します。表示形式は各システムの短い日付形式の設定に従っています。 既定の短縮日付フォーマットは、m/d/yy です。
+dddddd 	日付の連続数値を完全な日付 (日、月、および年を含む) で表示します。表示形式は各システムが認識する長い日付形式の設定に従っています。 既定の長い日付形式は、mmmm dd, yyyy です。
+w 	曜日を数値 (日曜日が 1 で土曜日が 7) で表示します。
+ww 	1 年のうちの何週目であるかを数値 (1 〜 54) で表示します。
+m 	月を先頭に 0 のない数値 (1 〜 12) で表示します。 h または hh の直後に m が続く場合は、月ではなく分が表示されます。
+mm 	月を先頭に 0 のある数値 (01 〜 12) で表示します。 h または hh の直後に m が続く場合は、月ではなく分が表示されます。
+mmm 	月を月名の省略形 (1 月〜 12 月) で表示します。 ローカライズされています。
+mmmm 	月を完全な月名 (1 月〜 12 月) で表示します。 ローカライズされています。
+q 	1 年の四半期を数値 (1 〜 4) で表示します。
+y 	1 年の何日目かを数値 (1 〜 366) で表示します。
+yy 	西暦の年を下 2 桁の数値 (00 〜 99) で表示します。
+yyyy 	西暦の年を 4 桁の数値 (100 〜 9999) で表示します。
+h 	時を先頭に 0 のない数値 (0 〜 23) で表示します。
+Hh 	時を先頭に 0 のある数値 (00 〜 23) で表示します。
+n 	分を先頭に 0 のない数値 (0 〜 59) で表示します。
+nn 	分を先頭に 0 のある数値 (00 〜 59) で表示します。
+s 	秒を先頭に 0 のない数値 (0 〜 59) で表示します。
+ss 	秒を先頭に 0 のある数値 (00 〜 59) で表示します。
+ttttt 	時刻を完全な時刻 (時間、分、および秒を含む) で表示します。表示形式は、各システムが認識する時刻書式で定義された時刻区切り文字を使用します。 先頭に 0 を付ける形式が選択されていて、時刻が午前 10:00 または 午後 10:00 より前の場合は、時刻の前に 0 を表示します。 既定の時刻書式は、h:mm:ss です。
+AM/PM 	12 時間形式を使用します。正午までの時間に大文字の AM を、正午から午後 11:59 時までの時間に大文字の PM を付けて表示します。
+am/pm 	12 時間形式を使用します。正午までの時間に小文字の AM を、正午から午後 11:59 時までの時間に小文字の PM を付けて表示します。
+A/P 	12 時間形式を使用します。正午までの時間に大文字の A を、正午から午後 11:59 時までの時間に大文字の P を付けて表示します。
+a/p 	12 時間形式を使用します。正午までの時間に小文字の a を、正午から午後 11:59 時までの時間に小文字の p を付けて表示します。
+AMPM 	12 時間形式を使用します。正午までの時間にはシステムで定義された AM 文字列リテラルを、正午から午後 11:59 時までの時間にはシステムで定義された PM 文字列リテラルを付けて表示します。 AMPM は大文字、小文字のどちらでもかまいません。ただし、表示される文字列の大文字、小文字の区別は、システムの設定で定義した文字列に一致します。 既定の形式は AM/PM です。 システムで 24 時間時計に設定されている場合は、文字列は通常、長さ 0 の文字列に設定されます。
+ユーザー定義数値書式
+
+以下の表は、ユーザー定義数値書式の作成に使用できる文字を示します。
+ユーザー定義数値書式
+文字 	説明
+なし 	書式指定なしで数値を表示します。
+(0) 	桁のプレースホルダーです。 1 桁の数または 0 を表示します。 式で、書式指定文字列で 0 が指定されている場所に 1 桁の数字がある場合は、その数字が表示されます。それ以外の場合は、その場所に 0 を表示します。数値の整数部または小数部の桁数が、書式指定式内の 0 の桁数より少ない場合は、先行ゼロまたは後置ゼロを表示します。 数値の小数部の桁数が、書式指定式の小数部で指定されている 0 の数より多い場合は、0 の数と同じ桁数に数値が丸められます。 数値の整数部の桁数が、書式指定式の整数部の 0 の数より多い場合は、桁をそのまま表示します。
+(#) 	桁のプレースホルダーです。 1 桁の数字または 0 を表示します。 式で、書式指定文字列で # が指定されている場所に該当する桁がある場合は、その数字が表示されます。それ以外の場合は、その場所には何も表示されません。 この記号は 0 桁プレースホルダーと同様の機能を持ちます。ただし、数値の桁数が、書式指定式の整数部および小数部にある # 記号よりも同じか少ない場合でも、先頭および末尾に 0 が表示されません。
+(.) 	小数点のプレースホルダーです。 ロケールによっては、小数点の区切り記号としてコンマが使用されます。 小数点のプレースホルダーは、整数部および小数部に表示する桁数を決定します。 書式指定式でこの記号の左に # 記号だけがある場合、1 未満の数値の先頭は小数点区切り記号になります。 小数値の先頭に 0 を表示するには、整数部の最初の桁のプレースホルダーとして 0 を使用します。 書式指定結果で小数点のプレースホルダーとして実際に使用される記号は、システムで認識される数値書式によって異なります。
+(%) 	パーセントのプレースホルダーです。 式を 100 倍します。 書式指定文字列の表示位置にパーセント記号 ( % ) が挿入されます。
+(,) 	1,000 単位の区切り記号。 ロケールによっては、桁区切り記号としてピリオドが使用されます。 桁区切り記号は、整数部に 4 桁以上ある数値の百の位と千の位を区切ります。 書式にある桁区切り記号が桁のプレースホルダー (0 または #) で囲まれている場合は、桁区切り記号の標準使用が指定されます。 小数部の指定の有無にかかわらず、小数点のすぐ左に、桁区切り記号が 2 つ隣接する場合や、桁区切り記号がある場合は、"数値を 1000 で割って、必要に応じて丸める" ことを意味します。 たとえば、書式指定文字列 "##0,," を使用して、1 億を 100 として表せます。 百万より小さい数字は 0 として表示されます。 小数点のすぐ左以外の位置に 2 つの隣接する区切り記号がある場合は、通常の桁区切り記号を指定したものとして処理されます。 書式指定された出力で、実際に桁区切り記号として使用される記号は、システムで認識される数値書式によって異なります。
+(:) 	時刻の区切り記号。 一部のロケールでは、時刻区切り文字を表す目的で他の文字が使用されることがあります。 時刻の値が書式設定されるときに、時刻区切り文字によって時、分、および秒が区切られます。 書式設定された出力で時刻区切り文字として使用される実際の文字は、システム設定によって決まります。
+(/) 	日付の区切り記号。 一部のロケールでは、日付区切り文字を表す目的で他の文字が使用されることがあります。 日付値の書式が設定されている場合、日付、月、および年は、日付の区切り記号によって区切られます。 書式設定された出力で、日付の区切り文字として実際に使用される文字は、システム設定によって決まります。
+(E- E+ e- e+) 	指数形式。 書式指定式で、E-、E+、e-、または e+ の左に少なくとも 1 つの桁プレースホルダー ( 0 または # ) がある場合、数値は、数値と指数部の間に E または e を挿入して指数形式で表示されます。 右にある桁プレースホルダーの数で、指数の桁数が決まります。 負の指数にマイナス記号を挿入するには、E- または e- を使用します。 負の指数にマイナス記号を入れて、正の指数にプラス記号を入れるには、E+ または e+ を使用します。
+- + $ ( ) 	リテラル文字を表示します。 これ以外の文字をリテラルとして表示するには、その文字の前に円記号 (\) を付けるか、または二重引用符記号 (" ") で囲みます。
+(\) 	書式指定文字列内の次の文字を表示します。 特殊な意味を持つ文字をリテラル文字として表示するには、その文字の前に円記号 (\) を付けます。 円記号自体は表示されません。 円記号を使用するのは、その文字を二重引用符記号で囲むことと同じです。 円記号自体を表示するには、円記号を 2 つ (\\) 使用します。 リテラル文字として表示できない文字には次のような文字があります。日付書式文字および時刻書式文字 (a、c、d、h、m、n、p、q、s、t、w、y、/、および :)、数値書式文字 (#、0、%、E、e、コンマ、およびピリオド)、および文字列書式文字 (@、&、<、>、および !)。
+("ABC") 	二重引用符 (" ") で囲まれた文字列を表示します。 コードから**書式** に文字列を含めるには、Chr(34) を使ってテキストを囲みます (34 は引用符 (") を表す文字コードです)。
+関連項目
+
+    関数 (Visual Basic for Applications)
+
+
+[[Hex]]
+==== Hex 関数
+
+
+
+数値を 16 進数で表す String を返します。
+
+.構文
+
+[source,vbscript]
+----
+Hex(number)
+----
+
+必須の number 引数は、任意の有効な数値式または文字列式です。
+
+.構文
+
+
+[cols="4,1,4",options="header"]
+|===
+|number の値                       | Hex の戻り値
+|-2,147, 483,648 〜 2,147, 483,647 | 最大 8 桁の 16 進文字
+|Null                              | Null
+|空                                | ゼロ (0)
+|===
+
+.解説
+
+number が整数ではない場合、最も近い整数に丸めてから評価されます。
+
+16進数の逆にする場合は、16進数の値の前に &Hを付けます。 たとえば、Hex(255) は
+文字列 FF を返し、&HFF は数値 255 を返します。
+
+.例
+
+次の例は、Hex 関数を使用して、数値の 16 進数値を返します。
+
+[source,vbscript]
+----
+Dim MyHex
+MyHex = Hex(5)    ' Returns 5.
+MyHex = Hex(10)    ' Returns A.
+MyHex = Hex(459)    ' Returns 1CB.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Oct]]
+==== Oct 関数
+
+
+数値を 8 進数で表す Variant (String) を返します。
+
+.構文
+
+[source,vbscript]
+----
+Oct(number)
+----
+
+必須の number 引数は、任意の有効な数式または文字列式です。
+
+.解説
+
+number が整数ではない場合、最も近い整数に丸めてから評価されます。
+
+
+[cols="4,1,4",options="header"]
+|===
+|number の値  | Oct の戻り値
+|Null         | Null
+|空           | ゼロ (0)
+|それ以外の値 | 最大 11 桁の 8 進数
+|===
+
+適切な範囲の数値の前に &O を付けて記述すると、値を直接 8 進数で表すことができ
+ます。 たとえば、10 進数の 8 の場合は、&O10 のように 8 進数で表記することがで
+きます。
+
+.例
+
+次の例は、Oct 関数を使用して、数値の 8 進数値を返します。
+
+
+[source,vbscript]
+----
+Dim MyOct
+MyOct = Oct(4)     ' Returns 4.
+MyOct = Oct(8)    ' Returns 10.
+MyOct = Oct(459)    ' Returns 713.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Str]]
+==== Str 関数
+
+
+数を示す Variant (String) を返します。
+
+.構文
+
+[source,vbscript]
+----
+Str(number)
+----
+
+必須の number 引数は、任意の有効な数式を含む Long です。
+解説
+
+数値が文字列に変換されるとき、先頭のスペースは number の符号用に常に予約されます。 number が正の場合、返される文字列には先頭のスペースが含まれ、プラス記号は省略されています。
+
+日付、時刻、通貨、または他のユーザー定義書式として書式設定する数値を変換するには、Format 関数を使用します。 Str とは異なり、Format 関数は number の符号用に先頭のスペースを含みません。
+
+注意
+
+Str 関数は、有効な桁区切り記号としてピリオド (.) のみを 認識します。 他の桁区切り記号を使う場合は (国際アプリケーションの場合など)、CStr を使って数値を文字列に変換します。
+例
+
+この例では、Str 関数を使って、数値の文字列表現を返しています。 数値が文字列に変換されるとき、先頭のスペースは常に符号用に予約されます。
+VB
+
+Dim MyString
+MyString = Str(459)    ' Returns " 459".
+MyString = Str(-459.65)    ' Returns "-459.65".
+MyString = Str(459.001)    ' Returns " 459.001".
+
+関連項目
+
+    関数 (Visual Basic for Applications)
+
+
+[[Val]]
+==== Val 関数
+
+
+文字列に含まれる数値を、適切な型の数値として返します。
+
+.構文
+
+[source,vbscript]
+----
+Val(string)
+----
+
+必須の string 引数は、任意の有効な文字列式です。
+
+.解説
+
+Val 関数は、数値の一部として認識できない最初の文字で、文字列の読み取りを中止し
+ます。 数値の一部と見なされることが多い記号や文字 (ドル記号、コンマなど) は、
+認識されません。
+
+ただし、この関数は、基数プレフィックス &O (8 進数) と &H (16 進数) を認識しま
+す。 空白、タブ、およびライン フィード文字は、引数から削除されます。
+
+次の例では、値 1615198 が返されます。
+
+
+[source,vbscript]
+----
+Val("    1615 198th Street N.E.")
+----
+
+次のコード例の Val は、示されている 16 進数値の 10 進数値である -1 を返します。
+
+
+[source,vbscript]
+----
+Val("&HFFFF")
+----
+
+
+CAUTION: Val 関数は、ピリオド (.) のみを 有効な小数点の記号として認識します。
+別の小数点の記号を使用する場合は (国際的なアプリケーションの場合など)、代わり
+に CDbl を使用して文字列を数値に変換します。
+
+.例
+
+
+次の例では、Val 関数を使用して、文字列に含まれる数値を返します。
+
+
+[source,vbscript]
+----
+Dim MyValue
+MyValue = Val("2457")    ' Returns 2457.
+MyValue = Val(" 2 45 7")    ' Returns 2457.
+MyValue = Val("24 and 57")    ' Returns 24.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+=== 数学関数
+
+[[Abs]]
+==== Abs 関数
+
+
+
+渡された値と同じ型で値の絶対値を返します。
+
+.構文
+
+[source,vbscript]
+----
+Abs(number)
+----
+
+必須の number 引数は、任意の有効な数式です。 number に Null が含まれる場合、
+Null が返されます。また、初期化されていない変数の場合は、0 が返されます。
+
+.解説
+
+数値の絶対値は、その数値から符号を取り除いた値です。 たとえば、ABS(-1) と
+ABS(1) は両方とも 1 を返します。
+
+.例
+
+次の例では、Abs 関数を使用して数値の絶対値を計算します。
+
+
+[source,vbscript]
+----
+Dim MyNumber
+MyNumber = Abs(50.3)    ' Returns 50.3.
+MyNumber = Abs(-50.3)    ' Returns 50.3.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Arn]]
+==== Atn 関数
+
+
+数値のアークタンジェントを指定する Double を返します。
+
+.構文
+
+[source,vbscript]
+----
+Atn(number)
+----
+
+必須の number 引数は、Double または任意の有効な数値式です。
+
+.解説
+
+Atn 関数は、直角三角形の 2 辺の比 (number) を取得し、対応する角度を返します。
+2 辺の比は、指定した角の反対側の辺 (対辺) の長さを、指定した角に隣接する側の辺
+の長さで割った値です。
+
+結果の範囲は、-pi/2 から pi/2 (単位はラジアン) になります。 角度の単位を度から
+ラジアンに変換するには、度に pi/180 を掛けます。 ラジアンから度に変換するには、
+ラジアンに 180/pi を掛けます。
+
+
+CAUTION: Atnは、Tan の逆三角関数で、引数として角度を取得し、直角三角形の 2 辺
+の比を返します。 Atn とコタンジェントを混同しないでください。コタンジェントは、
+単にタンジェントの逆数 (1/タンジェント) です。
+
+.例
+
+次の例では、Atn 関数を使用して pi の値を計算しています。
+VB
+
+[source,vbscript]
+----
+Dim IntVar, StrVar, DateVar, MyCheck
+' Initialize variables.
+IntVar = 459: StrVar = "Hello World": DateVar = #2/12/69# 
+MyCheck = VarType(IntVar)    ' Returns 2.
+MyCheck = VarType(DateVar)    ' Returns 7.
+MyCheck = VarType(StrVar)    ' Returns 8.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Cos]]
+==== Cos 関数
+
+
+角度の余弦 (コサイン) を示す (Double) の値を返します。
+
+.構文
+
+[source,vbscript]
+----
+Cos(number)
+----
+
+必須の number 引数は、Double または角度 (ラジアン) を示す任意の有効な数値式で
+す。
+
+.解説
+
+Cos 関数は、角度を取得し、直角三角形の 2 辺の比を返します。 2 辺の比は、指定し
+た角に隣接する側の辺の長さを、斜辺の長さで割った値です。結果は、-1 から 1 の範
+囲内になります。
+
+角度の単位を度からラジアンに変換するには、度に pi/180 を掛けます。 ラジアンか
+ら度に変換するには、ラジアンに 180/pi を掛けます。
+
+.例
+
+次の例では、Cos 関数を使用して角度の余弦 (コサイン) を返します。
+VB
+
+[source,vbscript]
+----
+Dim MyAngle, MySecant
+MyAngle = 1.3    ' Define angle in radians.
+MySecant = 1 / Cos(MyAngle)    ' Calculate secant.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+
+
+
+// [[派生した数学関数]]
+==== 派生した数学関数
+
+
+組み込みの数学関数から導くことができるその他の数学関数を次に示します。
+
+.派生した数学関数
+
+
+[cols="1,4",options="header"]
+|===
+|関数             | 導出式
+|正割             | Sec(X) = 1 / Cos(X)
+|余割             | Cosec(X) = 1 / Sin(X)
+|余接             | Cotan(X) = 1 / Tan(X)
+|逆正弦           | Arcsin(X) = Atn(X / Sqr(-X * X + 1))
+|逆余弦           | Arccos(X) = Atn(-X / Sqr(-X * X + 1)) + 2 * Atn(1)
+|逆正割           | Arcsec(X) = Atn(X / Sqr(X * X - 1)) + Sgn((X) - 1) * (2 * Atn(1))
+|逆余割           | Arccosec(X) = Atn(X / Sqr(X * X - 1)) + (Sgn(X) - 1) * (2 * Atn(1))
+|逆余接           | Arccotan(X) = Atn(X) + 2 * Atn(1)
+|双曲線正弦       | HSin(X) = (Exp(X) - Exp(-X)) / 2
+|双曲線余弦       | HCos(X) = (Exp(X) + Exp(-X)) / 2
+|双曲線正接       | HTan(X) = (Exp(X) - Exp(-X)) / (Exp(X) + Exp(-X))
+|双曲線正割       | HSec(X) = 2 / (Exp(X) + Exp(-X))
+|双曲線余割       | HCosec(X) = 2 / (Exp(X) - Exp(-X))
+|双曲線余接       | HCotan(X) = (Exp(X) + Exp(-X)) / (Exp(X) - Exp(-X))
+|逆双曲線正弦     | HArcsin(X) = Log(X + Sqr(X * X + 1))
+|逆双曲線余弦     | HArccos(X) = Log(X + Sqr(X * X - 1))
+|逆双曲線正接     | HArctan(X) = Log((1 + X) / (1 - X)) / 2
+|逆双曲線正割     | HArcsec(X) = Log((Sqr(-X * X + 1) + 1) / X)
+|逆双曲線余割     | HArccosec(X) = Log((Sgn(X) * Sqr(X * X + 1) + 1) / X)
+|逆双曲線余接     | HArccotan(X) = Log((X + 1) / (X - 1)) / 2
+|N を底とする対数 | LogN(X) = Log(X) / Log(N)
+|===
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Exp]]
+==== Exp 関数
+
+
+e (自然対数の底) を底とする数値のべき乗を指定する Double を返します。
+
+.構文
+
+[source,vbscript]
+----
+Exp(number)
+----
+
+必須の number 引数は、Double または任意の有効な数値式です。
+
+.解説
+
+number の値が 709.782712893 を超えると、エラーが発生します。 定数 _e_は約
+2.718282 です。
+
+
+CAUTION: Exp 関数は Log 関数の処理を補完し、真数と呼ばれることがあります。
+
+.例
+
+この例では、Exp 関数を使って e を底とする数値のべき乗を返します。
+VB
+
+[source,vbscript]
+----
+Dim MyAngle, MyHSin
+' Define angle in radians.
+MyAngle = 1.3    
+' Calculate hyperbolic sine.
+MyHSin = (Exp(MyAngle) - Exp(-1 * MyAngle)) / 2  
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+[[IntFix]]
+==== Int、Fix 関数
+
+
+数値の整数部分を返します。
+
+.構文
+
+[source,vbscript]
+----
+Int(数値)
+Fix(数値)
+----
+
+必須の_number_引数は、倍精度浮動小数点型 (Double) または任意の有効な数値式です。
+number に Null が含まれている場合は Null が返されます。
+
+.注釈
+
+Int および Fix のどちらを使用した場合も、number の小数部分が取り除かれて、その
+結果得られる整数値が返されます。
+
+IntとFixの違いは、 _number_が負の場合、 intが_数値_以下の最初の負の整数値を返
+すのに対して、 fixは、最初の負の整数より大きいまたは等しいを返します。数値。
+たとえば、-8.4 は Int では -9 に変換されますが、 Fix では -8 に変換されます。
+
+修正(数値) はSgn(数値) * Int(Abs(数値)) と同じです。
+
+例
+
+次の例では、Int 関数および Fix 関数によってどのように数値の整数部分が返される
+かを説明しています。 引数が負の数値の場合、Int 関数では数値以下の最も大きい負
+の整数が返されますが、Fix 関数では数値以上の最も小さい負の整数が返されます。
+VB
+
+[source,vbscript]
+----
+Dim MyNumber
+MyNumber = Int(99.8)    ' Returns 99.
+MyNumber = Fix(99.2)    ' Returns 99.
+
+MyNumber = Int(-99.8)    ' Returns -100.
+MyNumber = Fix(-99.8)    ' Returns -99.
+
+MyNumber = Int(-99.2)    ' Returns -100.
+MyNumber = Fix(-99.2)    ' Returns -99.
+----
+
+.関連項目
+
+    Visual Basic エディター (VBE) の用語集
+    関数 (Visual Basic for Applications)
+
+[[Log]]
+==== Log 関数
+
+
+数値の自然対数を表す倍精度浮動小数点型 (Double) の値を返します。
+
+.構文
+
+[source,vbscript]
+----
+Log(数値)
+----
+
+必須の_number_ 引数は、倍精度浮動小数点型 (Double) または0より大きい有効な数値
+式です。
+
+.注釈
+
+自然対数とは、e を底とする対数です。 定数 _e_は約2.718282 です。
+
+任意の数値 x の n を底とする対数は、次に示すように x の自然対数を n の自然対数
+で割ることによって得られます。
+
+Logn ( x) = ログ(x)/ログ(n)
+
+次の例は、10 を底とする対数を計算するカスタム Function を表しています。
+VB
+
+[source,vbscript]
+----
+Static Function Log10(X)
+    Log10 = Log(X) / Log(10#)
+End Function
+----
+
+.例
+
+この例では、Log 関数を使用して、数値の自然対数を返します。
+VB
+
+[source,vbscript]
+----
+Dim MyAngle, MyLog
+' Define angle in radians.
+MyAngle = 1.3
+' Calculate inverse hyperbolic sine.
+MyLog = Log(MyAngle + Sqr(MyAngle * MyAngle + 1))
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Rnd]]
+==== Rnd 関数
+
+
+擬似乱数を含む単精度浮動小数点型 (single) の値を返します。
+
+.構文
+
+[source,vbscript]
+----
+Rnd[(数値)]
+----
+
+省略可能な_Number_ 引数は、単精度浮動小数点型 (Single) の数値式です。
+.戻り値
+
+[cols="1,4",options="header"]
+|===
+|_Number_が   | Rnd が返す値
+|0 より小さい | 常に同じ数値をシード_値_として使用します。
+|0 より大きい | 擬似乱数シーケンスの次の番号。
+|0に等しい    | 最近生成された乱数。
+|省略         | 擬似乱数シーケンスの次の番号。
+|===
+.注釈
+
+Rnd 関数は、0 以上 1 未満の値を返します。
+
+_Number_の値によって、 Rndが擬似乱数を生成する方法が決まります。
+
+* 所定の初期シードの場合、同じ番号シーケンスが生成されます。これは、Rnd 関数を
+ 連続して呼び出すたびに、シーケンス内の次の値のシードとして、前の値が使用され
+ るためです。
+
+* システム タイマーに基づくシードを使用して乱数ジェネレーターを初期化するには、
+ Rnd を呼び出す前に、引数を指定せずに Randomize ステートメントを使用します。
+
+所定の範囲でランダムな整数を生成するには、次の式を使用します。
+VB
+
+[source,vbscript]
+----
+Int((upperbound - lowerbound + 1) * Rnd + lowerbound)
+----
+
+ここで、__ upperbound には範囲の上限の値を指定し、__ lowerbound には範囲の下限
+の値を指定します。
+
+
+CAUTION:乱数のシーケンスを繰り返す場合は、数値の引数を指定した Randomize を使
+用する直前に、負の引数を指定した Rnd を呼び出します。 _Number_に同じ値を指定し
+てRandomizeを使用しても、前のシーケンスは繰り返されません。
+
+.例
+
+この例では、Rnd 関数を使用して、1 から 6 までのランダムな整数を生成します。
+VB
+
+[source,vbscript]
+----
+Dim MyValue As Integer
+MyValue = Int((6 * Rnd) + 1)    ' Generate random value between 1 and 6.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Sgn]]
+==== Sgn 関数
+
+
+数値の符号を示す、サブタイプが整数型 (Integer) であるバリアント型 (Variant) の
+値を返します。
+
+.構文
+
+[source,vbscript]
+----
+Sgn(数値)
+----
+
+必須の number 引数は、任意の有効な数式です。
+
+.戻り値
+
+[cols="1,4",options="header"]
+|===
+|number の値  | Sgn の戻り値
+|0 より大きい | 1
+|0に等しい    | 0
+|0 より小さい | -1
+|===
+
+.注釈
+
+number 引数の符号により、Sgn 関数の戻り値が決まります。
+
+.例
+
+次の例では、Sgn 関数を使用して数値の符号を調べます。
+VB
+
+[source,vbscript]
+----
+Dim MyVar1, MyVar2, MyVar3, MySign
+MyVar1 = 12: MyVar2 = -2.4: MyVar3 = 0
+MySign = Sgn(MyVar1)    ' Returns 1.
+MySign = Sgn(MyVar2)    ' Returns -1.
+MySign = Sgn(MyVar3)    ' Returns 0.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Sin]]
+==== Sin 関数
+
+
+角度のサインを指定する倍精度浮動小数点型 (Double) の値を返します。
+
+.構文
+
+[source,vbscript]
+----
+Sin(数値)
+----
+
+必須の number 引数は、Double または角度 (ラジアン) を示す任意の有効な数値式で
+す。
+
+.解説
+
+Sin 関数は、角度を受け取り、直角三角形の 2 辺の比を返します。 2 辺の比は、角度
+の反対側の辺の長さを斜辺の長さで割った値です。 結果は -1 ～ 1 の範囲になります。
+
+度をラジアンに変換するには、度にπ/180 を掛けます。 ラジアンから度に変換するに
+は、ラジアンに 180/pi を掛けます。
+
+.例
+
+次の例では、Sin 関数を使用して角度のサインを取得しています。
+VB
+
+[source,vbscript]
+----
+Dim MyAngle, MyCosecant
+MyAngle = 1.3    ' Define angle in radians.
+MyCosecant = 1 / Sin(MyAngle)    ' Calculate cosecant.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Sqr]]
+==== Sqr 関数
+
+
+数値の平方根を示す Double を返します。
+
+.構文
+
+[source,vbscript]
+----
+Sqr(数値)
+----
+
+必須の_number_ 引数は、倍精度浮動小数点型 (Double) または0以上の有効な数値式で
+す。
+
+.例
+
+この例では、Sqr 関数を使用して数値の平方根を計算します。
+VB
+
+[source,vbscript]
+----
+Dim MySqr
+MySqr = Sqr(4)    ' Returns 2.
+MySqr = Sqr(23)    ' Returns 4.79583152331272.
+MySqr = Sqr(0)    ' Returns 0.
+MySqr = Sqr(-4)    ' Generates a run-time error.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[Tan]]
+==== Tan 関数
+
+
+角度の正接を指定する Double を返します。
+
+.構文
+
+[source,vbscript]
+----
+Tan(数値)
+----
+
+必須の number 引数は、Double または角度 (ラジアン) を示す任意の有効な数値式で
+す。
+
+.解説
+
+Tan は角度を取り、直角三角形の 2 辺の比率を返します。 この比率は、1 つの角の反
+対側にある辺の長さを、その角に近接する辺の長さで除算することで得られます。
+
+度をラジアンに変換するには、度にπ/180 を掛けます。 ラジアンから度に変換するに
+は、ラジアンに 180/pi を掛けます。
+
+.例
+
+この例では、Tan 関数を使用して、角度の正接を返しています。
+VB
+
+[source,vbscript]
+----
+Dim MyAngle, MyCotangent
+MyAngle = 1.3    ' Define angle in radians.
+MyCotangent = 1 / Tan(MyAngle)    ' Calculate cotangent.
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+
+=== データ型変換関数
+
+==== データ型変換関数
+
+    2018/12/21
+
+この記事の内容
+
+    構文
+    戻り値の型
+    解説
+    CBool 関数の例
+    CByte 関数の例
+    CCur 関数の例
+    CDate 関数の例
+    CDbl 関数の例
+    CDec 関数の例
+    CInt 関数の例
+    CLng 関数の例
+    CSng 関数の例
+    CStr 関数の例
+    CVar 関数の例
+    関連項目
+
+各関数では、式が特定のデータ型に強制的に変換されます。
+
+.構文
+
+
+* CBool(expression)
+* CByte(expression)
+* CCur(expression)
+* CDate(expression)
+* CDbl(expression)
+* CDec(expression)
+* CInt(expression)
+* CLng(expression)
+* CLngLng(expression) (64 ビットのプラットフォームでのみ有効)
+* CLngPtr(expression)
+* CSng(expression)
+* CStr(expression)
+* CVar(expression)
+
+必須の expression 引数は、任意の文字列式または数値式です。
+
+.戻り値の型
+
+次に示すように、戻り値の型は関数名によって異なります。
+
+戻り値の型
+
+[cols="4,1,4",options="header"]
+|===
+|Function | 戻り値の種類 | expression 引数の範囲
+|CBool    | Boolean      | 任意の有効な文字列式または数式を指定します。
+|CByte    | Byte         | 0 から 255。
+|CCur     | Currency     | -922,337,203,685,477.5808 ～ 922,337,203,685,477.5807。
+|CDate    | Date         | 任意の有効な日付式。
+|CDbl     | Double       | 負の値の場合は -1.79769313486231E308 ～ -4.94065645841247E-324、正の値の場合は 4.94065645841247E-324 ～ 1.79769313486232E308。
+|CDec     | Decimal      | ゼロスケールの値 (小数部分がない値) の場合は 79,228,162,514,264,337,593,543,950,335 です。 小数点以下が 28 桁の値の場合は 7.9228162514264337593543950335 です。 0 以外で可能な最小値は 0.0000000000000000000000000001 です。
+|CInt     | Integer      | -32,768 から 32,767。小数点以下は丸められます。
+|CLng     | Long         | -2,147,483,648 から 2,147,483,647。小数点以下は丸められます。
+|CLngLng  | LongLong     | -9,223,372,036,854,775,808 から 9,223,372,036,854,775,807。小数点以下は丸められます (64 ビット プラットフォームのみで有効)。
+|CLngPtr  | LongPtr      | 32 ビットのシステムでは -2,147,483,648 ～ 2,147,483,647、64 ビットのシステムでは -9,223,372,036,854,775,808 ～ 9,223,372,036,854,775,807。32 ビットと 64 ビットのどちらのシステムでも、小数部分は丸められます。
+|CSng     | Single       | 負の値の場合は -3.402823E38 ～ -1.401298E-45、正の値の場合は 1.401298E-45 ～ 3.402823E38。
+|CStr     | String       | CStr の戻り値は、expression 引数に依存します。
+|CVar     | Variant      | 数値の場合は Double と同じ範囲です。 数値以外の場合は String と同じ範囲です。
+|===
+
+.解説
+
+関数に渡した expression 引数の値が変換されるデータ型の範囲を超える場合はエラー
+が発生します。
+
+CAUTION: LongLong (64 ビットのプラットフォームの LongPtr を含む) をそれよりも
+小さい整数型に明示的に代入するには、変換関数を使用する必要があります。
+LongLong をそれよりも小さい整数に暗黙的に変換することはできません。
+
+一般に、データ型の変換関数を使用してコードを文書化し、一部の演算の結果が既定の
+データ型ではなく、特定のデータ型として表示されるように指定できます。 たとえば、
+通常、単精度、倍精度、整数演算が発生する場合、CCur を使用して、通貨換算を強制
+的に実行します。
+
+国際的に通用する 1 つのデータ型から別のデータ型に変換するには、Val ではなく、
+データ型の変換関数を使用する必要があります。 たとえば、CCur を使用すると、使用
+しているコンピューターのロケールに応じて、異なる少数点の区切り文字や桁区切り記
+号、さまざまな通貨オプションが適切に認識されます。
+
+小数点以下が 0.5 の場合、CInt および CLng は、常に一番近い偶数に数値を丸めます。
+たとえば、0.5 は 0 に、1.5 は 2 に丸められます。 Fix関数とInt関数は、小数部分
+を丸めるのではなく切り捨てるので、CInt およびCLngとは異なります。 また、Fix お
+よび Int は、常に渡されたのと同じ型の値を返します。
+
+date を日付または時刻に変換できるかどうかを確認するには、IsDate 関数を使用しま
+す。 CDate では、日付リテラルと時刻リテラルだけでなく、許容範囲内の日付に当て
+はまる数字も認識されます。 数字を日付に変換すると、整数全体が日付に変換されま
+す。 数字の分数の部分は、午前 12 時を起点にした時刻に変換されます。
+
+CDate は、システムのロケール設定に基づいて日付の形式を認識します。 認識されて
+いる日付設定以外の書式設定が提供されている場合、日、月、年の順番を正しく決定で
+きないことがあります。 さらに、1 週間の文字列が含まれる場合、長い日付の書式設
+定は認識されません。
+
+Visual Basic の旧バージョンとの互換性のために、CVDate 関数も提供されています。
+CVDate 関数の構文は CDate 関数と同じですが、CVDate では、実際の Date 型ではな
+く、サブタイプが Date 型である Variant 型が返されます。 組み込みの Date 型が利
+用できるようになったため、CVDate を使用する必要がなくなりました。 式を Date に
+変換してから Variant に代入することで、同じ処理を行うことができます。 これは、
+他のすべての組み込みタイプを同等のバリアント型サブタイプに変換する方法と同じで
+す。
+
+
+CAUTION: CDec 関数は独立したデータ型を返しません。値が 10 進型サブタイプに変換
+されたバリアント型を常に返します。
+
+.CBool 関数の例
+
+この例では、CBool 関数を使用して、式を Boolean に変換します。 式が 0 以外の値
+に評価される場合は CBool から True が返され、それ以外の場合は False が返されま
+す。
+VB
+
+[source,vbscript]
+----
+Dim A, B, Check 
+A = 5: B = 5 ' Initialize variables. 
+Check = CBool(A = B) ' Check contains True. 
+ 
+A = 0 ' Define variable. 
+Check = CBool(A) ' Check contains False. 
+----
+
+.CByte 関数の例
+
+この例では、CByte 関数を使用して、式を Byte に変換します。
+VB
+
+[source,vbscript]
+----
+Dim MyDouble, MyByte 
+MyDouble = 125.5678 ' MyDouble is a Double. 
+MyByte = CByte(MyDouble) ' MyByte contains 126. 
+
+----
+.CCur 関数の例
+
+この例では、CCur 関数を使用して、式を Currency に変換します。
+VB
+
+[source,vbscript]
+----
+Dim MyDouble, MyCurr 
+MyDouble = 543.214588 ' MyDouble is a Double. 
+MyCurr = CCur(MyDouble * 2) ' Convert result of MyDouble * 2 
+ ' (1086.429176) to a 
+ ' Currency (1086.4292). 
+----
+
+.CDate 関数の例
+
+この例では CDate 関数を使用し、文字列を日付型に変換します。 一般に、この例で示すように、文字列として日付と時刻をハードコードするのはお勧めしません。 文字列の代わりに、#2/12/1969# や #4:45:23 PM# のような日付リテラルと時刻リテラルを使用してください。
+VB
+
+[source,vbscript]
+----
+Dim MyDate, MyShortDate, MyTime, MyShortTime 
+MyDate = "February 12, 1969" ' Define date. 
+MyShortDate = CDate(MyDate) ' Convert to Date data type. 
+ 
+MyTime = "4:35:47 PM" ' Define time. 
+MyShortTime = CDate(MyTime) ' Convert to Date data type. 
+----
+
+.CDbl 関数の例
+
+この例では、CDbl 関数を使用して、式を Double に変換します。
+VB
+
+[source,vbscript]
+----
+Dim MyCurr, MyDouble 
+MyCurr = CCur(234.456784) ' MyCurr is a Currency. 
+MyDouble = CDbl(MyCurr * 8.2 * 0.01) ' Convert result to a Double. 
+----
+
+.CDec 関数の例
+
+この例では、CDec 関数を使用して、値を Decimal に変換します。
+VB
+
+[source,vbscript]
+----
+Dim MyDecimal, MyCurr 
+MyCurr = 10000000.0587 ' MyCurr is a Currency. 
+MyDecimal = CDec(MyCurr) ' MyDecimal is a Decimal. 
+----
+
+.CInt 関数の例
+
+この例では、CInt 関数を使用して、値を Integer に変換します。
+VB
+
+[source,vbscript]
+----
+Dim MyDouble, MyInt 
+MyDouble = 2345.5678 ' MyDouble is a Double. 
+MyInt = CInt(MyDouble) ' MyInt contains 2346. 
+----
+
+.CLng 関数の例
+
+この例では、CLng 関数を使用して、値を Long に変換します。
+VB
+
+[source,vbscript]
+----
+Dim MyVal1, MyVal2, MyLong1, MyLong2 
+MyVal1 = 25427.45: MyVal2 = 25427.55 ' MyVal1, MyVal2 are Doubles. 
+MyLong1 = CLng(MyVal1) ' MyLong1 contains 25427. 
+MyLong2 = CLng(MyVal2) ' MyLong2 contains 25428. 
+----
+
+.CSng 関数の例
+
+この例では、CSng 関数を使用して、値を Single に変換します。
+VB
+
+[source,vbscript]
+----
+Dim MyDouble1, MyDouble2, MySingle1, MySingle2 
+' MyDouble1, MyDouble2 are Doubles. 
+MyDouble1 = 75.3421115: MyDouble2 = 75.3421555 
+MySingle1 = CSng(MyDouble1) ' MySingle1 contains 75.34211. 
+MySingle2 = CSng(MyDouble2) ' MySingle2 contains 75.34216. 
+----
+
+.CStr 関数の例
+
+この例では、CStr 関数を使用して、数値を String に変換します。
+VB
+
+[source,vbscript]
+----
+Dim MyDouble, MyString 
+MyDouble = 437.324 ' MyDouble is a Double. 
+MyString = CStr(MyDouble) ' MyString contains "437.324". 
+----
+
+
+.CVar 関数の例
+
+この例では、CVar 関数を使用して、式を Variant に変換します。
+VB
+
+[source,vbscript]
+----
+Dim MyInt, MyVar 
+MyInt = 4534 ' MyInt is an Integer. 
+MyVar = CVar(MyInt & 000) ' MyVar contains the string 
+ ' 4534000. 
+----
+
+.関連項目
+
+    データ型の概要
+    Visual Basic エディター (VBE) の用語集
+    Visual Basic の概念に関するトピック
+
+=== その他の関数
+
+[[Array]]
+==== Array 関数
+
+
+配列を含む Variant を返します。
+
+.構文
+
+[source,vbscript]
+----
+Array(arglist)
+----
+
+必須の arglist 引数は、Variant に含まれている配列の要素に割り当てられる値のコ
+ンマ区切りのリストです。 引数を指定しない場合は長さ 0 の配列が作成されます。
+
+.解説
+
+配列の要素を参照するために使用される表記は、変数 名とそれに続く括弧で構成され、
+括弧の中には目的の要素を示すインデックス番号が入ります。
+
+次の例では、最初のステートメントにより、Variant として「A」という名前の変数が
+作成されます。 2 つ目のステートメントにより、変数 A に配列が割り当てられます。
+最後のステートメントにより、2 つ目の配列要素に含まれる値が別の変数に割り当てら
+れます。
+VB
+
+[source,vbscript]
+----
+Dim A As Variant, B As Long, i As Long
+A = Array(10, 20, 30)  ' A is a three element list by default indexed 0 to 2
+B = A(2)               ' B is now 30
+ReDim Preserve A(4)    ' Extend A's length to five elements
+A(4) = 40              ' Set the fifth element's value
+For i = LBound(A) To UBound(A)
+    Debug.Print "A(" & i & ") = " & A(i)
+Next i
+----
+
+Array 関数を使用して作成した配列の下限は、Array がタイプ ライブラリの名前で修
+飾 (VBA.Array など) されていない限り、Option Base ステートメントで指定した下限
+によって決まります。 タイプ ライブラリの名前で修飾されている場合は、Array は
+Option Base の影響を受けません。
+
+注
+CAUTION:配列として宣言されていない Variant には、配列を含めることができます。
+Variant 変数には、固定長の文字列とユーザー定義の型を除き、あらゆる型の配列を含
+めることができます。 配列が含まれている Variant は要素の型が Variant の配列と
+は概念的に異なりますが、配列要素には同じ方法でアクセスされます。
+
+.例
+
+この例では、 Array 関数を使用して、配列を含む Variant を返します。
+VB
+
+[source,vbscript]
+----
+Dim MyWeek, MyDay
+MyWeek = Array("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+' Return values assume lower bound set to 1 (using Option Base
+' statement).
+MyDay = MyWeek(2)    ' MyDay contains "Tue".
+MyDay = MyWeek(4)    ' MyDay contains "Thu".
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+[[CallByName]]
+==== CallByName 関数
+
+
+オブジェクトのメソッドを実行するか、オブジェクトのプロパティを設定するか返しま
+す。
+
+.構文
+
+[source,vbscript]
+----
+CallByName (object, procname, calltype, [args()]))
+----
+
+CallByName関数の構文に使用される名前付き引数は次のとおりです。
+
+
+
+[cols="4,1,4",options="header"]
+|===
+| パーツ   | 説明
+| object   | 必須。Variant (Object)。 関数を実行するオブジェクトの名前。
+| procname | 必須。Variant (String)。 オブジェクトのプロパティまたはメソッドの名前を含む文字列式。
+| calltype | 必須。定数。 呼び出されるプロシージャの型を表す vbCallType 型の定数。
+| args()   | 省略可能。Variant (Array)。
+|===
+
+.解説
+
+CallByName 関数は、実行時に文字列名を使用してプロパティを取得または設定するか、
+メソッドを呼び出すために使用されます。
+
+次の例では、1 行目で CallByName を使用してテキスト ボックスの MousePointer プ
+ロパティを設定し、2 行目で MousePointer プロパティの値を取得し、3 行目で Move
+メソッドを呼び出してテキスト ボックスを移動します。
+VB
+
+[source,vbscript]
+----
+CallByName Text1, "MousePointer", vbLet, vbCrosshair
+Result = CallByName (Text1, "MousePointer", vbGet)
+CallByName Text1, "Move", vbMethod, 100, 100
+----
+
+.例
+
+この例では、CallByName 関数を使用して、コマンド ボタンの Move メソッドを呼び出
+します。
+
+例ではまた、ボタン (Command1) とラベル (Label1) を含むフォーム (Form1) を使用
+します。 フォームが読み込まれると、ラベルの Caption プロパティが、呼び出すメソ
+ッドの名前に設定されます (この例では "Move")。 ボタンをクリックすると、
+CallByName 関数によって、ボタンの位置を変更するメソッドが呼び出されます。
+VB
+
+[source,vbscript]
+----
+Option Explicit
+
+Private Sub Form_Load()
+    Label1.Caption = "Move"        ' Name of Move method.
+End Sub
+
+Private Sub Command1_Click()
+    If Command1.Left <> 0 Then
+        CallByName Command1, Label1.Caption, vbMethod, 0, 0
+    Else
+        CallByName Command1, Label1.Caption, vbMethod, 500, 500
+    End If
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+
+[[Choose]]
+==== Choose 関数
+
+
+引数の一覧から値を選択し、返します。
+
+.構文
+
+[source,vbscript]
+----
+Choose(index, choice-1, [ choice-2, ..., [ choice-n ]] )
+----
+
+Choose 関数の構文には、次の指定項目があります。
+
+[cols="1,4",options="header"]
+|===
+| パーツ | 説明
+| index  | 必ず指定します。 1 から選択肢の数までの値になる 数式またはフィールドです。
+| choice | 必須です。 可能性のある選択肢のいずれか 1 つが含まれる バリアント型の式 です。
+|===
+
+.解説
+
+Choose は、index の値に基づいて選択肢の一覧から値を返します。 index が 1 の場
+合、Choose は一覧の 1 つ目の選択肢を返します。index が 2 の場合は 2 つ目という
+ようになります。
+
+Choose を使って、可能性の一覧に含まれる値を検索することができます。 たとえば、
+index が 3 で、choice-1 = "1"、choice-2 = "2"、choice-3 = "3" と評価した場合、
+Choose は "3" を返します。 この機能は、index がオプション グループの値を示す場
+合に特に便利です。
+
+Choose は、一覧の選択肢すべてを評価しますが、その 1 つだけが返されます。 その
+ため、望ましくない副作用が生じないように注意する必要があります。 すべての選択
+肢において、式 の一部として MsgBox 関数を使用する場合、メッセージ ボックスは評
+価される各選択肢に対して表示されますが、Choose はそのうちの 1 つだけを返します。
+
+もし index が 1 以下または一覧にある選択肢の数を超える場合、Choose 関数は Null
+を返します。
+
+index が整数ではない場合、最も近い整数に丸めてから評価されます。
+.l例
+
+この例では、Choose 関数を使って、Ind パラメーターのプロシージャに渡される index に応じた名前を表示します。
+VB
+
+[source,vbscript]
+----
+Function GetChoice(Ind As Integer)
+    GetChoice = Choose(Ind, "Speedy", "United", "Federal")
+End Function
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+
+[[Command]]
+==== Command
+
+Microsoft Visual Basic または Visual Basic で開発された実行可能なプログラムの
+起動に使用されるコマンド ラインの引数部分を返します。 Visual Basic の関数機能
+は、Microsoft Office のアプリケーションでは使用できません。
+
+.構文
+
+[source,vbscript]
+----
+Command
+----
+.解説
+
+コマンドラインから Visual Basic が起動された場合、/cmd に続くすべてのコマンド
+ライン部分がコマンドライン引数として、プログラムに渡されます。 次のコマンドラ
+インの例で、cmdlineargs は、コマンド関数によって返される引数情報を表しています。
+
+[source,vbscript]
+----
+VB /cmd cmdlineargs
+----
+
+Visual Basic で開発され、.exe ファイルにコンパイルされたアプリケーションでは、
+Command によって、コマンド ラインのアプリケーション名の後に表示されるすべての
+引数が返されます。 次に例を示します。
+
+[source,vbscript]
+----
+MyApp cmdlineargs
+----
+
+使用しているアプリケーションのユーザー インターフェイスでのコマンド ライン引数
+の変更方法の詳細については、ヘルプの「コマンド ライン引数」を参照してください。
+.例
+
+この例では、配列を含む Variant でコマンド ライン引数を返す関数内で、Command 関
+数を使用してコマンド ライン引数を取得しています。 Microsoft Office では使用で
+きません。
+VB
+
+[source,vbscript]
+----
+Function GetCommandLine(Optional MaxArgs)
+    'Declare variables.
+    Dim C, CmdLine, CmdLnLen, InArg, I, NumArgs
+    'See if MaxArgs was provided.
+    If IsMissing(MaxArgs) Then MaxArgs = 10
+    'Make array of the correct size.
+    ReDim ArgArray(MaxArgs)
+    NumArgs = 0: InArg = False
+    'Get command line arguments.
+    CmdLine = Command()
+    CmdLnLen = Len(CmdLine)
+    'Go thru command line one character
+    'at a time.
+    For I = 1 To CmdLnLen
+        C = Mid(CmdLine, I, 1)
+        'Test for space or tab.
+        If (C <> " " And C <> vbTab) Then
+            'Neither space nor tab.
+            'Test if already in argument.
+            If Not InArg Then
+            'New argument begins.
+            'Test for too many arguments.
+                If NumArgs = MaxArgs Then Exit For
+                NumArgs = NumArgs + 1
+                InArg = True
+            End If
+            'Concatenate character to current argument.
+            ArgArray(NumArgs) = ArgArray(NumArgs) & C
+        Else
+            'Found a space or tab.
+            'Set InArg flag to False.
+            InArg = False
+        End If
+    Next I
+    'Resize array just enough to hold arguments.
+    ReDim Preserve ArgArray(NumArgs)
+    'Return Array in Function name.
+    GetCommandLine = ArgArray()
+End Function
+----
+
+.関連項目
+
+    関数 (Visual Basic for Applications)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==== InStr 関数
 
 ある文字列が別の文字列の中で最初に現れる位置を指定するVariant（Long）を返しま
 す。
