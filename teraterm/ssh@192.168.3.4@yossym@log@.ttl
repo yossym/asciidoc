@@ -89,8 +89,8 @@ strcompare "CISCOSSH" protocol
 
 messagebox logFileWirteDoNotdo logFileWirteDoNotdo
 
-; if logdo in make logfile
-strscan logFileWirteDoNotdo "logdo"
+/* if do */
+strscan logFileWirteDoNotdo "do"
 if result > 0 then
 
 	testlink

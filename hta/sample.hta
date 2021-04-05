@@ -1,0 +1,91 @@
+<html><head>
+        <title>サンプル・プログラム</title></head>
+    <body>
+        <form name="form1">
+            <p>1行テキスト
+            <input type="text" name="text1" value="テキストサンプル" /></p>
+
+            <p>ラジオボタンサンプル <br>
+            <input type="radio" name="rd" />1番目<br>
+            <input type="radio" name="rd" checked />2番目<br>
+            <input type="radio" name="rd" />3番目<br></p>
+
+            <p>チェックボックスサンプル <br>
+            <input type="checkbox" name="ck" value="サンプル" checked>チェック1<br>
+            <input type="checkbox" name="ck" value="サンプル">チェック2<br>
+            <input type="checkbox" name="ck" value="サンプル">チェック3<br>
+            <input type="checkbox" name="ck" value="サンプル">チェック4<br></p>
+
+            <p>リストボックスサンプル
+            <select name="listvalue1">
+                <option value="10">10
+                <option value="20">20
+                <option value="30">30
+            </select>
+            </p>
+            <p><input type="button" value="script実行"
+                                    onClick="subGo()" />
+            </p>
+            <textarea name="kekka" cols="80" rows="30"></textarea>
+            <p><input type="reset" value="入力内容の初期化"></p>
+        </form>
+
+
+        <script language="VBScript">
+        Sub subGo()
+
+            Const ForReading   = 1
+            Const ForWriting   = 2
+            Const ForAppending = 8
+
+            '1行テキストの値を取得
+            strKekka = "1行テキストの値は" & document.form1.text1.value & vbcr
+
+            dim ts
+            dim fso : set fso = CreateObject("Scripting.FileSystemObject")
+
+            ' <!-- msgbox fso.GetAbsolutePathName("./") -->
+
+            set ts = fso.OpenTextFile("./hoge.txt", ForWriting, True)
+            ts.writeline(document.form1.text1.value)
+            ts.writeline(document.form1.text1.value)
+
+            ts.close
+            'ラジオボタンの値を取得
+            For i = 0 To document.form1.rd.length - 1
+                if document.form1.rd(i).checked then
+                    loops = i + 1
+                end if
+            Next
+            if loops = 1 then
+                strRadio = "1番目"
+            elseif loops = 2 then
+                strRadio = "2番目"
+            else
+                strRadio = "3番目"
+            end if
+
+            strKekka = strKekka & "ラジオボタンの値は" & strRadio & vbcr
+
+            'チェックボックスの値を取得
+            dim flgChkBox(10)
+            For j = 0 To document.form1.ck.length - 1
+                if document.form1.ck(j).checked then
+                    flgChkBox(j) = "1"
+                else
+                    flgChkBox(j) = "0"
+                end if
+            Next
+            strKekka = strKekka & "チェック状況は" & flgChkBox(0) & flgChkBox(1) & flgChkBox(2) & flgChkBox(3) & vbcr
+
+            'リストボックスの値を取得
+            strListValue = document.form1.listvalue1.value
+            strKekka = strKekka & "リストボックスの値は" & strListValue & vbcr
+
+            'テキストボックスに値を返す
+            document.form1.kekka.value = strKekka
+
+        End Sub
+        </script>
+    </body>
+</html>

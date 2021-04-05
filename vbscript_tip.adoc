@@ -124,3 +124,28 @@ end sub
 
 call Main
 ----
+
+=== GUI と CUI のどちらで実行されたかを判定する方法
+
+
+[source,vbscript]
+----
+Option Explicit
+ 
+Dim strExe
+ 
+'スクリプトを起動した exe ファイル名を取得
+'（exe のフルパスを \ で分割して配列にした後、最後の要素の文字列を取得）
+strExe = split(WSCript.FullName, "\")(UBound(split(WSCript.FullName, "\")))
+ 
+Select Case UCase(strExe)
+  Case "WSCRIPT.EXE"
+    WSCript.Echo WSCript.FullName & "(GUI)で起動しました。"
+  Case "CSCRIPT.EXE"
+    WSCript.Echo WSCript.FullName & "(CUI)で起動しました。"
+End Select 
+----
+
+
+https://bayashita.com/p/category/show/21[[VBScript]の記事一覧 : バヤシタ]
+

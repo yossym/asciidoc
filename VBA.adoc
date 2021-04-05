@@ -191,12 +191,12 @@ HKEY_CURRENT_USER\Software\Microsoft\VBA\7.1\Common
 
 
 [cols="1,4,4",options="header"]
-| ===
-| キー操作 | 説明                          |
+|====
+| キー操作 | 説明                          |独自
 | CTRL+A   | すべて選択                    |
-| CTRL+B   |                               |
+| CTRL+B   |                               | コメントアウト
 | CTRL+C   | コピー                        |
-| CTRL+D   |                               |
+| CTRL+D   |                               | アンコメント
 | CTRL+E   | ファイルのエクスポート        |
 | CTRL+F   | 検索                          |
 | CTRL+G   | イミディエイト ウィンドウ     |
@@ -219,12 +219,7 @@ HKEY_CURRENT_USER\Software\Microsoft\VBA\7.1\Common
 | CTRL+X   | 切り取り                      |
 | CTRL+Y   |                               |
 | CTRL+Z   | 元に戻す                      |
-| CTRL+    |                               |
-| CTRL+    |                               |
-| CTRL+    |                               |
-| CTRL+    |                               |
-| CTRL+    |                               |
-| ===
+|====
 
 include::VBAvariable.adoc[]
 // VBAvariable.adoc
@@ -545,6 +540,9 @@ End Function
 worksheets.select
 ----
 
+
+
+
 == cells
 
 完全なセルの指定
@@ -554,6 +552,15 @@ worksheets.select
 ="'[filename]シート名'!A1"
 ="'シート名'!A1"
 ----
+
+=== セルを直接selectする
+
+[source,vbscript]
+----
+Application.goto worksheet("sheet1").range("A1")
+----
+
+
 
 === 行の追加
 
@@ -1022,17 +1029,17 @@ Range("A1").Font.Color = vbRed
 [cols="1,1,4",options="header"]
 |===
 | 定数      | 値       | 説明
-| vbBlack   | 0x0      | 黒
-| vbRed     | 0xFF     | 赤
-| vbGreen   | 0xFF00   | 緑
-| vbYellow  | 0xFFFF   | 黄
+| vbBlack   | 0x000000 | 黒
+| vbRed     | 0xFF0000 | 赤
+| vbGreen   | 0x00FF00 | 緑
+| vbYellow  | 0xFFFF00 | 黄
 | vbBlue    | 0xFF0000 | 青
 | vbMagenta | 0xFF00FF | 紫
 | vbCyan    | 0xFFFF00 | シアン
 | vbWhite   | 0xFFFFFF | 白
 |===
 
-qbcolor
+.qbcolor
 [cols="1,1,1,1",options="header"]
 |===
 | 数値 | 色   | 数値 | 色
@@ -1045,6 +1052,56 @@ qbcolor
 | 6    | 黄   | 14   | 明るい黄
 | 7    | 白   | 15   | 明るい白
 |===
+
+
+// .カラーパレット
+// [cols="1,1,1,1",options="header"]
+// |===
+// |色     | R   | G   | B
+// |濃い赤 | 192 | 0   | 0
+// |赤     | 255 | 0   | 0
+// |橙     | 255 | 192 | 0
+// |黄     | 255 | 255 | 0
+// |薄い緑 | 146 | 208 | 80
+// |緑     | 0   | 176 | 80
+// |薄い青 | 0   | 176 | 240
+// |青     | 0   | 112 | 192
+// |濃い青 | 0   | 32  | 96
+// |紫     | 112 | 48  | 160
+// |薄い灰 | 192 | 192 | 192
+// |灰     | 150 | 150 | 150
+// |===
+//
+//
+[cols="1,1,1,1,1,1,1,1,1,1",options="header"]
+|===
+xlThemeColorDark1|xlThemeColorLight1|xlThemeColorDark2|xlThemeColorLight2|xlThemeColorAccent1|xlThemeColorAccent2|xlThemeColorAccent3|xlThemeColorAccent4|xlThemeColorAccent5|xlThemeColorAccent6
+xlThemeColorDark1|xlThemeColorLight1|xlThemeColorDark2|xlThemeColorLight2|xlThemeColorAccent1|xlThemeColorAccent2|xlThemeColorAccent3|xlThemeColorAccent4|xlThemeColorAccent5|xlThemeColorAccent6
+|===
+//
+//
+
+=== セルの検索
+* Object.Find(What, After, LookIn, LookAt, SearchOrder, SearchDirection, MatchCase, MatchByte, SearchFormat)
+* Object.FindNext(After)
+*     Object.FindPrevious(After)
+
+[cols="1,4",options="header"]
+|===
+|設定項目        | 内容
+|Object          | Rangeオブジェクト
+|What            | 検索するデータを指定 [省略不可]
+|After           | 単一のセルを指定。この引数に指定したセルの次のセルから検索を開始する。省略するとObjectで指定したセル範囲の左上端セルの次のセルから検索する [省略可能]
+|LookIn          | 検索の対象を指定 数式（xlFormulas）、値（xlValues）、コメント（xlComments） [省略可能]
+|LookAt          | 完全に同一なセルだけを検索（xlWhole）、一部分でも一致するセルの検索（xlPart） [省略可能]
+|SearchOrder     | 検索方向を指定する。列方向に検索する（xlByColumns）、行方向に検索する（xlByRows） [省略可能]
+|SearchDirection | 前方に検索(xlNext：既定値)、後方に検索(xlPrevious)[省略可能]
+|MatchCase       | 大文字と小文字を区別する(True)、区別しない(False) [省略可能]
+|MatchByte       | 半角と全角を区別する(True)、区別しない(False) [省略可能]
+|SearchFormat    | 書式を検索する (True)、検索しない(False) [省略可能]（※）
+|===
+
+
 
 
 == 変数
@@ -1570,10 +1627,6 @@ call rs.Open
 
     rs.sort = "ant,aptime"
 ----
-
-
-==== askdjfh
-
 
 
 == 特殊フォルダ
@@ -4677,6 +4730,7 @@ Private Sub Class_Initialize()
         .Calculation = xlCalculationManual
         .EnableEvents = False
         .PrintCommunication = False
+        .Cursor = xlWait
     End With
 End Sub
 
@@ -4686,6 +4740,7 @@ Private Sub Class_Terminate()
         .Calculation = xlCalculationAutomatic
         .EnableEvents = True
         .PrintCommunication = True
+        .Cursor = xlDefault
     End With
 
 End Sub
@@ -5058,7 +5113,93 @@ Range(Cells(1, 3), Cells(1, 3 + 3)) = a
 ' abc bob alice   nancy
 ----
 
+=== 1次元配列ソート
 
+[source,vbscript]
+----
+
+Call quick_sort(data, LBound(data), UBound(data))
+
+
+Sub quick_sort(ByRef argAry() As Variant, _
+    ByVal lngMin As Long, _
+    ByVal lngMax As Long)
+    Dim i As Long
+    Dim j As Long
+    Dim vBase As Variant
+    Dim vSwap As Variant
+    vBase = argAry(Int((lngMin + lngMax) / 2))
+    i = lngMin
+    j = lngMax
+    Do
+        Do While argAry(i) < vBase
+            i = i + 1
+        Loop
+        Do While argAry(j) > vBase
+            j = j - 1
+        Loop
+        If i >= j Then Exit Do
+            vSwap = argAry(i)
+            argAry(i) = argAry(j)
+            argAry(j) = vSwap
+            i = i + 1
+            j = j - 1
+    Loop
+    If (lngMin < i - 1) Then
+        Call quick_sort(argAry, lngMin, i - 1)
+    End If
+    If (lngMax > j + 1) Then
+        Call quick_sort(argAry, j + 1, lngMax)
+    End If
+End Sub
+----
+
+
+=== 2次元配列
+
+
+[source,vbscript]
+----
+'       最終引数はソート基準位置
+' '引数の最後の,1がキー位置の指定
+Call quick_sort(data, LBound(data), UBound(data), 1)
+
+Sub quick_sort(ByRef argAry() As Variant, _
+    ByVal lngMin As Long, _
+    ByVal lngMax As Long, _
+    ByVal keyPos As Long)
+    Dim i As Long
+    Dim j As Long
+    Dim k As Long
+    Dim vBase As Variant
+    Dim vSwap As Variant
+    vBase = argAry(Int((lngMin + lngMax) / 2), keyPos)
+    i = lngMin
+    j = lngMax
+    Do
+        Do While argAry(i, keyPos) < vBase
+            i = i + 1
+        Loop
+        Do While argAry(j, keyPos) > vBase
+            j = j - 1
+        Loop
+        If i >= j Then Exit Do
+        For k = LBound(argAry, 2) To UBound(argAry, 2)
+            vSwap = argAry(i, k)
+            argAry(i, k) = argAry(j, k)
+            argAry(j, k) = vSwap
+        Next
+        i = i + 1
+        j = j - 1
+    Loop
+    If (lngMin < i - 1) Then
+        Call quick_sort(argAry, lngMin, i - 1, keyPos)
+    End If
+    If (lngMax > j + 1) Then
+        Call quick_sort(argAry, j + 1, lngMax, keyPos)
+    End If
+End Sub
+----
 
 
 == 罫線
@@ -6161,11 +6302,11 @@ include::VBAreference.adoc[]
 
 include::vbscript_tip.adoc[]
 
-// include::VBSctipt.adoc[]
-
-include::90_MicrosoftWindows_Script_Technology.adoc[]
-include::91_vbscript_Users_Guide.adoc[]
-include::92_vbscript_Language_Reference.adoc[]
+// // include::VBSctipt.adoc[]
+//
+// include::90_MicrosoftWindows_Script_Technology.adoc[]
+// include::91_vbscript_Users_Guide.adoc[]
+// include::92_vbscript_Language_Reference.adoc[]
 
 
 [index]
