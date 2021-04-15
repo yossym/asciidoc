@@ -7,8 +7,8 @@
 :Revision:  0.1
 
 :toc:
+:toclevels: 3
 :sectnums:
-:toclevels: 5
 :icons: font
 :lang: ja
 :doctype: book
@@ -69,47 +69,43 @@
 // https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference
 
 
-/////
-JScript
-VBScript
-	ユーザーズガイド
-	リファレンス
-		リファレンス
-		バージョン情報
-		定数
-		VBScriptのエラー
-		VBScriptのイベント
-		VBScriptの関数
-		キーワード
-		VBScriptのメソッド
-		その他
-		VBScriptのオブジェクトとコレクション
-		VBScriptの演算子
-		VBScriptのプロパティ
-		VBScriptのステートメント
-Scriptランタイム
-	Dictionaryオブジェクト
-	FileSystemObjectオブジェクト
-	スクリプトエンコーダ
+// JScript
+// VBScript
+// 	ユーザーズガイド
+// 	リファレンス
+// 		リファレンス
+// 		バージョン情報
+// 		定数
+// 		VBScriptのエラー
+// 		VBScriptのイベント
+// 		VBScriptの関数
+// 		キーワード
+// 		VBScriptのメソッド
+// 		その他
+// 		VBScriptのオブジェクトとコレクション
+// 		VBScriptの演算子
+// 		VBScriptのプロパティ
+// 		VBScriptのステートメント
+// Scriptランタイム
+// 	Dictionaryオブジェクト
+// 	FileSystemObjectオブジェクト
+// 	スクリプトエンコーダ
 
-/////
 
-/////
-NOTE: 脚注段落は補足情報を示すものです。
-段落冒頭のラベルによって脚注の種類を使い分けることができます。
-
-NOTE以外にも下記のような脚注があります。
-
-TIP: チップスを記述します。
-IMPORTANT: 重要事項を記述します。
-WARNING: 警告を記述します。
-CAUTION: 注意を記述します。
-
-リンク元 こちらは1つ
-<<anchor-id,このように>>
-リンク先
-[[anchor-id]]
-/////
+// NOTE: 脚注段落は補足情報を示すものです。
+// 段落冒頭のラベルによって脚注の種類を使い分けることができます。
+//
+// NOTE以外にも下記のような脚注があります。
+//
+// TIP: チップスを記述します。
+// IMPORTANT: 重要事項を記述します。
+// WARNING: 警告を記述します。
+// CAUTION: 注意を記述します。
+//
+// リンク元 こちらは1つ
+// <<anchor-id,このように>>
+// リンク先
+// [[anchor-id]]
 
 
 == Unix形式日付を普通の日付にする
@@ -140,22 +136,30 @@ datetime = item(5) & "/" & mon(items(2)) & "/"
 ----
 
 * 日時（日本標準時）　→　UnixTimestamp
-
-`=(($a$1 - 25569) * (60 * 60 * 24)) - (60 * 60 * 9)`
+----
+=(($a$1 - 25569) * (60 * 60 * 24)) - (60 * 60 * 9)
+----
 
 * 日時（協定世界時）　→　UnixTimestamp
 
-`=(($a$1 - 25569) * (60 * 60 * 24))`
+----
+=(($a$1 - 25569) * (60 * 60 * 24))
+----
 
 NOTE:	UNIXエポックは1970年1月1日00:00:00で、全てのタイムスタンプの基準点（25569）。
 
 * UnixTimestamp　→　日時（日本標準時）
 
-`=25569 + (($a$1 + (60 * 60 * 9)) / (60 * 60 * 24))`
+----
+=25569 + (($a$1 + (60 * 60 * 9)) / (60 * 60 * 24))
+----
 
 * UnixTimestamp　→　日時（協定世界時）
 
-`=25569 + (($a$1                ) / (60 * 60 * 24))`
+[source,excel]
+----
+=25569 + (($a$1 ) / (60 * 60 * 24))
+----
 
 
 
@@ -167,6 +171,7 @@ NOTE:	UNIXエポックは1970年1月1日00:00:00で、全てのタイムスタ�
 [source,vbscript]
 ----
 コンピューター\HKEY_CURRENT_USER\SOFTWARE\Microsoft\VBA\7.1\Common
+
 HKEY_CURRENT_USER\Software\Microsoft\VBA\7.1\Common
 ----
 
@@ -357,7 +362,7 @@ End Sub
 ----
 
 
-==== WorkBook存在確認
+=== WorkBook存在確認
 
 
 [source,vbscript]
@@ -380,7 +385,7 @@ End Function
 ----
 
 
-==== メニュー追加
+=== メニュー追加
 
 
 .[標準モジュール]
@@ -820,7 +825,15 @@ $A$1:$C$3
 ?range(rows(1),rows(3)).Address
 $1:$3
 ?range(columns(1),columns(3)).Address
+
 $A:$C
+
+
+?Columns(4).Addreas
+$D:$D
+
+?Columns(4).Address(,false)
+D:D
 ----
 
 === セルの追加
@@ -1073,11 +1086,13 @@ Range("A1").Font.Color = vbRed
 // |===
 //
 //
+
 [cols="1,1,1,1,1,1,1,1,1,1",options="header"]
-|===
-xlThemeColorDark1|xlThemeColorLight1|xlThemeColorDark2|xlThemeColorLight2|xlThemeColorAccent1|xlThemeColorAccent2|xlThemeColorAccent3|xlThemeColorAccent4|xlThemeColorAccent5|xlThemeColorAccent6
-xlThemeColorDark1|xlThemeColorLight1|xlThemeColorDark2|xlThemeColorLight2|xlThemeColorAccent1|xlThemeColorAccent2|xlThemeColorAccent3|xlThemeColorAccent4|xlThemeColorAccent5|xlThemeColorAccent6
-|===
+|====
+|xlThemeColorDark1|xlThemeColorLight1|xlThemeColorDark2|xlThemeColorLight2|xlThemeColorAccent1|xlThemeColorAccent2|xlThemeColorAccent3|xlThemeColorAccent4|xlThemeColorAccent5|xlThemeColorAccent6
+|xlThemeColorDark1|xlThemeColorLight1|xlThemeColorDark2|xlThemeColorLight2|xlThemeColorAccent1|xlThemeColorAccent2|xlThemeColorAccent3|xlThemeColorAccent4|xlThemeColorAccent5|xlThemeColorAccent6
+|====
+
 //
 //
 
@@ -1160,34 +1175,67 @@ String型
 String型の初期値
 
 == 関数
+=== 配列を受け取る関数
+
+.●渡す側（呼び出し元）●
+[source,vbscript]
+----
+Sub PassArg()
+    Dim i As Long
+    Dim myArray(3) As String
+    
+    For i = LBound(myArray) To UBound(myArray)
+        myArray(i) = "値" & i
+    Next i
+    
+    Call RecArg(myArray)
+End Sub
+----
+
+
+.●受け手側●
+
+[source,vbscript]
+----
+Sub RecArg(myArg() As String)
+    Dim j As Long
+    Dim Msg As String
+    
+    For j = LBound(myArg) To UBound(myArg)
+        Msg = Msg & myArg(j) & vbCrLf
+    Next j
+    
+    MsgBox Msg
+End Sub
+----
 
 === fix, int, round, 四捨五入、切り捨て
 
 .int
 [cols="1,1"]
 |===
-| 1.5  | 1  |
-| 1.4  | 1  |
-| -1.4 | -2 |
-| -1.5 | -2 |
+| 1.5  | 1  
+| 1.4  | 1  
+| -1.4 | -2 
+| -1.5 | -2 
 |===
 
 .fix
 [cols="1,1"]
 |===
-| 1.5  | 1  |
-| 1.4  | 1  |
-| -1.4 | -1 |
-| -1.5 | -1 |
+| 1.5  | 1  
+| 1.4  | 1  
+| -1.4 | -1 
+| -1.5 | -1 
 |===
 
 .round(x,0)
 [cols="1,1"]
 |===
-| 1.5  | 1  |
-| 1.4  | 1  |
-| -1.4 | -1 |
-| -1.5 | -2 |
+| 1.5  | 1  
+| 1.4  | 1  
+| -1.4 | -1 
+| -1.5 | -2 
 |===
 
 === VBAで関数名を変数で使う
@@ -4543,28 +4591,149 @@ End With
 
 .Xlcharttype クラス列挙 (Excel)
 
+
+
 [cols="4,1,4",options="header"]
 |===
- | 名前                       | 値    | 説明
- | xl3DBarClustered           | 60    | 3-D 集合横棒
- | xl3DBarStacked             | 61    | 3-D 積み上げ横棒
- | xl3DBarStacked100          | 62    | 3-D 100% 積み上げ横棒
- | xl3DColumn                 | -4100 | 3-D 縦棒
- | xl3DColumnClustered        | 54    | 3-D 集合縦棒
- | xl3DColumnStacked          | 55    | 3-D 積み上げ縦棒
- | xl3DColumnStacked100       | 56    | 3-D 100% 積み上げ縦棒
- | xlLine                     | 2/4   | 折れ線
- | xlLineMarkers              | 65    | マーカー付き折れ線
- | xlLineMarkersStacked       | 66    | マーカー付き積み上げ折れ線
- | xlLineMarkersStacked100    | 67    | マーカー付き 100% 積み上げ折れ線
- | xlLineStacked              | 63    | 積み上げ折れ線
- | xlLineStacked100           | 64    | 100% 積み上げ折れ線
- | xlXYScatter                | -4169 | 散布図
- | xlXYScatterLines           | 74    | [red]#折れ線付き散布図#
- | xlXYScatterLinesNoMarkers  | 75    | 折れ線付き散布図 (データ マーカーなし)
- | xlXYScatterSmooth          | 72    | 平滑線付き散布図
- | xlXYScatterSmoothNoMarkers | 73    | 平滑線付き散布図 (データ マーカーなし)
+|名前                       | 値    | 説明
+|xl3DArea                   | -4098 | 3-D 面
+|xl3DAreaStacked            | 78    | 3-D 積み上げ面
+|xl3DAreaStacked100         | 79    | 100% 積み上げ面
+|xl3DBarClustered           | 60    | 3-D 集合横棒
+|xl3DBarStacked             | 61    | 3-D 積み上げ横棒
+|xl3DBarStacked100          | 62    | 3-D 100% 積み上げ横棒
+|xl3DColumn                 | -4100 | 3-D 縦棒
+|xl3DColumnClustered        | 54    | 3-D 集合縦棒
+|xl3DColumnStacked          | 55    | 3-D 積み上げ縦棒
+|xl3DColumnStacked100       | 56    | 3-D 100% 積み上げ縦棒
+|xl3DLine                   | -4101 | 3-D 折れ線
+|xl3DPie                    | -4102 | 3-D 円
+|xl3DPieExploded            | 70    | 分割 3-D 円
+|xlArea                     | 1-d   | 分野
+|Xlた積み上げ               | 76    | 積み上げ面
+|xlAreaStacked100           | 77    | 100% 積み上げ面
+|xlBarClustered             | 57    | 集合横棒
+|xlBarOfPie                 | 71    | 補助縦棒グラフ付き円
+|xlBarStacked               | 58    | 積み上げ横棒
+|xlBarStacked100            | 59    | 100% 積み上げ横棒
+|xlBubble                   | 約    | バブル
+|xlBubble3DEffect           | 87    | 3-D 効果付きバブル
+|xlColumnClustered          | 51    | 集合縦棒
+|xlColumnStacked            | 52    | 積み上げ縦棒
+|xlColumnStacked100         | 53    | 100% 積み上げ縦棒
+|xlConeBarClustered         | 102   | 集合円錐型横棒
+|xlConeBarStacked           | 103   | 積み上げ円錐型横棒
+|xlConeBarStacked100        | 104   | 100% 積み上げ円錐型横棒
+|xlConeCol                  | 105   | 3-D 円錐型縦棒
+|xlConeColClustered         | 99    | 集合円錐型縦棒
+|xlConeColStacked           | 100   | 積み上げ円錐型縦棒
+|xlConeColStacked100        | 101   | 100% 積み上げ円錐型縦棒
+|xlCylinderBarClustered     | 95    | 集合円柱型横棒
+|xlCylinderBarStacked       | 96    | 積み上げ円柱型横棒
+|xlCylinderBarStacked100    | 97    | 100% 積み上げ円柱型横棒
+|xlCylinderCol              | 98    | 3-D 円柱型縦棒
+|xlCylinderColClustered     | 92    | 集合円錐型縦棒
+|xlCylinderColStacked       | 93    | 積み上げ円錐型縦棒
+|xlCylinderColStacked100    | 94    | 100% 積み上げ円柱型縦棒
+|xlDoughnut                 | -4120 | ドーナツ
+|xlDoughnutExploded         | 80    | 分割ドーナツ
+|xlLine                     | 2/4   | 折れ線
+|xlLineMarkers              | 65    | マーカー付き折れ線
+|xlLineMarkersStacked       | 66    | マーカー付き積み上げ折れ線
+|xlLineMarkersStacked100    | 67    | マーカー付き 100% 積み上げ折れ線
+|xlLineStacked              | 63    | 積み上げ折れ線
+|xlLineStacked100           | 64    | 100% 積み上げ折れ線
+|xlPie                      | 5     | 円
+|xlPieExploded              | 69    | 分割円
+|xlPieOfPie                 | 68    | 補助円グラフ付き円
+|xlPyramidBarClustered      | 109   | 集合ピラミッド型横棒
+|xlPyramidBarStacked        | 110   | 積み上げピラミッド型横棒
+|xlPyramidBarStacked100     | 111   | 100% 積み上げピラミッド型横棒
+|xlPyramidCol               | 112   | 3-D ピラミッド型縦棒
+|xlPyramidColClustered      | 106   | 集合ピラミッド型縦棒
+|xlPyramidColStacked        | 107   | 積み上げピラミッド型縦棒
+|xlPyramidColStacked100     | 108   | 100% 積み上げピラミッド型横棒
+|xlRadar                    | -4151 | レーダー
+|Xlレーダー Ar塗りつぶし    | 82    | 塗りつぶしレーダー
+|Xlレーダー Arマーカー      | 81    | データ マーカー付きレーダー
+|xlRegionMap                | 140   | マップグラフ。
+|xlStockHLC                 | 88    | 高値 - 安値 - 終値
+|xlStockOHLC                | 89    | 始値 - 高値 - 安値 - 終値
+|xlStockVHLC                | 90    | 出来高 - 高値 - 安値 - 終値
+|xlStockVOHLC               | 91    | 出来高 - 始値 - 高値 - 安値 - 終値
+|xlSurface                  | 83    | 3-D 表面
+|xlSurfaceTopView           | 85    | 表面 (トップ ビュー)
+|xlSurfaceTopViewWireframe  | 86    | 表面 (トップ ビュー - ワイヤーフレーム)
+|xlSurfaceWireframe         | 84    | 3-D 表面 (ワイヤーフレーム)
+|xlXYScatter                | -4169 | 散布図
+|xlXYScatterLines           | 74    | 折れ線付き散布図
+|xlXYScatterLinesNoMarkers  | 75    | 折れ線付き散布図 (データ マーカーなし)
+|xlXYScatterSmooth          | 72    | 平滑線付き散布図
+|xlXYScatterSmoothNoMarkers | 73    | 平滑線付き散布図 (データ マーカーなし)
 |===
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== グラフの系列追加
+
+
+
+[cols="1,1,1,1,1,1",options="header"]
+|===
+|   | A     | B   | C   | D   | E  
+| 1 |       | 3.5 | 3.4 | 3.4 | 3.4
+| 2 | hoge1 | 2.4 |     |     | 
+| 3 | hoge2 |     | 2.3 |     |    
+| 4 | hoge3 |     |     | 3.5 |     
+| 5 | hoge4 |     |     |     | 2.4 
+|===
+
+
+[source,vbscript]
+----
+
+    Dim i As Long
+    Dim s As Series
+    Dim rng As Range
+    Dim s_row As Long, row_Count As Long
+    Dim s_col As Long, e_col As Long
+    
+    Range("F2").Select
+    Selection.CurrentRegion.Select
+    Set rng = Selection
+    Debug.Print rng.Column, rng.Row, rng.Columns.Count, rng.Rows.Count
+    s_row = rng.Row
+    row_Count = rng.Rows.Count - 1
+    s_col = rng.Column
+    e_col = rng.Column + rng.Columns.Count - 1
+    
+    ActiveSheet.ChartObjects(1).Select
+    For i = 1 To row_Count
+        Set s = ActiveChart.SeriesCollection.NewSeries
+        With s
+            .ChartType = xlXYScatter    ' 分布図
+            .XValues = Range(Cells(s_row, s_col + 1), Cells(s_row, e_col))
+            .Values = Range(Cells(s_row + i, s_col + 1), Cells(s_row + i, e_col))
+            .Name = Cells(s_row + i, s_col)
+        End With
+    Next
+----
+
+
 
 === グラフのタイトル変更
 
@@ -5155,7 +5324,7 @@ End Sub
 ----
 
 
-=== 2次元配列
+=== 2次元配列ソート
 
 
 [source,vbscript]
@@ -5164,7 +5333,7 @@ End Sub
 ' '引数の最後の,1がキー位置の指定
 Call quick_sort(data, LBound(data), UBound(data), 1)
 
-Sub quick_sort(ByRef argAry() As Variant, _
+Sub quick_sort(ByRef argAry As Variant, _
     ByVal lngMin As Long, _
     ByVal lngMax As Long, _
     ByVal keyPos As Long)

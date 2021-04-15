@@ -18,7 +18,7 @@
 :sectnums:
 :sectnumlevels: 5
 // :source-highlighter: pygments
-:source-language: VBscript
+:source-language: bash
 :toc: right
 // :toc: left
 :toc-title: 目次
@@ -199,7 +199,7 @@ done
 
 === 変数
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 items=(
     "altair"
@@ -214,7 +214,7 @@ done
 ----
 === 変数2
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 items[0]="altair"
 items[1]="betelgeuse"
@@ -230,14 +230,14 @@ done
 === 連番
 
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 for i in {1..10} ; do
     echo ${i}
 done
 ----
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 for i in `seq 1 10`; do
     echo ${i}
@@ -248,14 +248,14 @@ done
 === ファイル一覧
 
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 for file_name in * ;do
     echo ${file_name}
 done
 ----
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 files=(`ls -1 somedir/`)
 for file_name in "${files[@]}"; do
@@ -268,21 +268,21 @@ done
 === 引数
 
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 for arg; do
   echo ${arg}
 done
 ----
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 for arg in "$@"; do
   echo ${arg}
 done
 ----
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 $ ./hoge.sh altair betelgeuse canopus
 ----
@@ -290,7 +290,7 @@ $ ./hoge.sh altair betelgeuse canopus
 === ファイル読み込み
 
 
-[source,VBSCRIPT]
+[source,bash]
 ----
 while read line ; do
     echo ${line}
@@ -298,5 +298,16 @@ while read line ; do
 done < ./command.txt
 ----
 
+== 表示　0パディング
 
+[source,bash]
+----
+str =printf "%02d" "${n}"
+
+fs=0.1
+flort = printf "%05.1f" "${fs}"
+000.1
+flort = printf "%f" "${fs}"
+0.100000
+----
 

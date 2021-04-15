@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.12">
 <meta name="author" content="yossym">
-<title>bash</title>
+<title>gnuplot</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -441,485 +441,322 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>bash</h1>
+<h1>gnuplot</h1>
 <div class="details">
 <span id="author" class="author">yossym</span><br>
 <span id="email" class="email"><a href="mailto:docomoxyz@gmail.com">docomoxyz@gmail.com</a></span><br>
-<span id="revdate">2021-04-13</span>
+<span id="revdate">2021-04-14</span>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_コメント">1. コメント</a></li>
-<li><a href="#_変数">2. 変数</a></li>
-<li><a href="#_演算子">3. 演算子</a></li>
-<li><a href="#_条件式">4. 条件式</a></li>
-<li><a href="#_lsを配列に入れる">5. lsを配列に入れる</a></li>
-<li><a href="#_拡張子を変更">6. 拡張子を変更</a></li>
-<li><a href="#_いろんなループ">7. いろんなループ</a>
+<li><a href="#_起動終了">起動、終了</a></li>
+<li><a href="#_ファイル読み込み">ファイル読み込み</a>
 <ul class="sectlevel2">
-<li><a href="#_変数_2">7.1. 変数</a></li>
-<li><a href="#_変数2">7.2. 変数2</a></li>
-<li><a href="#_連番">7.3. 連番</a></li>
-<li><a href="#_ファイル一覧">7.4. ファイル一覧</a></li>
-<li><a href="#_引数">7.5. 引数</a></li>
-<li><a href="#_ファイル読み込み">7.6. ファイル読み込み</a></li>
+<li><a href="#_ファイル出力">ファイル出力</a></li>
+<li><a href="#_ポイントや線や色の一覧">ポイントや線や色の一覧</a></li>
 </ul>
 </li>
-<li><a href="#_表示0パディング">8. 表示　0パディング</a></li>
+<li><a href="#_コマンド">コマンド</a>
+<ul class="sectlevel2">
+<li><a href="#_encoding">encoding</a></li>
+<li><a href="#_title">title</a></li>
+<li><a href="#_xrange">xrange</a></li>
+<li><a href="#_yrange">yrange</a></li>
+<li><a href="#_timefmt">timefmt</a></li>
+<li><a href="#_xラベル">Xラベル</a></li>
+<li><a href="#_yラベル">Yラベル</a></li>
+<li><a href="#_全軸目盛り制御">全軸目盛り制御</a></li>
+<li><a href="#_grid">grid</a></li>
+<li><a href="#_key">key</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_コメント">1. コメント</h2>
+<h2 id="_起動終了">起動、終了</h2>
 <div class="sectionbody">
 <div class="listingblock">
-<div class="title">1行コメント</div>
+<div class="title">起動</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash"># This is a comment</code></pre>
+<pre class="highlight"><code class="language-gnuplot" data-lang="gnuplot">gnuplot</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">複数行コメント</div>
+<div class="title">終了</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">&lt;&lt; COMMTNTOUT
-This is a comment
-This is a comment
-This is a comment
-This is a comment
-COMMTNTOUT</code></pre>
+<pre class="highlight"><code class="language-gnuplot" data-lang="gnuplot">gnuplot&gt; quit</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_変数">2. 変数</h2>
+<h2 id="_ファイル読み込み">ファイル読み込み</h2>
 <div class="sectionbody">
 <div class="listingblock">
+<div class="title">sample.plt</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">val="This is a pen"
-echo ${val}</code></pre>
+<pre class="highlight"><code class="language-gnuplot" data-lang="gnuplot">set title "this is test"
+plot sin(x)/x</code></pre>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_演算子">3. 演算子</h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. 四則演算</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">演算子</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">説明</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">加算</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">減算</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">*</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">乗算</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">/</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">除算</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">%</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">剰余</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">**</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">累乗</p></td>
-</tr>
-</tbody>
-</table>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">echo $((1 + 2))
-3
-
-x=100
-y=100
-echo $((x+y))
-200</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_条件式">4. 条件式</h2>
-<div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">options</th>
-<th class="tableblock halign-left valign-top">説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-a file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在すれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-b file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつブロック特殊ファイルならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-c file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつキャラクター特殊ファイルならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-d file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつディレクトリならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-e file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在すれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-f file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつ通常ファイルならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-g file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつ set-group-id されていれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-h file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつシンボリックリンクならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-k file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつ ``sticky'' ビットが設定されていれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-p file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつ名前付きパイプ (FIFO) ならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-r file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつ読み込み可能ならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-s file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつそのサイズが 0 より大きければ真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-t fd</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ファイル・ディスクリプター fd がオープンされており、かつ端末を参照していれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-u file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、 かつ set-user-id ビットが設定されていれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-w file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつ書き込み可能ならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-x file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつ実行可能ならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-G file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつ (実行中のシェルの) 実効グループ ID に所有されていれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-L file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつシンボリックリンクならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-N file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、 かつ前回読み込まれた以降に修正されていれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-O file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつ (実行中のシェルの) 実効ユーザ ID に所有されていれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-S file</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file が存在し、かつソケットならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file1 -ef file2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file1 と file2 とで デバイス番号と i-ノード番号が同じならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file1 -nt file2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file1 が (変更日時に関して) file2 より新しいか、 file1 が存在するが file2 が存在しなければ、真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file1 -ot file2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">file1 が file2 より古いか、 file2 が存在するのに file1 が存在しなければ、真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-o optname</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">シェルオプション optname が有効ならば真となります。後述する組み込みコマンド set に対するオプションの説明中にある -o オプションを参照してください。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-v varname</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">シェル変数 varname がセットされている (値が代入されている) ならば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-z string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string の長さが 0 ならば真となります。</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. string</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">options</th>
-<th class="tableblock halign-left valign-top">説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-n string</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string の長さが 0 でなければ真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string1 == string2<br>
-string1 = string2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">文字列が同じならば真となります。 POSIX に準拠する形で test
-コマンドを使う場合には = を使う必要があります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string1 != string2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 つの文字列が異なれば真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string1 &lt; string2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">現在のロケールにおいて、string1 が string2 よりも 辞書順で前にある場合に真となります。</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">string1 &gt; string2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">現在のロケールにおいて、string1 が string2 よりも 辞書順で後にある場合に真となります。</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 80%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">options</th>
-<th class="tableblock halign-left valign-top">説明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">arg1 OP arg2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OP は -eq, -ne, -lt, -le, -gt, -ge. のいずれかです。 これらの算
-術二値演算子が真を返すのはそれぞれ、 arg1 が arg2 に対して等しい場合、 等しく
-ない場合、小さい場合、小さいか等しい場合、大きい場合、 大きいか等しい場合です。
-arg1 や arg2 には、正または負の整数を使用できます。</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_lsを配列に入れる">5. lsを配列に入れる</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">#!/usr/bin/bash
-# set -x
-
-declare ls_result=$(ls *.adoc)
-
-echo ${#ls_result[0]}
-echo ${#ls_result[*]}
-
-declare i=0
-if [ ${#ls_result[0]} -gt 0 ] ; then
-    for line in ${ls_result}
-    do
-        echo  ${line} ${i}
-        let i++
-        # i=${i}+1
-    done
-fi
-
-# *.txtが存在したら実行
-# 判定しないとエラーとなる。
-if [ -a *.txt ]; then
-
-    ls_result=$(ls *.txt)
-
-    echo ${#ls_result[0]}
-    echo ${#ls_result[*]}
-
-    declare i=0
-    if [ ${#ls_result[0]} -gt 0 ] ; then
-        for line in ${ls_result}
-        do
-            echo  ${line} ${i}
-            let i++
-            # i=${i}+1
-        done
-    fi
-
-fi</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_拡張子を変更">6. 拡張子を変更</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>txtからlogに変更</p>
 </div>
 <div class="listingblock">
+<div class="title">読み込み</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">for f in *.txt
-do
-    mv ${f%.txt}.log
-done</code></pre>
+<pre class="highlight"><code class="language-gnuplot" data-lang="gnuplot">load "sample.plt"</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_いろんなループ">7. いろんなループ</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_変数_2">7.1. 変数</h3>
+<h3 id="_ファイル出力">ファイル出力</h3>
 <div class="listingblock">
+<div class="title">pngとして出力</div>
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">items=(
-    "altair"
-    "betelgeuse"
-    "canopus"
-)
-
-for item in "${items[@]}" ; do
-    echo "[ ${item} ]"
-done</code></pre>
+<pre class="highlight"><code class="language-gnuplot" data-lang="gnuplot">set term png
+set output "xxx.png"
+replot</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_変数2">7.2. 変数2</h3>
+<h3 id="_ポイントや線や色の一覧">ポイントや線や色の一覧</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">items[0]="altair"
-items[1]="betelgeuse"
-items[2]="canopus"
-
-for item in "${items[@]}" ; do
-    echo "[ ${item} ]"
-done</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_連番">7.3. 連番</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">for i in {1..10} ; do
-    echo ${i}
-done</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">for i in `seq 1 10`; do
-    echo ${i}
-done</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_ファイル一覧">7.4. ファイル一覧</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">for file_name in * ;do
-    echo ${file_name}
-done</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">files=(`ls -1 somedir/`)
-for file_name in "${files[@]}"; do
-    echo ${file_name}
-done</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_引数">7.5. 引数</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">for arg; do
-  echo ${arg}
-done</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">for arg in "$@"; do
-  echo ${arg}
-done</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ ./hoge.sh altair betelgeuse canopus</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_ファイル読み込み">7.6. ファイル読み込み</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">while read line ; do
-    echo ${line}
-
-done &lt; ./command.txt</code></pre>
+<pre class="highlight"><code class="language-gnuplot" data-lang="gnuplot">set output "test.png"
+set terminal png
+test</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_表示0パディング">8. 表示　0パディング</h2>
+<h2 id="_コマンド">コマンド</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_encoding">encoding</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set encoding utf8
+set encoding sjis
+show encoding</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_title">title</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set tite "グラフのタイトル" font ",20"
+set tite "グラフのタイトル" font "Meiryo,20"
+set tite "グラフのタイトル" font "Meiryo,20" textcolor "blue"</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_xrange">xrange</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set xrange [0:10]
+set xr [-10:10]
+set xr []</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_yrange">yrange</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set yrange [0:10]
+set yr [-10:10]
+set yr []</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_timefmt">timefmt</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set timefmt "%Y/%m/%d %H:%M:%S""
+show timefmt</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_xラベル">Xラベル</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set xlabel "X軸[m]"
+set xlabel "X軸[m]" ",10" textcolor red
+set xlabel 1 "X軸[m]" "Meiryo,10" textcolor red
+unset xlabel 1
+show xlabel</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_yラベル">Yラベル</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set xlabel "X軸[m]"
+set xlabel "X軸[m]" ",10" textcolor red
+set xlabel 1 "X軸[m]" "Meiryo,10" textcolor red
+unset xlabel 1
+show xlabel</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_全軸目盛り制御">全軸目盛り制御</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set tics 3</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>set xtics 3</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>set ytics 3</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_grid">grid</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set grid with linewidth 1 linecolor rgb "blue"
+set grid with lw 1 lc rgb "blue"</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_key">key</h3>
+<div class="literalblock">
+<div class="content">
+<pre>set key</pre>
+</div>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">str =printf "%02d" "${n}"
-
-fs=0.1
-flort = printf "%05.1f" "${fs}"
-000.1
-flort = printf "%f" "${fs}"
-0.100000</code></pre>
+<pre>gnuplot&gt; show colornames
+        There are 111 predefined color names:
+  white              #ffffff = 255 255 255
+  black              #000000 =   0   0   0
+  dark-grey          #a0a0a0 = 160 160 160
+  red                #ff0000 = 255   0   0
+  web-green          #00c000 =   0 192   0
+  web-blue           #0080ff =   0 128 255
+  dark-magenta       #c000ff = 192   0 255
+  dark-cyan          #00eeee =   0 238 238
+  dark-orange        #c04000 = 192  64   0
+  dark-yellow        #c8c800 = 200 200   0
+  royalblue          #4169e1 =  65 105 225
+  goldenrod          #ffc020 = 255 192  32
+  dark-spring-green  #008040 =   0 128  64
+  purple             #c080ff = 192 128 255
+  steelblue          #306080 =  48  96 128
+  dark-red           #8b0000 = 139   0   0
+  dark-chartreuse    #408000 =  64 128   0
+  orchid             #ff80ff = 255 128 255
+  aquamarine         #7fffd4 = 127 255 212
+  brown              #a52a2a = 165  42  42
+  yellow             #ffff00 = 255 255   0
+  turquoise          #40e0d0 =  64 224 208
+  grey0              #000000 =   0   0   0
+  grey10             #1a1a1a =  26  26  26
+  grey20             #333333 =  51  51  51
+  grey30             #4d4d4d =  77  77  77
+  grey40             #666666 = 102 102 102
+  grey50             #7f7f7f = 127 127 127
+  grey60             #999999 = 153 153 153
+  grey70             #b3b3b3 = 179 179 179
+  grey               #c0c0c0 = 192 192 192
+  grey80             #cccccc = 204 204 204
+  grey90             #e5e5e5 = 229 229 229
+  grey100            #ffffff = 255 255 255
+  light-red          #f03232 = 240  50  50
+  light-green        #90ee90 = 144 238 144
+  light-blue         #add8e6 = 173 216 230
+  light-magenta      #f055f0 = 240  85 240
+  light-cyan         #e0ffff = 224 255 255
+  light-goldenrod    #eedd82 = 238 221 130
+  light-pink         #ffb6c1 = 255 182 193
+  light-turquoise    #afeeee = 175 238 238
+  gold               #ffd700 = 255 215   0
+  green              #00ff00 =   0 255   0
+  dark-green         #006400 =   0 100   0
+  spring-green       #00ff7f =   0 255 127
+  forest-green       #228b22 =  34 139  34
+  sea-green          #2e8b57 =  46 139  87
+  blue               #0000ff =   0   0 255
+  dark-blue          #00008b =   0   0 139
+  midnight-blue      #191970 =  25  25 112
+  navy               #000080 =   0   0 128
+  medium-blue        #0000cd =   0   0 205
+  skyblue            #87ceeb = 135 206 235
+  cyan               #00ffff =   0 255 255
+  magenta            #ff00ff = 255   0 255
+  dark-turquoise     #00ced1 =   0 206 209
+  dark-pink          #ff1493 = 255  20 147
+  coral              #ff7f50 = 255 127  80
+  light-coral        #f08080 = 240 128 128
+  orange-red         #ff4500 = 255  69   0
+  salmon             #fa8072 = 250 128 114
+  dark-salmon        #e9967a = 233 150 122
+  khaki              #f0e68c = 240 230 140
+  dark-khaki         #bdb76b = 189 183 107
+  dark-goldenrod     #b8860b = 184 134  11
+  beige              #f5f5dc = 245 245 220
+  olive              #a08020 = 160 128  32
+  orange             #ffa500 = 255 165   0
+  violet             #ee82ee = 238 130 238
+  dark-violet        #9400d3 = 148   0 211
+  plum               #dda0dd = 221 160 221
+  dark-plum          #905040 = 144  80  64
+  dark-olivegreen    #556b2f =  85 107  47
+  orangered4         #801400 = 128  20   0
+  brown4             #801414 = 128  20  20
+  sienna4            #804014 = 128  64  20
+  orchid4            #804080 = 128  64 128
+  mediumpurple3      #8060c0 = 128  96 192
+  slateblue1         #8060ff = 128  96 255
+  yellow4            #808000 = 128 128   0
+  sienna1            #ff8040 = 255 128  64
+  tan1               #ffa040 = 255 160  64
+  sandybrown         #ffa060 = 255 160  96
+  light-salmon       #ffa070 = 255 160 112
+  pink               #ffc0c0 = 255 192 192
+  khaki1             #ffff80 = 255 255 128
+  lemonchiffon       #ffffc0 = 255 255 192
+  bisque             #cdb79e = 205 183 158
+  honeydew           #f0fff0 = 240 255 240
+  slategrey          #a0b6cd = 160 182 205
+  seagreen           #c1ffc1 = 193 255 193
+  antiquewhite       #cdc0b0 = 205 192 176
+  chartreuse         #7cff40 = 124 255  64
+  greenyellow        #a0ff20 = 160 255  32
+  gray               #bebebe = 190 190 190
+  light-gray         #d3d3d3 = 211 211 211
+  light-grey         #d3d3d3 = 211 211 211
+  dark-gray          #a0a0a0 = 160 160 160
+  slategray          #a0b6cd = 160 182 205
+  gray0              #000000 =   0   0   0
+  gray10             #1a1a1a =  26  26  26
+  gray20             #333333 =  51  51  51
+  gray30             #4d4d4d =  77  77  77
+  gray40             #666666 = 102 102 102
+  gray50             #7f7f7f = 127 127 127
+  gray60             #999999 = 153 153 153
+  gray70             #b3b3b3 = 179 179 179
+  gray80             #cccccc = 204 204 204
+  gray90             #e5e5e5 = 229 229 229
+  gray100            #ffffff = 255 255 255</pre>
+</div>
 </div>
 </div>
 </div>
@@ -927,7 +764,7 @@ flort = printf "%f" "${fs}"
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-13 01:48:55 +0900
+Last updated 2021-04-14 05:39:18 +0900
 </div>
 </div>
 </body>

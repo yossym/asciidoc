@@ -1,5 +1,5 @@
 // = Visual Basic for Applications (VBA) の言語リファレンス
-= https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference[Visual Basic 言語リファレンス | Microsoft Docs]
+// = https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference[Visual Basic 言語リファレンス | Microsoft Docs]
 // 著者の名前(省略可)<メールアドレス(省略可能)>
 // バージョンや作成日(省略可)
 :Author:	yossym
@@ -24,41 +24,40 @@
 // :toc: left
 :toc-title: 目次
 
-////
-Excel VBA リファレンス
+// Excel VBA リファレンス
+//
+// 言語リファレンス
+// 	概要
+// 	概念
+// 		Visual Basic
+// 			概要
+// 		Microsoft Forms の概念に関するトピック
+// 	使用方法に関するトピック
+// 	Visual Basic の操作手順のトピック
+//                 文字セット
+//                 定数
+//                 データ型
+//                 ディレクティブ
+//                 イベント
+//                 関数
+//                 キーワード
+//                 Microsoft Forms
+//                 オブジェクト
+//                 Operators
+//                 ステートメント
+//                 Visual Basic アドイン モデルVisual Basic 言語リファレンス
+//
+//
+// Excel Visual Basic for Applications (VBA) リファレンス | Microsoft Docs
+// https://docs.microsoft.com/ja-jp/office/vba/api/overview/excel
+//
+// Visual Basic for Applications (VBA) の言語リファレンス | Microsoft Docs
+// https://docs.microsoft.com/ja-jp/office/vba/api/overview/language-reference
+//
+// Visual Basic 言語リファレンス | Microsoft Docs
+// https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference
 
-言語リファレンス
-	概要
-	概念
-		Visual Basic
-			概要
-		Microsoft Forms の概念に関するトピック
-	使用方法に関するトピック
-	Visual Basic の操作手順のトピック
-                文字セット
-                定数
-                データ型
-                ディレクティブ
-                イベント
-                関数
-                キーワード
-                Microsoft Forms
-                オブジェクト
-                Operators
-                ステートメント
-                Visual Basic アドイン モデルVisual Basic 言語リファレンス
 
-
-Excel Visual Basic for Applications (VBA) リファレンス | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/api/overview/excel
-
-Visual Basic for Applications (VBA) の言語リファレンス | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/api/overview/language-reference
-
-Visual Basic 言語リファレンス | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference
-
-/////
 
 
 == Visual Basic 言語リファレンス

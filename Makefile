@@ -1,5 +1,6 @@
 # CC	= asciidoc
-CC = /usr/local/bin/asciidoc
+# CC = /usr/local/bin/asciidoc
+CC = asciidoctor 
 # FLAGS	= -a toc2 -a toclevels=3
 # FLAGS	= -a toc -a toclevels=3
 # today = ${shell date '+%Y_%m_%d'}
@@ -10,7 +11,7 @@ FLAGS	= -a toc -a toclevels=3 -a revdate=${today}
 FILES	= VBA.adoc Makefile VBA*.adoc *vbscript* *Microsof*
 
 
-all:	VBA.html AsciiCode.html bash.html perl.html
+all:	VBA.html AsciiCode.html bash.html perl.html gnuplot.html
 
 # VBA.html:	VBA.adoc Makefile VBAFunction.adoc VBAKeyword.adoc VBSctipt.adoc VBAvariable.adoc
 VBA.html:	$(FILES)
@@ -28,6 +29,8 @@ perl.html:	perl.adoc
 sample.html:	sample.adoc
 	$(CC) $(FLAGS) sample.adoc
 
+gnuplot.html:	gnuplot.adoc
+	$(CC) $(FLAGS) gnuplot.adoc
 
 
 

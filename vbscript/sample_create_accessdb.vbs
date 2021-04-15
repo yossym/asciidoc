@@ -8,6 +8,8 @@ TableName = "TestTable"
 TypeStr = "氏名 varchar(20),身長 float, unixtime float"
 
 Set FSO = CreateObject("Scripting.FileSystemObject")
+
+'  こうするとフルパスでファイル名を取得できるみたいだ
 DbPath = FSO.GetAbsolutePathName(DbName)
 If (FSO.FileExists(DbPath) = True) Then FSO.DeleteFile(DbPath)
 Set FSO = Nothing

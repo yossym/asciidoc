@@ -1,4 +1,4 @@
-= VBAvariable
+// = VBAvariable
 // 著者の名前(省略可)<メールアドレス(省略可能)>
 // バージョンや作成日(省略可)
 :Author:	yossym
@@ -23,32 +23,30 @@
 // :toc: left
 :toc-title: 目次
 
-////
-Excel VBA リファレンス
+// Excel VBA リファレンス
+//
+// 言語リファレンス
+// 	Visual Basic の概念に関するトピック
+// 	Microsoft Forms の概念に関するトピック
+// 	Visual Basic の操作手順のトピック
+// 	Visual Basic 言語リファレンス
+// 		定数 (Visual Basic for Applications)
+// 		データ型の概要
+// 		イベント (Visual Basic for Applications)
+// 		関数 (Visual Basic for Applications)
+// 		タスク別のキーワード
+// 		オブジェクト (Visual Basic for Applications)
+// 		Statements
+//
+// Excel Visual Basic for Applications (VBA) リファレンス | Microsoft Docs
+// https://docs.microsoft.com/ja-jp/office/vba/api/overview/excel
+//
+// Visual Basic for Applications (VBA) の言語リファレンス | Microsoft Docs
+// https://docs.microsoft.com/ja-jp/office/vba/api/overview/language-reference
+//
+// Visual Basic 言語リファレンス | Microsoft Docs
+// https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference
 
-言語リファレンス
-	Visual Basic の概念に関するトピック
-	Microsoft Forms の概念に関するトピック
-	Visual Basic の操作手順のトピック
-	Visual Basic 言語リファレンス
-		定数 (Visual Basic for Applications)
-		データ型の概要
-		イベント (Visual Basic for Applications)
-		関数 (Visual Basic for Applications)
-		タスク別のキーワード
-		オブジェクト (Visual Basic for Applications)
-		Statements
-
-Excel Visual Basic for Applications (VBA) リファレンス | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/api/overview/excel
-
-Visual Basic for Applications (VBA) の言語リファレンス | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/api/overview/language-reference
-
-Visual Basic 言語リファレンス | Microsoft Docs
-https://docs.microsoft.com/ja-jp/office/vba/language/reference/user-interface-help/visual-basic-language-reference
-
-/////
 
 
 
