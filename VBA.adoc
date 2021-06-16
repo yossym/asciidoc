@@ -503,16 +503,33 @@ Workbooks.Delete
 
 === worksheet copyコピー
 
+
+.一番右にコピー
+
+
+[source,vbscript]
+----
+        Worksheets("テンプレート").Copy After:=Worksheets(Worksheets.Count)
+----
+
+.一番左にコピー
+
+
+[source,vbscript]
+----
+        Worksheets("テンプレート").Copy bfore:=Worksheets(1)
+----
+
 .sheets3の右にコピー
 [source,vbscript]
 ----
 Worksheets("Sheet1").Copy After:=Worksheets("Sheet3")
 ----
 
-.sheets3の右にコピー
+.sheets3の左にコピー
 [source,vbscript]
 ----
-Worksheets("Sheet1").Copy before:=Worksheets("Sheet1")
+Worksheets("Sheet1").Copy before:=Worksheets("Sheet3")
 ----
 
 === SheetExists シートの存在確認
@@ -557,6 +574,24 @@ worksheets.select
 ="'[filename]シート名'!A1"
 ="'シート名'!A1"
 ----
+
+=== グループ化/グループ解除
+
+
+[source,vbscript]
+----
+
+Rows("2:6").Select
+Selection.Rows.Group
+
+Selection.Rows.Ungroup
+
+
+range(rows(18),rows(23)).select
+
+
+----
+
 
 === セルを直接selectする
 
@@ -824,9 +859,14 @@ Range("A3:B6,C9:D12").Select
 $A$1:$C$3
 ?range(rows(1),rows(3)).Address
 $1:$3
-?range(columns(1),columns(3)).Address
 
+
+
+?range(columns(1),columns(3)).Address
 $A:$C
+?range(columns(1),columns(3)).Address(,false)
+A:C
+
 
 
 ?Columns(4).Addreas
@@ -996,13 +1036,17 @@ ActiveCell.Address
 $A$1
 
 Activecell.Address(RowAbsolute:=False)
+Activecell.Address(False)
+
 $A1
 
 Activecell.Address(ColumnAbsolute:=False)
+Activecell.Address(,False)
 A$1
 
 Activecell.Address(RowAbsolute:=False, _
 		ColumnAbsolute:=False)
+Activecell.Address(False,False)
 A1
 
 Activecell.Address(ReferenceStyle:= xlA1)
@@ -1011,6 +1055,12 @@ A1 形式(デフォルト)
 Activecell.Address(ReferenceStyle:= xlR1C1)
 R1C1 形式
 
+expression.Address (RowAbsolute, ColumnAbsolute, ReferenceStyle, External, RelativeTo)
+Range("A1").Address( rowabsolute:= False, 
+			columnabsolute:= False,
+			referencestyle:= xlA1, 
+			external:= True)
+[sample.xlsm]Sheet1!A1
 
 Set mc = Worksheets("Sheet1").Cells(1, 1)
 MsgBox mc.Address() ' $A$1
@@ -1120,6 +1170,26 @@ Range("A1").Font.Color = vbRed
 
 
 == 変数
+
+=== 2次元配列 two dimensions
+
+
+[source,vbscript]
+----
+dim csv() as string
+
+ReDim Preserve csv(4,4)
+
+ReDim Preserve csv(6,4) '2回目のredimはエラーとなる
+                        'この6ｇあエラー
+                        ' 何回も変更できるのは最後の引数
+
+
+----
+
+
+
+
 === 値のない場合の表現
 
 
@@ -1175,6 +1245,34 @@ String型
 String型の初期値
 
 == 関数
+
+=== 配列をシャッフル
+
+
+[source,vbscript]
+----
+Sub sample()
+  Dim list As Variant
+ 
+  list = Array("A", "B", "C", "D", "E", "F")
+  list = Shuffle(list) 'ランダムに並べ替え
+  Debug.Print list
+End Sub
+
+Private Function Shuffle(list)
+    Dim i As Long
+    Dim rn As Double, tmp
+    For i = 0 To UBound(list)
+        Randomize
+        rn = Int(UBound(list) * Rnd)
+        tmp = list(i)
+        list(i) = list(rn)
+        list(rn) = tmp
+    Next
+    Shuffle = list
+End Function
+----
+
 === 配列を受け取る関数
 
 .●渡す側（呼び出し元）●
@@ -1188,7 +1286,7 @@ Sub PassArg()
         myArray(i) = "値" & i
     Next i
     
-    Call RecArg(myArray)
+    Call RecArg(myArray)	’call が重要
 End Sub
 ----
 
@@ -1207,6 +1305,34 @@ Sub RecArg(myArg() As String)
     
     MsgBox Msg
 End Sub
+----
+
+=== 配列を戻り値として受け取る
+
+[source,vbscript]
+----
+Sub main()
+
+    Dim arr() As Long
+    arr() = test()
+
+    Dim val As Variant
+    For Each val In arr
+        Debug.Print val
+    Next
+
+End Sub
+
+Function test() As Long()
+
+    Dim arr(2) As Long
+    arr(0) = 1
+    arr(1) = 2
+    arr(2) = 3
+
+    test = arr()
+
+End Function
 ----
 
 === fix, int, round, 四捨五入、切り捨て
@@ -1407,7 +1533,7 @@ Microsoft ScrptingRuntime
 [source,VBSCRIPT]
 ----
 Dim fso As New Scrpting.Filesystemobject
-Dim ts as TextSream
+Dim ts as TextStream
 Dim s As String
 
 Set ts = fso.OpenTextFile(FileName)
@@ -1588,7 +1714,7 @@ Microsoft ActiveX Data Objects 6.0 Library
 ----
 sub ado_read_csv()
     dim con As New ADODB.Connection
-    dim rs As New ADODB.RecordSet
+    dim adors As New ADODB.RecordSet
 
     dim Folder As String
 
@@ -1604,7 +1730,7 @@ sub ado_read_csv()
         .open Folder
     end with
 
-    rs.open source:=sql, _
+    adors.open source:=sql, _
         AcriveConnection:=con, _
         CursorType := adoOpenStatic
 
@@ -1612,28 +1738,28 @@ sub ado_read_csv()
     Rs.Movefirst
 
     ' ヘッダ書き込み
-    For i = 0 to rs.Fields.Count -1
+    For i = 0 to adors.Fields.Count -1
         Cells(1, i+1).= rs.Fields(i).Name
     Next
 
-    range("A2").CopyromRecordset rs
+    range("A2").CopyromRecordset adors
 
-    rs.MoveFitst
+    adors.MoveFitst
     ' これ登録件数
-    'rs.RecordCount
-    do until rs.EOF
+    'adors.RecordCount
+    do until adors.EOF
         for 
         rd.MoveNext
     Loop
 
-    rs.Close
+    adors.Close
     Con.Close
 
 end Sub
 
 ----
 
-=== ADODB.RecordSetで2次元配列ソート
+==== ADODB.RecordSetで2次元配列ソート
 
 参照設定::
 Microsoft ActiveX Data Objects 6.0 Library
@@ -1647,10 +1773,10 @@ Microsoft ActiveX Data Objects 6.0 Library
 | adchar        | 129  | 文字列値を示します (DBTYPE_STR)。
 | addbtimestamp | 135  | 日付/タイム スタンプ (yyyymmddhhmmss および 10 億分の 1 桁までの分数) を示します (DBTYPE_DBTIMESTAMP)。
 | addouble      | 5    | 倍精度浮動小数点値を示します (DBTYPE_R8)。
-|adinteger      | 3    | 4 バイトの符号付き整数を示します (DBTYPE_I4)。
+| adinteger     | 3    | 4 バイトの符号付き整数を示します (DBTYPE_I4)。
 | adguid        | 72   | グローバル一意識別子 (GUID) を示します (DBTYPE_GUID)。
 | adVarChar     | 200  | 文字列値を示します。
-|===
+| ===
 
 
 [source,VBSCRIPT]
@@ -1808,8 +1934,8 @@ Private Function SelectFolder() As String
 End Function
 ----
 
-
-== VBScript これだけ書いとけ
+== VBScript
+=== VBScript これだけ書いとけ
 
 [source,vbscript]
 ----
@@ -1878,1298 +2004,206 @@ end sub
 Main
 ----
 
-== FileSystemObject オブジェクト
-
-参照設定::
-Microsoft ScrptingRuntime
-
-コンピューターのファイル システムへのアクセスを提供します。
-
-.構文
-
-[source,vbscript]
-----
-Scripting.FileSystemObject
-----
-
-.注釈
-
-次のコードはFileSystemObjectオブジェクトを使用して読み書き可能な**TextStream**
-オブジェクトを返す方法を示しています。
 
 
-[source,vbscript]
-----
-Set fs = CreateObject("Scripting.FileSystemObject")
-Set a = fs.CreateTextFile("c:\testfile.txt", True)
-a.WriteLine("This is a test.")
-a.Close
-----
+===  擬似Collection
 
-コード例では、次のとおりです。
+* https://imihito.hatenablog.jp/entry/2017/05/13/010848[VBS用配列ラッパークラス - imihitoのブログ]
 
-* CreateObject 関数は FileSystemObject (fs) を返します。
-* CreateTextFile メソッドは、ファイルを TextStream オブジェクト (a) として作成します。
-*    WriteLine メソッドは、作成されたテキスト ファイルにテキスト行を書き込みます。
-*    Close メソッドは、バッファーをフラッシュし、ファイルを閉じます。
+.実装メンバー
 
+Clear::
+	初期化用。
 
-.メソッド
+Add::
+要素を末尾に追加。
 
-[cols="1,4",options="header"]
-|===
-|メソッド |説明
-|BuildPath |既存のパスに名前を追加します。
-|CopyFile |1 つ以上のファイルを別の場所にコピーします。
-|CopyFolder |1 つ以上のフォルダーを別の場所にコピーします。
-|CreateFolder |新しいフォルダーを作成します。
-|CreateTextFile |テキスト ファイルを作成し、ファイルの読み取りまたは書き込みに使用できる TextStream オブジェクトを返します。
-|DeleteFile |指定した 1 つ以上のファイルを削除します。
-|DeleteFolder |指定した 1 つ以上のフォルダーを削除します。
-|DriveExists |指定したドライブが存在するかどうかを確認します。
-|FileExists |指定したファイルが存在するかどうかを確認します。
-|FolderExists |指定したフォルダーが存在するかどうかを確認します。
-|GetAbsolutePathName |指定したパスのドライブのルートからの完全なパスを返します。
-|GetBaseName |指定したファイルまたはフォルダーのベース名を返します。
-|GetDrive |指定したパスのドライブに対応するドライブ オブジェクトを返します。
-|GetDriveName |指定したパスのドライブ名を返します。
-|GetExtensionName |指定したパスの最後のコンポーネントのファイル拡張子名を返します。
-|GetFile |指定したパスのファイル オブジェクトを返します。
-|GetFileName |指定したパスの最後のコンポーネントのファイル名またはフォルダー名を返します。
-|GetFolder |指定したパスのフォルダー オブジェクトを返します。
-|GetParentFolderName |指定したパスの最後のコンポーネントの親フォルダーの名前を返します。
-|GetSpecialFolder |Windows の一部の特殊フォルダーのパスを返します。
-|GetTempName |ランダムに生成された一時ファイルまたはフォルダーを返します。
-|Move |指定したファイルまたはフォルダーを別の場所に移動します。
-|MoveFile |1 つ以上のファイルを別の場所に移動します。
-|MoveFolder |1 つ以上のフォルダーを別の場所に移動します。
-|OpenAsTextStream |指定したファイルを開き、開いたファイルの読み取り、書き込み、または追加書き込みに使用できる TextStream オブジェクトを返します。
-|OpenTextFile |ファイルを開き、ファイルへのアクセスに使用できる TextStream オブジェクトを返します。
-|WriteLine |指定した文字列と改行文字を TextStream ファイルに書き込みます。
-|===
+Item::
+添え字で要素を取得。 上記のコードでは添え字は1からはじまる。 範囲外アクセス時
+の動作は保証しない。
 
-.プロパティ
+Count::
+要素数。1から数えた場合の数。
 
-[cols="1,4",options="header"]
-|===
-|プロパティ |説明
-|Drives |コンピューター上のすべての Drive オブジェクトのコレクションを返します。
-|Name |指定したファイルまたはフォルダーの名前を設定するか返します。
-|Path |指定したファイル、フォルダー、またはドライブのパスを返します。
-|Size |ファイルの場合は、指定したファイルのバイト単位でのサイズを返します。フォルダーの場合、そのフォルダーに含まれるすべてのファイルとサブフォルダーのサイズをバイト単位で返します。
-|Type |ファイルまたはフォルダーの種類に関する情報を返します (たとえば .TXT で終わるファイルの場合は、"Text Document" を返します)。
-|===
+Remove::
+指定された添え字の要素を除去する。 除去したらその分自動で詰める。
+
+InitByArray::
+指定した配列で初期化する。 適当実装。
+
+ToArray::
+配列化する。 For Eachの場合や配列そのものが欲しい場合なんかに。
 
 
 
-
-
-
-
-=== メソッド
-
-==== BuildPath メソッド
-
-フォルダーパスとフォルダーまたはファイルの名前を結合し、有効なパス区切り記号と
-の組み合わせを返します。
-
-.構文
+.使用例
 
 [source,vbscript]
 ----
-object.BuildPath (path, name)
-----
-
-[cols="1,4",options="header"]
-|===
-| Part   | Description
-| object | 必須です。 常に FileSystemObject の名前。
-| path   | 必須。 _名前_を組み合わせる既存のパス。 絶対パスまたは相対パスを指
-定することができ、既存のフォルダーを指定する必要はありません。
-| name   | 必ず指定します。 既存の_パス_に追加されるフォルダーまたはファイルの
-名前。
-|===
-
-.注釈
-
-BuildPath メソッドでは、必要な場合に限り、既存のパスと名前の間に追加のパス区切
-りを挿入します。
-
-
-==== CopyFile メソッド
-
-1 つまたは複数のファイルを別の場所にコピーします。
-
-.構文
-
-[source,vbscript]
-----
-object.CopyFile source, destination, [ overwrite ]
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必ず指定します。 object は、常に FileSystemObject の名前です。
-|source |必須。 コピーする 1 つ以上のファイルを示す、ファイル指定用文字列。ワイルドカード文字も使用できます。
-|destination |必須です。 source から 1 つ以上のファイルをコピーする先を指定する文字列。 ワイルドカード文字は使用できません。
-|overwrite |省略可能。 既存のファイルを上書きできるかどうかを示すブール値です。 True の場合はファイルが上書きされ、False の場合は上書きされません。 既定値は True です。 destination に読み取り専用属性が設定されている場合は、overwrite の値にかかわらず CopyFile は失敗します。
-|===
-
-.解説
-
-ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
-けです。 たとえば、以下を使用できます。
-
-[source,vbscript]
-----
-FileSystemObject.CopyFile "c:\mydocuments\letters\*.doc", "c:\tempfolder\"
-----
-
-以下のようには使用できません。
-
-[source,vbscript]
-----
-FileSystemObject.CopyFile "c:\mydocuments\*\R1???97.xls", "c:\tempfolder"
-----
-
-source にワイルドカード文字が含まれている場合や、destination がパスの区切り文
-字 (**) で終わっている場合は、destination は一致するファイルのコピー先となる既
-存のフォルダーと見なされます。 それ以外の場合は、destination は作成するファイ
-ルの名前と見なされます。 いずれの場合も、個々のファイルのコピー時に起こり得る
-ことは 3 つあります。
-
-
-1. destination が存在しない場合は、source がコピーされます。 これは通常のケー
-   スです。
-
-2. destination が既存のファイルの場合、 overwrite が False のときはエラーが発
-   生します。 True のときは既存のファイルを上書きして source がコピーされます。
-
-3. destination がディレクトリの場合は、エラーが発生します。
-
-source でワイルドカード文字が使用されていて、どのファイルとも一致しなかった場
-合も、エラーが発生します。 いずれかのエラーが発生した時点で CopyFile メソッド
-の実行は停止されます。 エラーが発生するまでに行われた変更を取り消したり元に戻
-したりする処理は一切行われません。
-
-==== CopyFolder メソッド
-
-フォルダーを再帰的に別の場所にコピーします。
-
-.構文
-
-[source,vbscript]
-----
-object.CopyFolder source, destination, [ overwrite ]
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必ず指定します。 常に FileSystemObject の名前。
-|source |必須。 コピーする 1 つ以上のフォルダーを指定する文字列です。ワイルドカード文字を使用できます。
-|destination |必須です。 source のフォルダーとサブフォルダーのコピー先を指定する文字列です。 ワイルドカード文字は使用できません。
-|overwrite |省略可能。 既存のフォルダーを上書きするかどうかを示す ブール 値です。 True の場合はファイルが上書きされ、 False の場合は上書きされません。 既定値は True です。
-|===
-
-.解説
-
-ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
-けです。 たとえば、以下を使用できます。
-
-[source,vbscript]
-----
-FileSystemObject.CopyFolder "c:\mydocuments\letters\*", "c:\tempfolder\"
-----
-
-以下のようには使用できません。
-
-[source,vbscript]
-----
-FileSystemObject.CopyFolder "c:\mydocuments\*\*", "c:\tempfolder\"
-----
-
-source にワイルドカード文字が含まれている場合や、destination がパスの区切り文
-字 ()) で終わっている場合は、destination は一致するフォルダーとサブフォルダー
-のコピー先となる既存のフォルダーと見なされます。
-
-それ以外の場合は、destinationは作成するフォルダーの名前と見なされます。
-
-いずれの場合も、個々のフォルダーがコピーされるときに起こり得ることは 4 つあり
-ます。
-
-
-1. destination が存在しない場合は、source フォルダーとそのすべての内容がコピー
-   されます。 これは通常のケースです。
-
-2. destination が既存のファイルの場合は、エラーが発生します。
-
-3. destination がディレクトリの場合は、フォルダーとそのすべての内容のコピーを
-   しようとします。 source に含まれているファイルが destination に既に存在する
-場合は、overwrite が False に設定されているとエラーが発生します。 それ以外の場
-合、ファイルを既存のファイルにコピーしようとします。
-
-4. destination が読み取り専用のディレクトリで、overwrite が False の場合、既存
-   の読み取り専用のファイルをそのディレクトリにコピーしようとするとエラーが発
-生します。
-
-source でワイルドカード文字が使用されていて、どのフォルダーとも一致しなかった
-場合も、エラーが発生します。
-
-CopyFolder メソッドは、最初のエラーが発生した時点で処理を中止します。 エラーが
-発生するまでに行われた変更を取り消したり元に戻したりする処理は一切行われません。
-
-==== CreateFolder メソッド
-
-フォルダーを作成します。
-
-.構文
-
-[source,vbscript]
-----
-object.CreateFolder (foldername)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|foldername |必ず指定します。 作成するフォルダーを識別する 文字列式です。
-|===
-
-.注釈
-
-指定したフォルダーがすでに存在する場合は、エラーが発生します。
-
-
-
-
-==== CreateTextFile メソッド
-
-指定されたファイル名を作成し、ファイルの読み取りまたは書き込みに使用できる**TextStream** オブジェクトを返します。
-
-
-.構文
-
-
-[source,vbscript]
-----
-object.CreateTextFile (filename, [ overwrite, [ unicode ]])
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に**FileSystemObject** または**Folder** オブジェクトの名前を指定します。
-|filename |必須。 作成するファイルを示す 文字列式。
-|overwrite |省略可能。 既存のファイルを上書きできるかどうかを示す Boolean 値。 ファイルを上書きできる場合は True 、上書きできない場合は False です。 省略した場合、既存のファイルは上書きできます。
-|unicode |省略可能。 Unicode ファイルを作成するか、ASCII ファイルを作成するかを示す Boolean 値です。 Unicode ファイルとして作成する場合は True 、ASCII ファイルとして作成する場合は False です。 省略した場合は、ASCII ファイルとみなされます。
-|===
-
-.注釈
-
-次のコードは、 CreateTextFileメソッドを使用して、テキストファイルを作成して開
-く方法を示しています。 _Overwrite_引数がFalseの場合、または指定されていない場
-合は、既に存在する_ファイル名_に対してエラーが発生します。
-
-
-[source,vbscript]
-----
-Sub CreateAfile
-    Set fs = CreateObject("Scripting.FileSystemObject")
-    Set a = fs.CreateTextFile("c:\testfile.txt", True)
-    a.WriteLine("This is a test.")
-    a.Close
-End Sub
-----
-
-==== DeleteFile メソッド
-
-指定したファイルを削除します。
-
-.構文
-
-[source,vbscript]
-----
-object.DeleteFile filespec, [ force ]
-----
-
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|filespec |必須。 削除するファイルの名前です。 __ 最後のパス コンポーネントではワイルドカード文字を使用できます。
-|force |省略可能。 読み取り専用属性が設定されているファイルを削除する場合は、 Trueを指定するブール型 (Boolean) の値を指定します。False(既定値)。
-|===
-
-
-.注釈
-
-一致するファイルが見つからない場合はエラーが発生します。 DeleteFile メソッドは、
-最初のエラーが発生した時点で中止されます。 エラーが発生する前に行われた変更は
-ロールバックされません (元に戻されません)。
-
-==== DeleteFolder メソッド
-
-指定したフォルダーおよびその内容を削除します。
-
-.構文
-
-[source,vbscript]
-----
-object.DeleteFolder folderspec, [ force ]
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|folderspec |必須。 削除するフォルダーの名前。 folderspec の最後のパス コンポーネントにはワイルドカード文字を含むことができます。
-|force |省略可能。 読み取り専用属性が設定されているフォルダーを削除する場合は、 Trueを指定するブール値。False(既定値)。
-|===
-
-.注釈
-
-DeleteFolder メソッドでは、内容を持つフォルダーと内容を持たないフォルダーは区
-別されません。 指定されたフォルダーは、内容を持つかどうかにかかわらず削除され
-ます。
-
-一致するフォルダーが見つからない場合は、エラーが発生します。 いずれかのエラー
-が発生した時点で DeleteFolder メソッドの実行は停止されます。 エラーが発生する
-前に行われた変更内容のロールバックまたは取り消しは行われません。
-
-
-==== drive exists メソッド
-
-指定したドライブが存在する場合は True、それ以外の場合は False を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.DriveExists (drivespec)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|drivespec |必須。 ドライブのルートのドライブ文字またはパスの指定。
-|===
-
-.注釈
-
-リムーバブル メディアを使用するドライブの場合、DriveExists メソッドはメディア
-が存在しなくても True を返します。 ドライブの準備ができているかどうかを判断す
-るには、 drive オブジェクトのisreadyプロパティを使用します。
-
-
-
-==== FileExists メソッド
-
-指定したファイルが存在する場合は True を返します。存在しない場合は False を返
-します。
-
-.構文
-
-[source,vbscript]
-----
-object.FileExists (filespec)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|filespec |必須。 存在するかどうかを調べるファイルの名前を指定します。 ファイ
-ルが現在のフォルダー内にないことが想定される場合は、完全なパス (絶対パスまたは
-相対パス) を指定する必要があります。
-|===
-
-==== FolderExists メソッド
-
-指定したフォルダーが存在する場合は、True を返します。存在しない場合は、False
-を返します。
-
-[source,vbscript]
-----
-object.FolderExists (folderspec)
-----
-
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|folderspec |必ず指定します。 存在するかどうかを調べるフォルダーの名前を指定し
-ます。 フォルダーが現在のフォルダーにないと予想される場合は、完全なパス (絶対
-パスまたは相対パス) を指定する必要があります。
-|===
-
-
-==== GetAbsolutePathName メソッド
-
-指定したパス仕様から完全で明確なパスを返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetAbsolutePathName (pathspec)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|pathspec |必ず指定します。 完全で明確なパスに変更するパス仕様です。
-|===
-
-.注釈
-
-指定したドライブのルートから完全な参照を提供しているパスは、完全で明確です。
-完全なパスは、マップされたドライブのルートフォルダー*** を指定している場合にの
-み、パス区切り文字 (*) で終わることができます。
-
-次の表は、現在のディレクトリが c:\mydocuments\reports と仮定した場合の
-GetAbsolutePathName メソッドの動作を示しています。
-
-[cols="1,4",options="header"]
-|===
-|pathspec |返されるパス
-|"c:" |"c:\mydocuments\reports"
-|"c:.." |"c:\mydocuments"
-|"c:\" |"c:"
-|"c:. \ @ 97 |"c:\mydocuments\reports と仮定*/@ 97"
-|"region1" |"c:\mydocuments\reports\region1"
-|"c:....\mydocuments " |"c:\mydocuments"
-|===
-
-==== ★GetBaseNameメソッド
-
-パスの最後のコンポーネントのファイル拡張子を除くベース名を含む文字列を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetBaseName (path)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|path |必須。 ベース名を返すコンポーネントのパス指定。
-|===
-
-.注釈
-
-GetBaseName メソッドは、path 引数に一致するコンポーネントがない場合は、長さ 0
-の文字列 ("") を返します。
-
-
-==== GetDrive メソッド
-
-指定されたパスのドライブに対応する Drive オブジェクトを返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetDrive (drivespec)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|drivespec |必須。 _Drivespec_引数には、ドライブ文字 (c)、コロン (:) が追加されたドライブ文字、コロンとパスの区切り記号が追加されたドライブ文字 ()c:、または任意の\ネットワーク共有仕様 (computer2\share1) を使用できます。
-|===
-
-.注釈
-
-ネットワーク共有の場合、共有が存在するかどうかが調べられます。
-
-drivespec が許容されるどの形式にも従っていない場合、または存在しない場合は、エ
-ラーが発生します。
-
-GetDrive メソッドを通常のパス文字列で呼び出すには、次のシーケンスを使用して、
-drivespec として使用するのに適した文字列を取得します。
-
-[source,vbscript]
-----
-DriveSpec = GetDriveName(GetAbsolutePathName(Path))
-----
-
-==== GetDriveName メソッド
-
-指定されたパスのドライブ名を含む文字列を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetDriveName (path)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|path |必須。 ドライブ名を取得するコンポーネントのパスを指定します。
-|===
-
-.注釈
-
-GetDriveName メソッドは、ドライブを特定できない場合には長さ 0 の文字列 ("") を
-返します。
-
-==== GetExtensionName メソッド
-
-パスの最後の構成要素の拡張子名が含まれる文字列を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetExtensionName (path)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|path |必須。 拡張子名を返すべき構成要素のパス指定。
-|===
-
-.注釈
-
-ネットワークドライブの場合、ルートディレクトリ (**) はコンポーネントと見なされ
-ます。
-
-path 引数と一致する構成要素がない場合、GetExtensionName メソッドは長さ 0 の文
-字列 ("") を返します。
-
-
-==== GetFile メソッド
-
-指定したパスのファイルに対応する**file** オブジェクトを返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetFile (filespec)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|filespec |必須。 filespec は、特定のファイルへのパス (絶対または相対) です。
-|===
-
-.注釈
-
-指定されたファイルが存在しない場合は、エラーが発生します。
-
-
-==== ★GetFileName メソッド
-
-指定したパスの最後のコンポーネントを、ドライブの指定の一部ではないものとして返
-します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetFileName (pathspec)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|pathspec |必須。 特定のファイルのパス (絶対または相対)。
-|===
-
-.注釈
-
-pathspec が名前付きのコンポーネントで終了していない場合、GetFileName メソッド
-は長さがゼロの文字列 ("") を返します。
-
-==== GetFolder メソッド
-
-指定したパス内のフォルダーに対応する**folder** オブジェクトを返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetFolder (folderspec)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|folderspec |必須。 folderspec は、特定のフォルダーへのパス (絶対または相対) です。
-|===
-
-.注釈
-
-指定されたフォルダーが存在しない場合は、エラーが発生します。
-
-==== ★GetParentFolderName メソッド
-
-指定したパスにある最後のコンポーネントの親フォルダー名が含まれる文字列を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetParentFolderName (path)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|path |必ず指定します。 返される親フォルダー名のコンポーネントのパス仕様です。
-|===
-
-.注釈
-
-path 引数で指定されたコンポーネントの親フォルダーがない場合、
-GetParentFolderName メソッドは、長さ 0 の文字列 ("") を返します。
-
-==== GetSpecialFolder メソッド
-
-指定された特殊フォルダーを返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetSpecialFolder (folderspec)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|folderspec |必須。 取得する特殊フォルダーの名前です。 「設定値」に示した任意の定数を指定できます。
-|===
-
-.Settings
-
-folderspec 引数には、次のいずれかの値を指定できます。
-
-[cols="2,1,4",options="header"]
-|===
-|定数 |値 |説明
-|WindowsFolder |.0 |Windows オペレーティング システムによってインストールされたファイルが格納されている Windows フォルダー。
-|SystemFolder |1-d |ライブラリ、フォント、およびデバイス ドライバーが格納されている System フォルダー。
-|TemporaryFolder |pbm-2 |一時ファイルの格納に使用される Temp フォルダー。 このパスは TMP 環境変数で指定されています。
-|===
-
-
-==== GetTempName メソッド
-
-一時ファイルまたはフォルダーを必要とする演算を実行するのに役立つ、ランダムに生
-成された一時ファイルまたはフォルダーの名前を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.GetTempName
-----
-オプションの_object_は、常に**FileSystemObject** の名前です。
-
-.注釈
-
-GetTempName メソッドでは、ファイルが作成されません。 このメソッドでは、ファイ
-ルを作成する CreateTextFile で使用できる一時ファイルの名前を提供するだけです。
-
-==== MoveFile メソッド
-
-1 つまたは複数のファイルを別の場所に移動します。
-
-.構文
-
-[source,vbscript]
-----
-object.MoveFile source, destination
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必ず指定します。 常に FileSystemObject の名前。
-|source |必須。 移動するファイルのパス。 source 引数として指定する文字列では、パスの最後の構成要素に限ってワイルドカード文字を使用できます。
-|destination |必須です。 ファイルの移動先のパス。 destination 引数には、ワイルドカード文字を使用できません。
-|===
-
-.解説
-
-source でワイルドカード文字を使用した場合、または destination がパスの区切り文
-字 ( *** ) で終わっている場合、destination は、該当するファイルを移動する既存
-のフォルダーを指定していると見なされます。 それ以外の場合、destination は作成
-する移動先ファイルの名前であると見なされます。 いずれの場合も、個々のファイル
-の移動時に起こり得ることは 3 つあります。
-
-* destination が存在しない場合は、そのファイルが移動されます。 これは通常のケースです。
-
-* destination が既存のファイルの場合は、エラーが発生します。
-
-* destination がディレクトリの場合は、エラーが発生します。
-
-source で使用したワイルドカード文字がどのファイルとも一致しなかった場合も、エ
-ラーが発生します。 MoveFile メソッドは、最初のエラーが発生した時点で処理を中止
-します。 エラーが発生するまでに行われた変更を取り消したり元に戻したりする処理
-は一切行われません。
-
-==== MoveFolder メソッド
-
-1 つまたは複数のフォルダーを別の場所に移動します。
-
-.構文
-
-[source,vbscript]
-----
-object.MoveFolder (source, destination)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必ず指定します。 常に FileSystemObject の名前。
-|source |必須。 移動するフォルダーのパス。 source 引数として指定する文字列では、パスの最後の構成要素に限ってワイルドカード文字を使用できます。
-|destination |必須です。 フォルダーの移動先のパス。 destination 引数には、ワイルドカード文字を使用できません。
-|===
-
-.解説
-
-source でワイルドカード文字を使用した場合、または destination がパスの区切り文
-字 ( *** ) で終わっている場合、destination は、該当するファイルを移動する既存
-のフォルダーを指定していると見なされます。 それ以外の場合、destination は作成
-する移動先フォルダーの名前であると見なされます。 いずれの場合も、個々のフォル
-ダーの移動時に起こり得ることは 3 つあります。
-
-* destination が存在しない場合は、そのフォルダーが移動されます。 これが通常の場合です。
-
-* destination が既存のファイルの場合は、エラーが発生します。
-
-* destination がディレクトリの場合は、エラーが発生します。
-
-source で使用したワイルドカード文字がどのフォルダーとも一致しなかった場合も、
-エラーが発生します。 MoveFolder メソッドは、最初のエラーが発生した時点で処理を
-中止します。 エラーが発生するまでに行われた変更を取り消したり元に戻したりする
-処理は一切行われません。
-
-
-==== OpenTextFile メソッド
-
-指定したファイルを開き、開いたファイルの読み取り、書き込み、または追加書き込み
-に使用できる TextStream オブジェクトを返します。
-
-.構文
-
-[source,vbscript]
-----
-object.OpenTextFile (filename, [ iomode, [ create, [ format ]]])
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に FileSystemObject の名前。
-|filename |必須です。 開くファイルを識別する文字列式です。
-|iomode |省略可能。 入力/出力モードを示します。 ForReading、ForWriting、または ForAppending のいずれかの定数を指定できます。
-|create |省略可能。 filename で指定したファイルが存在しない場合に新しいファイルを作成できるかどうかを示す ブール値です。 新しいファイルを作成する場合は True、作成しない場合は False を指定します。 既定値は False です。
-|format |省略可能。 開くファイルの形式を示す Tristate の 3 つの値のいずれかです。 省略すると、ASCII 形式でファイルが開きます。
-|===
-
-.設定
-
-iomode 引数には、次のいずれかを設定できます。
-
-
-[cols="2,1,4",options="header"]
-|===
-|定数 |値 |説明
-|ForReading |1-d |ファイルを読み取り専用として開きます。 このファイルには書き込むことはできません。
-|ForWriting |pbm-2 |ファイルを書き込み専用として開きます。 既存のファイルを新しいデータで置き換える場合はこのモードを使用します。 このファイルからの読み取りはできません。
-|ForAppending |8 |ファイルを開き、ファイルの最後に書き込みます。 このファイルからの読み取りはできません。
-|===
-
-
-[cols="2,1,4",options="header"]
-|===
-|定数 |値 |説明
-|TristateUseDefault |-2 |システムの既定の設定でファイルを開きます。
-|TristateTrue |-1 |Unicode 形式でファイルを開きます。
-|TristateFalse |.0 |Ascii 形式でファイルを開きます。
-|===
-
-.解説
-
-次のコードは、テキストを追加するために、 OpenTextFile メソッドを使用してファイ
-ルを開く方法を示しています。
-
-
-[source,vbscript]
-----
-Sub OpenTextFileTest
-    Const ForReading = 1, ForWriting = 2, ForAppending = 8
-    Dim fs, f
-    Set fs = CreateObject("Scripting.FileSystemObject")
-    Set f = fs.OpenTextFile("c:\testfile.txt", ForAppending, TristateFalse)
-    f.Write "Hello world!"
-    f.Close
-End Sub
-----
-
-
-=== プロパティ
-
-==== Drives プロパティ
-
-ローカルコンピューターで使用できるすべての**Drive** オブジェクトで構成される
-**Drives** コレクションを返します。
-
-.構文
-
-[source,vbscript]
-----
-object.Drives
-
-The object is always a FileSystemObject.
-----
-
-.解説
-
-Drives コレクションには、メディアが挿入されていない場合でも、リムーバブル メデ
-ィア ドライブが表示されます。
-
- For Each... を使用して、Drives コレクションのメンバーを反復処理することが
-できます。 次のコードに示されているように、次のコンストラクト。
-
-
-
-[source,vbscript]
-----
-Sub ShowDriveList
-    Dim fs, d, dc, s, n
-    Set fs = CreateObject("Scripting.FileSystemObject")
-    Set dc = fs.Drives
-    For Each d in dc
-        s = s & d.DriveLetter & " - "
-        If d.DriveType = 3 Then
-            n = d.ShareName
+Option Explicit
+Dim myArray 'As ArrayCol
+Set myArray = New ArrayCol
+
+With myArray
+    .Add 1
+    .Add 3.14
+    .Add "文字列"
+    .Add Now()
+    .Add WScript.ScriptFullName
+    .Add New ArrayCol
+End With    'myArray
+MsgBox myArray(1)
+Dim buf: buf = ""
+Dim tmp
+For Each tmp In myArray.ToArray()
+    If IsObject(tmp) Then
+        buf = buf & TypeName(tmp) & vbCrLf
+    Else
+        buf = buf & tmp & vbCrLf
+    End If
+Next 'tmp
+
+MsgBox buf
+
+'Class ArrayCol
+'～
+
+
+' Class ArrayCol
+Class Collection
+    '内部格納の配列
+    Private clsArray 'As Variant
+    
+    '現在の要素数
+    Private UsedCount 'As Long
+    
+    Private Sub Class_Initialize()
+        Call Me.Clear
+    End Sub
+    
+    Public Sub Clear()
+        UsedCount = 0
+        ReDim clsArray(4)
+    End Sub
+    
+    '配列の下限
+    Private Property Get ARRAY_BASE() 'As Long
+        ARRAY_BASE = 1
+    End Property
+    
+    '添え字変換
+    Private Function UserIndexToRealIndex(Index) 'As Long
+        UserIndexToRealIndex = Index - ARRAY_BASE
+    End Function
+    
+    '要素を追加する。
+    Public Sub Add(iItem)
+        If UBound(clsArray) = UserIndexToRealIndex(UsedCount) Then Call ArrayExpand
+        AssignVal clsArray(UsedCount), iItem
+        UsedCount = UsedCount + 1
+    End Sub
+    
+    Private Sub ArrayExpand()
+        ReDim Preserve clsArray(UBound(clsArray) * 2)
+    End Sub
+    
+    '代入簡略化処理
+    Private Sub AssignVal(ByRef o, i)
+        If IsObject(i) Then
+            Set o = i
         Else
-            n = d.VolumeName
+            o = i
         End If
-        s = s & n & vbCrLf
-    Next
-    MsgBox s
-End Sub
+    End Sub
+    
+    Public Default Property Get Item(ByVal Index) 'As Variant
+        AssignVal Item, clsArray(UserIndexToRealIndex(Index))
+    End Property
+    
+    Public Property Let Item(ByVal Index, Value)
+        clsArray(UserIndexToRealIndex(Index)) = Value
+    End Property
+    
+    Public Property Set Item(ByVal Index, Value)
+        Set clsArray(UserIndexToRealIndex(Index)) = Value
+    End Property
+    
+    Public Property Get Count() 'As Long
+        Count = UsedCount
+    End Property
+    
+    Public Sub Remove(ByVal Index)
+        Dim i
+        For i = UserIndexToRealIndex(Index) To UserIndexToRealIndex(UsedCount - 1)
+            AssignVal clsArray(i), clsArray(i + 1)
+        Next 'i
+        clsArray(UserIndexToRealIndex(UsedCount)) = Empty
+        UsedCount = UsedCount - 1
+    End Sub
+    
+    '既存の配列で初期化する。
+    Public Sub InitByArray(BaseArray)
+        If Not IsArray(BaseArray) Then Err.Raise 5
+        
+        Me.Clear
+        Dim tmp
+        For Each tmp In BaseArray
+            Me.Add tmp
+        Next 'tmp
+    End Sub
+    
+    Public Function ToArray() 'As Variant
+        Dim buf:    buf = clsArray
+        ReDim Preserve buf(UserIndexToRealIndex(UsedCount))
+        ToArray = buf
+    End Function
+End Class
 ----
 
+=== VBSで動的配列（ArrayList）を使う
 
-==== Name プロパティ
-
-指定したファイルまたはフォルダーの名前を設定または取得します。 値の取得と設定
-が可能です。
-
-.構文
-
+* https://docs.microsoft.com/ja-jp/dotnet/api/system.collections.arraylist?redirectedfrom=MSDN&view=net-5.0[ArrayList クラス (System.Collections) | Microsoft Docs]
 
 [source,vbscript]
 ----
-object.Name [ = newname ]
+' ArrayListの作成
+Dim myArrayList
+Set myArrayList = CreateObject("System.Collections.ArrayList")
+
+' 要素を追加していく
+myArrayList.add "Alice"
+myArrayList.add "Bob"
+myArrayList.add "Charlie"
+
+' For Each文で要素を表示
+Dim elem
+For Each elem In myArrayList
+   Wscript.echo elem
+Next
+
+' For文で要素を表示
+Dim i
+Dim iMax : iMax = myArrayList.Count - 1
+For i=0 To iMax
+   Wscript.echo myArrayList(i)
+Next
+
+' 新しい要素を挿入
+myArrayList.Insert 1, "Dave"
+myArrayList.Insert 2, "Ellen"
+
+' 要素をソート
+myArrayList.Sort
+
+' 特定の要素を削除
+myArrayList.Remove "Dave"
+
+' 通常の配列に変換
+Dim myArray : myArray = myArrayList.ToArray()
+
+' 全要素を削除
+myArrayList.Clear
 ----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に、ファイル または**Folder** オブジェクトの名前を指定します。
-|newname |省略可能。 指定した場合、newname が、指定した object の新しい名前になります。
-|===
-
-
-.注釈
-
-次のコードは、 Nameプロパティの使用方法を示しています。
-
-[source,vbscript]
-----
-Sub ShowFileAccessInfo(filespec)
-    Dim fs, f, s
-    Set fs = CreateObject("Scripting.FileSystemObject")
-    Set f = fs.GetFile(filespec)
-    s = f.Name & " on Drive " & UCase(f.Drive) & vbCrLf
-    s = s & "Created: " & f.DateCreated & vbCrLf
-    s = s & "Last Accessed: " & f.DateLastAccessed & vbCrLf
-    s = s & "Last Modified: " & f.DateLastModified
-    MsgBox s, 0, "File Access Info"
-End Sub
-----
-
-
-== TextStream オブジェクト
-
-ファイルへの一連のアクセスを容易にします。
-
-.構文
-
-[source,vbscript]
-----
-TextStream. { property | method }
-----
-
-property 引数と method 引数は、TextStream オブジェクトに関連付けられている任意
-のプロパティとメソッドになることができます。 実際の使用時に、TextStream は、
-FileSystemObject から返される TextStream オブジェクトを表す変数プレースホルダ
-ーに置き換えられます。
-
-.解説
-
-次のコードで、a は、FileSystemObject 上の CreateTextFile メソッドによって返さ
-れる TextStream オブジェクトです。WriteLine と Close は、TextStream オブジェク
-トの 2 つのメソッドです。
-
-[source,vbscript]
-----
-Set fs = CreateObject("Scripting.FileSystemObject")
-Set a = fs.CreateTextFile("c:\testfile.txt", True)
-a.WriteLine("This is a test.")
-a.Close
-----
-
-.メソッド
-
-[cols="1,4",options="header"]
-|===
-|メソッド |説明
-|Close |開いている TextStream ファイルを閉じます。
-|Read |指定した文字数を TextStream ファイルから読み取り、結果を返します。
-|ReadAll |TextStream ファイル全体を読み取り、結果を返します。
-|ReadLine |TextStream ファイルから 1 行を読み取り、結果を返します。
-|Skip |TextStream ファイルを読み取るときに、指定した文字数をスキップします。
-|SkipLine |TextStream ファイルを読み取るときに、次の行をスキップします。
-|Write |指定したテキストを TextStream ファイルに書き込みます。
-|WriteBlankLines |指定した数の改行文字を TextStream ファイルに書き込みます。
-|WriteLine |指定したテキストと改行文字を TextStream ファイルに書き込みます。
-|===
-
-
-.プロパティ
-
-[cols="1,4",options="header"]
-|===
-|プロパティ |説明
-|AtEndOfLine |TextStream ファイルの行末マーカーの直前にファイル ポインターがある場合は true を返し、そうでない場合は false を返します。
-|AtEndOfStream |TextStream の最後にファイル ポインターがある場合は true を返し、そうでない場合は false を返します。
-|Column |入力ストリーム内の現在の文字位置の列番号を返します。
-|Line |TextStream ファイル内の現在の行番号を返します。
-|===
-
-
-=== メソッド
-
-==== Close メソッド
-
-開いている**TextStream** ファイルを閉じます。
-
-.構文
-
-[source,vbscript]
-----
-object.Close
-----
-
-object は常に TextStream オブジェクトの名前となります。
-
-
-
-
-
-==== Read メソッド
-
-TextStream ファイルから指定した数の文字を読み取って、結果の文字列を戻します。
-
-.構文
-
-[source,vbscript]
-----
-object.Read (characters)
-----
-
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
-|characters |必須。 ファイルから読み取る文字数を指定します。
-|===
-
-==== ReadAll メソッド
-
-TextStream ファイル全体を読み取って、結果の文字列を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.ReadAll
-----
-
-object は常に TextStream オブジェクトの名前となります。
-
-.解説
-
-大きなファイルで ReadAll メソッドを使用すると、メモリ リソースを大量に使用しま
-す。 ファイルを1行ずつ読み取るなど、他の手法を使用してファイルを入力する必要が
-あります。
-
-
-==== ReadLine メソッド
-
-TextStream ファイルから行全体 (改行文字の前まで) を読み取り、その文字列を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.ReadLine
-----
-
-_Object_引数は常に**TextStream** オブジェクトの名前です。
-
-==== Skip メソッド
-
-TextStream を読み込むときに、指定された数の文字をスキップします。
-
-.構文
-
-[source,vbscript]
-----
-object.Skip (characters)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
-|characters |必須。 ファイルを読み込むときにスキップする文字数。
-|===
-
-.注釈
-
-スキップした文字は破棄されます。
-
-==== SkipLine メソッド
-
-TextStream ファイルを読むときに、次の行をスキップします。
-
-.構文
-
-[source,vbscript]
-----
-object.SkipLine
-----
-
-object は常に TextStream オブジェクトの名前となります。
-
-.解説
-
-行をスキップするとは、次の改行文字まで、その改行文字を含め、行内のすべての文字
-を読み取って破棄することを意味します。
-
-ファイルが読み取り用に開かれていない場合、エラーが発生します。
-
-
-==== Write メソッド
-
-指定した文字列を TextStream ファイルに書き込みます。
-
-.構文
-
-[source,vbscript]
-----
-object.Write (string)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
-|string |必須。 ファイルに書き込むテキストです。
-|===
-
-.注釈
-
-文字列を複数指定した場合、各文字列がスペースや文字で区切られずに続けて書き込ま
-れます。 改行文字や最後が改行文字で終わる文字列を書き込む場合は、WriteLine メ
-ソッドを使用します。
-
-==== Write空白行メソッド
-
-指定した数の改行文字を、TextStream ファイルに書き込みます。
-
-.構文
-
-[source,vbscript]
-----
-object.WriteBlankLines (lines)
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
-|lines |必須。 ファイルに書き込む改行文字の数。
-|===
-
-==== WriteLine メソッド
-
-指定された文字列および改行文字を TextStream ファイルに書き込みます。
-
-.構文
-
-[source,vbscript]
-----
-object.WriteLine ([ string ])
-----
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
-|string |省略可能。 ファイルに書き込むテキスト。 省略した場合は、改行文字がファ
-イルに書き込まれます。
-|===
-
-=== プロパティ
-
-==== AtEndOfLine プロパティ
-
-TextStream ファイルの行末マーカーの直前にファイル ポインターがある場合は True
-を返す読み取り専用のプロパティです。ない場合は False を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.AtEndOfLine
-----
-
-object は常に TextStream オブジェクトの名前となります。
-
-.解説
-
-AtEndOfLine プロパティは、読み取りを行うように開いた TextStream ファイルに対し
-てのみ使用できます。それ以外の場合は、エラーが発生します。
-
-次のコードは、AtEndOfLine プロパティの使用例を示しています。
-
-[source,vbscript]
-----
-Dim fs, a, retstring
-Set fs = CreateObject("Scripting.FileSystemObject")
-Set a = fs.OpenTextFile("c:\testfile.txt", ForReading, False)
-Do While a.AtEndOfLine <> True
-    retstring = a.Read(1)
-    ...
-Loop
-a.Close
-----
-
-==== AtEndOfStream プロパティ
-
-TextStream ファイルの末尾にファイル ポインターがある場合は True を返す読み取り
-専用のプロパティです。ない場合は False を返します。
-
-.構文
-
-[source,vbscript]
-----
-object.AtEndOfStream
-----
-
-object は常に TextStream オブジェクトの名前となります。
-
-.解説
-
-AtEndOfStream プロパティは、読み取りを行うように開いた TextStream ファイルに対
-してのみ使用できます。それ以外の場合は、エラーが発生します。
-
-次のコードは、AtEndOfStream プロパティの使用例を示しています。
-
-[source,vbscript]
-----
-Dim fs, a, retstring
-Set fs = CreateObject("Scripting.FileSystemObject")
-Set a = fs.OpenTextFile("c:\testfile.txt", ForReading, False)
-Do While a.AtEndOfStream <> True
-    retstring = a.ReadLine
-    ...
-Loop
-a.Close
-----
-
-==== Column プロパティ
-TextStream ファイル内の現在の文字位置の列番号を返す読み取り専用プロパティです。
-
-.構文
-
-[source,vbscript]
-----
-object.Column
-----
-
-object は常に TextStream オブジェクトの名前となります。
-
-.解説
-
-改行文字が書き込まれた後から、その他の文字が書き込まれる前まで、Column は 1 と
-等しくなります。
-
-==== Line プロパティ
-
-TextStream ファイル内の現在の行番号を返す読み取り専用のプロパティ。
-
-.構文
-
-[source,vbscript]
-----
-object.Line
-----
-
-object は常に TextStream オブジェクトの名前となります。
-
-.解説
-
-ファイルを初めて開き、書き込みを行う前は、Line は 1 です。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 == UserForm
@@ -3370,7 +2404,7 @@ ListBox1.List(ListBox1.ListIndex)
 
 
 [cols="1,4,4",options="header"]
-|===
+|====
 ||Collection|Dictionary
 |宣言|Dim c As New Collection| Dim d As New Scripting.Dictionary
 | 追加| c.Add Item:=100,key:="This is a pen." +
@@ -3398,163 +2432,7 @@ Next |Dim v As Variant +
 For Each v In d +
 Debug.Print d.item(v) +
 Next
-
-
 |===
-
-== 疑似collection
-
-* https://imihito.hatenablog.jp/entry/2017/05/13/010848[VBS用配列ラッパークラス - imihitoのブログ]
-
-.実装メンバー
-
-Clear::
-	初期化用。
-
-Add::
-要素を末尾に追加。
-
-Item::
-添え字で要素を取得。 上記のコードでは添え字は1からはじまる。 範囲外アクセス時
-の動作は保証しない。
-
-Count::
-要素数。1から数えた場合の数。
-
-Remove::
-指定された添え字の要素を除去する。 除去したらその分自動で詰める。
-
-InitByArray::
-指定した配列で初期化する。 適当実装。
-
-ToArray::
-配列化する。 For Eachの場合や配列そのものが欲しい場合なんかに。
-
-
-
-.使用例
-
-[source,vbscript]
-----
-Option Explicit
-Dim myArray 'As ArrayCol
-Set myArray = New ArrayCol
-
-With myArray
-    .Add 1
-    .Add 3.14
-    .Add "文字列"
-    .Add Now()
-    .Add WScript.ScriptFullName
-    .Add New ArrayCol
-End With    'myArray
-MsgBox myArray(1)
-Dim buf: buf = ""
-Dim tmp
-For Each tmp In myArray.ToArray()
-    If IsObject(tmp) Then
-        buf = buf & TypeName(tmp) & vbCrLf
-    Else
-        buf = buf & tmp & vbCrLf
-    End If
-Next 'tmp
-
-MsgBox buf
-
-'Class ArrayCol
-'～
-
-
-' Class ArrayCol
-Class Collection
-    '内部格納の配列
-    Private clsArray 'As Variant
-    
-    '現在の要素数
-    Private UsedCount 'As Long
-    
-    Private Sub Class_Initialize()
-        Call Me.Clear
-    End Sub
-    
-    Public Sub Clear()
-        UsedCount = 0
-        ReDim clsArray(4)
-    End Sub
-    
-    '配列の下限
-    Private Property Get ARRAY_BASE() 'As Long
-        ARRAY_BASE = 1
-    End Property
-    
-    '添え字変換
-    Private Function UserIndexToRealIndex(Index) 'As Long
-        UserIndexToRealIndex = Index - ARRAY_BASE
-    End Function
-    
-    '要素を追加する。
-    Public Sub Add(iItem)
-        If UBound(clsArray) = UserIndexToRealIndex(UsedCount) Then Call ArrayExpand
-        AssignVal clsArray(UsedCount), iItem
-        UsedCount = UsedCount + 1
-    End Sub
-    
-    Private Sub ArrayExpand()
-        ReDim Preserve clsArray(UBound(clsArray) * 2)
-    End Sub
-    
-    '代入簡略化処理
-    Private Sub AssignVal(ByRef o, i)
-        If IsObject(i) Then
-            Set o = i
-        Else
-            o = i
-        End If
-    End Sub
-    
-    Public Default Property Get Item(ByVal Index) 'As Variant
-        AssignVal Item, clsArray(UserIndexToRealIndex(Index))
-    End Property
-    
-    Public Property Let Item(ByVal Index, Value)
-        clsArray(UserIndexToRealIndex(Index)) = Value
-    End Property
-    
-    Public Property Set Item(ByVal Index, Value)
-        Set clsArray(UserIndexToRealIndex(Index)) = Value
-    End Property
-    
-    Public Property Get Count() 'As Long
-        Count = UsedCount
-    End Property
-    
-    Public Sub Remove(ByVal Index)
-        Dim i
-        For i = UserIndexToRealIndex(Index) To UserIndexToRealIndex(UsedCount - 1)
-            AssignVal clsArray(i), clsArray(i + 1)
-        Next 'i
-        clsArray(UserIndexToRealIndex(UsedCount)) = Empty
-        UsedCount = UsedCount - 1
-    End Sub
-    
-    '既存の配列で初期化する。
-    Public Sub InitByArray(BaseArray)
-        If Not IsArray(BaseArray) Then Err.Raise 5
-        
-        Me.Clear
-        Dim tmp
-        For Each tmp In BaseArray
-            Me.Add tmp
-        Next 'tmp
-    End Sub
-    
-    Public Function ToArray() 'As Variant
-        Dim buf:    buf = clsArray
-        ReDim Preserve buf(UserIndexToRealIndex(UsedCount))
-        ToArray = buf
-    End Function
-End Class
-----
 
 
 
@@ -4711,7 +3589,7 @@ End With
     Dim rng As Range
     Dim s_row As Long, row_Count As Long
     Dim s_col As Long, e_col As Long
-    
+
     Range("F2").Select
     Selection.CurrentRegion.Select
     Set rng = Selection
@@ -4720,7 +3598,7 @@ End With
     row_Count = rng.Rows.Count - 1
     s_col = rng.Column
     e_col = rng.Column + rng.Columns.Count - 1
-    
+
     ActiveSheet.ChartObjects(1).Select
     For i = 1 To row_Count
         Set s = ActiveChart.SeriesCollection.NewSeries
@@ -5282,6 +4160,16 @@ Range(Cells(1, 3), Cells(1, 3 + 3)) = a
 ' abc bob alice   nancy
 ----
 
+=== ヘッダー的にコピー(配列をセルにコピー)
+
+[source,vbscript]
+----
+    Dim header As String
+    header = "service_name,port_number,protocol,aliases,comment"
+'    Range("B2:F2") = Split(header, ",")
+    Range(Cells(2, 2), Cells(2, 2 + UBound(Split(header, ",")))) = Split(header, ",")
+----
+
 === 1次元配列ソート
 
 [source,vbscript]
@@ -5475,15 +4363,15 @@ End With
 
 [cols="4,1,1",options="header"]
 |===
-|名前 |値 |説明
-|xlcontinuous |1 |実線
-|xlDash |-4115 |破線
-|xlDashDot |4 |一点鎖線
-|xlDashDotDot |5 |ニ点鎖線
-|xldot |-4118 |点線
-|xlDouble |-4119 |2 本線
-|xlLineStyleNone |-4142 |線なし
-|xlslantdashdot は、 |13 |斜破線
+| 名前                | 値    | 説明
+| xlcontinuous        | 1     | 実線
+| xlDash              | -4115 | 破線
+| xlDashDot           | 4     | 一点鎖線
+| xlDashDotDot        | 5     | ニ点鎖線
+| xldot               | -4118 | 点線
+| xlDouble            | -4119 | 2 本線
+| xlLineStyleNone     | -4142 | 線なし
+| xlslantdashdot は、 | 13    | 斜破線
 |===
 
 
@@ -5496,18 +4384,16 @@ End With
 
 
 
-include::VBAFunction.adoc[]
-
-
-
-include::VBAKeyword.adoc[]
+// include::VBAFunction.adoc[]
+// include::VBAKeyword.adoc[]
 
 
 == https://docs.microsoft.com/ja-jp/office/vba/language/reference/statements[ステートメント | Microsoft Docs]
 
 === [[Close]]Close ステートメント
 
-<<Open,Open>> ステートメントを使用して開いたファイルへの入力/出力 (I/O) を終了します。
+<<Open,Open>> ステートメントを使用して開いたファイルへの入力/出力 (I/O) を終了
+します。
 
 .構文
 
@@ -5534,8 +4420,8 @@ Close ステートメントを実行すると、ファイルとそのファイ�
 
 .例
 
-この例では、<<Close,Close>> ステートメントを使用して、出力用に開いていた 3 つのファイル
-をすべて閉じます。
+この例では、<<Close,Close>> ステートメントを使用して、出力用に開いていた 3 つ
+のファイルをすべて閉じます。
 
 [source,vbscript]
 ----
@@ -5643,9 +4529,20 @@ For...Each...Next ステートメントの構文には、次の指定項目が�
 [source,vbscript]
 ----
 |パーツ |説明
-|element |必須。 コレクションまたは配列の要素を反復処理するために使用される 変数です。 コレクションの場合、_要素_には、バリアント型 の変数、汎用オブジェクト変数、または特定のオブジェクト変数のみを指定できます。 配列の場合は、element に使用できるのは Variant 変数だけです。
-|group |必須。 オブジェクトのコレクションまたは配列の名前です (ユーザー定義型の配列を除きます)。
-|statements |省略可能。 group の各アイテムに対して実行される 1 つ以上のステートメントです。
+
+|element 
+|必須。 コレクションまたは配列の要素を反復処理するために使用される 変数です。
+コレクションの場合、_要素_には、バリアント型 の変数、汎用オブジェクト変数、ま
+たは特定のオブジェクト変数のみを指定できます。 配列の場合は、element に使用で
+きるのは Variant 変数だけです。
+
+|group 
+|必須。 オブジェクトのコレクションまたは配列の名前です (ユーザー定義型の配列を
+除きます)。
+
+|statements 
+|省略可能。 group の各アイテムに対して実行される 1 つ以上のステートメントです。
+
 ----
 
 .注釈
@@ -6465,11 +5362,15 @@ Sleep 500
 =MID(CELL("filename",A2),FIND("[",CELL("filename",A2))+1,FIND("]",CELL("filename",A2))-(FIND("[",CELL("filename",A2))+1))
 ----
 
+hoge hoge hoge
 
 
+include::OfficeVBAreference.adoc[]
 include::VBAreference.adoc[]
+//
+// include::vbscript_tip.adoc[]
 
-include::vbscript_tip.adoc[]
+
 
 // // include::VBSctipt.adoc[]
 //

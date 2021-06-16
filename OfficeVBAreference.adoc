@@ -1,0 +1,102 @@
+== Office VBA リファレンス
+
+== Excel
+=== オブジェクト モデル (Excel)
+==== Range オブジェクト (Excel)
+===== メソッド
+====== Range.Activate メソッド (Excel)
+
+1つのセルをアクティブにします。セルは現在の選択範囲内にある必要があります。
+  セルの範囲を選択するには 、Select メソッドを使用 します。
+
+.構文
+
+[source,vbscript]
+----
+Range.Activate
+----
+
+
+expression は Range オブジェクトを表す変数です。
+
+.戻り値
+
+バリアント型
+
+.例
+
+
+次の使用例は、シート 1 でセル範囲 A1:C3 を選択し、セル B2 をアクティブ セルに
+します。
+VB
+
+[source,vbscript]
+----
+Worksheets("Sheet1").Activate 
+Range("A1:C3").Select 
+Range("B2").Activate
+----
+
+
+
+
+===== プロパティ
+====== Range.Address プロパティ (Excel)
+
+コード記述時の言語で参照範囲を表す文字列型 (String) の値を返します。
+
+.構文
+
+[source,vbscript]
+----
+expression.Address (RowAbsolute, ColumnAbsolute, ReferenceStyle, External, RelativeTo)
+----
+
+expression は Range オブジェクトを表す変数です。
+
+
+[cols="1,1,1,4",options="header"]
+|===
+| 名前           | 必須 / オプション | データ型         | 説明
+| RowAbsolute    | Optional          | Variant          | 行部分の参照を絶対参
+照として返すには、 True を指定します。 既定値は True です。
+
+| ColumnAbsolute | Optional          | Variant          | 列部分の参照を絶対参
+照として返すには、 True を指定します。 既定値は True です。
+
+| ReferenceStyle | 省略可能          | XlReferenceStyle | 参照形式を指定します。
+既定値は xlA1 です。
+
+| External       | Optional          | Variant          | 外部参照を返すには、
+True を指定します。 ローカル参照を返すには、 False を指定します。 既定値は
+False です。
+
+| RelativeTo     | Optional          | Variant          | RowAbsolute および
+ColumnAbsolute が False であるときに、ReferenceStyle が xlR1C1 である場合は、
+相対参照の開始点を含める必要があります。 この引数は開始点を定義する Range オブ
+ジェクトです。
+
+|===
+
+注: Excel VBA 7.1 を使用したテストでは、明示的な開始点が必須ではないことが示されます。 $A$1 の既定の参照があるようです。
+解説
+
+参照に複数のセルが含まれている場合は、引数 RowAbsolute と引数 ColumnAbsolute はすべての行と列に適用されます。
+例
+
+次の使用例は、シート 1 の同じセル アドレスを 4 つの異なる方法で表します。 コード中のコメントは、メッセージで表示されるアドレスを示しています。
+VB
+
+[source,vbscript]
+----
+Set mc = Worksheets("Sheet1").Cells(1, 1) 
+MsgBox mc.Address() ' $A$1 
+MsgBox mc.Address(RowAbsolute:=False) ' $A1 
+MsgBox mc.Address(ReferenceStyle:=xlR1C1) ' R1C1 
+MsgBox mc.Address(ReferenceStyle:=xlR1C1, _ 
+ RowAbsolute:=False, _ 
+ ColumnAbsolute:=False, _ 
+ RelativeTo:=Worksheets(1).Cells(3, 3)) ' R[-2]C[-2]
+----
+
+

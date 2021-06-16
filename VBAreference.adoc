@@ -65,8 +65,6 @@
 Visual Basic 言語 (すべてのメソッド、プロパティ、ステートメント、関数、演算子、
 およびオブジェクト) に関するドキュメントが用意されています。
 
-
-
 * 文字セット
 * 定数
 * データ型
@@ -100,59 +98,71 @@ Visual Basic 言語 (すべてのメソッド、プロパティ、ステート�
 ==== VBA 定数
 
 
-===== カレンダー定数
+==== カレンダー定数
 
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
 
 [cols="1,4",options="header"]
 |===
-| 定数       | 値  | 説明
-| vbCalGreg  | .0  | グレゴリオ暦を使用することを示します。
-| vbCalHijri | 1-d | 回教暦 (イスラム暦) カレンダーを使用することを示します。
+| 定数       | 値 | 説明
+| vbCalGreg  | 0  | グレゴリオ暦を使用することを示します。
+| vbCalHijri | 1  | 回教暦 (イスラム暦) カレンダーを使用することを示します。
 |===
 
-===== CallType 定数
+==== CallType 定数
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
 
 [cols="1,1,4",options="header"]
 |===
-| 定数     | 値    | 説明
-| vbMethod | 1-d   | メソッドが呼び出されることを指定します。
-| vbGet    | pbm-2 | Property Get プロシージャを示します。
-| vbLet    | 2/4   | Property Let プロシージャを示します。
-| vbSet    | 8     | Property Set プロシージャを示します。
+ | 定数     | 値 | 説明
+ | vbMethod | 1  | メソッドが呼び出されることを指定します。
+ | vbGet    | 2  | Property Get プロシージャを示します。
+ | vbLet    | 2  | Property Let プロシージャを示します。
+ | vbSet    | 8  | Property Set プロシージャを示します。
 |===
 
 
-===== カラー定数
+==== カラー定数
 
 [cols="3,3,1",options="header"]
 |===
 | 定数      | 値       | 説明
 | vbBlack   | 0x0      | 黒
-| vbRed     | 0xFF     | 赤
-| vbGreen   | 0xFF00   | 緑
-| vbYellow  | 0xFFFF   | 黄
+| vbRed     | 0xFF0000 | 赤
+| vbGreen   | 0x00FF00 | 緑
+| vbYellow  | 0xFFFF00 | 黄
 | vbBlue    | 0xFF0000 | 青
 | vbMagenta | 0xFF00FF | 紫
 | vbCyan    | 0xFFFF00 | シアン
 | vbWhite   | 0xFFFFFF | 白
 |===
 
-===== 比較定数
+==== 比較定数
 
 [cols="2,1,4",options="header"]
 |===
-| 定数               | 値    | 説明
-| vbUseCompareOption | -1    | Option Compare ステートメントの設定を使用して比較を実行します。
-| vbBinaryCompare    | .0    | バイナリ比較を実行します。
-| vbTextCompare      | 1-d   | テキスト比較を実行します。
-| vbDatabaseCompare  | pbm-2 | Microsoft Access (Windows のみ) で、データベースに格納されている情報に基づいて比較を実行します。
+| 定数               | 値 | 説明
+| vbUseCompareOption 
+| -1 
+| Option Compare ステートメントの設定を使用して比較を実行します。
+
+| vbBinaryCompare    
+| 0  
+| バイナリ比較を実行します。
+
+| vbTextCompare      
+| 1  
+| テキスト比較を実行します。
+
+| vbDatabaseCompare  
+| 2  
+| Microsoft Access (Windows のみ) で、データベースに格納されている情報に基づい
+て比較を実行します。
 |===
 
-===== Date 定数
+==== Date 定数
 
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
@@ -163,48 +173,48 @@ firstdayofweek 引数には、次の値があります。
 
 [cols="4,1,4",options="header"]
 |===
-|定数        | 値       | 説明
-|vbUseSystem | .0       | NLS API 設定を使用します。
-|vbSunday    | 1-d      | 日曜日 (既定)
-|vbMonday    | pbm-2    | 月曜日
-|vbTuesday   | 1/3      | 火曜日
-|vbWednesday | 2/4      | 水曜日
-|vbThursday  | 5        | 木曜日
-|vbFriday    | シックス | 金曜日
-|vbSaturday  | 7        | 土曜日
+|定数        | 値| 説明
+|vbUseSystem | 0 | NLS API 設定を使用します。
+|vbSunday    | 1 | 日曜日 (既定)
+|vbMonday    | 2 | 月曜日
+|vbTuesday   | 3 | 火曜日
+|vbWednesday | 4 | 水曜日
+|vbThursday  | 5 | 木曜日
+|vbFriday    | 6 | 金曜日
+|vbSaturday  | 7 | 土曜日
 |===
 
 firstdayofyear 引数には、次の値があります。
 
 [cols="4,1,4",options="header"]
 |===
-| 定数                 | 値    | 説明
-| vbUseSystem          | .0    | NLS API 設定を使用します。
-| VbUseSystemDayOfWeek | .0    | システム設定で週の 1 日目に指定された曜日を使用します。
-| vbFirstJan1          | 1-d   | 1 月 1 日が含まれる週から開始します (既定)。
-| vbFirstFourDays      | pbm-2 | 新年で少なくとも 4 日ある最初の週から開始します。
-| vbFirstFullWeek      | 1/3   | 1 週間全体が含まれる最初の週がその年の第 1 週目になります。
+| 定数                 | 値 | 説明
+| vbUseSystem          | 0  | NLS API 設定を使用します。
+| VbUseSystemDayOfWeek | 0  | システム設定で週の 1 日目に指定された曜日を使用します。
+| vbFirstJan1          | 1  | 1 月 1 日が含まれる週から開始します (既定)。
+| vbFirstFourDays      | 2  | 新年で少なくとも 4 日ある最初の週から開始します。
+| vbFirstFullWeek      | 3  | 1 週間全体が含まれる最初の週がその年の第 1 週目になります。
 |===
 
 .戻り値
 
 [cols="4,1,4",options="header"]
 |===
-| 定数        | 値       | 説明
-| vbSunday    | 1-d      | 日曜日
-| vbMonday    | pbm-2    | 月曜日
-| vbTuesday   | 1/3      | 火曜日
-| vbWednesday | 2/4      | 水曜日
-| vbThursday  | 5        | 木曜日
-| vbFriday    | シックス | 金曜日
-| vbSaturday  | 7        | 土曜日
+| 定数        | 値 | 説明
+| vbSunday    | 1  | 日曜日
+| vbMonday    | 2  | 月曜日
+| vbTuesday   | 3  | 火曜日
+| vbWednesday | 4  | 水曜日
+| vbThursday  | 5  | 木曜日
+| vbFriday    | 6  | 金曜日
+| vbSaturday  | 7  | 土曜日
 |===
 
 .関連項目
 
 定数 (Visual Basic for Applications)
 
-===== 日付形式の定数
+==== 日付形式の定数
 
 
 この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
@@ -212,19 +222,19 @@ firstdayofyear 引数には、次の値があります。
 
 [cols="4,1,4",options="header"]
 |===
-|定数          | 値    | 説明
-|vbGeneralDate | .0    | 日付と時刻のどちらか、または両方を表示します。 実数の場合、日付と時刻を表示します。 小数の部分がない場合、日付だけを表示します。 整数部がない場合は、時刻のみを表示します。 日付と時刻の表示は、システムの設定によって決定されます。
-|vbLongDate    | 1-d   | コンピューターの地域の設定で指定されている長い日付形式を使用して日付を表示します。
-|vbShortDate   | pbm-2 | コンピューターの地域の設定で指定されている短い日付形式を使用して日付を表示します。
-|vbLongTime    | 1/3   | コンピューターの地域の設定で指定されている長い時刻形式を使用して時刻を表示します。
-|vbShortTime   | 2/4   | コンピューターの地域の設定で指定されている短い時刻形式を使用して時刻を表示します。
+|定数          | 値 | 説明
+|vbGeneralDate | 0  | 日付と時刻のどちらか、または両方を表示します。 実数の場合、日付と時刻を表示します。 小数の部分がない場合、日付だけを表示します。 整数部がない場合は、時刻のみを表示します。 日付と時刻の表示は、システムの設定によって決定されます。
+|vbLongDate    | 1  | コンピューターの地域の設定で指定されている長い日付形式を使用して日付を表示します。
+|vbShortDate   | 2  | コンピューターの地域の設定で指定されている短い日付形式を使用して日付を表示します。
+|vbLongTime    | 3  | コンピューターの地域の設定で指定されている長い時刻形式を使用して時刻を表示します。
+|vbShortTime   | 4  | コンピューターの地域の設定で指定されている短い時刻形式を使用して時刻を表示します。
 |===
 
 .関連項目
 
     定数 (Visual Basic for Applications)
 
-===== Dir、GetAttr、および SetAttr 定数
+==== Dir、GetAttr、および SetAttr 定数
 
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
@@ -232,15 +242,15 @@ firstdayofyear 引数には、次の値があります。
 
 [cols="4,1,4",options="header"]
 |===
-| 定数        | 値    | 説明
-| vbNormal    | .0    | 標準 (Dir および SetAttr の既定値)
-| vbReadOnly  | 1-d   | 読み取り専用
-| vbHidden    | pbm-2 | 非表示
-| vbSystem    | 2/4   | システム ファイル
-| vbVolume    | 8     | ボリューム ラベル
-| vbDirectory | 16    | ディレクトリまたはフォルダー
-| vbArchive   | 32    | ファイルが前回のバックアップ以降に変更されている
-| vbAlias     | 64    | Macintosh では識別子はエイリアス
+| 定数        | 値 | 説明
+| vbNormal    | 0  | 標準 (Dir および SetAttr の既定値)
+| vbReadOnly  | 1  | 読み取り専用
+| vbHidden    | 2  | 非表示
+| vbSystem    | 4  | システム ファイル
+| vbVolume    | 8  | ボリューム ラベル
+| vbDirectory | 16 | ディレクトリまたはフォルダー
+| vbArchive   | 32 | ファイルが前回のバックアップ以降に変更されている
+| vbAlias     | 64 | Macintosh では識別子はエイリアス
 |===
 
 Macintosh では vbNormal、vbReadOnly、vbHidden、および vbAlias のみが使用できま
@@ -254,7 +264,7 @@ Macintosh では vbNormal、vbReadOnly、vbHidden、および vbAlias のみが�
 * 定数 (Visual Basic for Applications)
 
 
-===== DriveType 定数
+==== DriveType 定数
 
 
 この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
@@ -278,7 +288,7 @@ Macintosh では vbNormal、vbReadOnly、vbHidden、および vbAlias のみが�
 
 
 
-===== File Attribute定数
+==== File Attribute定数
 
 
 この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
@@ -304,7 +314,7 @@ Macintosh では vbNormal、vbReadOnly、vbHidden、および vbAlias のみが�
 定数 (Visual Basic for Applications)
 
 
-===== File Input/Output定数
+==== File Input/Output定数
 
 
 この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
@@ -323,7 +333,7 @@ Macintosh では vbNormal、vbReadOnly、vbHidden、および vbAlias のみが�
 
 定数 (Visual Basic for Applications)
 
-===== Form 定数
+==== Form 定数
 
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
@@ -544,7 +554,7 @@ A キーから Z キーは、ASCII の A から Z と同じです。
 定数 (Visual Basic for Applications)
 
 
-===== その他の定数
+==== その他の定数
 
 
 以下の定数は、Visual Basic for Applications のタイプ ライブラリで定義されてお
@@ -553,26 +563,26 @@ A キーから Z キーは、ASCII の A から Z と同じです。
 
 [cols="2,1,4",options="header"]
 |===
- | 定数          | 値                                             | 説明
- | vbCrLf        | Chr(13) + Chr(10)                              | キャリッジ リターンとライン フィードの組み合わせ
- | vbCr          | Chr(13)                                        | キャリッジ リターン文字
- | vbLf          | Chr(10)                                        | ライン フィード文字
- | vbNewLine     | Chr(13) + Chr(10)。Macintosh の場合は、Chr(13) | プラットフォーム固有の改行文字。現在のプラットフォームに対応する文字が使用されます。
- | vbNullChar    | Chr(0)                                         | 値 0 を持つ文字
- | vbNullString  | 値が 0 の文字列                                | 長さ 0 の文字列 ("") とは異なります。外部プロシージャの呼び出しに使用されます。
- | vbObjectError | -2147221504                                    | ユーザー定義のエラー番号は、この値より大きい値である必要があります。 次に例を示します。+
-Err.Raise Number = vbObjectError + 1000
- | vbTab         | Chr(9)  | タブ文字
- | vbBack        | Chr(8)  | バックスペース文字
- | vbFormFeed    | Chr(12) | Microsoft Windows または Macintosh では使用しません。
- | vbVerticalTab | Chr(11) | Microsoft Windows または Macintosh では役に立たない
+| 定数          | 値                                             | 説明
+| vbCrLf        | Chr(13) + Chr(10)                              | キャリッジ リターンとライン フィードの組み合わせ
+| vbCr          | Chr(13)                                        | キャリッジ リターン文字
+| vbLf          | Chr(10)                                        | ライン フィード文字
+| vbNewLine     | Chr(13) + Chr(10)。Macintosh の場合は、Chr(13) | プラットフォーム固有の改行文字。現在のプラットフォームに対応する文字が使用されます。
+| vbNullChar    | Chr(0)                                         | 値 0 を持つ文字
+| vbNullString  | 値が 0 の文字列                                | 長さ 0 の文字列 ("") とは異なります。外部プロシージャの呼び出しに使用されます。
+| vbObjectError | -2147221504                                    | ユーザー定義のエラー番号は、この値より大きい値である必要があります。 次に例を示します。+
+ Err.Raise Number = vbObjectError + 1000
+| vbTab         | Chr(9)                                         | タブ文字
+| vbBack        | Chr(8)                                         | バックスペース文字
+| vbFormFeed    | Chr(12)                                        | Microsoft Windows または Macintosh では使用しません。
+| vbVerticalTab | Chr(11)                                        | Microsoft Windows または Macintosh では役に立たない
 |===
 
 関連項目
 
 定数 (Visual Basic for Applications)
 
-===== MsgBox 定数
+==== MsgBox 定数
 
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
@@ -592,11 +602,11 @@ Err.Raise Number = vbObjectError + 1000
 | vbQuestion            | 32      | 警告クエリ
 | vbExclamation         | 48      | 警告メッセージ
 | vbInformation         | 64      | 情報メッセージ
-| vbDefaultButton1      | .0      | 1 番目のボタンが既定 (既定値)
+| vbDefaultButton1      | 0       | 1 番目のボタンが既定 (既定値)
 | vbDefaultButton2      | 256     | 2 番目のボタンが既定
 | vbDefaultButton3      | 512     | 3 番目のボタンが既定
 | vbDefaultButton4      | 768     | 4 番目のボタンが既定
-| vbApplicationModal    | .0      | アプリケーションのモーダル メッセージ ボックス (既定値)
+| vbApplicationModal    | 0       | アプリケーションのモーダル メッセージ ボックス (既定値)
 | vbSystemModal         | 4096    | システムのモーダル メッセージ ボックス
 | vbMsgBoxHelpButton    | 16384   | メッセージ ボックスに [ヘルプ] ボタンを追加する
 | VbMsgBoxSetForeground | 65536   | メッセージ ボックス ウィンドウを手前のウィンドウにする
@@ -622,7 +632,7 @@ Err.Raise Number = vbObjectError + 1000
 
 定数 (Visual Basic for Applications)
 
-===== QueryClose 定数
+==== QueryClose 定数
 
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
@@ -631,11 +641,11 @@ Err.Raise Number = vbObjectError + 1000
 
 [cols="4,1,4",options="header"]
 |===
-| 定数              | 値    | 説明
-| vbFormControlMenu | .0    | ユーザーが、フォームのコントロールメニューで [閉じる] コマンドを選択しました。
-| vbFormCode        | 1-d   | コードから Unload ステートメントが呼び出されます。
-| vbAppWindows      | pbm-2 | 現在の Microsoft Windows オペレーティング環境のセッションが終了しまします。
-| vbAppTaskManager  | 1/3   | Windows タスク マネージャーがアプリケーションを閉じようとしています。
+| 定数              | 値 | 説明
+| vbFormControlMenu | 0  | ユーザーが、フォームのコントロールメニューで [閉じる] コマンドを選択しました。
+| vbFormCode        | 1  | コードから Unload ステートメントが呼び出されます。
+| vbAppWindows      | 2  | 現在の Microsoft Windows オペレーティング環境のセッションが終了しまします。
+| vbAppTaskManager  | 3  | Windows タスク マネージャーがアプリケーションを閉じようとしています。
 |===
 
 .関連項目
@@ -669,7 +679,7 @@ vbMinimizedFocus はすべて、アプリケーションをバックグラウン
 定数 (Visual Basic for Applications)
 
 
-===== SpecialFolder 定数
+==== SpecialFolder 定数
 
 
 この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
@@ -690,7 +700,7 @@ vbMinimizedFocus はすべて、アプリケーションをバックグラウン
 定数 (Visual Basic for Applications)
 
 
-===== StrConv 定数
+==== StrConv 定数
 
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
@@ -716,7 +726,7 @@ vbMinimizedFocus はすべて、アプリケーションをバックグラウン
 定数 (Visual Basic for Applications)
 
 
-===== system color 定数
+==== system color 定数
 
 
 次の定数は、コード内の任意の場所で実際の値の代わりに使用できます。
@@ -757,567 +767,7 @@ vbMinimizedFocus はすべて、アプリケーションをバックグラウン
 
 定数 (Visual Basic for Applications)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-===== Tristate 定数
+==== Tristate 定数
 
 この定数は、この定数の定義を含む適切なタイプ ライブラリがプロジェクトで明示的
 に参照される場合にのみ使用できます。
@@ -1326,7 +776,7 @@ vbMinimizedFocus はすべて、アプリケーションをバックグラウン
 |===
 | 定数         | 値 | 説明
 | vbTrue       | -1 | True
-| vbFalse      | ;0 | False
+| vbFalse      | 0  | False
 | vbUseDefault | -2 | 既定の設定を使用
 |===
 
@@ -1344,39 +794,39 @@ vbMinimizedFocus はすべて、アプリケーションをバックグラウン
 
 [options="header"]
 |===
-|データ型 |記憶領域サイズ |範囲
-|Boolean |2 バイト |True または False
-|Byte |1 バイト |0 ～ 255
-|Collection |不明 |不明
-|Currency (スケーリングされた整数) |8 バイト |-922,337,203,685,477.5808 ～ 922,337,203,685,477.5807
-|Date |8 バイト |100 年 1 月 1 日 から 9999 年 12 月 31 日
-|Decimal |14 バイト |+/-79,228,162,514,264,337,593,543,950,335 (小数点なし) +
+                                                                               | データ型                                                                         | 記憶領域サイズ                                          | 範囲
+                                                                               | Boolean                                                                          | 2 バイト                                                | True または False
+                                                                               | Byte                                                                             | 1 バイト                                                | 0 ～ 255
+                                                                               | Collection                                                                       | 不明                                                    | 不明
+                                                                               | Currency (スケーリングされた整数)                                                | 8 バイト                                                | -922,337,203,685,477.5808 ～ 922,337,203,685,477.5807
+                                                                               | Date                                                                             | 8 バイト                                                | 100 年 1 月 1 日 から 9999 年 12 月 31 日
+                                                                               | Decimal                                                                          | 14 バイト                                               | +/-79,228,162,514,264,337,593,543,950,335 (小数点なし) +
 +/-7.9228162514264337593543950335 (小数点以下 28 桁) +
- +
++
 +/-0.0000000000000000000000000001 (0 ではない最小の値) +
-|Dictionary |不明 |不明
-|Double (倍精度浮動小数点数) |8 バイト |-1.79769313486231E308 から-4.94065645841247E-324 (負の値) +
- +
+                                                                               | Dictionary                                                                       | 不明                                                    | 不明
+                                                                               | Double (倍精度浮動小数点数)                                                      | 8 バイト                                                | -1.79769313486231E308 から-4.94065645841247E-324 (負の値) +
++
 4.94065645841247E-324 から 1.79769313486232E308 (正の値)
-|Integer |2 バイト |-32,768 〜 32,767
-|Long (Long 整数) |4 バイト |-2,147, 483,648 〜 2,147, 483,647
-|LongLong (LongLong 整数) |8 バイト |-9,223,372,036,854,775,808 から 9,223,372, 036,854,775,807 +
- +
+                                                                               | Integer                                                                          | 2 バイト                                                | -32,768 〜 32,767
+                                                                               | Long (Long 整数)                                                                 | 4 バイト                                                | -2,147, 483,648 〜 2,147, 483,647
+                                                                               | LongLong (LongLong 整数)                                                         | 8 バイト                                                | -9,223,372,036,854,775,808 から 9,223,372, 036,854,775,807 +
++
 [red]#64 ビット プラットフォームでのみ有効。#
-|LongPtr (32 ビット システムでは Long 整数、64 ビット システムでは LongLong 整数) |32 ビット システムでは 4 バイト +
- +
-64 ビット システムでは 8 バイト |-2,147,483,648 から 2,147,483,647 (32 ビットシステム) +
- +
+                                                                               | LongPtr (32 ビット システムでは Long 整数、64 ビット システムでは LongLong 整数) | 32 ビット システムでは 4 バイト +
++
+64 ビット システムでは 8 バイト                                                | -2,147,483,648 から 2,147,483,647 (32 ビットシステム) +
++
 -9,223,372,036,854,775,808 から 9,223,372,036,854,775,807 (64 ビット システム)
-|Object |4 バイト |任意の Object 参照
-|Single (単精度浮動小数点数) |4 バイト |-3.402823E38 から -1.401298E-45 (負の値) +
- +
+                                                                               | Object                                                                           | 4 バイト                                                | 任意の Object 参照
+                                                                               | Single (単精度浮動小数点数)                                                      | 4 バイト                                                | -3.402823E38 から -1.401298E-45 (負の値) +
++
 1.401298E-45 から 3.402823E38 (正の値)
-|String (可変長) |10 バイト + 文字列の長さ |0 〜 約 20 億
-|文字列型 (String) (固定長) |文字列の長さ |1 〜 約 65,400
-|Variant (数値) |16 バイト |最大で Double の範囲までの任意の数値
-|バリアント型 (Variant) (文字) |22 バイト + 文字列長 (64 ビット システムでは 24 バイト) |可変長 文字列型 と同じ範囲
-|ユーザー定義 (Type を使用) |要素に必要な数 |各要素の範囲は、そのデータ型の範囲と同じです。
+                                                                               | String (可変長)                                                                  | 10 バイト + 文字列の長さ                                | 0 〜 約 20 億
+                                                                               | 文字列型 (String) (固定長)                                                       | 文字列の長さ                                            | 1 〜 約 65,400
+                                                                               | Variant (数値)                                                                   | 16 バイト                                               | 最大で Double の範囲までの任意の数値
+                                                                               | バリアント型 (Variant) (文字)                                                    | 22 バイト + 文字列長 (64 ビット システムでは 24 バイト) | 可変長 文字列型 と同じ範囲
+                                                                               | ユーザー定義 (Type を使用)                                                       | 要素に必要な数                                          | 各要素の範囲は、そのデータ型の範囲と同じです。
 |===
 
 
@@ -1524,6 +974,21 @@ CVDate 関数の構文は CDate 関数と同じですが、CVDate では、実�
 
 WARNING:	CDec 関数は独立したデータ型を返しません。値が 10 進型サブタイ
 プに変換されたバリアント型を常に返します。
+
+
+データ型を確認する
+
+データ型を確認するには、以下の関数をご覧ください。
+
+* <<IsArray,IsArray>>
+* <<IsDate,IsDate>>
+* <<IsEmpty,IsEmpty>>
+* <<IsError,IsError>>
+* <<IsMissing,IsMissing>>
+* <<IsNull,IsNull>>
+* <<IsNumeric,IsNumeric>>
+* <<IsObject,IsObject>>
+
 
 
 
@@ -1770,11 +1235,12 @@ MyVar = CVar(MyInt & 000) ' MyVar contains the string
 
 [cols="3,4",options="header"]
 |===
-|コンパイラ ディレクティブ |操作
-|<<Const ディレクティブ,Const ディレクティブ>> |コンパイラ定数を定義します。
-|<<If...Then...Else ディレクティブ,If...Then...Else ディレクティブ>> |選択したコード ブロックをコンパイルします。
+| コンパイラ ディレクティブ                        | 操作
+| <<Const,Const ディレクティブ>>                   | コンパイラ定数を定義します。
+| <<If_Then_Else,If...Then...Else ディレクティブ>> | 選択したコード ブロックをコンパイルします。
 |===
 
+[[Const]]
 ==== #Const ディレクティブ
 
 Visual Basic の 条件付きコンパイラ定数を定義するために使用されます。
@@ -1791,8 +1257,10 @@ Visual Basic の 条件付きコンパイラ定数を定義するために使用
 [cols="1,4",options="header"]
 |===
 |パーツ |説明
-|constname |必須。Variant (String)。 定数の名前です。変数の名前付け規則に従います。
-|expression |必須。 リテラル、その他の条件付きコンパイラ定数、またはを除くすべての算術演算子または論理演算子を含む組み合わせ。
+|constname |必須。Variant (String)。 定数の名前です。変数の名前付け規則に従いま
+す。
+|expression |必須。 リテラル、その他の条件付きコンパイラ定数、またはを除くすべ
+ての算術演算子または論理演算子を含む組み合わせ。
 |===
 
 .注釈
@@ -1820,7 +1288,7 @@ expression で使用できるのは、条件付きコンパイラ定数とリテ
 ----
 #Const DebugVersion = 1 ' Will evaluate true in #If block.
 ----
-
+[[If_Then_Else]]
 ==== #If...Then...#Else ディレクティブ
 
 
@@ -1845,12 +1313,12 @@ statements
 
 [cols="1,4",options="header"]
 |===
-|パーツ |説明
-|expression |必ず指定します。 1 つ以上の条件付きコンパイラ定数、リテラル、および演算子のみで構成された、True または False に評価される任意の式です。
-|statements |必須。 関連付けられている式が True の場合に評価される Visual Basic プログラムの行またはコンパイラ ディレクティブです。
-|expression-n |省略可能。 1 つ以上の条件付きコンパイラ定数、リテラル、および演算子のみで構成された、True または False に評価される任意の式です。
-|elseifstatements |省略可能。 expression-n が True の場合に評価される 1 つ以上のプログラム行またはコンパイラ ディレクティブです。
-|elsestatements |省略可能です。 前の expression および expression-n がいずれも True に評価されなかった場合に評価される 1 つ以上のプログラム行またはコンパイラ ディレクティブです。
+|パーツ            |説明
+| expression       | 必ず指定します。 1 つ以上の条件付きコンパイラ定数、リテラル、および演算子のみで構成された、True または False に評価される任意の式です。
+| statements       | 必須。 関連付けられている式が True の場合に評価される Visual Basic プログラムの行またはコンパイラ ディレクティブです。
+| expression-n     | 省略可能。 1 つ以上の条件付きコンパイラ定数、リテラル、および演算子のみで構成された、True または False に評価される任意の式です。
+| elseifstatements | 省略可能。 expression-n が True の場合に評価される 1 つ以上のプログラム行またはコンパイラ ディレクティブです。
+| elsestatements   | 省略可能です。 前の expression および expression-n がいずれも True に評価されなかった場合に評価される 1 つ以上のプログラム行またはコンパイラ ディレクティブです。
 |===
 
 .解説
@@ -1902,13 +1370,14 @@ CAUTION:	Option Compare ステートメントは、#If ステートメントと 
 
 === イベント (Visual Basic for Applications)
 
-* <<Activate、Deactivate, Activate、Deactivate>>
+* <<Activate_Deactivate, Activate、Deactivate>>
 * <<Initialize, Initialize>>
 * <<QueryClose, QueryClose>>
 * <<Resize, Resize>>
 * <<Terminate, Terminate>>
 
-==== Activate イベント、Deactivate イベント[[Activate、Deactivate]]
+[[Activate_Deactivate]]
+==== Activate イベント、Deactivate イベント
 
 Activate イベントは、オブジェクトがアクティブ ウィンドウになると発生します。
 Deactivate イベントは、オブジェクトがアクティブ ウィンドウでなくなると発生しま
@@ -1975,7 +1444,8 @@ End Sub
 
 
 
-==== Initialize イベント[[Initialize]]
+[[Initialize]]
+==== Initialize イベント
 
 オブジェクトが読み込まれてから表示されるまでに発生します。
 
@@ -2021,10 +1491,8 @@ Private Sub UserForm_Click()
 End Sub
 ----
 
-
-
-
-==== QueryClose イベント[[QueryClose]]
+[[QueryClose]]
+==== QueryClose イベント
 
 UserForm が閉じる前に発生します。
 
@@ -2052,11 +1520,11 @@ CloseMode 引数は、次の値を返します。
 
 [cols="1,1,4",options="header"]
 |===
-|定数 |値 |説明
-|vbFormControlMenu |.0 |ユーザーが、UserForm のコントロールメニューで [閉じる] コマンドを選択しました。
-|vbFormCode |1-d |コードから Unload ステートメントが呼び出されます。
-|vbAppWindows |pbm-2 |現在の Windows オペレーティング環境セッションが終了しようとしています。
-|vbAppTaskManager |1/3 |Windows タスク マネージャーがアプリケーションを閉じようとしています。
+| 定数              | 値 | 説明
+| vbFormControlMenu | 0  | ユーザーが、UserForm のコントロールメニューで [閉じる] コマンドを選択しました。
+| vbFormCode        | 1  | コードから Unload ステートメントが呼び出されます。
+| vbAppWindows      | 2  | 現在の Windows オペレーティング環境セッションが終了しようとしています。
+| vbAppTaskManager  | 3  | Windows タスク マネージャーがアプリケーションを閉じようとしています。
 |===
 
 これらの定数は、オブジェクト ブラウザーの [Visual Basic for Applications] オブ
@@ -2099,7 +1567,8 @@ End Sub
 ----
 
 
-==== Resize イベント[[Resize]]
+[[Resize]]
+==== Resize イベント
 
 
 ユーザー フォームのサイズが変更されると発生します。
@@ -2153,7 +1622,8 @@ End Sub
 ----
 
 
-==== Terminate イベント[[Terminate]]
+[[Terminate]]
+==== Terminate イベント
 
 オブジェクトを参照するすべての変数が Nothing に設定され、オブジェクトのインス
 タンスへの参照がメモリからすべて削除されるか、オブジェクトへの最後の参照がスコ
@@ -2213,7 +1683,7 @@ End Sub
 * <<Chr,Chr>>
 * <<CVErr,CVErr>>
 * <<Format,Format>>
-* 16 進数
+* <<HEX,Hex 関数>>
 * <<Oct,Oct>>
 * <<Str,Str>>
 * <<Val,Val>>
@@ -2344,31 +1814,23 @@ End Sub
 * <<WeekdayName,WeekdayName>>
 * <<Year,Year>>
 
-==== Array 関数[[Array]]
+
+==== Array 関数
+
+配列を含む Variant を返します。
 
 .構文
 
-[source,vbscript]
-----
 Array(arglist)
-----
 
-必須の arglist 引数は、Variant に含まれている配列の要素に割り当てられる値のコ
-ンマ区切りのリストです。 引数を指定しない場合は長さ 0 の配列が作成されます。
+必須の arglist 引数は、Variant に含まれている配列の要素に割り当てられる値のコンマ区切りのリストです。 引数を指定しない場合は長さ 0 の配列が作成されます。
+解説
 
-.解説
+配列の要素を参照するために使用される表記は、変数 名とそれに続く括弧で構成され、括弧の中には目的の要素を示すインデックス番号が入ります。
 
-配列の要素を参照するために使用される表記は、変数 名とそれに続く括弧で構成され、
-括弧の中には目的の要素を示すインデックス番号が入ります。
+次の例では、最初のステートメントにより、Variant として「A」という名前の変数が作成されます。 2 つ目のステートメントにより、変数 A に配列が割り当てられます。 最後のステートメントにより、2 つ目の配列要素に含まれる値が別の変数に割り当てられます。
+VB
 
-次の例では、最初のステートメントにより、Variant として「A」という名前の変数が
-作成されます。 2 つ目のステートメントにより、変数 A に配列が割り当てられます。
-最後のステートメントにより、2 つ目の配列要素に含まれる値が別の変数に割り当てら
-れます。
-
-
-[source,vbscript]
-----
 Dim A As Variant, B As Long, i As Long
 A = Array(10, 20, 30)  ' A is a three element list by default indexed 0 to 2
 B = A(2)               ' B is now 30
@@ -2377,280 +1839,25 @@ A(4) = 40              ' Set the fifth element's value
 For i = LBound(A) To UBound(A)
     Debug.Print "A(" & i & ") = " & A(i)
 Next i
-----
 
-Array 関数を使用して作成した配列の下限は、Array がタイプ ライブラリの名前で修
-飾 (VBA.Array など) されていない限り、Option Base ステートメントで指定した下限
-によって決まります。 タイプ ライブラリの名前で修飾されている場合は、Array は
-Option Base の影響を受けません。
+Array 関数を使用して作成した配列の下限は、Array がタイプ ライブラリの名前で修飾 (VBA.Array など) されていない限り、Option Base ステートメントで指定した下限によって決まります。 タイプ ライブラリの名前で修飾されている場合は、Array は Option Base の影響を受けません。
 
+注意
 
-CAUTION:	配列として宣言されていない Variant には、配列を含めることがで
-きます。 Variant 変数には、固定長の文字列とユーザー定義の型を除き、あらゆる型
-の配列を含めることができます。 配列が含まれている Variant は要素の型が Variant
-の配列とは概念的に異なりますが、配列要素には同じ方法でアクセスされます。
-
-
-.例
+配列として宣言されていない Variant には、配列を含めることができます。 Variant 変数には、固定長の文字列とユーザー定義の型を除き、あらゆる型の配列を含めることができます。 配列が含まれている Variant は要素の型が Variant の配列とは概念的に異なりますが、配列要素には同じ方法でアクセスされます。
+例
 
 この例では、 Array 関数を使用して、配列を含む Variant を返します。
+VB
 
-
-[source,vbscript]
-----
 Dim MyWeek, MyDay
 MyWeek = Array("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 ' Return values assume lower bound set to 1 (using Option Base
 ' statement).
 MyDay = MyWeek(2)    ' MyDay contains "Tue".
 MyDay = MyWeek(4)    ' MyDay contains "Thu".
-----
-
-
-==== CallByName 関数[[CallByName]]
-
-オブジェクトのメソッドを実行するか、オブジェクトのプロパティを設定するか返しま
-す。
-
-.構文
-
-[source,vbscript]
-----
-CallByName (object, procname, calltype, [args()]))
-----
-
-CallByName関数の構文に使用される名前付き引数は次のとおりです。
-
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|object |必須。Variant (Object)。 関数を実行するオブジェクトの名前。
-|procname |必須。Variant (String)。 オブジェクトのプロパティまたはメソッドの名前を含む文字列式。
-|calltype |必須。定数。 呼び出されるプロシージャの型を表す vbCallType 型の定数。
-|args() |省略可能。Variant (Array)。
-|===
-
-
-.解説
-
-CallByName 関数は、実行時に文字列名を使用してプロパティを取得または設定するか、
-メソッドを呼び出すために使用されます。
-
-次の例では、1 行目で CallByName を使用してテキスト ボックスの MousePointer プ
-ロパティを設定し、2 行目で MousePointer プロパティの値を取得し、3 行目で Move
-メソッドを呼び出してテキスト ボックスを移動します。
-
-
-[source,vbscript]
-----
-CallByName Text1, "MousePointer", vbLet, vbCrosshair
-Result = CallByName (Text1, "MousePointer", vbGet)
-CallByName Text1, "Move", vbMethod, 100, 100
-----
-
-.例
-
-この例では、CallByName 関数を使用して、コマンド ボタンの Move メソッドを呼び出
-します。
-
-例ではまた、ボタン (Command1) とラベル (Label1) を含むフォーム (Form1) を使用
-します。 フォームが読み込まれると、ラベルの Caption プロパティが、呼び出すメソ
-ッドの名前に設定されます (この例では "Move")。 ボタンをクリックすると、
-CallByName 関数によって、ボタンの位置を変更するメソッドが呼び出されます。
-
-
-[source,vbscript]
-----
-Option Explicit
-
-Private Sub Form_Load()
-    Label1.Caption = "Move"        ' Name of Move method.
-End Sub
-
-Private Sub Command1_Click()
-    If Command1.Left <> 0 Then
-        CallByName Command1, Label1.Caption, vbMethod, 0, 0
-    Else
-        CallByName Command1, Label1.Caption, vbMethod, 500, 500
-    End If
-
-----
-
-
-==== Choose 関数[[Choose]]
-
-引数の一覧から値を選択し、返します。
-
-.構文
-
-[source,vbscript]
-----
-Choose(index, choice-1, [ choice-2, ..., [ choice-n ]] )
-----
-
-Choose 関数の構文には、次の指定項目があります。
-
-
-[cols="1,4",options="header"]
-|===
-|パーツ |説明
-|index |必ず指定します。 1 から選択肢の数までの値になる 数式またはフィールドです。
-|choice |必須です。 可能性のある選択肢のいずれか 1 つが含まれる バリアント型の式 です。
-|===
-
-
-.解説
-
-Choose は、index の値に基づいて選択肢の一覧から値を返します。 index が 1 の場
-合、Choose は一覧の 1 つ目の選択肢を返します。index が 2 の場合は 2 つ目という
-ようになります。
-
-Choose を使って、可能性の一覧に含まれる値を検索することができます。 たとえば、
-index が 3 で、choice-1 = "1"、choice-2 = "2"、choice-3 = "3" と評価した場合、
-Choose は "3" を返します。 この機能は、index がオプション グループの値を示す場
-合に特に便利です。
-
-Choose は、一覧の選択肢すべてを評価しますが、その 1 つだけが返されます。 その
-ため、望ましくない副作用が生じないように注意する必要があります。 すべての選択
-肢において、式 の一部として MsgBox 関数を使用する場合、メッセージ ボックスは評
-価される各選択肢に対して表示されますが、Choose はそのうちの 1 つだけを返します。
-
-もし index が 1 以下または一覧にある選択肢の数を超える場合、Choose 関数は Null
-を返します。
-
-index が整数ではない場合、最も近い整数に丸めてから評価されます。
-
-.例
-
-この例では、Choose 関数を使って、Ind パラメーターのプロシージャに渡される
-index に応じた名前を表示します。
-
-[source,vbscript]
-----
-Function GetChoice(Ind As Integer)
-    GetChoice = Choose(Ind, "Speedy", "United", "Federal")
-End Function
-----
-
-==== Command[[Command]]
-
-Microsoft Visual Basic または Visual Basic で開発された実行可能なプログラムの
-起動に使用されるコマンド ラインの引数部分を返します。 Visual Basic の関数機能
-は、Microsoft Office のアプリケーションでは使用できません。
-
-.構文
-
-[source,vbscript]
-----
-Command
-----
-
-.解説
-
-コマンドラインから Visual Basic が起動された場合、/cmd に続くすべてのコマンド
-ライン部分がコマンドライン引数として、プログラムに渡されます。 次のコマンドラ
-インの例で、cmdlineargs は、コマンド関数によって返される引数情報を表しています。
-
-VB /cmd cmdlineargs
-
-Visual Basic で開発され、.exe ファイルにコンパイルされたアプリケーションでは、
-Command によって、コマンド ラインのアプリケーション名の後に表示されるすべての
-引数が返されます。 次に例を示します。
-
-MyApp cmdlineargs
-
-使用しているアプリケーションのユーザー インターフェイスでのコマンド ライン引数
-の変更方法の詳細については、ヘルプの「コマンド ライン引数」を参照してください。
-
-
-
-.例
-
-この例では、配列を含む Variant でコマンド ライン引数を返す関数内で、Command 関
-数を使用してコマンド ライン引数を取得しています。 Microsoft Office では使用で
-きません。
-
-
-[source,vbscript]
-----
-Function GetCommandLine(Optional MaxArgs)
-    'Declare variables.
-    Dim C, CmdLine, CmdLnLen, InArg, I, NumArgs
-    'See if MaxArgs was provided.
-    If IsMissing(MaxArgs) Then MaxArgs = 10
-    'Make array of the correct size.
-    ReDim ArgArray(MaxArgs)
-    NumArgs = 0: InArg = False
-    'Get command line arguments.
-    CmdLine = Command()
-    CmdLnLen = Len(CmdLine)
-    'Go thru command line one character
-    'at a time.
-    For I = 1 To CmdLnLen
-        C = Mid(CmdLine, I, 1)
-        'Test for space or tab.
-        If (C <> " " And C <> vbTab) Then
-            'Neither space nor tab.
-            'Test if already in argument.
-            If Not InArg Then
-            'New argument begins.
-            'Test for too many arguments.
-                If NumArgs = MaxArgs Then Exit For
-                NumArgs = NumArgs + 1
-                InArg = True
-            End If
-            'Concatenate character to current argument.
-            ArgArray(NumArgs) = ArgArray(NumArgs) & C
-        Else
-            'Found a space or tab.
-            'Set InArg flag to False.
-            InArg = False
-        End If
-    Next I
-    'Resize array just enough to hold arguments.
-    ReDim Preserve ArgArray(NumArgs)
-    'Return Array in Function name.
-    GetCommandLine = ArgArray()
-End Function
-----
 
 ==== 変換関数
-
-===== 変換関数
-
-* <<Asc,Asc 関数>>
-* <<Chr,Chr 関数>>
-* <<CVErr,CVErr 関数>>
-* <<Format,Format 関数>>
-* <<Hex,Hex 関数>>
-* <<Oct,Oct 関数>>
-* <<Str,Str 関数>>
-* <<Val,Val 関数>>
-
-.Type Conversion 関数
-
-式を特定のデータ型に変換する関数については、<<Type Conversion,Type Conversion
-関数>>ページを参照してください。
-
-* CBool 関数
-* CByte 関数
-* CCur 関数
-* CDate 関数
-* CDec 関数
-* CDbl 関数
-* CInt 関数
-* CLng 関数
-* CLngLng 関数
-* CLngPtr 関数
-* CSng 関数
-* CStr 関数
-* CVar 関数
-
-
-
-
-
 
 ===== Asc 関数[[Asc]]
 
@@ -3310,7 +2517,518 @@ MyValue = Val(" 2 45 7")    ' Returns 2457.
 MyValue = Val("24 and 57")    ' Returns 24.
 ----
 
-==== CreateObject 関数[[CreateObject]]
+==== 数学関数
+
+
+[[Abs]]
+===== Abs 関数
+
+
+
+渡された値と同じ型で値の絶対値を返します。
+
+.構文
+
+
+[source,vbscript]
+----
+Abs(number)
+----
+
+必須の number 引数は、任意の有効な数式です。 number に Null が含まれる場合、
+Null が返されます。また、初期化されていない変数の場合は、0 が返されます。
+
+.解説
+
+数値の絶対値は、その数値から符号を取り除いた値です。 たとえば、ABS(-1) と ABS(1)
+    は両方とも 1 を返します。
+
+.例
+
+次の例では、Abs 関数を使用して数値の絶対値を計算します。
+
+
+[source,vbscript]
+----
+Dim MyNumber
+MyNumber = Abs(50.3)    ' Returns 50.3.
+MyNumber = Abs(-50.3)    ' Returns 50.3.
+----
+
+
+
+[[Atn]]
+===== Atn 関数
+
+
+数値のアークタンジェントを指定する Double を返します。
+
+.構文
+
+[source,vbscript]
+----
+Atn(number)
+----
+
+必須の number 引数は、Double または任意の有効な 数値式です。
+解説
+
+Atn 関数は、直角三角形の 2 辺の比 (number) を取得し、対応する角度を返します。 2 辺の比は、指定した角の反対側の辺 (対辺) の長さを、指定した角に隣接する側の辺の長さで割った値です。
+
+    [NOTE!]これは Excel の ATAN() 関数と 同等です。 奇妙なことに 、Excel.WorksheetFunctions.ATAN() は (他の Excel 数式関数と同様に) 存在しません。 代わりに、この VBA Atn() 関数を使用 できます。
+
+結果の範囲は、-pi/2 から pi/2 (単位はラジアン) になります。 角度の単位を度からラジアンに変換するには、度に pi/180 を掛けます。 ラジアンから度に変換するには、ラジアンに 180/pi を掛けます。
+
+注意
+
+Atn は、Tan の逆三角関数で、引数として角度を取得し、直角三角形の 2 辺の比を返します。 Atn とコタンジェントを混同しないでください。コタンジェントは、単にタンジェントの逆数 (1/タンジェント) です。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+==== その他の関数
+
+===== Array 関数[[Array]]
+
+.構文
+
+[source,vbscript]
+----
+Array(arglist)
+----
+
+必須の arglist 引数は、Variant に含まれている配列の要素に割り当てられる値のコ
+ンマ区切りのリストです。 引数を指定しない場合は長さ 0 の配列が作成されます。
+
+.解説
+
+配列の要素を参照するために使用される表記は、変数 名とそれに続く括弧で構成され、
+括弧の中には目的の要素を示すインデックス番号が入ります。
+
+次の例では、最初のステートメントにより、Variant として「A」という名前の変数が
+作成されます。 2 つ目のステートメントにより、変数 A に配列が割り当てられます。
+最後のステートメントにより、2 つ目の配列要素に含まれる値が別の変数に割り当てら
+れます。
+
+
+[source,vbscript]
+----
+Dim A As Variant, B As Long, i As Long
+A = Array(10, 20, 30)  ' A is a three element list by default indexed 0 to 2
+B = A(2)               ' B is now 30
+ReDim Preserve A(4)    ' Extend A's length to five elements
+A(4) = 40              ' Set the fifth element's value
+For i = LBound(A) To UBound(A)
+    Debug.Print "A(" & i & ") = " & A(i)
+Next i
+----
+
+Array 関数を使用して作成した配列の下限は、Array がタイプ ライブラリの名前で修
+飾 (VBA.Array など) されていない限り、Option Base ステートメントで指定した下限
+によって決まります。 タイプ ライブラリの名前で修飾されている場合は、Array は
+Option Base の影響を受けません。
+
+
+CAUTION:	配列として宣言されていない Variant には、配列を含めることがで
+きます。 Variant 変数には、固定長の文字列とユーザー定義の型を除き、あらゆる型
+の配列を含めることができます。 配列が含まれている Variant は要素の型が Variant
+の配列とは概念的に異なりますが、配列要素には同じ方法でアクセスされます。
+
+
+.例
+
+この例では、 Array 関数を使用して、配列を含む Variant を返します。
+
+
+[source,vbscript]
+----
+Dim MyWeek, MyDay
+MyWeek = Array("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+' Return values assume lower bound set to 1 (using Option Base
+' statement).
+MyDay = MyWeek(2)    ' MyDay contains "Tue".
+MyDay = MyWeek(4)    ' MyDay contains "Thu".
+----
+
+
+===== CallByName 関数[[CallByName]]
+
+オブジェクトのメソッドを実行するか、オブジェクトのプロパティを設定するか返しま
+す。
+
+.構文
+
+[source,vbscript]
+----
+CallByName (object, procname, calltype, [args()]))
+----
+
+CallByName関数の構文に使用される名前付き引数は次のとおりです。
+
+
+[cols="1,4",options="header"]
+|===
+| パーツ   | 説明
+| object   | 必須。Variant (Object)。 関数を実行するオブジェクトの名前。
+| procname | 必須。Variant (String)。 オブジェクトのプロパティまたはメソッドの名前を含む文字列式。
+| calltype | 必須。定数。 呼び出されるプロシージャの型を表す vbCallType 型の定数。
+| args()   | 省略可能。Variant (Array)。
+|===
+
+
+.解説
+
+CallByName 関数は、実行時に文字列名を使用してプロパティを取得または設定するか、
+メソッドを呼び出すために使用されます。
+
+次の例では、1 行目で CallByName を使用してテキスト ボックスの MousePointer プ
+ロパティを設定し、2 行目で MousePointer プロパティの値を取得し、3 行目で Move
+メソッドを呼び出してテキスト ボックスを移動します。
+
+
+[source,vbscript]
+----
+CallByName Text1, "MousePointer", vbLet, vbCrosshair
+Result = CallByName (Text1, "MousePointer", vbGet)
+CallByName Text1, "Move", vbMethod, 100, 100
+----
+
+.例
+
+この例では、CallByName 関数を使用して、コマンド ボタンの Move メソッドを呼び出
+します。
+
+例ではまた、ボタン (Command1) とラベル (Label1) を含むフォーム (Form1) を使用
+します。 フォームが読み込まれると、ラベルの Caption プロパティが、呼び出すメソ
+ッドの名前に設定されます (この例では "Move")。 ボタンをクリックすると、
+CallByName 関数によって、ボタンの位置を変更するメソッドが呼び出されます。
+
+
+[source,vbscript]
+----
+Option Explicit
+
+Private Sub Form_Load()
+    Label1.Caption = "Move"        ' Name of Move method.
+End Sub
+
+Private Sub Command1_Click()
+    If Command1.Left <> 0 Then
+        CallByName Command1, Label1.Caption, vbMethod, 0, 0
+    Else
+        CallByName Command1, Label1.Caption, vbMethod, 500, 500
+    End If
+----
+
+
+===== Choose 関数[[Choose]]
+
+引数の一覧から値を選択し、返します。
+
+.構文
+
+[source,vbscript]
+----
+Choose(index, choice-1, [ choice-2, ..., [ choice-n ]] )
+----
+
+Choose 関数の構文には、次の指定項目があります。
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|index |必ず指定します。 1 から選択肢の数までの値になる 数式またはフィールドです。
+|choice |必須です。 可能性のある選択肢のいずれか 1 つが含まれる バリアント型の式 です。
+|===
+
+
+.解説
+
+Choose は、index の値に基づいて選択肢の一覧から値を返します。 index が 1 の場
+合、Choose は一覧の 1 つ目の選択肢を返します。index が 2 の場合は 2 つ目という
+ようになります。
+
+Choose を使って、可能性の一覧に含まれる値を検索することができます。 たとえば、
+index が 3 で、choice-1 = "1"、choice-2 = "2"、choice-3 = "3" と評価した場合、
+Choose は "3" を返します。 この機能は、index がオプション グループの値を示す場
+合に特に便利です。
+
+Choose は、一覧の選択肢すべてを評価しますが、その 1 つだけが返されます。 その
+ため、望ましくない副作用が生じないように注意する必要があります。 すべての選択
+肢において、式 の一部として MsgBox 関数を使用する場合、メッセージ ボックスは評
+価される各選択肢に対して表示されますが、Choose はそのうちの 1 つだけを返します。
+
+もし index が 1 以下または一覧にある選択肢の数を超える場合、Choose 関数は Null
+を返します。
+
+index が整数ではない場合、最も近い整数に丸めてから評価されます。
+
+.例
+
+この例では、Choose 関数を使って、Ind パラメーターのプロシージャに渡される
+index に応じた名前を表示します。
+
+[source,vbscript]
+----
+Function GetChoice(Ind As Integer)
+    GetChoice = Choose(Ind, "Speedy", "United", "Federal")
+End Function
+----
+
+===== Command[[Command]]
+
+Microsoft Visual Basic または Visual Basic で開発された実行可能なプログラムの
+起動に使用されるコマンド ラインの引数部分を返します。 Visual Basic の関数機能
+は、Microsoft Office のアプリケーションでは使用できません。
+
+.構文
+
+[source,vbscript]
+----
+Command
+----
+
+.解説
+
+コマンドラインから Visual Basic が起動された場合、/cmd に続くすべてのコマンド
+ライン部分がコマンドライン引数として、プログラムに渡されます。 次のコマンドラ
+インの例で、cmdlineargs は、コマンド関数によって返される引数情報を表しています。
+----
+VB /cmd cmdlineargs
+----
+
+Visual Basic で開発され、.exe ファイルにコンパイルされたアプリケーションでは、
+Command によって、コマンド ラインのアプリケーション名の後に表示されるすべての
+引数が返されます。 次に例を示します。
+
+----
+MyApp cmdlineargs
+----
+
+使用しているアプリケーションのユーザー インターフェイスでのコマンド ライン引数
+の変更方法の詳細については、ヘルプの「コマンド ライン引数」を参照してください。
+
+
+
+.例
+
+この例では、配列を含む Variant でコマンド ライン引数を返す関数内で、Command 関
+数を使用してコマンド ライン引数を取得しています。 Microsoft Office では使用で
+きません。
+
+
+[source,vbscript]
+----
+Function GetCommandLine(Optional MaxArgs)
+    'Declare variables.
+    Dim C, CmdLine, CmdLnLen, InArg, I, NumArgs
+    'See if MaxArgs was provided.
+    If IsMissing(MaxArgs) Then MaxArgs = 10
+    'Make array of the correct size.
+    ReDim ArgArray(MaxArgs)
+    NumArgs = 0: InArg = False
+    'Get command line arguments.
+    CmdLine = Command()
+    CmdLnLen = Len(CmdLine)
+    'Go thru command line one character
+    'at a time.
+    For I = 1 To CmdLnLen
+        C = Mid(CmdLine, I, 1)
+        'Test for space or tab.
+        If (C <> " " And C <> vbTab) Then
+            'Neither space nor tab.
+            'Test if already in argument.
+            If Not InArg Then
+            'New argument begins.
+            'Test for too many arguments.
+                If NumArgs = MaxArgs Then Exit For
+                NumArgs = NumArgs + 1
+                InArg = True
+            End If
+            'Concatenate character to current argument.
+            ArgArray(NumArgs) = ArgArray(NumArgs) & C
+        Else
+            'Found a space or tab.
+            'Set InArg flag to False.
+            InArg = False
+        End If
+    Next I
+    'Resize array just enough to hold arguments.
+    ReDim Preserve ArgArray(NumArgs)
+    'Return Array in Function name.
+    GetCommandLine = ArgArray()
+End Function
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+===== 変換関数
+
+* <<Asc,Asc 関数>>
+* <<Chr,Chr 関数>>
+* <<CVErr,CVErr 関数>>
+* <<Format,Format 関数>>
+* <<Hex,Hex 関数>>
+* <<Oct,Oct 関数>>
+* <<Str,Str 関数>>
+* <<Val,Val 関数>>
+
+.Type Conversion 関数
+
+式を特定のデータ型に変換する関数については、<<Type Conversion,Type Conversion
+関数>>ページを参照してください。
+
+* CBool 関数
+* CByte 関数
+* CCur 関数
+* CDate 関数
+* CDec 関数
+* CDbl 関数
+* CInt 関数
+* CLng 関数
+* CLngLng 関数
+* CLngPtr 関数
+* CSng 関数
+* CStr 関数
+* CVar 関数
+
+
+
+
+
+
+
+===== CreateObject 関数[[CreateObject]]
 
 ActiveX オブジェクトへの参照を作成して返します。
 
@@ -3465,7 +3183,7 @@ xlApp.Visible = True
     ' other objects.
 ----
 
-==== CurDir 関数[[CurDir]]
+===== CurDir 関数[[CurDir]]
 
 
 
@@ -3503,7 +3221,7 @@ MyPath = CurDir("C")    ' Returns "C:\WINDOWS\SYSTEM".
 MyPath = CurDir("D")    ' Returns "D:\EXCEL".
 ----
 
-==== Date 関数[[Date]]
+===== Date 関数[[Date]]
 
 
 現在のシステム日付を含む Variant (Date) を返します。
@@ -3536,7 +3254,7 @@ Dim MyDate
 MyDate = Date    ' MyDate contains the current system date.
 ----
 
-==== DateAdd 関数[[DateAdd]]
+===== DateAdd 関数[[DateAdd]]
 
 指定した時間間隔を日付に加算してその日付を含む Variant (Date) を返します。
 
@@ -3640,7 +3358,7 @@ Msg = "New date: " & DateAdd(IntervalType, Number, FirstDate)
 MsgBox Msg
 ----
 
-==== DateDiff 関数[[DateDiff]]
+===== DateDiff 関数[[DateDiff]]
 
 2 つの指定した日付の時間間隔を指定する Variant (Long) を返します。
 
@@ -3751,7 +3469,7 @@ Msg = "Days from today: " & DateDiff("d", Now, TheDate)
 MsgBox Msg
 ----
 
-==== DatePart 関数[[DatePart]]
+===== DatePart 関数[[DatePart]]
 
 WARNING:	 この関数の使用には問題があります。 一部のカレンダー年の最後の
 月曜日は、週1である必要がある場合は、53週として返されます。 詳細および回避策に
@@ -3859,7 +3577,7 @@ MsgBox Msg
 ----
 
 
-==== DateSerial 関数[[DateSerial]]
+===== DateSerial 関数[[DateSerial]]
 
 指定した年、月、日の Variant (Date) を返します。
 
@@ -3929,7 +3647,7 @@ Dim MyDate
 MyDate = DateSerial(1969, 2, 12)    ' Return a date.
 ----
 
-==== DateValue 関数[[DateValue]]
+===== DateValue 関数[[DateValue]]
 
 Variant (Date) を返します。
 
@@ -3981,7 +3699,7 @@ MyDate = DateValue("February 12, 1969")    ' Return a date.
 ----
 
 
-==== Day 関数[[Day]]
+===== Day 関数[[Day]]
 
 月の特定の 1 日を表す 1 から 31 の範囲の整数を指定する Variant (Integer) を返
 します。
@@ -4014,7 +3732,7 @@ MyDate = #February 12, 1969#    ' Assign a date.
 MyDay = Day(MyDate)    ' MyDay contains 12.
 ----
 
-==== DDB 関数[[DDB]]
+===== DDB 関数[[DDB]]
 
 
 倍額定率法や、ユーザーが指定した他の方法を使用して、特定の期における資産の減価
@@ -4089,7 +3807,7 @@ Format(Depr, Fmt) & "."
 
 
 
-==== Dir 関数[[Dir]]
+===== Dir 関数[[Dir]]
 
 指定したパターンまたはファイル属性に一致するファイル、ディレクトリ、フォルダー
 の名前、またはドライブのボリューム ラベルを表す String を返します。
@@ -4183,7 +3901,7 @@ Excel for Mac 2016 では、最初の Dir 関数呼び出しは成功します�
 TIP:	ファイル名は特定の順序で取得されるわけではないため、必要に応じて、返さ
 れたファイル名を配列に格納し、その配列を並べ替えます。
 
-==== DoEvents 関数[[DoEvents]]
+===== DoEvents 関数[[DoEvents]]
 
 
 オペレーティング システムが他のイベントを処理できるように、実行を渡します。
@@ -4238,7 +3956,7 @@ For I = 1 To 150000    ' Start loop.
 Next I    ' Increment loop counter.
 ----
 
-==== Environ 関数[[Environ]]
+===== Environ 関数[[Environ]]
 
 
 
@@ -4301,7 +4019,7 @@ Else
 End If
 ----
 
-==== EOF 関数[[EOF]]
+===== EOF 関数[[EOF]]
 
 Random またはシーケンシャル Input で開かれたファイルの末尾に達した場合、
 Boolean 値 True を含む整数を返します。
@@ -4347,7 +4065,7 @@ Close #1    ' Close file.
 ----
 
 
-==== Error 関数[[Error]]
+===== Error 関数[[Error]]
 
 
 指定したエラー番号に対応するエラー メッセージを返します。
@@ -4396,7 +4114,7 @@ EOSb: Debug.Print ErrorNumber
 End Sub
 ----
 
-==== FileAttr 関数[[FileAttr]]
+===== FileAttr 関数[[FileAttr]]
 
 
 <<Open,Open>> ステートメントを使用して開かれたファイルのファイル モードを表す
@@ -4452,7 +4170,7 @@ Handle = FileAttr(FileNum, 2)    ' Returns file handle.
 Close FileNum    ' Close file.
 ----
 
-==== FileDateTime 関数[[FileDateTime]]
+===== FileDateTime 関数[[FileDateTime]]
 
 
 ファイルの作成日時または最終更新日時を示す Variant (Date) を返します。
@@ -4481,7 +4199,7 @@ Dim MyStamp
 MyStamp = FileDateTime("TESTFILE")    ' Returns "2/12/93 4:35:47 PM".
 ----
 
-==== FileLen 関数[[FileLen]]
+===== FileLen 関数[[FileLen]]
 
 バイト単位でファイルの長さを指定する Long を返します。
 
@@ -4515,7 +4233,7 @@ Dim MySize
 MySize = FileLen("TESTFILE")    ' Returns file length (bytes).
 ----
 
-==== Filter 関数[[Filter]]
+===== Filter 関数[[Filter]]
 
 指定されたフィルター条件に基づいて、文字列配列のサブセットが含まれるゼロベース
 配列を返します。
@@ -4554,7 +4272,7 @@ compare 引数には、次の値を指定できます。
 Filter 関数によって返される配列には、一致したアイテムを格納するのに十分な数の
 要素のみが含まれます。
 
-==== FormatCurrency 関数[[FormatCurrency]]
+===== FormatCurrency 関数[[FormatCurrency]]
 
 システムのコントロール パネルで定義された通貨記号を使用して、通貨値として書式
 設定された式を返します。
@@ -4600,7 +4318,7 @@ CAUTION:	先頭のゼロを除き、設定情報はすべて、[地域の設定]
 ブの情報に基づいています。先頭のゼロは、[数値] タブの情報に基づきます。
 
 
-==== FormatDateTime 関数[[FormatDateTime]]
+===== FormatDateTime 関数[[FormatDateTime]]
 
 日付または時刻として書式設定された式を返します。
 
@@ -4634,7 +4352,7 @@ NamedFormat 引数の設定は次のとおりです。
 |vbShortTime |2/4 |24 時間形式 (hh:mm) を使用して時刻を表示します。
 |===
 
-==== FormatNumber 関数[[FormatNumber]]
+===== FormatNumber 関数[[FormatNumber]]
 
 数値として書式設定された式を返します。
 
@@ -4677,7 +4395,7 @@ IncludeLeadingDigit、UseParensForNegativeNumbers、および GroupDigits 引数
 CAUTION:	すべての設定情報について、[地域] の設定の [数値] タブの情報が
 使用されます。
 
-==== FormatPercent 関数[[FormatPercent]]
+===== FormatPercent 関数[[FormatPercent]]
 
 パーセンテージとして (100 倍して) 書式設定された式を、末尾に % 記号を追加して
 返します。
@@ -4722,7 +4440,7 @@ CAUTION:	すべての設定情報について、[地域] の設定の [数値] �
 使用されます。
 
 
-==== FreeFile 関数[[FreeFile]]
+===== FreeFile 関数[[FreeFile]]
 
 <<Open,Open>> ステートメントで使用できる次のファイル番号を表す Integer を返します。
 
@@ -4760,7 +4478,7 @@ For MyIndex = 1 To 5    ' Loop 5 times.
 Next MyIndex
 ----
 
-==== FV 関数[[FV]]
+===== FV 関数[[FV]]
 
 定額の支払いを定期的に行い、利率が一定であると仮定して投資の将来価値を指定する
 Double を返します。
@@ -4819,7 +4537,7 @@ FVal = FV(APR / 12, TotPmts, -Payment, -PVal, PayType)
 MsgBox "Your savings will be worth " & Format(FVal, Fmt) & "."
 ----
 
-==== GetAllSettings 関数[[GetAllSettings]]
+===== GetAllSettings 関数[[GetAllSettings]]
 
 
 Windows レジストリのアプリケーションのエントリまたはアプリケーションの初期化フ
@@ -4873,7 +4591,7 @@ MySettings = GetAllSettings(appname := "MyApp", section := "Startup")
 DeleteSetting "MyApp", "Startup"
 ----
 
-==== GetAttr 関数[[GetAttr]]
+===== GetAttr 関数[[GetAttr]]
 
 ファイル、ディレクトリ、またはフォルダーの属性を表す Integer を返します。
 
@@ -4949,7 +4667,7 @@ Debug.Print MyAttr And (vbHidden + vbReadOnly)
 MyAttr = GetAttr("MYDIR")    ' Returns 16.
 ----
 
-==== GetObject 関数[[GetObject]]
+===== GetObject 関数[[GetObject]]
 
 
 ActiveX コンポーネントから提供されたオブジェクトの参照を返します。
@@ -5157,7 +4875,7 @@ Sub DetectExcel()
 End Sub
 ----
 
-==== GetSetting 関数[[GetSetting]]
+===== GetSetting 関数[[GetSetting]]
 
 
 Windows レジストリ内のアプリケーションのエントリ、または (Macintosh 上の) アプ
@@ -5211,7 +4929,7 @@ Debug.Print GetSetting(appname := "MyApp", section := "Startup", _
 DeleteSetting "MyApp", "Startup"
 ----
 
-==== Hour 関数[[Hour]]
+===== Hour 関数[[Hour]]
 
 
 1 日の時間を表す 0 以上 23 以下の整数を指定する Variant (Integer) を返します。
@@ -5314,31 +5032,31 @@ MyHour = Hour(MyTime)    ' MyHour contains 16.
 
 [cols="1,4",options="header"]
 |===
-|カテゴリ |説明
-|配列 |配列を作成、定義、使用します。
-|コンパイラディレクティブ |コンパイラの動作を制御します。
-|制御フロー |プロシージャのフローをループおよび制御します。
-|変換 |数値とデータ型を変換します。
-|データ型 |データ型およびバリアント サブタイプ。
-|日付と時刻 |日付と時刻の式を変換および使用します。
-|ディレクトリとファイル |ファイル システムを制御し、ファイルを処理します。
-|エラー |エラー値をトラッピングして返します。
-|財務 |財務計算を実行します。
-|入力と出力 |入力を受け取って、出力を表示または印刷します。
-|算術 |三角関数およびその他の算術計算を実行します。
-|その他 |他のアプリケーションを開始し、イベントを処理します。
-|演算子 |式の比較および他の操作を行います。
-|レジストリ |プログラムの設定を管理する。
-|文字列の操作 |文字列および文字列型データを操作します。
-|変数と定数 |変数および定数を宣言および定義します。
+| カテゴリ                 | 説明
+| 配列                     | 配列を作成、定義、使用します。
+| コンパイラディレクティブ | コンパイラの動作を制御します。
+| 制御フロー               | プロシージャのフローをループおよび制御します。
+| 変換                     | 数値とデータ型を変換します。
+| データ型                 | データ型およびバリアント サブタイプ。
+| 日付と時刻               | 日付と時刻の式を変換および使用します。
+| ディレクトリとファイル   | ファイル システムを制御し、ファイルを処理します。
+| エラー                   | エラー値をトラッピングして返します。
+| 財務                     | 財務計算を実行します。
+| 入力と出力               | 入力を受け取って、出力を表示または印刷します。
+| 算術                     | 三角関数およびその他の算術計算を実行します。
+| その他                   | 他のアプリケーションを開始し、イベントを処理します。
+| 演算子                   | 式の比較および他の操作を行います。
+| レジストリ               | プログラムの設定を管理する。
+| 文字列の操作             | 文字列および文字列型データを操作します。
+| 変数と定数               | 変数および定数を宣言および定義します。
 |===
 
 ==== キーワード (Visual Basic for Applications)
 
 [cols="1,4",options="header"]
 |===
-|キーワード |使用されるコンテキスト
-|As |Const ステートメント +
+| キーワード | 使用されるコンテキスト
+| As         | Const ステートメント +
 Declare ステートメント +
 Dim ステートメント +
 Function ステートメント +
@@ -5353,87 +5071,108 @@ ReDim ステートメント +
 Static ステートメント +
 Sub ステートメント +
 Type ステートメント
-|Binary |Open ステートメント +
+
+
+| Binary     | Open ステートメント +
 Option Compare ステートメント
-|ByRef |Call ステートメント +
+
+| ByRef      | Call ステートメント +
 Declare ステートメント +
 Function ステートメント +
 Property Get ステートメント +
 Property Let ステートメント +
 Property Set ステートメント +
 Sub ステートメント
-|ByVal |Call ステートメント +
+
+                                 | ByVal      | Call ステートメント +
 Declare ステートメント +
 Function ステートメント +
 Property Get ステートメント +
 Property Let ステートメント +
 Property Set ステートメント +
 Sub ステートメント
-|Date |Date データ型 +
+
+                                 | Date       | Date データ型 +
 Date 関数 +
 Date ステートメント
-|Else |If...Then...Else ステートメント +
+
+                                 | Else       | If...Then...Else ステートメント +
 Select Case ステートメント
-|Empty |初期化されていない変数値を示す Variant サブタイプとして使用されます。
-|Error |Error 関数 +
+
+                                 | Empty      | 初期化されていない変数値を示す Variant サブタイプとして使用されます。
+                                 | Error      | Error 関数 +
 Error ステートメント +
 On Error ステートメント
-|False |値は 0 です。
-|For |For...Next ステートメント +
+
+                                 | False      | 値は 0 です。
+                                 | For        | For...Next ステートメント +
 For Each...Next ステートメント +
 Open ステートメント
-|Friend |「Friend」をご覧ください。
-|Get |Get ステートメント +
+
+                                 | Friend     | 「Friend」をご覧ください。
+                                 | Get        | Get ステートメント +
 Property Get ステートメント
-|Input |Input 関数 +
+
+                                 | Input      | Input 関数 +
 Input # ステートメント +
 Line Input # ステートメント +
 Open ステートメント
-|Is |If...Then...Else ステートメント +
+
+                                 | Is         | If...Then...Else ステートメント +
 Is 演算子 +
 Select Case ステートメント
-|Len |Len 関数 +
+
+                                 | Len        | Len 関数 +
 Open ステートメント
-|Let |Let ステートメント +
+
+                                 | Let        | Let ステートメント +
 Property Let ステートメント
-|Lock |Lock、Unlock ステートメント +
+
+                                 | Lock       | Lock、Unlock ステートメント +
 Open ステートメント
-|Me |「Me」をご覧ください。
-|Mid |Mid 関数 +
+
+                                 | Me         | 「Me」をご覧ください。
+                                 | Mid        | Mid 関数 +
 Mid ステートメント
-|New |Dim ステートメント +
+
+                                 | New        | Dim ステートメント +
 Private ステートメント +
 Public ステートメント +
 Set ステートメント +
 Static ステートメント
-|Next |For...Next ステートメント +
+
+                                 | Next       | For...Next ステートメント +
 For Each...Next ステートメント +
 On Error ステートメント +
 Resume ステートメント
-|Nothing |「Nothing」をご覧ください。
-|Null |変数に有効な値が含まれないことを示す Variant サブタイプとして使用されます。
-|On |On Error ステートメント +
+
+                                 | Nothing    | 「Nothing」をご覧ください。
+                                 | Null       | 変数に有効な値が含まれないことを示す Variant サブタイプとして使用されます。
+                                 | On         | On Error ステートメント +
 On...GoSub ステートメント +
 On...GoTo ステートメント
-|Option |Option Base ステートメント +
+
+                                 | Option     | Option Base ステートメント +
 Option Compare ステートメント +
 Option Explicit ステートメント +
 Option Private ステートメント
-|Optional |Declare ステートメント +
+
+                                 | Optional   | Declare ステートメント +
 Function ステートメント +
 Property Get ステートメント +
 Property Let ステートメント +
 Property Set ステートメント +
 Sub ステートメント
-|ParamArray |Declare ステートメント +
+
+                                 | ParamArray | Declare ステートメント +
 Function ステートメント +
 Property Get ステートメント +
 Property Let ステートメント +
 Property Set ステートメント +
 Sub ステートメント
-|Print |Print メソッド +
+                                 | Print      | Print メソッド +
 Print # ステートメント
-|Private |Const ステートメント +
+                                 | Private    | Const ステートメント +
 Declare ステートメント +
 Enum ステートメント +
 Function ステートメント +
@@ -5444,11 +5183,11 @@ Property Let ステートメント +
 Property Set ステートメント +
 Sub ステートメント +
 Type ステートメント
-|Property |Property Get ステートメント +
+                                 | Property   | Property Get ステートメント +
 Property Let ステートメント +
 Property Set ステートメント
-|PtrSafe |「PtrSafe」をご覧ください。
-|Public |Const ステートメント +
+                                 | PtrSafe    | 「PtrSafe」をご覧ください。
+                                 | Public     | Const ステートメント +
 Declare ステートメント +
 Enum ステートメント +
 Event ステートメント +
@@ -5459,27 +5198,27 @@ Property Set ステートメント +
 Public ステートメント +
 Sub ステートメント +
 Type ステートメント
-|Resume |On Error ステートメント +
+                                 | Resume     | On Error ステートメント +
 Resume ステートメント
-|Seek |Seek 関数 +
+                                 | Seek       | Seek 関数 +
 Seek ステートメント
-|Set |Set ステートメント +
+                                 | Set        | Set ステートメント +
 Property Set ステートメント
-|Static |Function ステートメント +
+                                 | Static     | Function ステートメント +
 Property Get ステートメント +
 Property Let ステートメント +
 Property Set ステートメント +
 Static ステートメント +
 Sub ステートメント
-|Step |For...Next ステートメント +
+                                 | Step       | For...Next ステートメント +
 For Each...Next ステートメント
-|String |String データ型 +
+                                 | String     | String データ型 +
 String 関数
-|Then |If...Then...Else ディレクティブ +
+                                 | Then       | If...Then...Else ディレクティブ +
 If...Then...Else ステートメント
-|Time |Time 関数 +
+                                 | Time       | Time 関数 +
 Time ステートメント
-|To |Dim ステートメント +
+                                 | To         | Dim ステートメント +
 For...Next ステートメント +
 Lock、Unlock ステートメント +
 Private ステートメント +
@@ -5488,10 +5227,10 @@ ReDim ステートメント +
 Select Case ステートメント +
 Static ステートメント +
 Type ステートメント
-|True |値は -1 です。
-|WithEvents |Dim ステートメント +
+                                 | True       | 値は -1 です。
+                                 | WithEvents | Dim ステートメント +
 Private ステートメント +
-||Public ステートメント
+                                 |            | Public ステートメント
 |===
 
 ===== Friend キーワード
@@ -5641,14 +5380,13 @@ DeclareステートメントにPtrSafeキーワードを追加した場合のみ
 
 [cols="4,4",options="header"]
 |===
-|Action |キーワード
-|配列かどうかを確認します。 |<<IsArray,IsArray>>
-|配列を作成します。 |<<Array,Array>>
-|既定の下限を変更します。 |<<Option Base,Option Base>>
-|配列を宣言および初期化します。 |<<Dim,Dim>>、<<Private,Private>>、<<Public,
-Public>>、<<ReDim,ReDim>>、<<Static,Static>>
-|配列の限界を調べます。 |<<LBound,LBound>>、<<UBound,UBound>>
-|配列を再初期化します。 |<<Erase,Erase>>、<<ReDim,ReDim>>
+                                              | Action                         | キーワード
+                                              | 配列かどうかを確認します。     | <<IsArray,IsArray>>
+                                              | 配列を作成します。             | <<Array,Array>>
+                                              | 既定の下限を変更します。       | <<Option Base,Option Base>>
+                                              | 配列を宣言および初期化します。 | <<Dim,Dim>>、<<Private,Private>>、<<Public, Public>>、<<ReDim,ReDim>>、<<Static,Static>>
+                                              | 配列の限界を調べます。         | <<LBound,LBound>>、<<UBound,UBound>>
+                                              | 配列を再初期化します。         | <<Erase,Erase>>、<<ReDim,ReDim>>
 |===
 
 ==== 制御フローキーワードの概要
@@ -5675,21 +5413,18 @@ Property Get>>、
 
 [cols="4,4",options="header"]
 |===
-|Action |キーワード
-|ANSI 値を文字列に。 |<<Chr,Chr>>
-|文字列を小文字または大文字に。 |<<Format,Format>>、<<LCase,LCase>>、<<Ucase,
-Ucase>>
-|日付をシリアル値に。 |<<DateSerial,DateSerial>>、<<DateValue,DateValue>>
-|10 進数を他の基数に。 |<<Hex,Hex>>、<<Oct,Oct>>
-|数値を文字列に。 |<<Format,Format>>、<<Str,Str>>
-|あるデータ型を別のデータ型に。 |<<データ型の概要,データ型の概要>>を参照してください。
-|日付を日、月、週、または年に。 |<<Day,Day>>、<<Month,Month>>、<<Weekday,
-Weekday>>、<<Year,Year>>
-|時刻を時、分、または秒に。 |<<Hour,Hour>>、<<Minute,Minute>>、<<Second,
-Second>>
-|文字列を ASCII 値に。 |<<Asc,Asc>>
-|文字列を数値に。 |<<Val,Val>>
-|時刻をシリアル値に。 |<<TimeSerial,TimeSerial>>、<<TimeValue,TimeValue>>
+ | Action                         | キーワード
+ | ANSI 値を文字列に。            | <<Chr,Chr>>
+ | 文字列を小文字または大文字に。 | <<Format,Format>>、<<LCase,LCase>>、<<Ucase, Ucase>>
+ | 日付をシリアル値に。           | <<DateSerial,DateSerial>>、<<DateValue,DateValue>>
+ | 10 進数を他の基数に。          | <<Hex,Hex>>、<<Oct,Oct>>
+ | 数値を文字列に。               | <<Format,Format>>、<<Str,Str>>
+ | あるデータ型を別のデータ型に。 | <<データ型の概要,データ型の概要>>を参照してください。
+ | 日付を日、月、週、または年に。 | <<Day,Day>>、<<Month,Month>>、<<Weekday, Weekday>>、<<Year,Year>>
+ | 時刻を時、分、または秒に。     | <<Hour,Hour>>、<<Minute,Minute>>、<<Second, Second>>
+ | 文字列を ASCII 値に。          | <<Asc,Asc>>
+ | 文字列を数値に。               | <<Val,Val>>
+ | 時刻をシリアル値に。           | <<TimeSerial,TimeSerial>>、<<TimeValue,TimeValue>>
 |===
 
 
@@ -5750,14 +5485,14 @@ Second>>
 
 [cols="4,4",options="header"]
 |===
-|Action |キーワード
-|減価償却費の計算 |<<DDB,DDB>>、<<SLN,SLN>>、<<SYD,SYD>>
-|将来価値の計算 |<<FV,FV>>
-|利率の計算 |<<Rate,Rate>>
-|内部利益率の計算 |<<IRR,IRR>>、<<MIRR,MIRR>>
-|期間数の計算 |<<NPer,NPer>>
-|支払い額の計算 |<<IPmt,IPmt>>、<<Pmt,Pmt>>、<<PPmt,PPmt>>
-|現在価値の計算 |<<NPV,NPV>>、<<PV,PV>>
+ | Action           | キーワード
+ | 減価償却費の計算 | <<DDB,DDB>>、<<SLN,SLN>>、<<SYD,SYD>>
+ | 将来価値の計算   | <<FV,FV>>
+ | 利率の計算       | <<Rate,Rate>>
+ | 内部利益率の計算 | <<IRR,IRR>>、<<MIRR,MIRR>>
+ | 期間数の計算     | <<NPer,NPer>>
+ | 支払い額の計算   | <<IPmt,IPmt>>、<<Pmt,Pmt>>、<<PPmt,PPmt>>
+ | 現在価値の計算   | <<NPV,NPV>>、<<PV,PV>>
 |===
 
 
@@ -5767,25 +5502,18 @@ Second>>
 
 [cols="4,4",options="header"]
 |===
-|Action |キーワード
-|ファイルにアクセスするかファイルを作成します。 |<<Open,Open>>
-|ファイルを閉じます。 |<<Close,Close>>、<<Reset,Reset>>
-|出力の表示を管理します。 |<<Format,Format>>、<<Print,Print>>、
-<<Print #,Print #>>、<<Spc,Spc>>、<<Tab,Tab>>、<<Width #,Width #>>
-|ファイルをコピーします。 |<<FileCopy,FileCopy>>
-|ファイルに関する情報を取得します。 |<<EOF,EOF>>、<<FileAttr,FileAttr>>、
-<<FileDateTime,FileDateTime>>、<<FileLen,FileLen>>、<<FreeFile,FreeFile>>、
-<<GetAttr,GetAttr>>、<<Loc,Loc>>、<<LOF,LOF>>、<<Seek,Seek>>
-|ファイルを管理します。 |<<Dir,Dir>>、<<Kill,Kill>>、<<Lock,Lock>>、<<Unlock,
-Unlock>>、<<Name,Name>>
-|ファイルを読み取ります。 |<<Get,Get>>、<<Input,Input>>、<<Input #,Input #>>、
-<<Line Input #,Line Input #>>
-|ファイルの長さを返します。 |<<FileLen,FileLen>>
-|ファイル属性を設定または取得します。 |<<FileAttr,FileAttr>>、 <<GetAttr,
-GetAttr>>、 <<SetAttr,SetAttr>>
-|ファイル内の読み取り/書き込み位置を設定します。 |<<Seek,Seek>>
-|ファイルに書き込みます。 |<<Print #,Print #>>、<<Put,Put>>、
-<<Write #,Write #>>
+ | Action                                          | キーワード
+ | ファイルにアクセスするかファイルを作成します。  | <<Open,Open>>
+ | ファイルを閉じます。                            | <<Close,Close>>、<<Reset,Reset>>
+ | 出力の表示を管理します。                        | <<Format,Format>>、<<Print,Print>>、<<Print #,Print #>>、<<Spc,Spc>>、<<Tab,Tab>>、<<Width #,Width #>>
+ | ファイルをコピーします。                        | <<FileCopy,FileCopy>>
+ | ファイルに関する情報を取得します。              | <<EOF,EOF>>、<<FileAttr,FileAttr>>、<<FileDateTime,FileDateTime>>、<<FileLen,FileLen>>、<<FreeFile,FreeFile>>、<<GetAttr,GetAttr>>、<<Loc,Loc>>、<<LOF,LOF>>、<<Seek,Seek>>
+ | ファイルを管理します。                          | <<Dir,Dir>>、<<Kill,Kill>>、<<Lock,Lock>>、<<Unlock, Unlock>>、<<Name,Name>>
+ | ファイルを読み取ります。                        | <<Get,Get>>、<<Input,Input>>、<<Input #,Input #>>、<<Line Input #,Line Input #>>
+ | ファイルの長さを返します。                      | <<FileLen,FileLen>>
+ | ファイル属性を設定または取得します。            | <<FileAttr,FileAttr>>、 <<GetAttr, GetAttr>>、 <<SetAttr,SetAttr>>
+ | ファイル内の読み取り/書き込み位置を設定します。 | <<Seek,Seek>>
+ | ファイルに書き込みます。                        | <<Print #,Print #>>、<<Put,Put>>、<<Write #,Write #>>
 |===
 
 
@@ -5795,13 +5523,13 @@ GetAttr>>、 <<SetAttr,SetAttr>>
 
 [cols="4,4",options="header"]
 |===
-|アクション |キーワード
-|三角関数を派生させる。 |<<Atn,Atn>>、<<Cos,Cos>>、<<Sin,Sin>>、<<Tan,Tan>>
-|一般的な計算。 |<<Exp,Exp>>、<<Log,Log>>、<<Sqr,Sqr>>
-|乱数を生成する。 |<<Randomize,Randomize>>、<<Rnd,Rnd>>
-|絶対値を取得する。 |<<Abs,Abs>>
-|式の符号を取得する。 |<<Sgn,Sgn>>
-|数値変換を実行する。 |<<Fix,Fix>>、<<Int,Int>>
+ | アクション             | キーワード
+ | 三角関数を派生させる。 | <<Atn,Atn>>、<<Cos,Cos>>、<<Sin,Sin>>、<<Tan,Tan>>
+ | 一般的な計算。         | <<Exp,Exp>>、<<Log,Log>>、<<Sqr,Sqr>>
+ | 乱数を生成する。       | <<Randomize,Randomize>>、<<Rnd,Rnd>>
+ | 絶対値を取得する。     | <<Abs,Abs>>
+ | 式の符号を取得する。   | <<Sgn,Sgn>>
+ | 数値変換を実行する。   | <<Fix,Fix>>、<<Int,Int>>
 |===
 
 
@@ -5811,15 +5539,15 @@ GetAttr>>、 <<SetAttr,SetAttr>>
 
 [cols="4,4",options="header"]
 |===
-|アクション |キーワード
-|保留中のイベントを処理する。 |<<DoEvents,DoEvents>>
-|他のプログラムを実行する。 |<<AppActivate,AppActivate>>、<<Shell,Shell>>
-|キー操作をアプリケーションへ送信する。 |<<SendKeys,SendKeys>>
-|コンピューターから警告音を鳴らす。 |<<Beep,Beep>>
-|システム |<<Environ,Environ>>
-|コマンド ライン文字列を提供する。 |<<Command,Command>>
-|オートメーション |<<CreateObject,CreateObject>>、<<GetObject,GetObject>>
-|色 |<<QBColor,QBColor>>、<<RGB,RGB>>
+ | アクション                             | キーワード
+ | 保留中のイベントを処理する。           | <<DoEvents,DoEvents>>
+ | 他のプログラムを実行する。             | <<AppActivate,AppActivate>>、<<Shell,Shell>>
+ | キー操作をアプリケーションへ送信する。 | <<SendKeys,SendKeys>>
+ | コンピューターから警告音を鳴らす。     | <<Beep,Beep>>
+ | システム                               | <<Environ,Environ>>
+ | コマンド ライン文字列を提供する。      | <<Command,Command>>
+ | オートメーション                       | <<CreateObject,CreateObject>>、<<GetObject,GetObject>>
+ | 色                                     | <<QBColor,QBColor>>、<<RGB,RGB>>
 |===
 
 
@@ -5842,19 +5570,17 @@ GetAllSettings>>
 
 [cols="4,4",options="header"]
 |===
-|Action |キーワード
-|2 個の文字列を比較します。 |<<StrComp,StrComp>>
-|文字列を変換します。 |<<StrConv,StrConv>>
-|小文字または大文字に変換します。 |<<Format,Format>>、<<Lcase,Lcase>>、<<Ucase,
-Ucase>>
-|文字を繰り返し並べた文字列を作成します。 |<<Space,Space>>、<<String,String>>
-|文字列の長さを検索します。 |<<Len,Len>>
-|文字列の書式設定を行います。 |<<Format,Format>>
-|文字列を中央に配置します。 |<<LSet,LSet>>、<<Rset,Rset>>
-|文字列を操作します。 |<<InStr,InStr>>、<<Left,Left>>、<<LTrim,LTrim>>、
-<<Mid,Mid>>、<<Right,Right>>、<<RTrim,RTrim>>、<<Trim,Trim>>
-|文字列の比較規則を設定します。 |<<Option Compare,Option Compare>>
-|ASCII 値および ANSI 値を使用します。 |<<Asc,Asc>>、<<Chr,Chr>>
+ | Action                                   | キーワード
+ | 2 個の文字列を比較します。               | <<StrComp,StrComp>>
+ | 文字列を変換します。                     | <<StrConv,StrConv>>
+ | 小文字または大文字に変換します。         | <<Format,Format>>、<<Lcase,Lcase>>、<<Ucase, Ucase>>
+ | 文字を繰り返し並べた文字列を作成します。 | <<Space,Space>>、<<String,String>>
+ | 文字列の長さを検索します。               | <<Len,Len>>
+ | 文字列の書式設定を行います。             | <<Format,Format>>
+ | 文字列を中央に配置します。               | <<LSet,LSet>>、<<Rset,Rset>>
+ | 文字列を操作します。                     | <<InStr,InStr>>、<<Left,Left>>、<<LTrim,LTrim>>、<<Mid,Mid>>、<<Right,Right>>、<<RTrim,RTrim>>、<<Trim,Trim>>
+ | 文字列の比較規則を設定します。           | <<Option Compare,Option Compare>>
+ | ASCII 値および ANSI 値を使用します。     | <<Asc,Asc>>、<<Chr,Chr>>
 |===
 
 
@@ -6019,13 +5745,31 @@ Raise メソッドには、以下のオブジェクト修飾子および名前�
 |===
 |引数 |説明
 |object |必須です。 常に、Err オブジェクトです。
-|number |必須。 エラーの性質を識別する長整数型 (Long) です。 Visual Basic のエラー (Visual Basic で定義されたエラーおよびユーザーで定義されたエラー) は 0–65535 の値を使用します。 0–512 の値はシステム エラー用に予約されています。513–65535 の値は、ユーザー定義エラー用に使用できます。
+|number |必須。 エラーの性質を識別する長整数型 (Long) です。 Visual Basic のエ
+ラー (Visual Basic で定義されたエラーおよびユーザーで定義されたエラー) は 0–
+65535 の値を使用します。 0–512 の値はシステム エラー用に予約されています。513
+–65535 の値は、ユーザー定義エラー用に使用できます。
 |
-|Number プロパティをクラス モジュール内で独自のエラー コードに設定する場合、エラー コード番号を vbObjectError 定数に加えます。 たとえば、 エラー番号 513 を生成するには、vbObjectError + 513 を **Number **プロパティに割り当てます。
-|source |省略可能。 エラーを生成したオブジェクトまたはアプリケーションの名前を示す文字列式です。 Source プロパティをオブジェクトに対して設定する場合、project.class の形式を使用します。 source を指定しない場合、現在の Visual Basic プロジェクトのプログラム ID が使用されます。
-|description |Optional. エラーを説明する文字列式です。 指定しない場合、Number の値が調べられます。 Visual Basic の実行時エラー コードにマップできる場合、Error 関数によって返される文字列が Description として使用されます。 Number に対応する Visual Basic エラーがない場合、"アプリケーション定義またはオブジェクト定義のエラーです。" というメッセージが使用されます。
-|helpfile |省略可能。 このエラーに関するヘルプを確認できるヘルプ ファイルへの完全修飾パスです。 指定しない場合、Visual Basic では、完全修飾された、Visual Basic ヘルプ ファイルのドライブ、パス、およびファイル名が使用されます。 HelpFile を参照してください。
-|helpcontext |省略可能。 エラーに関するヘルプを提供する helpfile 内のトピックを識別するコンテキスト ID です。 省略した場合、Number プロパティに対応するエラーに応じた、Visual Basic ヘルプ ファイルのコンテキスト ID が使用されます (存在する場合)。 HelpContext を参照してください。
+|Number プロパティをクラス モジュール内で独自のエラー コードに設定する場合、エ
+ラー コード番号を vbObjectError 定数に加えます。 たとえば、 エラー番号 513 を生
+成するには、vbObjectError + 513 を **Number **プロパティに割り当てます。
+|source |省略可能。 エラーを生成したオブジェクトまたはアプリケーションの名前を
+示す文字列式です。 Source プロパティをオブジェクトに対して設定する場合、
+project.class の形式を使用します。 source を指定しない場合、現在の Visual Basic
+プロジェクトのプログラム ID が使用されます。
+|description |Optional. エラーを説明する文字列式です。 指定しない場合、Number
+の値が調べられます。 Visual Basic の実行時エラー コードにマップできる場合、
+Error 関数によって返される文字列が Description として使用されます。 Number に対
+応する Visual Basic エラーがない場合、"アプリケーション定義またはオブジェクト定
+義のエラーです。" というメッセージが使用されます。
+|helpfile |省略可能。 このエラーに関するヘルプを確認できるヘルプ ファイルへの完
+全修飾パスです。 指定しない場合、Visual Basic では、完全修飾された、Visual
+Basic ヘルプ ファイルのドライブ、パス、およびファイル名が使用されます。
+HelpFile を参照してください。
+|helpcontext |省略可能。 エラーに関するヘルプを提供する helpfile 内のトピックを
+識別するコンテキスト ID です。 省略した場合、Number プロパティに対応するエラー
+に応じた、Visual Basic ヘルプ ファイルのコンテキスト ID が使用されます (存在す
+        る場合)。 HelpContext を参照してください。
 |===
 
 .解説
@@ -6063,6 +5807,1357 @@ Function TestName(CurrentName, NewName)
     End If
 End Function
 ----
+
+
+
+==== FileSystemObject オブジェクト
+
+参照設定::
+Microsoft ScrptingRuntime
+
+コンピューターのファイル システムへのアクセスを提供します。
+
+.構文
+
+[source,vbscript]
+----
+Scripting.FileSystemObject
+----
+
+.注釈
+
+次のコードはFileSystemObjectオブジェクトを使用して読み書き可能な**TextStream**
+オブジェクトを返す方法を示しています。
+
+
+[source,vbscript]
+----
+Set fs = CreateObject("Scripting.FileSystemObject")
+Set a = fs.CreateTextFile("c:\testfile.txt", True)
+a.WriteLine("This is a test.")
+a.Close
+----
+
+コード例では、次のとおりです。
+
+* CreateObject 関数は FileSystemObject (fs) を返します。
+* CreateTextFile メソッドは、ファイルを TextStream オブジェクト (a) として作成します。
+*    WriteLine メソッドは、作成されたテキスト ファイルにテキスト行を書き込みます。
+*    Close メソッドは、バッファーをフラッシュし、ファイルを閉じます。
+
+
+.メソッド
+
+[cols="1,4",options="header"]
+|===
+ | メソッド            | 説明
+ | BuildPath           | 既存のパスに名前を追加します。
+ | CopyFile            | 1 つ以上のファイルを別の場所にコピーします。
+ | CopyFolder          | 1 つ以上のフォルダーを別の場所にコピーします。
+ | CreateFolder        | 新しいフォルダーを作成します。
+ | CreateTextFile      | テキスト ファイルを作成し、ファイルの読み取りまたは書き込みに使用できる TextStream オブジェクトを返します。
+ | DeleteFile          | 指定した 1 つ以上のファイルを削除します。
+ | DeleteFolder        | 指定した 1 つ以上のフォルダーを削除します。
+ | DriveExists         | 指定したドライブが存在するかどうかを確認します。
+ | FileExists          | 指定したファイルが存在するかどうかを確認します。
+ | FolderExists        | 指定したフォルダーが存在するかどうかを確認します。
+ | GetAbsolutePathName | 指定したパスのドライブのルートからの完全なパスを返します。
+ | GetBaseName         | 指定したファイルまたはフォルダーのベース名を返します。
+ | GetDrive            | 指定したパスのドライブに対応するドライブ オブジェクトを返します。
+ | GetDriveName        | 指定したパスのドライブ名を返します。
+ | GetExtensionName    | 指定したパスの最後のコンポーネントのファイル拡張子名を返します。
+ | GetFile             | 指定したパスのファイル オブジェクトを返します。
+ | GetFileName         | 指定したパスの最後のコンポーネントのファイル名またはフォルダー名を返します。
+ | GetFolder           | 指定したパスのフォルダー オブジェクトを返します。
+ | GetParentFolderName | 指定したパスの最後のコンポーネントの親フォルダーの名前を返します。
+ | GetSpecialFolder    | Windows の一部の特殊フォルダーのパスを返します。
+ | GetTempName         | ランダムに生成された一時ファイルまたはフォルダーを返します。
+ | Move                | 指定したファイルまたはフォルダーを別の場所に移動します。
+ | MoveFile            | 1 つ以上のファイルを別の場所に移動します。
+ | MoveFolder          | 1 つ以上のフォルダーを別の場所に移動します。
+ | OpenAsTextStream    | 指定したファイルを開き、開いたファイルの読み取り、書き込み、または追加書き込みに使用できる TextStream オブジェクトを返します。
+ | OpenTextFile        | ファイルを開き、ファイルへのアクセスに使用できる TextStream オブジェクトを返します。
+ | WriteLine           | 指定した文字列と改行文字を TextStream ファイルに書き込みます。
+|===
+
+.プロパティ
+
+[cols="1,4",options="header"]
+|===
+|プロパティ |説明
+|Drives |コンピューター上のすべての Drive オブジェクトのコレクションを返します。
+|Name |指定したファイルまたはフォルダーの名前を設定するか返します。
+|Path |指定したファイル、フォルダー、またはドライブのパスを返します。
+|Size |ファイルの場合は、指定したファイルのバイト単位でのサイズを返します。フォルダーの場合、そのフォルダーに含まれるすべてのファイルとサブフォルダーのサイズをバイト単位で返します。
+|Type |ファイルまたはフォルダーの種類に関する情報を返します (たとえば .TXT で終わるファイルの場合は、"Text Document" を返します)。
+|===
+
+
+
+
+
+
+
+===== メソッド
+
+====== BuildPath メソッド
+
+フォルダーパスとフォルダーまたはファイルの名前を結合し、有効なパス区切り記号と
+の組み合わせを返します。
+
+.構文
+
+[source,vbscript]
+----
+object.BuildPath (path, name)
+----
+
+[cols="1,4",options="header"]
+|===
+| Part   | Description
+| object | 必須です。 常に FileSystemObject の名前。
+| path   | 必須。 _名前_を組み合わせる既存のパス。 絶対パスまたは相対パスを指
+定することができ、既存のフォルダーを指定する必要はありません。
+| name   | 必ず指定します。 既存の_パス_に追加されるフォルダーまたはファイルの
+名前。
+|===
+
+.注釈
+
+BuildPath メソッドでは、必要な場合に限り、既存のパスと名前の間に追加のパス区切
+りを挿入します。
+
+
+==== CopyFile メソッド
+
+1 つまたは複数のファイルを別の場所にコピーします。
+
+.構文
+
+[source,vbscript]
+----
+object.CopyFile source, destination, [ overwrite ]
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必ず指定します。 object は、常に FileSystemObject の名前です。
+|source |必須。 コピーする 1 つ以上のファイルを示す、ファイル指定用文字列。ワイルドカード文字も使用できます。
+|destination |必須です。 source から 1 つ以上のファイルをコピーする先を指定する文字列。 ワイルドカード文字は使用できません。
+|overwrite |省略可能。 既存のファイルを上書きできるかどうかを示すブール値です。 True の場合はファイルが上書きされ、False の場合は上書きされません。 既定値は True です。 destination に読み取り専用属性が設定されている場合は、overwrite の値にかかわらず CopyFile は失敗します。
+|===
+
+.解説
+
+ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
+けです。 たとえば、以下を使用できます。
+
+[source,vbscript]
+----
+FileSystemObject.CopyFile "c:\mydocuments\letters\*.doc", "c:\tempfolder\"
+----
+
+以下のようには使用できません。
+
+[source,vbscript]
+----
+FileSystemObject.CopyFile "c:\mydocuments\*\R1???97.xls", "c:\tempfolder"
+----
+
+source にワイルドカード文字が含まれている場合や、destination がパスの区切り文
+字 (**) で終わっている場合は、destination は一致するファイルのコピー先となる既
+存のフォルダーと見なされます。 それ以外の場合は、destination は作成するファイ
+ルの名前と見なされます。 いずれの場合も、個々のファイルのコピー時に起こり得る
+ことは 3 つあります。
+
+
+1. destination が存在しない場合は、source がコピーされます。 これは通常のケー
+   スです。
+
+2. destination が既存のファイルの場合、 overwrite が False のときはエラーが発
+   生します。 True のときは既存のファイルを上書きして source がコピーされます。
+
+3. destination がディレクトリの場合は、エラーが発生します。
+
+source でワイルドカード文字が使用されていて、どのファイルとも一致しなかった場
+合も、エラーが発生します。 いずれかのエラーが発生した時点で CopyFile メソッド
+の実行は停止されます。 エラーが発生するまでに行われた変更を取り消したり元に戻
+したりする処理は一切行われません。
+
+==== CopyFolder メソッド
+
+フォルダーを再帰的に別の場所にコピーします。
+
+.構文
+
+[source,vbscript]
+----
+object.CopyFolder source, destination, [ overwrite ]
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必ず指定します。 常に FileSystemObject の名前。
+|source |必須。 コピーする 1 つ以上のフォルダーを指定する文字列です。ワイルドカード文字を使用できます。
+|destination |必須です。 source のフォルダーとサブフォルダーのコピー先を指定する文字列です。 ワイルドカード文字は使用できません。
+|overwrite |省略可能。 既存のフォルダーを上書きするかどうかを示す ブール 値です。 True の場合はファイルが上書きされ、 False の場合は上書きされません。 既定値は True です。
+|===
+
+.解説
+
+ワイルドカード文字を使用できるのは、 source 引数の最後のパス コンポーネントだ
+けです。 たとえば、以下を使用できます。
+
+[source,vbscript]
+----
+FileSystemObject.CopyFolder "c:\mydocuments\letters\*", "c:\tempfolder\"
+----
+
+以下のようには使用できません。
+
+[source,vbscript]
+----
+FileSystemObject.CopyFolder "c:\mydocuments\*\*", "c:\tempfolder\"
+----
+
+source にワイルドカード文字が含まれている場合や、destination がパスの区切り文
+字 ()) で終わっている場合は、destination は一致するフォルダーとサブフォルダー
+のコピー先となる既存のフォルダーと見なされます。
+
+それ以外の場合は、destinationは作成するフォルダーの名前と見なされます。
+
+いずれの場合も、個々のフォルダーがコピーされるときに起こり得ることは 4 つあり
+ます。
+
+
+1. destination が存在しない場合は、source フォルダーとそのすべての内容がコピー
+   されます。 これは通常のケースです。
+
+2. destination が既存のファイルの場合は、エラーが発生します。
+
+3. destination がディレクトリの場合は、フォルダーとそのすべての内容のコピーを
+   しようとします。 source に含まれているファイルが destination に既に存在する
+場合は、overwrite が False に設定されているとエラーが発生します。 それ以外の場
+合、ファイルを既存のファイルにコピーしようとします。
+
+4. destination が読み取り専用のディレクトリで、overwrite が False の場合、既存
+   の読み取り専用のファイルをそのディレクトリにコピーしようとするとエラーが発
+生します。
+
+source でワイルドカード文字が使用されていて、どのフォルダーとも一致しなかった
+場合も、エラーが発生します。
+
+CopyFolder メソッドは、最初のエラーが発生した時点で処理を中止します。 エラーが
+発生するまでに行われた変更を取り消したり元に戻したりする処理は一切行われません。
+
+==== CreateFolder メソッド
+
+フォルダーを作成します。
+
+.構文
+
+[source,vbscript]
+----
+object.CreateFolder (foldername)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|foldername |必ず指定します。 作成するフォルダーを識別する 文字列式です。
+|===
+
+.注釈
+
+指定したフォルダーがすでに存在する場合は、エラーが発生します。
+
+
+
+
+==== CreateTextFile メソッド
+
+指定されたファイル名を作成し、ファイルの読み取りまたは書き込みに使用できる**TextStream** オブジェクトを返します。
+
+
+.構文
+
+
+[source,vbscript]
+----
+object.CreateTextFile (filename, [ overwrite, [ unicode ]])
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に**FileSystemObject** または**Folder** オブジェクトの名前を指定します。
+|filename |必須。 作成するファイルを示す 文字列式。
+|overwrite |省略可能。 既存のファイルを上書きできるかどうかを示す Boolean 値。 ファイルを上書きできる場合は True 、上書きできない場合は False です。 省略した場合、既存のファイルは上書きできます。
+|unicode |省略可能。 Unicode ファイルを作成するか、ASCII ファイルを作成するかを示す Boolean 値です。 Unicode ファイルとして作成する場合は True 、ASCII ファイルとして作成する場合は False です。 省略した場合は、ASCII ファイルとみなされます。
+|===
+
+.注釈
+
+次のコードは、 CreateTextFileメソッドを使用して、テキストファイルを作成して開
+く方法を示しています。 _Overwrite_引数がFalseの場合、または指定されていない場
+合は、既に存在する_ファイル名_に対してエラーが発生します。
+
+
+[source,vbscript]
+----
+Sub CreateAfile
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set a = fs.CreateTextFile("c:\testfile.txt", True)
+    a.WriteLine("This is a test.")
+    a.Close
+End Sub
+----
+
+==== DeleteFile メソッド
+
+指定したファイルを削除します。
+
+.構文
+
+[source,vbscript]
+----
+object.DeleteFile filespec, [ force ]
+----
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|filespec |必須。 削除するファイルの名前です。 __ 最後のパス コンポーネントではワイルドカード文字を使用できます。
+|force |省略可能。 読み取り専用属性が設定されているファイルを削除する場合は、 Trueを指定するブール型 (Boolean) の値を指定します。False(既定値)。
+|===
+
+
+.注釈
+
+一致するファイルが見つからない場合はエラーが発生します。 DeleteFile メソッドは、
+最初のエラーが発生した時点で中止されます。 エラーが発生する前に行われた変更は
+ロールバックされません (元に戻されません)。
+
+==== DeleteFolder メソッド
+
+指定したフォルダーおよびその内容を削除します。
+
+.構文
+
+[source,vbscript]
+----
+object.DeleteFolder folderspec, [ force ]
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|folderspec |必須。 削除するフォルダーの名前。 folderspec の最後のパス コンポーネントにはワイルドカード文字を含むことができます。
+|force |省略可能。 読み取り専用属性が設定されているフォルダーを削除する場合は、 Trueを指定するブール値。False(既定値)。
+|===
+
+.注釈
+
+DeleteFolder メソッドでは、内容を持つフォルダーと内容を持たないフォルダーは区
+別されません。 指定されたフォルダーは、内容を持つかどうかにかかわらず削除され
+ます。
+
+一致するフォルダーが見つからない場合は、エラーが発生します。 いずれかのエラー
+が発生した時点で DeleteFolder メソッドの実行は停止されます。 エラーが発生する
+前に行われた変更内容のロールバックまたは取り消しは行われません。
+
+
+==== drive exists メソッド
+
+指定したドライブが存在する場合は True、それ以外の場合は False を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.DriveExists (drivespec)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|drivespec |必須。 ドライブのルートのドライブ文字またはパスの指定。
+|===
+
+.注釈
+
+リムーバブル メディアを使用するドライブの場合、DriveExists メソッドはメディア
+が存在しなくても True を返します。 ドライブの準備ができているかどうかを判断す
+るには、 drive オブジェクトのisreadyプロパティを使用します。
+
+
+
+==== FileExists メソッド
+
+指定したファイルが存在する場合は True を返します。存在しない場合は False を返
+します。
+
+.構文
+
+[source,vbscript]
+----
+object.FileExists (filespec)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|filespec |必須。 存在するかどうかを調べるファイルの名前を指定します。 ファイ
+ルが現在のフォルダー内にないことが想定される場合は、完全なパス (絶対パスまたは
+相対パス) を指定する必要があります。
+|===
+
+==== FolderExists メソッド
+
+指定したフォルダーが存在する場合は、True を返します。存在しない場合は、False
+を返します。
+
+[source,vbscript]
+----
+object.FolderExists (folderspec)
+----
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|folderspec |必ず指定します。 存在するかどうかを調べるフォルダーの名前を指定し
+ます。 フォルダーが現在のフォルダーにないと予想される場合は、完全なパス (絶対
+パスまたは相対パス) を指定する必要があります。
+|===
+
+
+==== GetAbsolutePathName メソッド
+
+指定したパス仕様から完全で明確なパスを返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetAbsolutePathName (pathspec)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|pathspec |必ず指定します。 完全で明確なパスに変更するパス仕様です。
+|===
+
+.注釈
+
+指定したドライブのルートから完全な参照を提供しているパスは、完全で明確です。
+完全なパスは、マップされたドライブのルートフォルダー*** を指定している場合にの
+み、パス区切り文字 (*) で終わることができます。
+
+次の表は、現在のディレクトリが c:\mydocuments\reports と仮定した場合の
+GetAbsolutePathName メソッドの動作を示しています。
+
+[cols="1,4",options="header"]
+|===
+|pathspec |返されるパス
+|"c:" |"c:\mydocuments\reports"
+|"c:.." |"c:\mydocuments"
+|"c:\" |"c:"
+|"c:. \ @ 97 |"c:\mydocuments\reports と仮定*/@ 97"
+|"region1" |"c:\mydocuments\reports\region1"
+|"c:....\mydocuments " |"c:\mydocuments"
+|===
+
+==== ★GetBaseNameメソッド
+
+パスの最後のコンポーネントのファイル拡張子を除くベース名を含む文字列を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetBaseName (path)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|path |必須。 ベース名を返すコンポーネントのパス指定。
+|===
+
+.注釈
+
+GetBaseName メソッドは、path 引数に一致するコンポーネントがない場合は、長さ 0
+の文字列 ("") を返します。
+
+
+==== GetDrive メソッド
+
+指定されたパスのドライブに対応する Drive オブジェクトを返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetDrive (drivespec)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|drivespec |必須。 _Drivespec_引数には、ドライブ文字 (c)、コロン (:) が追加されたドライブ文字、コロンとパスの区切り記号が追加されたドライブ文字 ()c:、または任意の\ネットワーク共有仕様 (computer2\share1) を使用できます。
+|===
+
+.注釈
+
+ネットワーク共有の場合、共有が存在するかどうかが調べられます。
+
+drivespec が許容されるどの形式にも従っていない場合、または存在しない場合は、エ
+ラーが発生します。
+
+GetDrive メソッドを通常のパス文字列で呼び出すには、次のシーケンスを使用して、
+drivespec として使用するのに適した文字列を取得します。
+
+[source,vbscript]
+----
+DriveSpec = GetDriveName(GetAbsolutePathName(Path))
+----
+
+==== GetDriveName メソッド
+
+指定されたパスのドライブ名を含む文字列を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetDriveName (path)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|path |必須。 ドライブ名を取得するコンポーネントのパスを指定します。
+|===
+
+.注釈
+
+GetDriveName メソッドは、ドライブを特定できない場合には長さ 0 の文字列 ("") を
+返します。
+
+==== GetExtensionName メソッド
+
+パスの最後の構成要素の拡張子名が含まれる文字列を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetExtensionName (path)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|path |必須。 拡張子名を返すべき構成要素のパス指定。
+|===
+
+.注釈
+
+ネットワークドライブの場合、ルートディレクトリ (**) はコンポーネントと見なされ
+ます。
+
+path 引数と一致する構成要素がない場合、GetExtensionName メソッドは長さ 0 の文
+字列 ("") を返します。
+
+
+==== GetFile メソッド
+
+指定したパスのファイルに対応する**file** オブジェクトを返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetFile (filespec)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|filespec |必須。 filespec は、特定のファイルへのパス (絶対または相対) です。
+|===
+
+.注釈
+
+指定されたファイルが存在しない場合は、エラーが発生します。
+
+
+==== ★GetFileName メソッド
+
+指定したパスの最後のコンポーネントを、ドライブの指定の一部ではないものとして返
+します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetFileName (pathspec)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|pathspec |必須。 特定のファイルのパス (絶対または相対)。
+|===
+
+.注釈
+
+pathspec が名前付きのコンポーネントで終了していない場合、GetFileName メソッド
+は長さがゼロの文字列 ("") を返します。
+
+==== GetFolder メソッド
+
+指定したパス内のフォルダーに対応する**folder** オブジェクトを返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetFolder (folderspec)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|folderspec |必須。 folderspec は、特定のフォルダーへのパス (絶対または相対) です。
+|===
+
+.注釈
+
+指定されたフォルダーが存在しない場合は、エラーが発生します。
+
+==== ★GetParentFolderName メソッド
+
+指定したパスにある最後のコンポーネントの親フォルダー名が含まれる文字列を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetParentFolderName (path)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|path |必ず指定します。 返される親フォルダー名のコンポーネントのパス仕様です。
+|===
+
+.注釈
+
+path 引数で指定されたコンポーネントの親フォルダーがない場合、
+GetParentFolderName メソッドは、長さ 0 の文字列 ("") を返します。
+
+==== GetSpecialFolder メソッド
+
+指定された特殊フォルダーを返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetSpecialFolder (folderspec)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|folderspec |必須。 取得する特殊フォルダーの名前です。 「設定値」に示した任意の定数を指定できます。
+|===
+
+.Settings
+
+folderspec 引数には、次のいずれかの値を指定できます。
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |説明
+|WindowsFolder |.0 |Windows オペレーティング システムによってインストールされたファイルが格納されている Windows フォルダー。
+|SystemFolder |1-d |ライブラリ、フォント、およびデバイス ドライバーが格納されている System フォルダー。
+|TemporaryFolder |pbm-2 |一時ファイルの格納に使用される Temp フォルダー。 このパスは TMP 環境変数で指定されています。
+|===
+
+
+==== GetTempName メソッド
+
+一時ファイルまたはフォルダーを必要とする演算を実行するのに役立つ、ランダムに生
+成された一時ファイルまたはフォルダーの名前を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.GetTempName
+----
+オプションの_object_は、常に**FileSystemObject** の名前です。
+
+.注釈
+
+GetTempName メソッドでは、ファイルが作成されません。 このメソッドでは、ファイ
+ルを作成する CreateTextFile で使用できる一時ファイルの名前を提供するだけです。
+
+==== MoveFile メソッド
+
+1 つまたは複数のファイルを別の場所に移動します。
+
+.構文
+
+[source,vbscript]
+----
+object.MoveFile source, destination
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必ず指定します。 常に FileSystemObject の名前。
+|source |必須。 移動するファイルのパス。 source 引数として指定する文字列では、パスの最後の構成要素に限ってワイルドカード文字を使用できます。
+|destination |必須です。 ファイルの移動先のパス。 destination 引数には、ワイルドカード文字を使用できません。
+|===
+
+.解説
+
+source でワイルドカード文字を使用した場合、または destination がパスの区切り文
+字 ( *** ) で終わっている場合、destination は、該当するファイルを移動する既存
+のフォルダーを指定していると見なされます。 それ以外の場合、destination は作成
+する移動先ファイルの名前であると見なされます。 いずれの場合も、個々のファイル
+の移動時に起こり得ることは 3 つあります。
+
+* destination が存在しない場合は、そのファイルが移動されます。 これは通常のケースです。
+
+* destination が既存のファイルの場合は、エラーが発生します。
+
+* destination がディレクトリの場合は、エラーが発生します。
+
+source で使用したワイルドカード文字がどのファイルとも一致しなかった場合も、エ
+ラーが発生します。 MoveFile メソッドは、最初のエラーが発生した時点で処理を中止
+します。 エラーが発生するまでに行われた変更を取り消したり元に戻したりする処理
+は一切行われません。
+
+==== MoveFolder メソッド
+
+1 つまたは複数のフォルダーを別の場所に移動します。
+
+.構文
+
+[source,vbscript]
+----
+object.MoveFolder (source, destination)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必ず指定します。 常に FileSystemObject の名前。
+|source |必須。 移動するフォルダーのパス。 source 引数として指定する文字列では、パスの最後の構成要素に限ってワイルドカード文字を使用できます。
+|destination |必須です。 フォルダーの移動先のパス。 destination 引数には、ワイルドカード文字を使用できません。
+|===
+
+.解説
+
+source でワイルドカード文字を使用した場合、または destination がパスの区切り文
+字 ( *** ) で終わっている場合、destination は、該当するファイルを移動する既存
+のフォルダーを指定していると見なされます。 それ以外の場合、destination は作成
+する移動先フォルダーの名前であると見なされます。 いずれの場合も、個々のフォル
+ダーの移動時に起こり得ることは 3 つあります。
+
+* destination が存在しない場合は、そのフォルダーが移動されます。 これが通常の場合です。
+
+* destination が既存のファイルの場合は、エラーが発生します。
+
+* destination がディレクトリの場合は、エラーが発生します。
+
+source で使用したワイルドカード文字がどのフォルダーとも一致しなかった場合も、
+エラーが発生します。 MoveFolder メソッドは、最初のエラーが発生した時点で処理を
+中止します。 エラーが発生するまでに行われた変更を取り消したり元に戻したりする
+処理は一切行われません。
+
+
+==== OpenTextFile メソッド
+
+指定したファイルを開き、開いたファイルの読み取り、書き込み、または追加書き込み
+に使用できる TextStream オブジェクトを返します。
+
+.構文
+
+[source,vbscript]
+----
+object.OpenTextFile (filename, [ iomode, [ create, [ format ]]])
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に FileSystemObject の名前。
+|filename |必須です。 開くファイルを識別する文字列式です。
+|iomode |省略可能。 入力/出力モードを示します。 ForReading、ForWriting、または ForAppending のいずれかの定数を指定できます。
+|create |省略可能。 filename で指定したファイルが存在しない場合に新しいファイルを作成できるかどうかを示す ブール値です。 新しいファイルを作成する場合は True、作成しない場合は False を指定します。 既定値は False です。
+|format |省略可能。 開くファイルの形式を示す Tristate の 3 つの値のいずれかです。 省略すると、ASCII 形式でファイルが開きます。
+|===
+
+.設定
+
+iomode 引数には、次のいずれかを設定できます。
+
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |説明
+|ForReading |1-d |ファイルを読み取り専用として開きます。 このファイルには書き込むことはできません。
+|ForWriting |pbm-2 |ファイルを書き込み専用として開きます。 既存のファイルを新しいデータで置き換える場合はこのモードを使用します。 このファイルからの読み取りはできません。
+|ForAppending |8 |ファイルを開き、ファイルの最後に書き込みます。 このファイルからの読み取りはできません。
+|===
+
+
+[cols="2,1,4",options="header"]
+|===
+|定数 |値 |説明
+|TristateUseDefault |-2 |システムの既定の設定でファイルを開きます。
+|TristateTrue |-1 |Unicode 形式でファイルを開きます。
+|TristateFalse |.0 |Ascii 形式でファイルを開きます。
+|===
+
+.解説
+
+次のコードは、テキストを追加するために、 OpenTextFile メソッドを使用してファイ
+ルを開く方法を示しています。
+
+
+[source,vbscript]
+----
+Sub OpenTextFileTest
+    Const ForReading = 1, ForWriting = 2, ForAppending = 8
+    Dim fs, f
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set f = fs.OpenTextFile("c:\testfile.txt", ForAppending, TristateFalse)
+    f.Write "Hello world!"
+    f.Close
+End Sub
+----
+
+
+===== プロパティ
+
+==== Drives プロパティ
+
+ローカルコンピューターで使用できるすべての**Drive** オブジェクトで構成される
+**Drives** コレクションを返します。
+
+.構文
+
+[source,vbscript]
+----
+object.Drives
+
+The object is always a FileSystemObject.
+----
+
+.解説
+
+Drives コレクションには、メディアが挿入されていない場合でも、リムーバブル メデ
+ィア ドライブが表示されます。
+
+ For Each... を使用して、Drives コレクションのメンバーを反復処理することが
+できます。 次のコードに示されているように、次のコンストラクト。
+
+
+
+[source,vbscript]
+----
+Sub ShowDriveList
+    Dim fs, d, dc, s, n
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set dc = fs.Drives
+    For Each d in dc
+        s = s & d.DriveLetter & " - "
+        If d.DriveType = 3 Then
+            n = d.ShareName
+        Else
+            n = d.VolumeName
+        End If
+        s = s & n & vbCrLf
+    Next
+    MsgBox s
+End Sub
+----
+
+
+==== Name プロパティ
+
+指定したファイルまたはフォルダーの名前を設定または取得します。 値の取得と設定
+が可能です。
+
+.構文
+
+
+[source,vbscript]
+----
+object.Name [ = newname ]
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に、ファイル または**Folder** オブジェクトの名前を指定します。
+|newname |省略可能。 指定した場合、newname が、指定した object の新しい名前になります。
+|===
+
+
+.注釈
+
+次のコードは、 Nameプロパティの使用方法を示しています。
+
+[source,vbscript]
+----
+Sub ShowFileAccessInfo(filespec)
+    Dim fs, f, s
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set f = fs.GetFile(filespec)
+    s = f.Name & " on Drive " & UCase(f.Drive) & vbCrLf
+    s = s & "Created: " & f.DateCreated & vbCrLf
+    s = s & "Last Accessed: " & f.DateLastAccessed & vbCrLf
+    s = s & "Last Modified: " & f.DateLastModified
+    MsgBox s, 0, "File Access Info"
+End Sub
+----
+
+
+== TextStream オブジェクト
+
+ファイルへの一連のアクセスを容易にします。
+
+.構文
+
+[source,vbscript]
+----
+TextStream. { property | method }
+----
+
+property 引数と method 引数は、TextStream オブジェクトに関連付けられている任意
+のプロパティとメソッドになることができます。 実際の使用時に、TextStream は、
+FileSystemObject から返される TextStream オブジェクトを表す変数プレースホルダ
+ーに置き換えられます。
+
+.解説
+
+次のコードで、a は、FileSystemObject 上の CreateTextFile メソッドによって返さ
+れる TextStream オブジェクトです。WriteLine と Close は、TextStream オブジェク
+トの 2 つのメソッドです。
+
+[source,vbscript]
+----
+Set fs = CreateObject("Scripting.FileSystemObject")
+Set a = fs.CreateTextFile("c:\testfile.txt", True)
+a.WriteLine("This is a test.")
+a.Close
+----
+
+.メソッド
+
+[cols="1,4",options="header"]
+|===
+|メソッド |説明
+|Close |開いている TextStream ファイルを閉じます。
+|Read |指定した文字数を TextStream ファイルから読み取り、結果を返します。
+|ReadAll |TextStream ファイル全体を読み取り、結果を返します。
+|ReadLine |TextStream ファイルから 1 行を読み取り、結果を返します。
+|Skip |TextStream ファイルを読み取るときに、指定した文字数をスキップします。
+|SkipLine |TextStream ファイルを読み取るときに、次の行をスキップします。
+|Write |指定したテキストを TextStream ファイルに書き込みます。
+|WriteBlankLines |指定した数の改行文字を TextStream ファイルに書き込みます。
+|WriteLine |指定したテキストと改行文字を TextStream ファイルに書き込みます。
+|===
+
+
+.プロパティ
+
+[cols="1,4",options="header"]
+|===
+|プロパティ |説明
+|AtEndOfLine |TextStream ファイルの行末マーカーの直前にファイル ポインターがある場合は true を返し、そうでない場合は false を返します。
+|AtEndOfStream |TextStream の最後にファイル ポインターがある場合は true を返し、そうでない場合は false を返します。
+|Column |入力ストリーム内の現在の文字位置の列番号を返します。
+|Line |TextStream ファイル内の現在の行番号を返します。
+|===
+
+
+=== メソッド
+
+==== Close メソッド
+
+開いている**TextStream** ファイルを閉じます。
+
+.構文
+
+[source,vbscript]
+----
+object.Close
+----
+
+object は常に TextStream オブジェクトの名前となります。
+
+
+
+
+
+==== Read メソッド
+
+TextStream ファイルから指定した数の文字を読み取って、結果の文字列を戻します。
+
+.構文
+
+[source,vbscript]
+----
+object.Read (characters)
+----
+
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
+|characters |必須。 ファイルから読み取る文字数を指定します。
+|===
+
+==== ReadAll メソッド
+
+TextStream ファイル全体を読み取って、結果の文字列を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.ReadAll
+----
+
+object は常に TextStream オブジェクトの名前となります。
+
+.解説
+
+大きなファイルで ReadAll メソッドを使用すると、メモリ リソースを大量に使用しま
+す。 ファイルを1行ずつ読み取るなど、他の手法を使用してファイルを入力する必要が
+あります。
+
+
+==== ReadLine メソッド
+
+TextStream ファイルから行全体 (改行文字の前まで) を読み取り、その文字列を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.ReadLine
+----
+
+_Object_引数は常に**TextStream** オブジェクトの名前です。
+
+==== Skip メソッド
+
+TextStream を読み込むときに、指定された数の文字をスキップします。
+
+.構文
+
+[source,vbscript]
+----
+object.Skip (characters)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
+|characters |必須。 ファイルを読み込むときにスキップする文字数。
+|===
+
+.注釈
+
+スキップした文字は破棄されます。
+
+==== SkipLine メソッド
+
+TextStream ファイルを読むときに、次の行をスキップします。
+
+.構文
+
+[source,vbscript]
+----
+object.SkipLine
+----
+
+object は常に TextStream オブジェクトの名前となります。
+
+.解説
+
+行をスキップするとは、次の改行文字まで、その改行文字を含め、行内のすべての文字
+を読み取って破棄することを意味します。
+
+ファイルが読み取り用に開かれていない場合、エラーが発生します。
+
+
+==== Write メソッド
+
+指定した文字列を TextStream ファイルに書き込みます。
+
+.構文
+
+[source,vbscript]
+----
+object.Write (string)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
+|string |必須。 ファイルに書き込むテキストです。
+|===
+
+.注釈
+
+文字列を複数指定した場合、各文字列がスペースや文字で区切られずに続けて書き込ま
+れます。 改行文字や最後が改行文字で終わる文字列を書き込む場合は、WriteLine メ
+ソッドを使用します。
+
+==== Write空白行メソッド
+
+指定した数の改行文字を、TextStream ファイルに書き込みます。
+
+.構文
+
+[source,vbscript]
+----
+object.WriteBlankLines (lines)
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
+|lines |必須。 ファイルに書き込む改行文字の数。
+|===
+
+==== WriteLine メソッド
+
+指定された文字列および改行文字を TextStream ファイルに書き込みます。
+
+.構文
+
+[source,vbscript]
+----
+object.WriteLine ([ string ])
+----
+
+[cols="1,4",options="header"]
+|===
+|パーツ |説明
+|object |必須です。 常に**TextStream** オブジェクトの名前を指定します。
+|string |省略可能。 ファイルに書き込むテキスト。 省略した場合は、改行文字がファ
+イルに書き込まれます。
+|===
+
+=== プロパティ
+
+==== AtEndOfLine プロパティ
+
+TextStream ファイルの行末マーカーの直前にファイル ポインターがある場合は True
+を返す読み取り専用のプロパティです。ない場合は False を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.AtEndOfLine
+----
+
+object は常に TextStream オブジェクトの名前となります。
+
+.解説
+
+AtEndOfLine プロパティは、読み取りを行うように開いた TextStream ファイルに対し
+てのみ使用できます。それ以外の場合は、エラーが発生します。
+
+次のコードは、AtEndOfLine プロパティの使用例を示しています。
+
+[source,vbscript]
+----
+Dim fs, a, retstring
+Set fs = CreateObject("Scripting.FileSystemObject")
+Set a = fs.OpenTextFile("c:\testfile.txt", ForReading, False)
+Do While a.AtEndOfLine <> True
+    retstring = a.Read(1)
+    ...
+Loop
+a.Close
+----
+
+==== AtEndOfStream プロパティ
+
+TextStream ファイルの末尾にファイル ポインターがある場合は True を返す読み取り
+専用のプロパティです。ない場合は False を返します。
+
+.構文
+
+[source,vbscript]
+----
+object.AtEndOfStream
+----
+
+object は常に TextStream オブジェクトの名前となります。
+
+.解説
+
+AtEndOfStream プロパティは、読み取りを行うように開いた TextStream ファイルに対
+してのみ使用できます。それ以外の場合は、エラーが発生します。
+
+次のコードは、AtEndOfStream プロパティの使用例を示しています。
+
+[source,vbscript]
+----
+Dim fs, a, retstring
+Set fs = CreateObject("Scripting.FileSystemObject")
+Set a = fs.OpenTextFile("c:\testfile.txt", ForReading, False)
+Do While a.AtEndOfStream <> True
+    retstring = a.ReadLine
+    ...
+Loop
+a.Close
+----
+
+==== Column プロパティ
+TextStream ファイル内の現在の文字位置の列番号を返す読み取り専用プロパティです。
+
+.構文
+
+[source,vbscript]
+----
+object.Column
+----
+
+object は常に TextStream オブジェクトの名前となります。
+
+.解説
+
+改行文字が書き込まれた後から、その他の文字が書き込まれる前まで、Column は 1 と
+等しくなります。
+
+==== Line プロパティ
+
+TextStream ファイル内の現在の行番号を返す読み取り専用のプロパティ。
+
+.構文
+
+[source,vbscript]
+----
+object.Line
+----
+
+object は常に TextStream オブジェクトの名前となります。
+
+.解説
+
+ファイルを初めて開き、書き込みを行う前は、Line は 1 です。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6177,7 +7272,11 @@ _Line_引数には、任意の行ラベルまたは行番号を指定します�
 にします。 +
 指定した_行_は、 On Errorステートメントと同じプロシージャ内にある必要がありま
 す。それ以外の場合は、コンパイル時エラーが発生します。 
-|On Error Resume Next |実行時エラーが発生したときに、エラーが発生して実行が続行されるステートメントの直後のステートメントに制御が移動することを指定します。 オブジェクトにアクセスするときは、 On Error GoTo の代わりにこの形式を使用してください。
+|On Error Resume Next |実行時エラーが発生したときに、エラーが発生して実行が続行
+されるステートメントの直後のステートメントに制御が移動することを指定します。 オ
+ブジェクトにアクセスするときは、 On Error GoTo の代わりにこの形式を使用してくだ
+さい。
+
 |On Error GoTo 0 |現在のプロシージャですべての有効なエラー ハンドラーを無効にします。
 |===
 
@@ -6189,9 +7288,9 @@ On Error ステートメントを使用しない場合は、発生するすべ�
 "Enabled" エラーハンドラーは、 On errorステートメントによって有効にされたもの
 です。"アクティブな" エラーハンドラーは、エラー処理のプロセスに含まれる有効な
 ハンドラーです。 エラー処理ルーチンがアクティブな間 (error の発生とResume、
-<<exit,exit Sub、 Exit Function、またはexit Property>>ステートメントの間) にエラーが
-発生すると、現在のプロシージャのエラーハンドラーはエラーを処理できません。 制
-御は、呼び出し元のプロシージャに戻ります。
+<<exit,exit Sub、 Exit Function、またはexit Property>>ステートメントの間) にエ
+ラーが発生すると、現在のプロシージャのエラーハンドラーはエラーを処理できません。
+制御は、呼び出し元のプロシージャに戻ります。
 
 呼び出し元のプロシージャに有効なエラー処理ルーチンがある場合は、エラーを処理す
 るためにアクティブ化されます。 呼び出し元のプロシージャのエラーハンドラーがア
@@ -6306,31 +7405,33 @@ CAUTION:	Windowsダイナミックリンクライブラリ(DLL) または Macint
 [source,vbscript]
 ----
 Sub OnErrorStatementDemo() 
- On Error GoTo ErrorHandler ' Enable error-handling routine. 
- Open "TESTFILE" For Output As #1 ' Open file for output. 
- Kill "TESTFILE" ' Attempt to delete open 
- ' file. 
- On Error Goto 0 ' Turn off error trapping. 
- On Error Resume Next ' Defer error trapping. 
- ObjectRef = GetObject("MyWord.Basic") ' Try to start nonexistent 
- ' object, then test for 
-'Check for likely Automation errors. 
- If Err.Number = 440 Or Err.Number = 432 Then 
- ' Tell user what happened. Then clear the Err object. 
- Msg = "There was an error attempting to open the Automation object!" 
- MsgBox Msg, , "Deferred Error Test" 
- Err.Clear ' Clear Err object fields 
- End If 
-Exit Sub ' Exit to avoid handler. 
+    On Error GoTo ErrorHandler ' Enable error-handling routine. 
+    Open "TESTFILE" For Output As #1 ' Open file for output. 
+    Kill "TESTFILE" ' Attempt to delete open 
+    ' file. 
+    On Error Goto 0 ' Turn off error trapping. 
+    On Error Resume Next ' Defer error trapping. 
+    ObjectRef = GetObject("MyWord.Basic") ' Try to start nonexistent 
+    ' object, then test for 
+    'Check for likely Automation errors. 
+    If Err.Number = 440 Or Err.Number = 432 Then 
+        ' Tell user what happened. Then clear the Err object. 
+        Msg = "There was an error attempting to open the Automation object!" 
+        MsgBox Msg, , "Deferred Error Test" 
+        Err.Clear ' Clear Err object fields 
+    End If 
+    Exit Sub ' Exit to avoid handler. 
+
 ErrorHandler: ' Error-handling routine. 
- Select Case Err.Number ' Evaluate error number. 
- Case 55 ' "File already open" error. 
- Close #1 ' Close open file. 
- Case Else 
- ' Handle other situations here... 
- End Select 
- Resume ' Resume execution at same line 
- ' that caused the error. 
+
+    Select Case Err.Number ' Evaluate error number. 
+        Case 55 ' "File already open" error. 
+            Close #1 ' Close open file. 
+        Case Else 
+            ' Handle other situations here... 
+    End Select 
+    Resume ' Resume execution at same line 
+    ' that caused the error. 
 End Sub
 ----
 

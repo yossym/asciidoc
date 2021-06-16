@@ -46,11 +46,12 @@
 
             ' <!-- msgbox fso.GetAbsolutePathName("./") -->
 
-            set ts = fso.OpenTextFile("./hoge.txt", ForWriting, True)
-            ts.writeline(document.form1.text1.value)
-            ts.writeline(document.form1.text1.value)
+            set ts = fso.OpenTextFile("./sample.txt", ForWriting, True)
+            ts.writeline( "1行テキスト "& document.form1.text1.value)
+            ts.writeline(document.form1.listvalue1.value)
 
             ts.close
+
             'ラジオボタンの値を取得
             For i = 0 To document.form1.rd.length - 1
                 if document.form1.rd(i).checked then

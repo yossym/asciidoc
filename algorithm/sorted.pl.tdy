@@ -1,0 +1,91 @@
+#!/bin/perl -s
+
+=head1 NAME
+
+sorted
+
+=head1 SYNOPSIS
+
+sorted
+
+=head1 DESCRIPTION
+
+=cut
+
+use strict;
+use warnings;
+
+use feature qw( switch say );
+
+# use feature ':5.10';
+# say $msg;
+
+use autodie;
+use English;    # for use AWK varible
+$ORS = "\n";
+
+# $OFS = ",";
+
+use utf8;
+
+# if ms-dos
+binmode STDIN,  ':encoding(cp932)';
+binmode STDOUT, ':encoding(cp932)';
+binmode STDERR, ':encoding(cp932)';
+
+# if linux
+#binmode STDIN,  ":utf8";
+#binmode STDOUT, ":utf8";
+#binmode STDERR, ":utf8";
+
+# import
+use Data::Lock qw/dlock dunlock/;
+
+use POSIX qw(strftime);
+
+# 現在の日付・時刻を、取得
+# my $datetime = strftime("%a, %d %b %Y %H:%M:%S %z", localtime());
+
+use Data::Dumper;
+#
+## データをダンプ
+#my $dump_string = Dumper $data;
+
+# my @words = ();
+# while ( my $line = <STDIN>) {
+#     chomp($line);
+#     push @words,$line;
+# }
+
+sub bubbleSort {
+    my @numbers = @_;
+    my $length  = @numbers;
+
+    for ( my $i = 0 ; $i < $length - 1 ; $i++ ) {
+        for ( my $j = $length - 1 ; $j > $i ; $j-- ) {
+            if ( $numbers[ $j - 1 ] > $numbers[$j] ) {
+                my $temp = $numbers[ $j - 1 ];
+                $numbers[ $j - 1 ] = $numbers[$j];
+                $numbers[$j] = $temp;
+
+            }
+        }
+    }
+    return @numbers;
+}
+
+my @numbers = ();
+
+sub main {
+
+    while ( my $line = <STDIN> ) {
+        chomp($line);
+        push @numbers, $line;
+    }
+    @numbers = bubbleSort(@numbers);
+    say Dumper @numbers;
+
+}
+
+main
+

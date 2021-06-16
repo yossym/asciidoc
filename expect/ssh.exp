@@ -1,0 +1,26 @@
+#!/usr/bin/expect
+
+set PW "passwd"
+set timeout 5
+
+spawn env LAN=C /usr/bin/ssh yossym@192.168.3.4
+
+expect {
+        "(yes/no)?"     {
+                send "yes\n"
+                exp_continue
+        }
+        "password:"     {
+                send "${PW}\n"
+        }
+}
+expect  {
+        "\\\$"  {
+                send "ls\n"
+        }
+}
+expect  {
+        "\\\$"  {
+                exit 0
+        }
+}

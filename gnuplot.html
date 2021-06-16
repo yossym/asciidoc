@@ -445,12 +445,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">yossym</span><br>
 <span id="email" class="email"><a href="mailto:docomoxyz@gmail.com">docomoxyz@gmail.com</a></span><br>
-<span id="revdate">2021-04-14</span>
+<span id="revdate">2021-06-06</span>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_起動終了">起動、終了</a></li>
+<li><a href="#_サンプル描画">サンプル描画</a></li>
+<li><a href="#_色指定">色指定</a></li>
 <li><a href="#_ファイル読み込み">ファイル読み込み</a>
 <ul class="sectlevel2">
 <li><a href="#_ファイル出力">ファイル出力</a></li>
@@ -471,6 +473,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_key">key</a></li>
 </ul>
 </li>
+<li><a href="#_線種など">線種など</a>
+<ul class="sectlevel2">
+<li><a href="#_描画サンプル">描画サンプル</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -488,6 +495,40 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="title">終了</div>
 <div class="content">
 <pre class="highlight"><code class="language-gnuplot" data-lang="gnuplot">gnuplot&gt; quit</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_サンプル描画">サンプル描画</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>test</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>test palette</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">ファイル出力</div>
+<div class="content">
+<pre>gnuplot&gt; set term png
+gnuplot&gt; set output "test.png"
+gnuplot&gt; test</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_色指定">色指定</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">matlabで使われている”jet”</div>
+<div class="content">
+<pre>set palette defined ( 0 '#000090',1 '#000fff',2 '#0090ff',3 '#0fffee',4 '#90ff70',5 '#ffee00',6 '#ff7000',7 '#ee0000',8 '#7f0000')</pre>
 </div>
 </div>
 </div>
@@ -761,10 +802,112 @@ set grid with lw 1 lc rgb "blue"</pre>
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_線種など">線種など</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>with &lt;style&gt; { {linestyle | ls &lt;line_style&gt;}
+               | {{linetype  | lt &lt;line_type&gt;}
+                  {linewidth | lw &lt;line_width&gt;}
+                  {linecolor | lc &lt;colorspec&gt;}
+                  {pointtype | pt &lt;point_type&gt;}
+                  {pointsize | ps &lt;point_size&gt;}
+                  {arrowstyle | as &lt;arrowstyle_index&gt;}
+                  {fill | fs &lt;fillstyle&gt;} {fillcolor | fc &lt;colorspec&gt;}
+                  {nohidden3d} {nocontours} {nosurface}
+                  {palette}}
+             }</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where &lt;style&gt; is one of</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>lines        dots       steps     vectors      yerrorlines
+points       impulses   fsteps    xerrorbar    xyerrorbars
+linespoints  labels     histeps   xerrorlines  xyerrorlines
+financebars  surface    arrows    yerrorbar    parallelaxes</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>boxes         boxplot        ellipses       histograms  rgbalpha
+boxerrorbars  candlesticks   filledcurves   image       rgbimage
+boxxyerror    circles        fillsteps      pm3d        polygons
+isosurface    zerrorfill</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>table</pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. 代表的な線種</caption>
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 60%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">with points</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">点で描画する</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">with lines</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">線で描画する</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">with boxes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">棒グラフに描画する</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">with steps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">階段状に描画する</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">with impulses</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">インパルス（垂線）で描画する</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">with dots</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">小さな点で描画する（データ点が極めて多数あるときに有用）</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_描画サンプル">描画サンプル</h3>
+<div class="listingblock">
+<div class="title">data.txt</div>
+<div class="content">
+<pre>1.2    1.5        2.3
+1.3    1.6        2.2
+1.4    1.7        2.2
+1.5    1.75      2.5</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">samplt.plt</div>
+<div class="content">
+<pre>plot "data.txt" using 1:2 with lines title "hoge" \
+, "data.txt" using 2:3 with points title "fuga"</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-14 05:39:18 +0900
+Last updated 2021-06-06 08:26:13 +0900
 </div>
 </div>
 </body>

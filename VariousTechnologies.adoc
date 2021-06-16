@@ -1,0 +1,707 @@
+= いろいろ
+:Author:	yossym
+
+
+== windows バッチ
+
+=== 日付
+
+----
+echo %date:/=%
+20210613
+
+
+
+
+echo %time%
+12:17:38.26
+
+echo %time::=%
+121725.90
+
+echo %time: =0%
+12:27:25.32
+
+
+set ts=%time: =0%
+12:27:25.32
+echo %ts:~0,2%%ts:~3,2%%ts:~6,2%
+123037
+----
+
+=== hostname
+
+
+----
+echo %COMPUTERNAME%
+DESKTOP-PC
+----
+=== 【Windows 10対応】Windowsのバッチファイルの基本的な使い方
+[【Windows 10対応】Windowsのバッチファイルの基本的な使い方：Tech TIPS（1/4 ページ） - ＠IT](https://www.atmarkit.co.jp/ait/articles/1506/26/news026.html)
+
+==== バッチファイルの基本
+
+
+
+
+拡張子は[.bat][.cmd]
+
+==== if文による条件分岐
+.文字列の一致／不一致のチェック
+
+----
+if ［not］文字列1==文字列2 ＜コマンド＞
+----
+
+
+.数値の比較
+----
+if 文字列1 ＜演算子＞ 文字列2 ＜コマンド＞
+----
+
+「EQU（等しい）」
+「NEQ（等しくない）」
+「LSS（より小さい）」
+「LEQ（以下）」
+「GTR（より大きい）」
+「GEQ（以上）」
+
+
+.ファイルやフォルダの存在の確認
+----
+if ［not］exist ＜パス名＞ ＜コマンド＞
+----
+
+
+.コマンドのエラーレベルの検出
+----
+if ［not］errorlevel ＜数値＞ ＜コマンド＞
+----
+
+==== gotoとラベル、exit
+
+----
+goto ＜ラベル＞
+
+goto :eof
+
+
+:eof
+REM 終了コード1
+exit /b 1
+----
+
+==== callによるバッチファイルの呼び出し
+
+==== バッチファイル内のcall呼び出し
+
+
+
+==== for文による繰り返し処理
+
+----
+for %%i in (*.*) do echo %%i
+----
+
+
+
+=== バッチファイルの先頭に書いておこう
+
+[source]
+----
+@echo off
+setlocal 
+cd /d %~dp0
+
+end local
+exit /b
+----
+
+=== https://docs.microsoft.com/ja-jp/windows-server/administration/windows-commands/commands-by-server-role[サーバーの役割別のコマンド | Microsoft Docs]
+
+==== call
+
+親バッチプログラムを停止せずに、別のバッチプログラムから1つのバッチプログラム
+を呼び出します。 Call コマンドは、ラベルを呼び出しのターゲットとして受け入れま
+す。
+
+.構文
+
+----
+call [drive:][path]<filename> [<batchparameters>] [:<label> [<arguments>]]
+----
+
+.パラメーター
+
+
+[cols="1,4",options="header"]
+|===
+|パラメーター                 | 説明
+|[<drive>:][<path>]<filename> | 呼び出すバッチプログラムの場所と名前を指定します。 <filename>パラメーターは必須であり、.bat または .cmd 拡張子を持つ必要があります。
+|<batchparameters>            | バッチプログラムに必要なコマンドライン情報を指定します。
+|:<label>                     | バッチプログラムコントロールのジャンプ先のラベルを指定します。
+|<arguments>                  | バッチプログラムの新しいインスタンスに渡されるコマンドライン情報を指定し :<label> ます。
+|/?                           | コマンド プロンプトにヘルプを表示します。
+|===
+
+.バッチパラメーター
+
+次の表に、バッチスクリプト引数の参照 (%0、 %1、...) を示します。
+
+バッチスクリプトで % * 値を使用すると、すべての引数が参照されます (たとえば、
+%1、 %2、 %3...)。
+
+バッチパラメーター (% n) の代替として、次のオプションの構文を使用できます。
+
+
+[cols="1,4",options="header"]
+|===
+|バッチパラメーター | 説明
+|% ~ 1              | %1 を展開し、囲まれた引用符を削除します。
+|% ~ f1             | %1 を完全修飾パスに展開します。
+|% ~ d1             | %1 をドライブ文字のみに拡張します。
+|% ~ p1             | %1 をパスのみに展開します。
+|% ~ n1             | %1 をファイル名のみに展開します。
+|% ~ x1             | %1 をファイル名拡張子のみに拡張します。
+|% ~ s1             | %1 を短い名前のみを含む完全修飾パスに展開します。
+|% ~ a1             | %1 をファイル属性に展開します。
+|% ~ t1             | %1 をファイルの日付と時刻に拡張します。
+|% ~ z1             | %1 をファイルのサイズに拡張します。
+|% ~ $PATH: 1       | PATH 環境変数に示されているディレクトリを検索し、 %1 を、
+見つかった最初のディレクトリの完全修飾名に展開します。 環境変数名が定義されて
+いない場合、または検索によってファイルが見つからない場合、この修飾子は空の文字
+列に展開されます。
+|===
+
+次の表は、修飾子と、複合結果のバッチパラメーターを組み合わせる方法を示していま
+す。
+
+.テーブル 3
+
+
+[cols="1,4",options="header"]
+|===
+|修飾子を使用したバッチパラメーター | 説明
+|% ~ sjc-dp1                        | %1 をドライブ文字とパスのみに拡張します。
+|% ~ nx1                            | %1 をファイル名と拡張子のみに拡張します。
+|% ~ dp $ PATH: 1                   | %1 の path 環境変数に示されているディレ
+クトリを検索し、見つかった最初のディレクトリのドライブ文字とパスに展開します。
+|% ~ ftza1                          | %1 を拡張して、 dir コマンドと同様の出力
+を表示します。
+|===
+
+上記の例では、 %1 と PATH を他の有効な値に置き換えることができます。 %~ 構文が
+有効な引数番号で終了しています。 %~ 修飾子を % * と共に使用することはできませ
+ん。
+
+
+.解説
+
+* バッチパラメーターの使用:
+
+バッチパラメーターには、バッチプログラムに渡すことができるすべての情報を含める
+ことができます。これには、コマンドラインオプション、ファイル名、バッチパラメー
+ター %0 から %9、変数 ( % baud% など) が含まれます。
+
+*    次のパラメーターを使用し <label> ます。
+
+パラメーターを指定して call を使用 <label> すると、新しいバッチファイルコンテ
+キストを作成し、指定したラベルの後のステートメントに制御を渡すことができます。
+バッチファイルの末尾が初めて検出されたとき (つまり、ラベルにジャンプした後)、
+control は call ステートメントの後のステートメントに戻ります。 バッチファイル
+の終わりが2回目になると、バッチスクリプトが終了します。
+
+* パイプとリダイレクトシンボルの使用:
+
+(|)呼び出しでパイプやリダイレクトシンボル (または) を使用しないで < > ください。
+
+* 再帰呼び出しを行う
+
+自身を呼び出すバッチプログラムを作成できます。 ただし、終了条件を指定する必要
+があります。 それ以外の場合、親と子のバッチプログラムは無限にループする可能性
+があります。
+
+* コマンド拡張機能の使用
+
+コマンド拡張機能が有効になっている場合 、呼び出し <label> のターゲットとしてを
+受け入れます。 正しい構文は、 call :<label> <arguments>
+
+.例
+
+別の batch プログラムから checknew.bat プログラムを実行するには、親 batch プロ
+グラムに次のコマンドを入力します。
+
+----
+call checknew
+----
+
+親バッチプログラムが2つのバッチパラメーターを受け入れ、それらのパラメーターを
+checknew.bat に渡す必要がある場合は、親 batch プログラムに次のコマンドを入力し
+ます。
+
+----
+call checknew %1 %2
+----
+
+
+==== if
+
+バッチプログラムで条件付き処理を実行します。
+
+.構文
+
+----
+if [not] ERRORLEVEL <number> <command> [else <expression>]
+if [not] <string1>==<string2> <command> [else <expression>]
+if [not] exist <filename> <command> [else <expression>]
+----
+
+コマンド拡張機能が有効になっている場合は、次の構文を使用します。
+
+----
+if [/i] <string1> <compareop> <string2> <command> [else <expression>]
+if cmdextversion <number> <command> [else <expression>]
+if defined <variable> <command> [else <expression>]
+----
+
+.パラメーター
+
+[cols="1,4",options="header"]
+|===
+|パラメーター           | 説明
+|not                    | 条件が false の場合にのみコマンドを実行するように指定します。
+|errorlevel <number>    | Cmd.exe によって実行された前回のプログラムが、 number 以上の終了コードを返した場合にのみ、true の条件を指定します。
+|<command>              | 前の条件が満たされた場合に実行するコマンドを指定します。
+|<string1>==<string2>   | String1 と string2 が同じ場合にのみ true 条件を指定します。 これらの値には、リテラル文字列またはバッチ変数 (など) を指定でき %1 ます。 リテラル文字列を引用符で囲む必要はありません。
+|まだ <filename>        | 指定されたファイル名が存在する場合に true 条件を指定します。
+|<compareop>            | 次のように、3文字の比較演算子を指定します。
+
+* 等しい -Equal to
+
+* Neq -等しくない
+
+* Lss -より小さい
+
+* Leq -以下
+
+* Gtr -より大きい
+
+* Geq -以上
+
+|/i                     | 大文字小文字を無視するように文字列比較を強制します。 /I は、 string1==string2 if の形式で使用できます。 これらの比較は一般に、 string1 と string2 の両方が数字のみで構成されている場合、文字列は数値に変換され、数値比較が実行されます。
+|cmdextversion <number> | Cmd.exe のコマンド拡張機能に関連付けられている内部バージョン番号が指定した数以上の場合にのみ、true 条件を指定します。 最初のバージョンは1です。 コマンド拡張機能に大幅な拡張が追加されると、1つずつ増加します。 コマンド拡張機能が無効になっている場合 (既定では、コマンド拡張機能が有効になっている場合)、 cmdextversion 条件は満たされません。
+|defined <variable>     | 変数 が定義されている場合に true 条件を指定します。
+|<expression>           | コマンドラインコマンドと、 else 句でコマンドに渡すパラメーターを指定します。
+|/?                     | コマンド プロンプトにヘルプを表示します。
+|===
+
+.解説
+
+If 句に指定された条件が true の場合、条件に従ったコマンドが実行されます。条件
+が false の場合、 if 句のコマンドは無視され、コマンドは else 句で指定されてい
+るすべてのコマンドを実行します。
+
+プログラムが停止すると、終了コードが返されます。 終了コードを条件として使用す
+るには、 errorlevel パラメーターを使用します。
+
+を 定義 した場合、次の3つの変数が環境に追加されます: % errorlevel%、 %
+cmdcmdline%、および % cmdextversion%。
+
+% errorlevel%: errorlevel 環境変数の現在の値の文字列形式に展開されます。 この
+% 変数は、ERRORLEVEL という名前の既存の環境変数が存在しないことを前提としてい
+% ます。 存在する場合は、代わりに ERRORLEVEL 値を取得します。
+
+% cmdcmdline%: Cmd.exe によって処理される前に Cmd.exe に渡された元のコマンドラ
+% インに展開されます。 これは、CMDCMDLINE という名前の既存の環境変数が存在しな
+% いことを前提としています。 存在する場合は、代わりに CMDCMDLINE 値を取得しま
+% す。
+
+% cmdextversion%: cmdextversion の現在の値の文字列形式に展開されます。 これは、
+% CMDEXTVERSION という名前の既存の環境変数が存在しないことを前提としています。
+% 存在する場合は、代わりに CMDEXTVERSION の値を取得します。
+
+If の後のコマンドと同じ行で else 句を使用する必要があります。
+
+.例
+
+ファイルの製品が見つからない場合、"データファイルが見つかりません" というメッ
+セージが表示されるようにするには、次のように入力します。
+
+----
+if not exist product.dat echo Cannot find data file
+----
+
+フォーマット処理中にエラーが発生した場合に、ドライブ A のディスクをフォーマッ
+トし、エラーメッセージを表示するには、次の行をバッチファイルに入力します。
+
+----
+:begin
+@echo off
+format a: /s
+if not errorlevel 1 goto end
+echo An error occurred during formatting.
+:end
+echo End of batch program.
+----
+
+現在のディレクトリからファイルの製品 .dat を削除するか、または製品 .dat が見つ
+からない場合はメッセージを表示するには、バッチファイルに次の行を入力します。
+
+----
+IF EXIST Product.dat (
+del Product.dat
+) ELSE (
+echo The Product.dat file is missing.
+)
+----
+
+.注意
+
+これらの行は、次のように1つの行に結合できます。
+
+----
+IF EXIST Product.dat (del Product.dat) ELSE (echo The Product.dat file is missing.)
+----
+
+バッチファイルを実行した後に ERRORLEVEL 環境変数の値をエコーするには、バッチフ
+ァイルに次の行を入力します。
+
+----
+goto answer%errorlevel%
+:answer1
+echo The program returned error level 1
+goto end
+:answer0
+echo The program returned error level 0
+goto end
+:end
+echo Done!
+----
+
+ERRORLEVEL 環境変数の値が1以下の場合は、[ok] を指定すると、次のように入力します。
+
+----
+if %errorlevel% LEQ 1 goto okay
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=== 変数
+
+// [cols="1,4,4"]
+// |====
+// %
+// |====
+
+== Linux bash
+
+=== vim
+
+..vimrc
+----
+set ignorecase		" 大文字と小文字を区別しない
+set nowrapscan          " 検索を折り返さない
+set noincsearch         " インクリメンタルサーチはしない
+set hlsearch            " 強調表示
+colorscheme zeller
+
+set encoding=utf-8
+set fileencodings=utf-8,euc-jp,iso-2022-jp,cp932
+
+" ファイル名表示
+set statusline=%F
+" 変更チェック表示
+set statusline+=%m
+" 読み込み専用かどうか表示
+set statusline+=%r
+" ヘルプページなら[HELP]と表示
+set statusline+=%h
+" プレビューウインドウなら[Prevew]と表示
+set statusline+=%w
+" これ以降は右寄せ表示
+set statusline+=%=
+" file encoding
+set statusline+=[ENC=%{&fileencoding}]
+" 現在行数/全行数
+set statusline+=[LOW=%l/%L]
+" ステータスラインを常に表示(0:表示しない、1:2つ以上ウィンドウがある時だけ表示)
+set laststatus=2
+----
+
+
+=== ubuntu xrdp
+
+----
+sudo apt install xserver-xorg-core xorgxrdp
+----
+
+
+----
+u_setting.sh
+cat <<EOF > ~/.xsessionrc
+export GNOME_SHELL_SESSION_MODE=ubuntu
+export XDG_CURRENT_DESKTOP=ubuntu:GNOME
+export XDG_DATA_DIRS=/usr/share/ubuntu:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+export XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+EOF
+----
+
+
+----
+
+cat g_setting.sh
+sudo sed -e 's/^new_cursors=true/new_cursors=false/g' -i /etc/xrdp/xrdp.ini
+
+cat <<EOF | \
+sudo tee /etc/polkit-1/localauthority/50-local.d/xrdp-color-manager.pkla
+[Netowrkmanager]
+Identity=unix-user:*
+Action=org.freedesktop.color-manager.create-device
+ResultAny=no
+ResultInactive=no
+ResultActive=yes
+EOF
+
+sudo systemctl restart xrdp
+sudo systemctl restart polkit
+----
+
+=== bash
+
+----
+function signal_int () {
+	echo "interrupt"
+	exit 0
+}
+
+trap signal_int sigint
+----
+
+
+.一般的なシグナル名一覧
+
+[cols="2,2,4",options="header"]
+|===
+|シグナル番号 | シグナル名 | 通知内容
+|1            | HUP        | プロセスに再起動を通知する。
+|2            | INT        | プロセスに割り込みを通知する。(Ctrl+c)
+|3            | QUIT       | プロセスに終了を通知する。(coreを作成する)
+|9            | KILL       | プロセスに強制終了を通知する。
+|15           | TERM       | プロセスに終了を通知する。(デフォルト)
+|18           | CONT       | プロセスに再開を通知する。
+|19           | STOP       | プロセスに中断を通知する。
+|20           | TSTP       | プロセスにサスペンドを通知する。(Ctrl+Z)
+|===
+
+----
+kill -l
+ 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
+ 6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1
+11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM
+16) SIGSTKFLT   17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
+21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO       30) SIGPWR
+31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3
+38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12
+53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7
+58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+63) SIGRTMAX-1  64) SIGRTMAX
+----
+
+== teraterm
+
+.バッチファイル
+----
+start "" "tetaterm" 192.168.3.1 /nosecuritywarning /auto=password /user=hoge /passwd=hoge
+----
+
+.teraterm macro
+----
+;	AP等にsshもしくはtelnetでログインする
+;	ファイル名を利用してログイン情報を取得してteratermでログインする。
+;
+;	ciscossh@192.168.1.3@admin@version1@.ttl
+;	com@3@root@version1@.ttl
+;	ssh@192.168.1.3@root@version1@.ttl
+;	telnet@192.168.1.3@root@version1@.ttl
+;	 ^	^	  ^	^---	バージョン情報
+;	 |	|	  +---		ログインユーザ名
+;	 |	+---			接続先IPアドレス
+;	 +---				sshもしくはtelnet
+
+; variable define
+strsplit param1 "@"
+protocol=groupmatchstr1
+serverip=groupmatchstr2
+username=groupmatchstr3
+logFileWirteDoNotdo=groupmatchstr4
+TelnetPrompt=":"
+sprintf2 psswdfilename "%s@password.dat" serverip
+timeout=5
+
+
+toupper protocol protocol
+
+;messagebox protocol serverip
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+getpassword psswdfilename username password
+
+strcompare "SSH" protocol
+
+	if result=0 then
+		sprintf2 concmd "%s /ssh /2 /auth=password /user=%s /passwd=%s /keyfile=ssh_known_hosts /nosecuritywarning" serverip username password
+		connect concmd
+	endif
+
+strcompare "TELNET" protocol
+
+	if result=0 then
+		sprintf2 concmd "%s:23 /nossh /T=1" serverip
+		connect concmd
+
+		wait TelnetPrompt
+		sendln username
+
+		wait TelnetPrompt
+		sendln password
+	endif
+
+strscan protocol "COM"
+	if result>0 then
+
+		sprintf2 concmd "/T=%s" serverip
+		connect concmd
+
+		sendln ""
+		wait TelnetPrompt
+		sendln username
+
+		wait TelnetPrompt
+		sendln password
+
+	endif
+
+
+strcompare "CISCOSSH" protocol
+
+	if result=0 then
+		UserNamePrompt="User:"
+		PassWordPrompt="Password:"
+
+;		getpassword 'passwd.dat' username password
+
+		sprintf2 concmd "%s /ssh /auth=password /user=%s /passwd=%s" ServerIp username password
+
+		connect concmd
+
+		wait ")"
+
+		wait UserNamePrompt
+		sendln UserName
+
+		wait PassWordPrompt
+		sendln PassWord
+	endif
+;;;;;;;;;;;;;;;
+; ログファイルの作成
+;;;;;;;;;;;;;;;
+
+messagebox logFileWirteDoNotdo logFileWirteDoNotdo
+
+/* if do */
+strscan logFileWirteDoNotdo "do"
+if result > 0 then
+
+	testlink
+	;	0 Tera Term とリンクされていない。 
+	;	1 ホストへの接続はされていないが、Tera Term へのリンクはされている。 
+	;	2 リンクおよび接続両方ともされている。 
+
+	;messagebox result result
+
+	if result=2 then
+		getdir macro_path
+		gettime time_now "%Y%m%d-%H%M%S"
+		sprintf2 logfiename "%s\%s_%s.log" macro_path serverip time_now
+		binary_flag=0
+		append_flag=0
+		plain_text_flag=0
+		timestamp_flag=1
+
+		;logautoclosemode 1
+		logopen  logfiename binary_flag append_flag plain_text_flag timestamp_flag
+	endif
+endif
+;end
+----
+
+
+== wireshark
+
+=== tsharkでcsvファイル化
+
+----
+C:\Users\yossym>cd \
+C:\>dir tshark.exe /s /b
+C:\Program Files\Wireshark\tshark.exe
+
+----
+
+----
+"C:\Program Files\Wireshark\tshark.exe" ^
+-r "%1" ^
+-t ad ^
+-T fields ^
+-E separator=, ^
+-E quote=d ^
+-E occurrence=f ^
+-E aggregator=\s ^
+-E header=y ^
+-Y "(wlan.fc.type_subtye < 13)" ^
+-e frame.number ^
+-e frame.frame.time_epoch ^
+-e _ws.col.No. ^
+-e _ws.col.Time ^
+-e _ws.col.Source ^
+-e _ws.col.Destination ^
+-e _ws.col.Protocol ^
+-e _ws.col.Lehgth ^
+-e _ws.col.Info > "%1.csv"
+
+
+
+----
+
+
+=== 
+
+	10進	16進	説明
+	ss	ss	ss
+
+== iperf
+== 802.11
+== mac book
+== postgresql
+
+[col="1,3,3"]
+|====
+||postgresql|mysql|
+|login |||
+|====
+
+

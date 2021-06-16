@@ -8,10 +8,10 @@ today = ${shell date -I}
 # FLAGS	= -a toc -a toclevels=3 --doctype=book -a revdate=${today}
 FLAGS	= -a toc -a toclevels=3 -a revdate=${today}
 
-FILES	= VBA.adoc Makefile VBA*.adoc *vbscript* *Microsof*
+FILES	= VBA.adoc Makefile VBA*.adoc *vbscript* *Microsof* OfficeVBAreference.adoc
 
 
-all:	VBA.html AsciiCode.html bash.html perl.html gnuplot.html
+all:	VBA.html AsciiCode.html bash.html perl.html gnuplot.html VariousTechnologies.html
 
 # VBA.html:	VBA.adoc Makefile VBAFunction.adoc VBAKeyword.adoc VBSctipt.adoc VBAvariable.adoc
 VBA.html:	$(FILES)
@@ -33,6 +33,8 @@ gnuplot.html:	gnuplot.adoc
 	$(CC) $(FLAGS) gnuplot.adoc
 
 
+VariousTechnologies.html:	VariousTechnologies.adoc
+	$(CC) $(FLAGS) VariousTechnologies.adoc
 
 # all:	VBA.html AsciiCode.html bash.html
 # # ALL: *.adoc
