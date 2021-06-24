@@ -8,14 +8,14 @@
 	git push -u origin master
 
 
-ƒ[ƒJƒ‹‚ğƒtƒ@ƒCƒ‹‚ğgit‚ÉXV
+ãƒ­ãƒ¼ã‚«ãƒ«ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‚’gitã«æ›´æ–°
 
 	git add .
 	git commit -m "anything"
 	git push origin master
 
-git‚ğƒ[ƒJƒ‹‚Éæ“¾
+gitã‚’ãƒ­ãƒ¼ã‚«ãƒ«ã«å–å¾—
 
-	git clone https://github.com/yossym/dotfiles.git
+	git clone https://github.com/yossym/asciidoc
 	git pull origin master
 
